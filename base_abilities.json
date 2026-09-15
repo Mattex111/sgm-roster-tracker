@@ -1,0 +1,308 @@
+{
+  "Annie": {
+    "marquee_group_name": "EVENT HORIZON",
+    "marquee_options": [
+      {
+        "name": "REDSHIFT",
+        "description": "Each SPECIAL MOVE or BLOCKBUSTER used grants 15/25% bonus damage to SPECIAL MOVES and BLOCKBUSTERS for the rest of the combo"
+      },
+      {
+        "name": "BLUESHIFT",
+        "description": "Opponents deal 20/40% less damage on each COMBO HIT under 5"
+      }
+    ],
+    "prestige": {
+      "name": "STARBURST",
+      "description": "Annie charges this ability when using STAR POWER METER. CHARGE RATE: 2% per 1% STAR POWER METER spent. ACTIVATION EFFECT: Annie's STAR POWER STARS deal 50/120% bonus damage."
+    }
+  },
+  "Beowulf": {
+    "marquee_group_name": "TITLE FIGHT",
+    "marquee_options": [
+      {
+        "name": "CHALLENGER",
+        "description": "Beowulf regains 1/2% HEALTH per second anytime his HEALTH% is LOWER than his opponent."
+      },
+      {
+        "name": "DEFENDING CHAMP",
+        "description": "Beowulf deals 10/20% bonus damage anytime his HEALTH% is HIGHER than his opponent's"
+      }
+    ],
+    "prestige": {
+      "name": "NOW OR NEVER",
+      "description": "Beowulf charges this ability when entering HYPE MODE. CHARGE RATE: 50% per HYPE MODE ENTRY. ACTIVATION EFFECT: Beowulf deals 15/30% bonus damage in HYPE MODE for every 20 seconds elapsed during the match."
+    }
+  },
+  "Big Band": {
+    "marquee_group_name": "MAESTRO",
+    "marquee_options": [
+      {
+        "name": "SOLOIST",
+        "description": "Gain HEAVY REGEN for 10 seconds and take 30/50% less damage when absorbing the first HIT while DASHING"
+      },
+      {
+        "name": "FRONTMAN",
+        "description": "Take 5/15% less damage and gain 30% RESISTANCE while Big Band has living teammates"
+      }
+    ],
+    "prestige": {
+      "name": "BLAST BEAT",
+      "description": "Big Band charges this ability on every 10th COMBO HIT landed on him or the opponent. CHARGE RATE: 15% per 10th COMBO HIT. ACTIVATION EFFECT: Big Band's DASH ATTACKS gain a 25%/60% chance to be UNBLOCKABLE and grant ENRAGE for 5 seconds."
+    }
+  },
+  "Black Dahlia": {
+    "marquee_group_name": "CLOCKWORK ORIGINS",
+    "marquee_options": [
+      {
+        "name": "METAL BREAKDOWN",
+        "description": "SPECIAL SHOTS inflict 20/30% bonus damage and inflict ARMOR BREAK for 10 seconds (also applies on blocked hits)."
+      },
+      {
+        "name": "NO TIME TO DIE",
+        "description": "30/50% chance when the opponent lands a CRITICAL HIT to gain REGEN and HASTE for 10 seconds each."
+      }
+    ],
+    "prestige": {
+      "name": "TRIGGER MORTIS",
+      "description": "Black Dahlia charges this ability each time she FIRES a SHOT. CHARGE RATE: 17% per SHOT fired. ACTIVATION EFFECT: Once activated, Black Dahlia inflicts DEATH MARK and gains DEADEYE for 10/15 seconds each when RELOADING."
+    }
+  },
+  "Cerebella": {
+    "marquee_group_name": "CENTER STAGE",
+    "marquee_options": [
+      {
+        "name": "UPPER HAND",
+        "description": "THROWS reduce BLOCKBUSTER METER by 20/30%"
+      },
+      {
+        "name": "RINGLEADER",
+        "description": "THROWS DISABLE the opponent's TAG INS and SPECIAL MOVES for 5/15 seconds"
+      }
+    ],
+    "prestige": {
+      "name": "THE HARDER THEY FALL",
+      "description": "Cerebella charges this ability each time she THROWS or is THROWN by her opponents. CHARGE RATE: 20% per THROW. ACTIVATION EFFECT: Cerebella's THROWS deal bonus damage equal to 50/100% of her opponent's remaining HEALTH percentage."
+    }
+  },
+  "Double": {
+    "marquee_group_name": "ENTROPY",
+    "marquee_options": [
+      {
+        "name": "CHAOS",
+        "description": "When at an ELEMENTAL ADVANTAGE, inflict a random DEBUFF for 5/15 seconds when landing a CRITICAL HIT"
+      },
+      {
+        "name": "VOLATILITY",
+        "description": "Every 20/10 seconds gain a random BUFF for 10 seconds"
+      }
+    ],
+    "prestige": {
+      "name": "DOUBLE JEOPARDY",
+      "description": "Double charges this ability each time she TRANSMUTES. CHARGE RATE: 13% per TRANSMUTATION. ACTIVATION EFFECT: The effects of Double's ELEMENTAL ADVANTAGE are increased by 40/100%."
+    }
+  },
+  "Eliza": {
+    "marquee_group_name": "BLOODLINE",
+    "marquee_options": [
+      {
+        "name": "BLOOD OATH",
+        "description": "Whenever a teammate is defeated, Eliza regains 30/50% HEALTH"
+      },
+      {
+        "name": "RITUAL SACRIFICE",
+        "description": "Whenever a teammate is defeated, Eliza gains 50/100% BLOCKBUSTER METER"
+      }
+    ],
+    "prestige": {
+      "name": "FEAST AND FAMINE",
+      "description": "Eliza charges this ability each time she enters SEKHMET MODE. CHARGE RATE: 25% per ENTRY. ACTIVATION EFFECT: Eliza gains a 5/20% chance on each NON-BLOCKBUSTER HIT in SEKHMET MODE (including blocked hits) to REMOVE 1 opponent BUFF and gain 5% HEALTH."
+    }
+  },
+  "Filia": {
+    "marquee_group_name": "BLOODLETTING",
+    "marquee_options": [
+      {
+        "name": "LEECH",
+        "description": "15/35% of the damage Filia inflicts is regained as HEALTH"
+      },
+      {
+        "name": "THE FIRST CUT",
+        "description": "Every HIT has a 5/15% chance to convert all active BLEEDS to permanent BLEEDS"
+      }
+    ],
+    "prestige": {
+      "name": "BOB AND WEAVE",
+      "description": "Filia charges this ability each time she HITS an attacking opponent or is HIT while attacking. CHARGE RATE: 20% per HIT. ACTIVATION EFFECT: Filia EVADES all projectiles while DASHING and has a 50/100% chance to inflict DEATH MARK for 5 seconds when HITTING an attacking opponent."
+    }
+  },
+  "Fukua": {
+    "marquee_group_name": "UNTETHERED ENTITY",
+    "marquee_options": [
+      {
+        "name": "SPECTRAL SPITE",
+        "description": "Deal 1% bonus damage for every 15/5% HEALTH missing"
+      },
+      {
+        "name": "WRAITH'S WRATH",
+        "description": "Reduce damage taken by 1% for every 15/5% HEALTH missing"
+      }
+    ],
+    "prestige": {
+      "name": "DREAM EATER",
+      "description": "Fukua charges this ability each time she or the opponent uses a BLOCKBUSTER. CHARGE RATE: 25% per BLOCKBUSTER. ACTIVATION EFFECT: Fukua drains 5/10% of the opponent's BLOCKBUSTER METER and inflicts HEAL BLOCK for 5 seconds when using a BLOCKBUSTER."
+    }
+  },
+  "Marie": {
+    "marquee_group_name": "CORPSE ARTISAN",
+    "marquee_options": [
+      {
+        "name": "IMPROVED INCINERATION",
+        "description": "Gain 15/25% BLOCKBUSTER METER and ENRAGE when INCINERATING a dead body."
+      },
+      {
+        "name": "REINFORCED REVIVAL",
+        "description": "While Marie is alive, teammates gain permanent ARMOR and an additional 15/25% HEALTH when REVIVED."
+      }
+    ],
+    "prestige": {
+      "name": "CALL OF THE GRAVE",
+      "description": "Marie charges this ability each time a BUFF or DEBUFF expires on either Fighter while she is TAGGED IN. CHARGE RATE: 14% per BUFF or DEBUFF expiration. ACTIVATION EFFECT: Once activated, Marie inflicts QUIETUS for 10/15 seconds each time she uses a MORTUARY CHARGE."
+    }
+  },
+  "Ms. Fortune": {
+    "marquee_group_name": "I CAN HAS BUFF?",
+    "marquee_options": [
+      {
+        "name": "MLEM",
+        "description": "Gain REGEN for 10/20 seconds after every 10 seconds not suffering a HIT (includes blocked hits)"
+      },
+      {
+        "name": "BOOP",
+        "description": "Gain ENRAGE for 10/20 seconds after every 10 seconds not suffering a HIT (includes blocked hits)"
+      }
+    ],
+    "prestige": {
+      "name": "FUR AND BLUR",
+      "description": "Ms. Fortune charges this ability based on her MOVE SPEED. CHARGE RATE: 1.5% of her MOVE SPEED. ACTIVATION EFFECT: Ms. Fortune gains EVASION and inflicts GUARD BREAK for 5 seconds each every 10/5 seconds."
+    }
+  },
+  "Painwheel": {
+    "marquee_group_name": "TORTURED SOUL",
+    "marquee_options": [
+      {
+        "name": "TAINTED BLOOD",
+        "description": "When an opponent lands a CRITICAL HIT, 50/100% of the damage will be reflected back"
+      },
+      {
+        "name": "GRUDGE",
+        "description": "When the opponent lands a CRITICAL HIT, gain ENRAGE for 10/20 seconds and ARMOR for 5 seconds"
+      }
+    ],
+    "prestige": {
+      "name": "NOWHERE TO HIDE",
+      "description": "Painwheel charges this ability each time she or her opponent lands a CRITICAL HIT. CHARGE RATE: 4% per CRITICAL HIT. ACTIVATION EFFECT: Painwheel inflicts GUARD BREAK for 5/10 seconds when using a BLOCKBUSTER."
+    }
+  },
+  "Parasoul": {
+    "marquee_group_name": "HYPER-CRITICAL",
+    "marquee_options": [
+      {
+        "name": "CRITICAL THINKING",
+        "description": "Parasoul gains a 15/25% bonus to CRIT RATE per ACTIVE TEAR"
+      },
+      {
+        "name": "CRITICAL MASS",
+        "description": "Parasoul gains a 10/20% bonus to CRIT DAMAGE per ACTIVE TEAR"
+      }
+    ],
+    "prestige": {
+      "name": "DEADLY ACCURACY",
+      "description": "Parasoul charges this ability each time she spawns a TEAR. CHARGE RATE: 12% per TEAR. ACTIVATION EFFECT: Parasoul gains PRECISION every 7/2 second(s) while near a TEAR."
+    }
+  },
+  "Peacock": {
+    "marquee_group_name": "TOON TIME",
+    "marquee_options": [
+      {
+        "name": "SPECIAL FEATURE",
+        "description": "When Peacock uses a SPECIAL MOVE, there is a 10/30% chance that the COOLDOWN will immediately reset"
+      },
+      {
+        "name": "CAST PARTY",
+        "description": "When Peacock or any teammate uses a TAG IN, there is a 30/50% chance that the attack will be UNBLOCKABLE"
+      }
+    ],
+    "prestige": {
+      "name": "MANIC MUNITIONS",
+      "description": "Peacock charges this ability each time she or the opponent is damaged by a PROJECTILE. CHARGE RATE: 3% per PROJECTILE. ACTIVATION EFFECT: Peacock has a 25/50% chance to gain 1 stack of ENRAGE for 5 seconds, HASTE for 5 seconds, or PRECISION when using a SPECIAL MOVE."
+    }
+  },
+  "Robo-Fortune": {
+    "marquee_group_name": "NETWORK PROTOCOL",
+    "marquee_options": [
+      {
+        "name": "DDOS",
+        "description": "Inflicts POWER SURGE for 5/15 seconds after every 3 seconds while near the opponent"
+      },
+      {
+        "name": "PING CHECK",
+        "description": "Gain ENRAGE for 5/15 seconds after every 2 seconds while far away from the opponent"
+      }
+    ],
+    "prestige": {
+      "name": "GEIGER COUNTER",
+      "description": "Robo-Fortune charges this ability each time she gains a BUFF or inflicts a DEBUFF. CHARGE RATE: 7% per BUFF or DEBUFF. ACTIVATION EFFECT: Robo-Fortune gains 5 stacks of PRECISION and reflects 5/20% of the damage she takes for every BUFF on her or the opponent (max 100%)."
+    }
+  },
+  "Squigly": {
+    "marquee_group_name": "FRIGHT NIGHT",
+    "marquee_options": [
+      {
+        "name": "EVIL DEAD",
+        "description": "While enemies are nearby Squigly's dead body, teammates' HITS inflict CURSE and WITHER for 5/15 seconds"
+      },
+      {
+        "name": "DEAD ALIVE",
+        "description": "While teammates are nearby Squigly's dead body, suffering a HIT will grant them FINAL STAND for 5/15 seconds"
+      }
+    ],
+    "prestige": {
+      "name": "STAY TOMBED",
+      "description": "Squigly charges this ability each time she gains or uses a DRAGON CHARGE. CHARGE RATE: 12% per DRAGON CHARGE gained or used. ACTIVATION EFFECT: Any currently defeated opponents can no longer be revived and Squigly gains DRAGON CHARGE every 7/2 seconds while near a dead body."
+    }
+  },
+  "Umbrella": {
+    "marquee_group_name": "JAWS OF DEFEAT",
+    "marquee_options": [
+      {
+        "name": "SWEET VICTORY",
+        "description": "Gain 2 stacks of ENRAGE for 5/15 seconds when defeating an opponent"
+      },
+      {
+        "name": "BITTER END",
+        "description": "Once per match, gain FINAL STAND and HEAVY REGEN for 5/15 seconds each when falling below 25% HEALTH"
+      }
+    ],
+    "prestige": {
+      "name": "GUT REACTION",
+      "description": "Umbrella charges this ability each time she gains or loses HUNGER. CHARGE RATE: 1% per 1% HUNGER gained or lost. ACTIVATION EFFECT (Hunger gauge will lower by one bar): Umbrella gains 5% HEALTH and inflicts SLIME for 10/15 seconds when HITTING an attacking opponent."
+    }
+  },
+  "Valentine": {
+    "marquee_group_name": "COMBAT CLINIC",
+    "marquee_options": [
+      {
+        "name": "TRAUMA CENTER",
+        "description": "While Valentine is alive, teammates gain FINAL STAND for 5/15 seconds when suffering a HIT that deals more than 10% HEALTH"
+      },
+      {
+        "name": "ICU",
+        "description": "Valentine gains HEAVY REGEN for 10/20 seconds when suffering a DEBUFF"
+      }
+    ],
+    "prestige": {
+      "name": "REANIMATOR",
+      "description": "Valentine charges this ability each time she recovers HEALTH while TAGGED IN. CHARGE RATE: 4% for each 1% HEALTH recovered. ACTIVATION EFFECT: All defeated teammates are REVIVED with 10% HEALTH and Valentine continuously gains 0.75/2% HEALTH per second."
+    }
+  }
+}

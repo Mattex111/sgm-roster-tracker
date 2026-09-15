@@ -4,7 +4,14 @@ from flask import Flask, jsonify, request, render_template_string
 
 app = Flask(__name__)
 DB_FILE = "sgm_database.json"
+BASE_ABILITIES_FILE = "base_abilities.json"
 USER_ROSTER_FILE = "my_roster.json"
+
+def load_base_abilities():
+    if os.path.exists(BASE_ABILITIES_FILE):
+        with open(BASE_ABILITIES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
 
 def load_data():
     with open(DB_FILE, "r", encoding="utf-8") as f:
@@ -78,6 +85,12 @@ HTML = """
 
         .sa-box { font-size: 0.82rem; line-height: 1.35; color: #8b949e; background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #21262d; }
         .sa-box strong { color: #58a6ff; }
+
+        details.base-kit { margin-top: 2px; font-size: 0.78rem; background: #0a0d12; border: 1px dashed #30363d; border-radius: 6px; padding: 6px 8px; }
+        details.base-kit summary { cursor: pointer; color: #d29922; font-weight: 600; outline: none; user-select: none; }
+        details.base-kit summary:hover { color: #e3b341; }
+        .base-kit-content { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; color: #c9d1d9; }
+        .base-kit-content strong { color: #e3b341; }
     </style>
 </head>
 <body>
@@ -155,6 +168,11 @@ HTML = """
             Export Ratings
         </label>
 
+        <label class="toggle-label" title="Include Prestige & Marquee abilities when copying roster">
+            <input type="checkbox" id="exportBaseKitToggle" checked>
+            Export Base Kit
+        </label>
+
         <button class="btn-green" onclick="copyRoster()">Copy Roster for AI</button>
 
         <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
@@ -162,6 +180,7 @@ HTML = """
 
     <div class="grid" id="cardGrid">
         {% for key, v in variants.items() %}
+        {% set base = base_abilities.get(v.character) %}
         <div class="card {% if v.unlocked %}unlocked{% endif %}"
              data-name="{{ v.name.lower() }}"
              data-rawname="{{ v.name }}"
@@ -205,6 +224,23 @@ HTML = """
 
             <div class="sa-box"><strong>SA1:</strong> {{ v.sa1 if v.sa1 else "N/A" }}</div>
             <div class="sa-box"><strong>SA2:</strong> {{ v.sa2 if v.sa2 else "N/A" }}</div>
+
+            {% if base %}
+            <details class="base-kit">
+                <summary>Character Kit (MA & PA)</summary>
+                <div class="base-kit-content">
+                    {% if base.prestige %}
+                    <div><strong>Prestige ({{ base.prestige.name }}):</strong> {{ base.prestige.description }}</div>
+                    {% endif %}
+                    {% if base.marquee_options %}
+                    <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
+                    {% for m in base.marquee_options %}
+                    <div style="padding-left: 6px;">• <em>{{ m.name }}:</em> {{ m.description }}</div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </details>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
@@ -294,7 +330,6 @@ HTML = """
             });
         }
 
-        // Keyboard shortcut: Ctrl+Z or Cmd+Z
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
                 if (document.activeElement.tagName !== 'INPUT') {
@@ -323,7 +358,6 @@ HTML = """
             const grid = document.getElementById('cardGrid');
             const cards = Array.from(document.querySelectorAll('.card'));
 
-            // Filter logic
             cards.forEach(c => {
                 const matchName = c.dataset.name.includes(query);
                 const matchChar = !char || c.dataset.char === char;
@@ -331,6 +365,7 @@ HTML = """
                 const matchTier = !tier || c.dataset.tier === tier;
                 const isUnlocked = c.dataset.unlocked === 'true';
                 const matchStatus = !status || (status === 'unlocked' && isUnlocked) || (status === 'locked' && !isUnlocked);
+                const isValidTier = c.dataset.tier !== 'Unknown';
 
                 let matchRank = true;
                 if (minRank > 0) {
@@ -352,10 +387,9 @@ HTML = """
                     }
                 }
 
-                c.style.display = (matchName && matchChar && matchElem && matchTier && matchStatus && matchRank) ? 'flex' : 'none';
+                c.style.display = (isValidTier && matchName && matchChar && matchElem && matchTier && matchStatus && matchRank) ? 'flex' : 'none';
             });
 
-            // Sorting logic
             cards.sort((a, b) => {
                 const atkA = parseInt(a.dataset.atk, 10) || 0;
                 const atkB = parseInt(b.dataset.atk, 10) || 0;
@@ -365,9 +399,17 @@ HTML = """
                 const nameB = b.dataset.name;
 
                 if (sortBy === 'atk_desc') return atkB - atkA;
-                if (sortBy === 'atk_asc') return atkA - atkB;
+                if (sortBy === 'atk_asc') {
+                    if (atkA === 0) return 1;
+                    if (atkB === 0) return -1;
+                    return atkA - atkB;
+                }
                 if (sortBy === 'hp_desc') return hpB - hpA;
-                if (sortBy === 'hp_asc') return hpA - hpB;
+                if (sortBy === 'hp_asc') {
+                    if (hpA === 0) return 1;
+                    if (hpB === 0) return -1;
+                    return hpA - hpB;
+                }
                 if (sortBy === 'name_desc') return nameB.localeCompare(nameA);
                 return nameA.localeCompare(nameB);
             });
@@ -378,14 +420,19 @@ HTML = """
         function copyRoster() {
             fetch('/export')
                 .then(r => r.json())
-                .then(data => {
-                    if (data.length === 0) {
+                .then(res => {
+                    const fighters = res.fighters || [];
+                    const baseKits = res.base_abilities || {};
+
+                    if (fighters.length === 0) {
                         alert("No variants selected! Check some fighters first.");
                         return;
                     }
                     const includeRatings = document.getElementById('exportRatingsToggle').checked;
+                    const includeBaseKit = document.getElementById('exportBaseKitToggle').checked;
+
                     const header = "### MY SKULLGIRLS MOBILE UNLOCKED ROSTER\\n";
-                    const body = data.map(x => {
+                    const body = fighters.map(x => {
                         let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n`;
                         if (x.atk_max || x.hp_max) {
                             line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\\n`;
@@ -394,12 +441,19 @@ HTML = """
                             line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\\n`;
                         }
                         line += `  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`;
+
+                        if (includeBaseKit && baseKits[x.character]) {
+                            const b = baseKits[x.character];
+                            const paName = b.prestige ? b.prestige.name : 'None';
+                            const maNames = (b.marquee_options || []).map(m => m.name).join(' / ');
+                            line += `\\n  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}`;
+                        }
                         return line;
                     }).join('\\n');
 
                     const text = header + body;
                     navigator.clipboard.writeText(text).then(() => {
-                        alert(`Copied ${data.length} fighters to clipboard! Paste directly into your AI chat.`);
+                        alert(`Copied ${fighters.length} fighters to clipboard! Paste directly into your AI chat.`);
                     });
                 });
         }
@@ -413,8 +467,9 @@ HTML = """
 @app.route("/")
 def index():
     data = load_data()
+    base_abilities = load_base_abilities()
     chars = sorted(list(set(v.get("character", "Unknown") for v in data.values() if v.get("character") != "Unknown")))
-    return render_template_string(HTML, variants=data, characters=chars)
+    return render_template_string(HTML, variants=data, characters=chars, base_abilities=base_abilities)
 
 @app.route("/toggle", methods=["POST"])
 def toggle():
@@ -478,7 +533,12 @@ def apply_states():
 @app.route("/export")
 def export():
     data = load_data()
-    return jsonify([v for v in data.values() if v.get("unlocked")])
+    base_abilities = load_base_abilities()
+    unlocked_fighters = [v for v in data.values() if v.get("unlocked")]
+    return jsonify({
+        "fighters": unlocked_fighters,
+        "base_abilities": base_abilities
+    })
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
