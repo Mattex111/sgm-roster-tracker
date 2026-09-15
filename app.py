@@ -32,7 +32,7 @@ HTML = """
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f111a; color: #e6edf3; margin: 0; padding: 20px; }
         .header { position: sticky; top: 0; background: #161b22; padding: 14px 18px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; z-index: 100; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        input[type="text"] { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 150px; font-size: 0.9rem; }
+        input[type="text"] { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 140px; font-size: 0.9rem; }
         select { padding: 8px 10px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.9rem; cursor: pointer; }
         button { padding: 8px 13px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.88rem; }
         .btn-green { background: #238636; color: #fff; }
@@ -61,6 +61,11 @@ HTML = """
         .element-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
         .char-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; background: #30363d; color: #58a6ff; }
 
+        .stats-row { display: flex; justify-content: space-between; background: #0d1117; border: 1px solid #21262d; border-radius: 6px; padding: 5px 12px; font-size: 0.8rem; font-weight: 600; }
+        .stat-item { display: flex; gap: 6px; align-items: center; }
+        .stat-atk { color: #ff7b72; }
+        .stat-hp { color: #7ee787; }
+
         .ratings-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: #0b0e14; padding: 6px 4px; border-radius: 6px; border: 1px solid #21262d; text-align: center; }
         .rate-box span:first-child { display: block; font-size: 0.65rem; color: #8b949e; text-transform: uppercase; margin-bottom: 2px; font-weight: normal; }
         .rank-badge { font-weight: 800; font-size: 0.85rem; }
@@ -77,16 +82,16 @@ HTML = """
 </head>
 <body>
     <div class="header">
-        <input type="text" id="search" placeholder="Search variant..." oninput="filterCards()">
+        <input type="text" id="search" placeholder="Search variant..." oninput="filterAndSortCards()">
 
-        <select id="charFilter" onchange="filterCards()">
+        <select id="charFilter" onchange="filterAndSortCards()">
             <option value="">All Fighters</option>
             {% for c in characters %}
             <option value="{{ c }}">{{ c }}</option>
             {% endfor %}
         </select>
 
-        <select id="elementFilter" onchange="filterCards()">
+        <select id="elementFilter" onchange="filterAndSortCards()">
             <option value="">All Elements</option>
             <option value="Air">Air</option>
             <option value="Dark">Dark</option>
@@ -96,7 +101,7 @@ HTML = """
             <option value="Neutral">Neutral</option>
         </select>
 
-        <select id="tierFilter" onchange="filterCards()">
+        <select id="tierFilter" onchange="filterAndSortCards()">
             <option value="">All Tiers</option>
             <option value="Diamond">Diamond</option>
             <option value="Gold">Gold</option>
@@ -104,13 +109,13 @@ HTML = """
             <option value="Bronze">Bronze</option>
         </select>
 
-        <select id="statusFilter" onchange="filterCards()">
+        <select id="statusFilter" onchange="filterAndSortCards()">
             <option value="">All Statuses</option>
             <option value="unlocked">Unlocked Only</option>
             <option value="locked">Locked Only</option>
         </select>
 
-        <select id="modeFilter" onchange="filterCards()">
+        <select id="modeFilter" onchange="filterAndSortCards()">
             <option value="any">Any Mode</option>
             <option value="pf_off">PF Offense</option>
             <option value="rift_off">Rift Offense</option>
@@ -118,13 +123,22 @@ HTML = """
             <option value="realms">Parallel Realms</option>
         </select>
 
-        <select id="rankFilter" onchange="filterCards()">
+        <select id="rankFilter" onchange="filterAndSortCards()">
             <option value="0">All Ranks</option>
             <option value="5">SS Only</option>
             <option value="4">S or better</option>
             <option value="3">A or better</option>
             <option value="2">B or better</option>
             <option value="1">C or better</option>
+        </select>
+
+        <select id="sortBy" onchange="filterAndSortCards()">
+            <option value="name_asc">Sort: Name (A-Z)</option>
+            <option value="name_desc">Sort: Name (Z-A)</option>
+            <option value="atk_desc">Sort: ATK (High → Low)</option>
+            <option value="atk_asc">Sort: ATK (Low → High)</option>
+            <option value="hp_desc">Sort: HP (High → Low)</option>
+            <option value="hp_asc">Sort: HP (Low → High)</option>
         </select>
 
         <button class="btn-secondary" onclick="batchToggle(true)">Select Visible</button>
@@ -154,6 +168,8 @@ HTML = """
              data-char="{{ v.character }}"
              data-element="{{ v.element }}"
              data-tier="{{ v.tier }}"
+             data-atk="{{ v.atk_max if v.atk_max else 0 }}"
+             data-hp="{{ v.hp_max if v.hp_max else 0 }}"
              data-unlocked="{{ 'true' if v.unlocked else 'false' }}"
              data-pfoff="{{ v.ratings.pf_off if v.ratings else 'U' }}"
              data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
@@ -170,6 +186,13 @@ HTML = """
                     <span class="element-tag">{{ v.element }}</span>
                 </div>
             </div>
+
+            {% if v.atk_max or v.hp_max %}
+            <div class="stats-row">
+                <span class="stat-item stat-atk">⚔️ ATK: {{ "{:,}".format(v.atk_max) if v.atk_max else "N/A" }}</span>
+                <span class="stat-item stat-hp">❤️ HP: {{ "{:,}".format(v.hp_max) if v.hp_max else "N/A" }}</span>
+            </div>
+            {% endif %}
 
             {% if v.ratings %}
             <div class="ratings-row">
@@ -287,7 +310,7 @@ HTML = """
             });
         }
 
-        function filterCards() {
+        function filterAndSortCards() {
             const query = document.getElementById('search').value.toLowerCase();
             const char = document.getElementById('charFilter').value;
             const elem = document.getElementById('elementFilter').value;
@@ -295,8 +318,13 @@ HTML = """
             const status = document.getElementById('statusFilter').value;
             const mode = document.getElementById('modeFilter').value;
             const minRank = parseInt(document.getElementById('rankFilter').value, 10);
+            const sortBy = document.getElementById('sortBy').value;
 
-            document.querySelectorAll('.card').forEach(c => {
+            const grid = document.getElementById('cardGrid');
+            const cards = Array.from(document.querySelectorAll('.card'));
+
+            // Filter logic
+            cards.forEach(c => {
                 const matchName = c.dataset.name.includes(query);
                 const matchChar = !char || c.dataset.char === char;
                 const matchElem = !elem || c.dataset.element === elem;
@@ -326,6 +354,25 @@ HTML = """
 
                 c.style.display = (matchName && matchChar && matchElem && matchTier && matchStatus && matchRank) ? 'flex' : 'none';
             });
+
+            // Sorting logic
+            cards.sort((a, b) => {
+                const atkA = parseInt(a.dataset.atk, 10) || 0;
+                const atkB = parseInt(b.dataset.atk, 10) || 0;
+                const hpA = parseInt(a.dataset.hp, 10) || 0;
+                const hpB = parseInt(b.dataset.hp, 10) || 0;
+                const nameA = a.dataset.name;
+                const nameB = b.dataset.name;
+
+                if (sortBy === 'atk_desc') return atkB - atkA;
+                if (sortBy === 'atk_asc') return atkA - atkB;
+                if (sortBy === 'hp_desc') return hpB - hpA;
+                if (sortBy === 'hp_asc') return hpA - hpB;
+                if (sortBy === 'name_desc') return nameB.localeCompare(nameA);
+                return nameA.localeCompare(nameB);
+            });
+
+            cards.forEach(c => grid.appendChild(c));
         }
 
         function copyRoster() {
@@ -340,6 +387,9 @@ HTML = """
                     const header = "### MY SKULLGIRLS MOBILE UNLOCKED ROSTER\\n";
                     const body = data.map(x => {
                         let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n`;
+                        if (x.atk_max || x.hp_max) {
+                            line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\\n`;
+                        }
                         if (includeRatings && x.ratings) {
                             line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\\n`;
                         }

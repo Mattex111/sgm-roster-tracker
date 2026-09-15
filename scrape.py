@@ -37,7 +37,6 @@ def get_tier_list_ratings():
         for row in table.find_all("tr"):
             cols = row.find_all("td")
             if len(cols) >= 5:
-                # Estrae il nome variante direttamente dal link <a>
                 link = cols[0].find("a")
                 v_name = link.get_text(strip=True) if link else cols[0].get_text(strip=True)
 
@@ -114,7 +113,7 @@ def parse_variant(page_title):
             character = ch
             break
 
-    # 2. SA1 & SA2
+    # 2. SA1, SA2 and Base/Max Stats
     soup = BeautifulSoup(html_content, "html.parser")
     sa1, sa2 = "", ""
 
@@ -141,11 +140,41 @@ def parse_variant(page_title):
     sa1 = re.sub(r"Num\|", "", sa1)
     sa2 = re.sub(r"Num\|", "", sa2)
 
+    # Extract ATK (Base and Max)
+    atk_base, atk_max = None, None
+    atk_box = soup.find("div", {"data-source": "atk"})
+    if atk_box:
+        val_div = atk_box.find("div", class_="pi-data-value")
+        if val_div:
+            numbers = re.findall(r'[\d,]+', val_div.text)
+            clean_nums = [int(n.replace(',', '').strip()) for n in numbers if n.replace(',', '').strip().isdigit()]
+            if len(clean_nums) >= 2:
+                atk_base, atk_max = clean_nums[0], clean_nums[1]
+            elif len(clean_nums) == 1:
+                atk_max = clean_nums[0]
+
+    # Extract HP (Base and Max)
+    hp_base, hp_max = None, None
+    hp_box = soup.find("div", {"data-source": "hp"})
+    if hp_box:
+        val_div = hp_box.find("div", class_="pi-data-value")
+        if val_div:
+            numbers = re.findall(r'[\d,]+', val_div.text)
+            clean_nums = [int(n.replace(',', '').strip()) for n in numbers if n.replace(',', '').strip().isdigit()]
+            if len(clean_nums) >= 2:
+                hp_base, hp_max = clean_nums[0], clean_nums[1]
+            elif len(clean_nums) == 1:
+                hp_max = clean_nums[0]
+
     return {
         "name": page_title,
         "character": character,
         "tier": tier,
         "element": element,
+        "atk_base": atk_base,
+        "atk_max": atk_max,
+        "hp_base": hp_base,
+        "hp_max": hp_max,
         "sa1": sa1,
         "sa2": sa2,
         "unlocked": False,
@@ -155,34 +184,37 @@ def run():
     force_update = "--force" in sys.argv
     ratings_only = "--ratings-only" in sys.argv
 
-    # Carica il database esistente se disponibile
+    # Load existing database if present
     try:
         with open("sgm_database.json", "r", encoding="utf-8") as f:
             db = json.load(f)
     except FileNotFoundError:
         db = {}
 
+    # Purge existing invalid entries (e.g. unplayable Raid Bosses with Unknown tier)
+    db = {name: data for name, data in db.items() if data.get("tier") in TIERS}
+
     if not ratings_only:
         variants = get_all_variants()
         print(f"Checking {len(variants)} variants...")
 
         for name in variants:
-            # Salta se già presente e non forzato
-            if not force_update and name in db and (db[name].get("sa1") or db[name].get("sa2")):
+            # Skip if already exists (unless --force is passed or new atk/hp fields are missing)
+            if not force_update and name in db and (db[name].get("sa1") or db[name].get("sa2")) and "atk_max" in db[name]:
                 continue
 
             try:
                 data = parse_variant(name)
-                if data and (data["sa1"] or data["sa2"]):
-                    # Conserva i voti precedenti se già presenti
+                # Save only playable variants with valid abilities and playable tiers
+                if data and (data["sa1"] or data["sa2"]) and data["tier"] in TIERS:
                     if name in db and "ratings" in db[name]:
                         data["ratings"] = db[name]["ratings"]
                     db[name] = data
-                    print(f"Parsed: [{data['character']} | {data['tier']} - {data['element']}] {name}")
+                    print(f"Parsed: [{data['character']} | {data['tier']} - {data['element']}] {name} (ATK: {data['atk_max']}, HP: {data['hp_max']})")
             except Exception as e:
                 print(f"Error parsing {name}: {e}")
 
-    # Aggiorna sempre i voti della Tier List (richiede una sola richiesta HTTP)
+    # Always update Tier List ratings (takes only one HTTP request)
     ratings = get_tier_list_ratings()
     for name, item in db.items():
         if name in ratings:
@@ -190,7 +222,7 @@ def run():
 
     with open("sgm_database.json", "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
-    print("\nDatabase successfully synced in sgm_database.json!")
+    print(f"\nDatabase successfully synced! Total playable fighters: {len(db)}")
 
 if __name__ == "__main__":
     run()
