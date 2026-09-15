@@ -4,11 +4,16 @@ import requests
 from bs4 import BeautifulSoup
 
 API_URL = "https://skullgirlsmobile.fandom.com/api.php"
-HEADERS = {"User-Agent": "SGM_Database_Builder/2.0"}
+HEADERS = {"User-Agent": "SGM_Database_Builder/3.0"}
 
 TIERS = ["Bronze", "Silver", "Gold", "Diamond"]
 ELEMENTS = ["Air", "Dark", "Fire", "Light", "Water", "Neutral"]
-
+CHARACTERS = [
+    "Annie", "Beowulf", "Big Band", "Black Dahlia", "Cerebella",
+    "Eliza", "Filia", "Fukua", "Marie", "Ms. Fortune",
+    "Painwheel", "Peacock", "Parasoul", "Robo-Fortune", "Squigly",
+    "Umbrella", "Valentine", "Double"
+]
 
 def get_all_variants():
     variants = []
@@ -33,7 +38,6 @@ def get_all_variants():
             break
     return variants
 
-
 def parse_variant(page_title):
     params = {
         "action": "parse",
@@ -48,10 +52,11 @@ def parse_variant(page_title):
     raw_wikitext = res["parse"]["wikitext"]["*"]
     html_content = res["parse"]["text"]["*"]
 
-    # 1. Tier and Element (extracted from introductory wikitext)
+    # 1. Tier, Element & Character
     element = "Unknown"
     tier = "Unknown"
-    header_text = raw_wikitext[:400]
+    character = "Unknown"
+    header_text = raw_wikitext[:500]
 
     for el in ELEMENTS:
         if re.search(rf"\b{el}\b", header_text, re.IGNORECASE):
@@ -63,10 +68,14 @@ def parse_variant(page_title):
             tier = t
             break
 
-    # 2. Extract SA1 and SA2 from rendered HTML table
+    for ch in CHARACTERS:
+        if re.search(rf"\b{re.escape(ch)}\b", header_text, re.IGNORECASE):
+            character = ch
+            break
+
+    # 2. SA1 & SA2
     soup = BeautifulSoup(html_content, "html.parser")
-    sa1 = ""
-    sa2 = ""
+    sa1, sa2 = "", ""
 
     for table in soup.find_all("table"):
         text_all = table.get_text()
@@ -88,19 +97,18 @@ def parse_variant(page_title):
             if sa1 or sa2:
                 break
 
-    # Clean residual wiki template artifacts
     sa1 = re.sub(r"Num\|", "", sa1)
     sa2 = re.sub(r"Num\|", "", sa2)
 
     return {
         "name": page_title,
+        "character": character,
         "tier": tier,
         "element": element,
         "sa1": sa1,
         "sa2": sa2,
         "unlocked": False,
     }
-
 
 def run():
     variants = get_all_variants()
@@ -112,14 +120,13 @@ def run():
             data = parse_variant(name)
             if data and (data["sa1"] or data["sa2"]):
                 db[name] = data
-                print(f"[{data['tier']} - {data['element']}] {name}")
+                print(f"[{data['character']} | {data['tier']} - {data['element']}] {name}")
         except Exception as e:
             print(f"Error parsing {name}: {e}")
 
     with open("sgm_database.json", "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
     print("\nDatabase successfully generated in sgm_database.json!")
-
 
 if __name__ == "__main__":
     run()

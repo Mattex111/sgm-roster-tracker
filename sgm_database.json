@@ -1,6 +1,7 @@
 {
   "Ageless Wonder": {
     "name": "Ageless Wonder",
+    "character": "Annie",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Well-timed BLOCKS grant AUTO-BLOCK, FINAL STAND and IMMUNITY for 5/7/10 seconds each.",
@@ -9,6 +10,7 @@
   },
   "Altar Ego": {
     "name": "Altar Ego",
+    "character": "Double",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "While near an opponent and not BLOCKING, inflict a random DEBUFF for 5/7/10 seconds every 2 seconds.",
@@ -17,6 +19,7 @@
   },
   "Angel Maker": {
     "name": "Angel Maker",
+    "character": "Umbrella",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "When TAGGING from Umbrella, the incoming Fighter gains 3 stacks of ENRAGE, 3 stacks of MIASMA, and IMMUNITY for 15/18/20 seconds each at the cost of up to 35/30/25% of Umbrella's MAX HEALTH.",
@@ -25,6 +28,7 @@
   },
   "Apex Complex": {
     "name": "Apex Complex",
+    "character": "Fukua",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "While the opponent's HEALTH is above 65/50/35%, DASH ATTACKS inflict CURSE and grant HASTE for 10/12/15 seconds each on HIT.",
@@ -33,6 +37,7 @@
   },
   "Armed Forces": {
     "name": "Armed Forces",
+    "character": "Cerebella",
     "tier": "Gold",
     "element": "Air",
     "sa1": "10% chance when either Fighter is HIT to gain ARMOR and UNFLINCHING for 5/7/10 seconds each.",
@@ -41,6 +46,7 @@
   },
   "Assassin's Greed": {
     "name": "Assassin's Greed",
+    "character": "Valentine",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "When either Fighter uses a BLOCKBUSTER, the opponent loses 15/20/25% of their remaining HEALTH and suffers HEAVY BLEED for 5 seconds.",
@@ -49,6 +55,7 @@
   },
   "Baba Yaga": {
     "name": "Baba Yaga",
+    "character": "Beowulf",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Gain DEADEYE for 10/12/15 seconds when HITTING an opponent in the air. While benefitting from DEADEYE, HYPE MODE is extended to last for 15 seconds and Beowulf gains a HYPE CHARGE when the opponent is KNOCKED DOWN.",
@@ -57,6 +64,7 @@
   },
   "Bad Hair Day": {
     "name": "Bad Hair Day",
+    "character": "Filia",
     "tier": "Bronze",
     "element": "Dark",
     "sa1": "10% chance on HIT to inflict BLEED for 3/5/7 seconds.",
@@ -65,6 +73,7 @@
   },
   "Bad Ms Frosty": {
     "name": "Bad Ms Frosty",
+    "character": "Filia",
     "tier": "Silver",
     "element": "Water",
     "sa1": "50% chance on CRITICAL HIT to inflict ARMOR BREAK for 5/7/10 seconds.",
@@ -73,6 +82,7 @@
   },
   "Bare Bones": {
     "name": "Bare Bones",
+    "character": "Marie",
     "tier": "Bronze",
     "element": "Dark",
     "sa1": "Gain THORNS for 8/10/12 seconds when using a SPECIAL MOVE.",
@@ -81,6 +91,7 @@
   },
   "Bassline": {
     "name": "Bassline",
+    "character": "Big Band",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "On TAG IN, gain HEAVY REGEN for 5/7/10 seconds and 20/25/35% BLOCKBUSTER METER..",
@@ -89,6 +100,7 @@
   },
   "Beast King": {
     "name": "Beast King",
+    "character": "Beowulf",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Inflict WITHER and CURSE for 5/7/10 seconds each when dealing at least 10% of the opponent's MAX HEALTH from a single HIT.",
@@ -97,6 +109,7 @@
   },
   "Beat Box": {
     "name": "Beat Box",
+    "character": "Big Band",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "Gain ENRAGE for 3/4/5 seconds after using a SPECIAL MOVE.",
@@ -105,6 +118,7 @@
   },
   "Bellarina": {
     "name": "Bellarina",
+    "character": "Cerebella",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "When landing a DASH ATTACK, DRAIN 15% BLOCKBUSTER METER and gain DEADEYE for 10/12/15 seconds, and gain permanent 5/10/15% ATTACK.",
@@ -113,6 +127,7 @@
   },
   "Big Baddy": {
     "name": "Big Baddy",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Water",
     "sa1": "While Big Band is alive, opponents deal 20/30/40% less damage with SPECIAL HITS and BLOCKBUSTER HITS.",
@@ -121,6 +136,7 @@
   },
   "Big Top": {
     "name": "Big Top",
+    "character": "Cerebella",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Once per match, RESURRECT with 10/25/50% HEALTH when defeated. Also gain INVINCIBLE and UNFLINCHING for 6/7/8 seconds.",
@@ -129,6 +145,7 @@
   },
   "Bio-Exorcist": {
     "name": "Bio-Exorcist",
+    "character": "Squigly",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "With at least 1 DRAGON CHARGE and not BLOCKING, DRAIN 1/1.5/2% of a nearby opponent's HEALTH per second.",
@@ -137,6 +154,7 @@
   },
   "Biohazard": {
     "name": "Biohazard",
+    "character": "Black Dahlia",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "While above 50% HEALTH, gain 6 BUCKSHOTS when reloading with no SHOTS remaining. BUCKSHOTS deal 25/35/50% bonus DAMAGE and remove 1 opponent BUFF on hit.",
@@ -145,6 +163,7 @@
   },
   "Biting Cold": {
     "name": "Biting Cold",
+    "character": "Painwheel",
     "tier": "Gold",
     "element": "Water",
     "sa1": "Gain 1 stack of BARRIER and THORNS for 5/7/10 seconds every 3 seconds while near a dead body.",
@@ -153,6 +172,7 @@
   },
   "Blitz & Glamour": {
     "name": "Blitz & Glamour",
+    "character": "Cerebella",
     "tier": "Gold",
     "element": "Light",
     "sa1": "While on the opponent's side of the stage, Cerebella has a 15% chance on HIT to inflict INVERSE POLARITY and ARMOR BREAK for 5/7/10 seconds each.",
@@ -161,6 +181,7 @@
   },
   "Blood Drive": {
     "name": "Blood Drive",
+    "character": "Painwheel",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "15% chance on HIT to inflict BLEED on yourself and HEAVY BLEED on opponent for 5/7/10 seconds each.",
@@ -169,6 +190,7 @@
   },
   "Bloodbath": {
     "name": "Bloodbath",
+    "character": "Eliza",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "If either fighter uses a BLOCKBUSTER, both fighters are afflicted with BLEED for 5/7/10 seconds.",
@@ -177,6 +199,7 @@
   },
   "Bloody Valentine": {
     "name": "Bloody Valentine",
+    "character": "Eliza",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Regain 5/7/10% HEALTH when either Fighter uses a SPECIAL MOVE.",
@@ -185,6 +208,7 @@
   },
   "Blue Bomber": {
     "name": "Blue Bomber",
+    "character": "Robo-Fortune",
     "tier": "Silver",
     "element": "Water",
     "sa1": "All BEAM and ENERGY attacks have a 25% chance on HIT to grant HASTE and inflict ARMOR BREAK For 7/10/12 seconds each.",
@@ -193,6 +217,7 @@
   },
   "Blue Screen": {
     "name": "Blue Screen",
+    "character": "Robo-Fortune",
     "tier": "Gold",
     "element": "Water",
     "sa1": "Gain a stack of ARMOR every 10/7/5 seconds. ARMOR is removed when KNOCKED DOWN.",
@@ -201,6 +226,7 @@
   },
   "Blue Streak": {
     "name": "Blue Streak",
+    "character": "Filia",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "Grant DEADEYE and HASTE while Filia has at least 100/98/95% HEALTH. These BUFFS are removed when Filia’s HEALTH drops below 100/98/95%.",
@@ -209,6 +235,7 @@
   },
   "Bombshell": {
     "name": "Bombshell",
+    "character": "Parasoul",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "Gain ENRAGE, BARRIER or REGEN for 10/12/15 seconds when spawning a TEAR.",
@@ -217,6 +244,7 @@
   },
   "Brain Freeze": {
     "name": "Brain Freeze",
+    "character": "Cerebella",
     "tier": "Gold",
     "element": "Water",
     "sa1": "While near the opponent, inflict IMMOBILIZE and SLOW for 7/10/12 seconds every 3 seconds. Reduce the opponent's ATTACK by 3% for every second they are IMMOBILIZED until they TAG OUT.",
@@ -225,6 +253,7 @@
   },
   "Brass Bandit": {
     "name": "Brass Bandit",
+    "character": "Big Band",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "Remove 1 opponent BUFF, grant ENRAGE for 10 seconds and DRAIN 3% HEALTH every 15/12/10 COMBO HITS.",
@@ -233,6 +262,7 @@
   },
   "Buffer Zone": {
     "name": "Buffer Zone",
+    "character": "Robo-Fortune",
     "tier": "Gold",
     "element": "Air",
     "sa1": "When Robo-Fortune TAGS IN, remove all opponent BUFFS, inflict HEX and DISABLE TAG INS for 5/7/10 seconds each.",
@@ -241,6 +271,7 @@
   },
   "Buzzkill": {
     "name": "Buzzkill",
+    "character": "Painwheel",
     "tier": "Gold",
     "element": "Air",
     "sa1": "For each 20/15/10% HEALTH the opponent loses, inflict INVERSE POLARITY and WITHER for 10 seconds.",
@@ -249,6 +280,7 @@
   },
   "Candy Crusher": {
     "name": "Candy Crusher",
+    "character": "Umbrella",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Gain REGEN every 5/4/3 seconds while OVERSTUFFED. REGEN is removed when KNOCKED DOWN.",
@@ -257,6 +289,7 @@
   },
   "Chameleon Twist": {
     "name": "Chameleon Twist",
+    "character": "Fukua",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Gain MIASMA for 5/7/10 seconds when HITTING an attacking opponent.",
@@ -265,6 +298,7 @@
   },
   "Chaos Theory": {
     "name": "Chaos Theory",
+    "character": "Double",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "When TRANSMUTING, inflict BLEED on yourself and gain ENRAGE for 6/8/10 seconds each. Also when TRANSMUTING to the LIGHT element, gain BLESSING.",
@@ -273,6 +307,7 @@
   },
   "Chill Guy": {
     "name": "Chill Guy",
+    "character": "Beowulf",
     "tier": "Gold",
     "element": "Water",
     "sa1": "When the active Fighter blocks a HIT, apply 1 stack of SLOW for 10/13/15 seconds. When the opponent reaches 5 stacks of SLOW, remove all SLOW stacks and inflict STUN for 6 seconds.",
@@ -281,6 +316,7 @@
   },
   "Class Cutter": {
     "name": "Class Cutter",
+    "character": "Filia",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "All HITS from a BLOCKBUSTER or SPECIAL MOVE have a 10% chance to be UNBLOCKABLE and inflict DEATH MARK for 10/12/15 seconds.",
@@ -289,6 +325,7 @@
   },
   "Claw & Order": {
     "name": "Claw & Order",
+    "character": "Ms. Fortune",
     "tier": "Gold",
     "element": "Air",
     "sa1": "CRITICAL HITS have a 25/35/50% chance to reset the timers of all opponent DEBUFFS except STUN and DOOM.",
@@ -297,6 +334,7 @@
   },
   "Clue Chaser": {
     "name": "Clue Chaser",
+    "character": "Filia",
     "tier": "Silver",
     "element": "Light",
     "sa1": "While Filia is alive, increase the active fighter's CRIT RATE by 5/7/10% every 3 COMBO HITS (up to 50/75/100%).",
@@ -305,6 +343,7 @@
   },
   "Cold Stones": {
     "name": "Cold Stones",
+    "character": "Beowulf",
     "tier": "Bronze",
     "element": "Water",
     "sa1": "THROWS have a 10/15/20% chance to inflict STUN for 6 seconds.",
@@ -313,6 +352,7 @@
   },
   "Comet Custodian": {
     "name": "Comet Custodian",
+    "character": "Marie",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Once summoned, Hilgard will remain on stage until Marie is KNOCKED DOWN or TAGS OUT. While Hilgard is on stage, Marie has a 20/35/50% chance to prevent an incoming DEBUFF and inflict HEAL BLOCK and CURSE for 10 seconds each.",
@@ -321,6 +361,7 @@
   },
   "Corrosive Agent": {
     "name": "Corrosive Agent",
+    "character": "Black Dahlia",
     "tier": "Gold",
     "element": "Water",
     "sa1": "Remove all DEBUFFS and gain 1/2/3 stack(s) of BARRIER when either Fighter uses a BLOCKBUSTER.",
@@ -329,6 +370,7 @@
   },
   "Cosmic Rebel": {
     "name": "Cosmic Rebel",
+    "character": "Annie",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Every 5th non-projectile COMBO HIT inflicts DEATH MARK for 10/12/15 seconds.",
@@ -337,6 +379,7 @@
   },
   "Creature of Habit": {
     "name": "Creature of Habit",
+    "character": "Double",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Gain 1 stack of MIASMA every 5/4/3 seconds.",
@@ -345,6 +388,7 @@
   },
   "Criminal Mind": {
     "name": "Criminal Mind",
+    "character": "Cerebella",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Inflict DEATH MARK and gain THORNS for 5/7/10 seconds each when either Fighter deals at least 10% MAX HEALTH from a single HIT.",
@@ -353,6 +397,7 @@
   },
   "Crimson Cyclone": {
     "name": "Crimson Cyclone",
+    "character": "Cerebella",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "When either Fighter lands a THROW, gain ARMOR for 15 seconds. Cerebella's THROW HITS inflict HEAL BLOCK for 15 seconds and 50/75/100% of the damage inflicted is regained as HEALTH.",
@@ -361,6 +406,7 @@
   },
   "Critty Kitty": {
     "name": "Critty Kitty",
+    "character": "Ms. Fortune",
     "tier": "Unknown",
     "element": "Fire",
     "sa1": "Either Fighter's CRITICAL HITS inflict BLEED for 5 seconds and CRIPPLE and DEATH MARK for 10 seconds each.",
@@ -369,6 +415,7 @@
   },
   "Curl Scout": {
     "name": "Curl Scout",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Water",
     "sa1": "For every 5th COMBO HIT landed on either Fighter, remove 1 DEBUFF and gain ARMOR for 7/8/10 seconds.",
@@ -377,6 +424,7 @@
   },
   "Dame Slayer": {
     "name": "Dame Slayer",
+    "character": "Black Dahlia",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Once per match when RELOADING with no SHOTS remaining, gain 6 LIGHTNING SHOTS and inflict DOOM for 30/25/20 seconds. DOOM is removed if Black Dahlia TAGS OUT or is defeated.",
@@ -385,6 +433,7 @@
   },
   "Danger-Prone": {
     "name": "Danger-Prone",
+    "character": "Parasoul",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Back-dashing grants HASTE and inflicts ARMOR BREAK on the opponent for 5/7/10 seconds each.",
@@ -393,6 +442,7 @@
   },
   "Dark Horse": {
     "name": "Dark Horse",
+    "character": "Marie",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Inflict CURSE and gain permanent HASTE after facing the same opponent for 15/12/10 seconds.",
@@ -401,6 +451,7 @@
   },
   "Dark Lord": {
     "name": "Dark Lord",
+    "character": "Eliza",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "Eliza starts the match with permanent FATIGUE. The first time an opponent is defeated while Eliza is alive, FATIGUE is removed, she gains 50/75/100% HEALTH, and she permanently gains increased CRIT RATE and CRIT DAMAGE by 50%.",
@@ -409,6 +460,7 @@
   },
   "Dark Might": {
     "name": "Dark Might",
+    "character": "Beowulf",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "When a teammate is defeated while Beowulf is alive, remove all opponent BUFFS. Also inflict 1/2/3 stacks of permanent POWER SURGE and permanent CURSE.",
@@ -417,6 +469,7 @@
   },
   "Dead Heat": {
     "name": "Dead Heat",
+    "character": "Squigly",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Gain 2 stacks of ENRAGE for 5 seconds every 10 seconds while below 25/35/50% HEALTH.",
@@ -425,6 +478,7 @@
   },
   "Dead of Winter": {
     "name": "Dead of Winter",
+    "character": "Squigly",
     "tier": "Gold",
     "element": "Water",
     "sa1": "While Squigly is alive, the active Fighter inflicts WITHER for 10 seconds and gains ARMOR every 15/12/10 seconds. These effects are removed when KNOCKED DOWN.",
@@ -433,6 +487,7 @@
   },
   "Deal Breaker": {
     "name": "Deal Breaker",
+    "character": "Peacock",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Grant IMMUNITY, HASTE, or ENRAGE for 10/12/15 seconds when either Fighter uses a BLOCKBUSTER. Also inflict GUARD BREAK and 2 random DEBUFFS for 10 seconds each.",
@@ -441,6 +496,7 @@
   },
   "Death Defier": {
     "name": "Death Defier",
+    "character": "Annie",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Annie gains UNFLINCHING and 10/15/20% STAR POWER when DASHING. When activating STAR POWER at full meter, instantly empty it to gain 1 stack of permanent ENRAGE and MIASMA each.",
@@ -449,6 +505,7 @@
   },
   "Death Wish": {
     "name": "Death Wish",
+    "character": "Umbrella",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "Every 7th COMBO HIT landed on Umbrella or the opponent TRANSFERS up to 1/2/3 enemy BUFF(S) to herself and inflicts HEX for 10 seconds.",
@@ -457,6 +514,7 @@
   },
   "Decrypted": {
     "name": "Decrypted",
+    "character": "Eliza",
     "tier": "Bronze",
     "element": "Dark",
     "sa1": "Inflict 15/20/25% bonus damage for each of the opponents living teammates.",
@@ -465,6 +523,7 @@
   },
   "Demon Artist": {
     "name": "Demon Artist",
+    "character": "Squigly",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "While CHARGED, inflict BLEED for 5/7/10 seconds for each 15% HEALTH lost by either Fighter.",
@@ -473,6 +532,7 @@
   },
   "Diva Intervention": {
     "name": "Diva Intervention",
+    "character": "Eliza",
     "tier": "Gold",
     "element": "Light",
     "sa1": "While in Sekhmet Mode, 25/35/50% of the damage inflicted by NON-BLOCKBUSTER attacks is regained as HEALTH.",
@@ -481,6 +541,7 @@
   },
   "Djinn Frizz": {
     "name": "Djinn Frizz",
+    "character": "Filia",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Every 15/12/10 seconds gain 3 random BUFF(S) for 5 seconds.",
@@ -489,6 +550,7 @@
   },
   "Don Passione": {
     "name": "Don Passione",
+    "character": "Eliza",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "When Eliza is about to suffer a DEBUFF, 50% chance to prevent it and inflict either BLEED, HEX or QUIETUS for 8/10/12 seconds.",
@@ -497,6 +559,7 @@
   },
   "Doomsayer": {
     "name": "Doomsayer",
+    "character": "Eliza",
     "tier": "Unknown",
     "element": "Air",
     "sa1": "HITS landed on Eliza deal 4% increased damage per current COMBO HIT.",
@@ -505,6 +568,7 @@
   },
   "Double Exposure": {
     "name": "Double Exposure",
+    "character": "Double",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Successful BEAM attacks of SPECIAL MOVES grant IMMUNITY for 5/7/10 seconds and STUN the opponent for 2 seconds if they are not suffering from BLEED.",
@@ -513,6 +577,7 @@
   },
   "Doublicious": {
     "name": "Doublicious",
+    "character": "Double",
     "tier": "Silver",
     "element": "Light",
     "sa1": "10/15/25% chance on HIT to TRANSFER 1 BUFF from the opponent to yourself.",
@@ -521,6 +586,7 @@
   },
   "Dragon Brawler": {
     "name": "Dragon Brawler",
+    "character": "Beowulf",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Gain 3/4/5 stacks of PRECISION when activating HYPE, and gain 100% increased CRIT DAMAGE while in HYPE MODE.",
@@ -529,6 +595,7 @@
   },
   "Dread Locks": {
     "name": "Dread Locks",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Light",
     "sa1": "When HIT, reflect 15/25/35% of the incoming damage.",
@@ -537,6 +604,7 @@
   },
   "Dream Band": {
     "name": "Dream Band",
+    "character": "Big Band",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "MIRROR 1 opponent BUFF and reset its timer every 20/15/10 combo hits.",
@@ -545,6 +613,7 @@
   },
   "Dream Catcher": {
     "name": "Dream Catcher",
+    "character": "Peacock",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "SPECIAL MOVES and TAG INS have a 25% chance on HIT to STUN the opponent for 4/5/6 seconds (does not affect Dark Fighters).",
@@ -553,6 +622,7 @@
   },
   "Dream Demon": {
     "name": "Dream Demon",
+    "character": "Fukua",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Inflict permanent DEATH MARK and gain ENRAGE for every 20/15/10% HEALTH lost by either Fighter.",
@@ -561,6 +631,7 @@
   },
   "Eager Deceiver": {
     "name": "Eager Deceiver",
+    "character": "Umbrella",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "Well-timed BLOCKS have a 50/75/100% chance to grant 1 stack each of EVASION, BARRIER and BLESSING.",
@@ -569,6 +640,7 @@
   },
   "Epic Sax": {
     "name": "Epic Sax",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Gain 1/2/3% damage bonus per COMBO HIT.",
@@ -577,6 +649,7 @@
   },
   "Evergreen Evil": {
     "name": "Evergreen Evil",
+    "character": "Double",
     "tier": "Gold",
     "element": "Air",
     "sa1": "5/7/10% chance when HIT while not at an ELEMENTAL DISADVANTAGE to gain REGEN and THORNS for 5 seconds, and to remove all DEBUFFS.",
@@ -585,6 +658,7 @@
   },
   "Fan Favorite": {
     "name": "Fan Favorite",
+    "character": "Beowulf",
     "tier": "Silver",
     "element": "Light",
     "sa1": "While Beowulf is alive, all teammates gain FINAL STAND and UNFLINCHING for 5/7/10 seconds each every 20 seconds.",
@@ -593,6 +667,7 @@
   },
   "Fatal Fray": {
     "name": "Fatal Fray",
+    "character": "Ms. Fortune",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "When either Fighter lands a BLOCKED HIT, suffer a random DEBUFF for 5/7/10 seconds and permanently decrease the opponent’s ATTACK and DEFENSE by 4% until Ms. Fortune TAGS OUT or is defeated.",
@@ -601,6 +676,7 @@
   },
   "Feared Faux": {
     "name": "Feared Faux",
+    "character": "Fukua",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "While Fukua’s Shadow Clone is active, SPECIAL HITS inflict CURSE for 5/7/10 seconds.",
@@ -609,6 +685,7 @@
   },
   "Feathered Edges": {
     "name": "Feathered Edges",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Water",
     "sa1": "A well-timed BLOCK grants 1/2/3 stacks of BARRIER, and DISABLES opponent BLOCKBUSTERS and TAG INS for 10 seconds.",
@@ -617,6 +694,7 @@
   },
   "Feline Lucky": {
     "name": "Feline Lucky",
+    "character": "Ms. Fortune",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Gain 1/2/3 stack(s) of PRECISION every 7 seconds.",
@@ -625,6 +703,7 @@
   },
   "Final Fang": {
     "name": "Final Fang",
+    "character": "Valentine",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "When the opponent gains a BUFF, MIRROR 1 of their BUFFS and inflict CURSE for 5/6/7 seconds.",
@@ -633,6 +712,7 @@
   },
   "Fire Branded": {
     "name": "Fire Branded",
+    "character": "Annie",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Gain ENRAGE for 10/12/15 seconds and remove 1 opponent BUFF when using a SPECIAL MOVE or BLOCKBUSTER.",
@@ -641,6 +721,7 @@
   },
   "Firefly": {
     "name": "Firefly",
+    "character": "Painwheel",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "While BLOCKING, the active fighter gains 4/5/6% HEALTH per second. When at 100% HEALTH, gain BLESSING for 8/10/12 seconds every second instead.",
@@ -649,6 +730,7 @@
   },
   "Flower Power": {
     "name": "Flower Power",
+    "character": "Fukua",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Every 2 seconds, unless either Fighter lands a HIT, suffer HEAVY BLEED for 2 seconds. When HITTING an attacking opponent remove up to 1/2/3 DEBUFF(S) from self.",
@@ -657,6 +739,7 @@
   },
   "Fly Trap": {
     "name": "Fly Trap",
+    "character": "Painwheel",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Permanently increase Painwheel’s ATTACK by 25% for every 25/20/15% HEALTH lost by any Fighter. While Painwheel is the active Fighter, benched teammates also heal for 15/20/25% HEALTH.",
@@ -665,6 +748,7 @@
   },
   "Foot Soldier": {
     "name": "Foot Soldier",
+    "character": "Ms. Fortune",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "HEAD HITS have a 50/75/100% chance to grant DEADEYE and 1 random BUFF for 7 seconds each. Also remove 1 DEBUFF from self.",
@@ -673,6 +757,7 @@
   },
   "Fortune Cookie": {
     "name": "Fortune Cookie",
+    "character": "Ms. Fortune",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "After facing the same opponent for 10 seconds, Ms. Fortune suffers CURSE for 20/15/10 seconds, but gains permanent PRECISION, bypassing all BUFF and DEBUFF prevention effects.",
@@ -681,6 +766,7 @@
   },
   "Frayed Ends": {
     "name": "Frayed Ends",
+    "character": "Filia",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "20% chance when HIT to inflict BLEED for 3/5/7 seconds.",
@@ -689,6 +775,7 @@
   },
   "Freaky Friday": {
     "name": "Freaky Friday",
+    "character": "Painwheel",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "CRITICAL HITS inflict BLEED and DEATH MARK for 3/4/5 seconds each.",
@@ -697,6 +784,7 @@
   },
   "Freedom Fighter": {
     "name": "Freedom Fighter",
+    "character": "Beowulf",
     "tier": "Gold",
     "element": "Water",
     "sa1": "10% chance to inflict ARMOR BREAK and gain AUTO-BLOCK for 5/7/10 seconds when either fighter is HIT (includes Blocking).",
@@ -705,6 +793,7 @@
   },
   "Freeze Frame": {
     "name": "Freeze Frame",
+    "character": "Peacock",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "PROJECTILE HITS inflict WITHER for 9 seconds. When the opponent reaches 5 stacks of WITHER, remove all WITHER stacks to inflict STUN for 2/3/4 seconds and set the opponent's SPECIAL MOVES and TAG-INS on cooldown.",
@@ -713,6 +802,7 @@
   },
   "Fresh Heir": {
     "name": "Fresh Heir",
+    "character": "Umbrella",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "DASH ATTACKS have a 50/75/100% chance on HIT to DISABLE opponent BLOCKBUSTERS for 10 seconds.",
@@ -721,6 +811,7 @@
   },
   "Fur Monger": {
     "name": "Fur Monger",
+    "character": "Black Dahlia",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "50/75/100% chance to gain ENRAGE, THORNS or REGEN when FIRING a SHOT. These BUFFS are removed when KNOCKED DOWN.",
@@ -729,6 +820,7 @@
   },
   "Furmidable": {
     "name": "Furmidable",
+    "character": "Ms. Fortune",
     "tier": "Gold",
     "element": "Light",
     "sa1": "CHARGE ATTACK HITS grant IMMUNITY for 5/7/10 seconds and 5 stacks of PRECISION.",
@@ -737,6 +829,7 @@
   },
   "Furry Fury": {
     "name": "Furry Fury",
+    "character": "Ms. Fortune",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "10/15/20% chance on HIT to inflict BLEED and gain ENRAGE for 5/7/10 seconds each while Ms. Fortune's health percentage is higher than her opponent's.",
@@ -745,6 +838,7 @@
   },
   "G.I. Jazz": {
     "name": "G.I. Jazz",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Once per match, gain 3/4/5 stacks of REGEN and 3 stacks of ARMOR for 10 seconds each when falling below 25% HEALTH.",
@@ -753,6 +847,7 @@
   },
   "Galactic Glamour": {
     "name": "Galactic Glamour",
+    "character": "Annie",
     "tier": "Silver",
     "element": "Air",
     "sa1": "25/35/50% chance on CRITICAL HIT to inflict GUARD BREAK for 10 seconds.",
@@ -761,6 +856,7 @@
   },
   "Gang Green": {
     "name": "Gang Green",
+    "character": "Squigly",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Squigly gains BLOCKBUSTER METER equal to 1/2/3% of her MOVE SPEED.",
@@ -769,6 +865,7 @@
   },
   "Glacial Ghoul": {
     "name": "Glacial Ghoul",
+    "character": "Squigly",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "Gain BARRIER when gaining a DRAGON CHARGE. Also using your last DRAGON CHARGE converts all stacks of BARRIER into 5/7/10% HEALTH each.",
@@ -777,6 +874,7 @@
   },
   "Golden Gunner": {
     "name": "Golden Gunner",
+    "character": "Black Dahlia",
     "tier": "Bronze",
     "element": "Light",
     "sa1": "Gain 3/4/5 stack(s) of PRECISION when RELOADING with no SHOTS remaining.",
@@ -785,6 +883,7 @@
   },
   "Grand Mother": {
     "name": "Grand Mother",
+    "character": "Double",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "Successful DASH ATTACKS have a 50/75/100% chance to inflict CURSE for 5 seconds. When a DEBUFF on the opponent expires, inflict 1 random DEBUFF for 5 seconds.",
@@ -793,6 +892,7 @@
   },
   "Grave Danger": {
     "name": "Grave Danger",
+    "character": "Squigly",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "When using a BLOCKBUSTER while CHARGED, convert all DEBUFFS into 10% BLOCKBUSTER METER per DEBUFF and gain HEAVY REGEN for 10/12/15 seconds.",
@@ -801,6 +901,7 @@
   },
   "Gravedigger": {
     "name": "Gravedigger",
+    "character": "Marie",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Gain IMMUNITY and UNFLINCHING for 10/12/15 seconds each when the opponent is KNOCKED DOWN.",
@@ -809,6 +910,7 @@
   },
   "Graveyard Shift": {
     "name": "Graveyard Shift",
+    "character": "Valentine",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "Valentine and all teammates gain HEAVY REGEN for 10/12/15 seconds when any fighter is defeated.",
@@ -817,6 +919,7 @@
   },
   "Gray Matter": {
     "name": "Gray Matter",
+    "character": "Cerebella",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "All teammates start the match with 15/20/25% BLOCKBUSTER METER.",
@@ -825,6 +928,7 @@
   },
   "Grim Fan": {
     "name": "Grim Fan",
+    "character": "Painwheel",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Once per match, gain UNFLINCHING and IMMUNITY for 15 seconds when dropping below 25/35/50% HEALTH.",
@@ -833,6 +937,7 @@
   },
   "Grin Reaper": {
     "name": "Grin Reaper",
+    "character": "Marie",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Regain 15% BLOCKBUSTER METER and inflict INVERSE POLARITY for 10/12/15 seconds when either Fighter uses a BLOCKBUSTER.",
@@ -841,6 +946,7 @@
   },
   "Gust Buster": {
     "name": "Gust Buster",
+    "character": "Marie",
     "tier": "Gold",
     "element": "Air",
     "sa1": "HITS from SKELETAL SUMMONS deal 15/25/35% BONUS DAMAGE and TRANSFER up to 3 opponent BUFF(s) to self.",
@@ -849,6 +955,7 @@
   },
   "Hack n' Splash": {
     "name": "Hack n' Splash",
+    "character": "Ms. Fortune",
     "tier": "Gold",
     "element": "Water",
     "sa1": "A well-timed BLOCK against standard attacks grants 3/4/5 stacks of PRECISION and inflicts CRIPPLE and ARMOR BREAK for 10 seconds.",
@@ -857,6 +964,7 @@
   },
   "Hair Apparent": {
     "name": "Hair Apparent",
+    "character": "Filia",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Using a SPECIAL MOVE grants HASTE for 10/12/15 seconds.",
@@ -865,6 +973,7 @@
   },
   "Hallow Fiend": {
     "name": "Hallow Fiend",
+    "character": "Valentine",
     "tier": "Silver",
     "element": "Water",
     "sa1": "While none of Valentine’s BLOCKBUSTERS are fully charged, NON-BLOCKBUSTER HITS drain 3/4/5% BLOCKBUSTER METER.",
@@ -873,6 +982,7 @@
   },
   "Harlequin": {
     "name": "Harlequin",
+    "character": "Cerebella",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "SPECIAL MOVES deal 10/15/20% bonus damage for all teammates.",
@@ -881,6 +991,7 @@
   },
   "Head Hunter": {
     "name": "Head Hunter",
+    "character": "Robo-Fortune",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Gain one stack of PRECISION every 1.5/1/0.5 seconds while BLOCKING and not being hit.",
@@ -889,6 +1000,7 @@
   },
   "Headstrong": {
     "name": "Headstrong",
+    "character": "Cerebella",
     "tier": "Bronze",
     "element": "Light",
     "sa1": "THROWS have a 50% chance to inflict CRIPPLE for 4/5/7 seconds.",
@@ -897,6 +1009,7 @@
   },
   "Heart of Darkness": {
     "name": "Heart of Darkness",
+    "character": "Double",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "Once per match when TRANSMUTING to the opponent's element, permanently copy their Signature Ability, remove all their BUFFS and inflict HEX for 20/25/30 seconds.",
@@ -905,6 +1018,7 @@
   },
   "Heartless": {
     "name": "Heartless",
+    "character": "Marie",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "HITS from SKELETAL SUMMONS deal 25/35/50% BONUS DAMAGE. These HITS are UNBLOCKABLE when the opponent is below 50% HEALTH or suffering from at least 3 DEBUFFS.",
@@ -913,6 +1027,7 @@
   },
   "Heavy Handed": {
     "name": "Heavy Handed",
+    "character": "Cerebella",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Gain ENRAGE and PRECISION every 0.3/0.2/0.1 seconds while charging a CHARGE ATTACK. Gain UNFLINCHING for 10 seconds when reaching 5 stacks of ENRAGE. ENRAGES will be removed when Cerebella is HIT.",
@@ -921,6 +1036,7 @@
   },
   "Heavy Metal": {
     "name": "Heavy Metal",
+    "character": "Big Band",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "10/12/15% chance to gain ARMOR for 5 seconds when either fighter is HIT with a close-range attack (includes Blocking).",
@@ -929,6 +1045,7 @@
   },
   "Heavy Reign": {
     "name": "Heavy Reign",
+    "character": "Parasoul",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "50% chance on CRITICAL HIT to gain 10/12/15% BLOCKBUSTER METER.",
@@ -937,6 +1054,7 @@
   },
   "Hell's Belle": {
     "name": "Hell's Belle",
+    "character": "Fukua",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "While the opponent's HEALTH is above 35%, 10/12/15% chance on HIT to inflict BLEED for 5 seconds and a random DEBUFF.",
@@ -945,6 +1063,7 @@
   },
   "Hellcat": {
     "name": "Hellcat",
+    "character": "Ms. Fortune",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "Gain ENRAGE after every 12/10/8 seconds while above 50% HEALTH. ENRAGE is removed when dropping below 50% HEALTH.",
@@ -953,6 +1072,7 @@
   },
   "Hex Caliber": {
     "name": "Hex Caliber",
+    "character": "Black Dahlia",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "Every 10th COMBO HIT landed on Black Dahlia or the opponent grants UNFLINCHING for 5/7/10 seconds. Also gain permanent PRECISION while benefiting from this UNFLINCHING.",
@@ -961,14 +1081,16 @@
   },
   "High Ruler": {
     "name": "High Ruler",
+    "character": "Parasoul",
     "tier": "Gold",
-    "element": "Light",
+    "element": "Dark",
     "sa1": "Opponents have their BLOCKBUSTERS and TAG-INS DISABLED after 3/2/1 second(s) while near a TEAR.",
     "sa2": "Detonated TEARS inflict CURSE and HEX for 5/7/10 seconds on HIT. Dark Fighters also suffer FATIGUE for 5 seconds.",
     "unlocked": false
   },
   "Hype Man": {
     "name": "Hype Man",
+    "character": "Beowulf",
     "tier": "Silver",
     "element": "Air",
     "sa1": "While in HYPE MODE, DRAIN opponent BLOCKBUSTER METER by 5/7/10% per landed HIT.",
@@ -977,6 +1099,7 @@
   },
   "Icy Hot": {
     "name": "Icy Hot",
+    "character": "Valentine",
     "tier": "Bronze",
     "element": "Water",
     "sa1": "All teammates TAG IN with REGEN for 10/12/15 seconds.",
@@ -985,6 +1108,7 @@
   },
   "Idol Echo": {
     "name": "Idol Echo",
+    "character": "Fukua",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Gain 1 random BUFF and inflict 1 random DEBUFF every 3/2/1 second(s) while in a combo. All BUFFS and DEBUFFS are removed at the end of a combo.",
@@ -993,6 +1117,7 @@
   },
   "Idol Threat": {
     "name": "Idol Threat",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Water",
     "sa1": "EVADING an attack grants FINAL STAND and ARMOR for 5/7/10 seconds.",
@@ -1001,6 +1126,7 @@
   },
   "Immoral Fiber": {
     "name": "Immoral Fiber",
+    "character": "Double",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "When defeated, deal damage equivalent to 25/35/50% of your MAX HEALTH.",
@@ -1009,6 +1135,7 @@
   },
   "In Denile": {
     "name": "In Denile",
+    "character": "Eliza",
     "tier": "Bronze",
     "element": "Water",
     "sa1": "Inflict ARMOR BREAK for 5/10/15 seconds when entering Sekhmet Mode.",
@@ -1017,6 +1144,7 @@
   },
   "Indomitable": {
     "name": "Indomitable",
+    "character": "Parasoul",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Grant DEADEYE and inflict HEAL BLOCK when the opponent's HEALTH drops below 60/70/80%. Both effects are removed if Parasoul is KNOCKED DOWN.",
@@ -1025,6 +1153,7 @@
   },
   "Infernal Twin": {
     "name": "Infernal Twin",
+    "character": "Fukua",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "When hitting an attacking opponent, gain ENRAGE for 10/12/15 seconds and refresh the duration of all ENRAGES.",
@@ -1033,6 +1162,7 @@
   },
   "Inkfluencer": {
     "name": "Inkfluencer",
+    "character": "Peacock",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "NON-BLOCKBUSTER PROJECTILES inflict SLIME and INK the opponent for 10 seconds each, and DRAIN 10/15/20% BLOCKBUSTER METER on HIT. BLOCKBUSTERS deal 20% more damage per stack of INK (up to 5 stacks).",
@@ -1041,6 +1171,7 @@
   },
   "Inkling": {
     "name": "Inkling",
+    "character": "Peacock",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "Deal 15/20/25% bonus damage for each living teammate.",
@@ -1049,6 +1180,7 @@
   },
   "Inner Pieces": {
     "name": "Inner Pieces",
+    "character": "Eliza",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "When entering Sekhmet Mode, gain a BUFF for 10/12/15 seconds per teammate. The BUFF gained is determined by each teammate's ELEMENT.",
@@ -1057,6 +1189,7 @@
   },
   "Ionic Icon": {
     "name": "Ionic Icon",
+    "character": "Peacock",
     "tier": "Gold",
     "element": "Light",
     "sa1": "All teammates' TAG IN attacks inflict DEATH MARK for 10/15/20 seconds and STUN the opponent for 4 seconds. Peacock also gains 1/2/3 stack of BARRIER.",
@@ -1065,6 +1198,7 @@
   },
   "Iron Matron": {
     "name": "Iron Matron",
+    "character": "Parasoul",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Detonated TEARS grant 1 stack of ENRAGE for 10/12/15 seconds on HIT.",
@@ -1073,6 +1207,7 @@
   },
   "Ivy League": {
     "name": "Ivy League",
+    "character": "Parasoul",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Inflict SLOW for 5/7/10 seconds when spawning a TEAR. Opponents are IMMOBILIZED while near a TEAR.",
@@ -1081,6 +1216,7 @@
   },
   "Jack-O-Specter": {
     "name": "Jack-O-Specter",
+    "character": "Marie",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "Gain a random BUFF for 10/12/15 seconds when either Fighter uses a SPECIAL MOVE.",
@@ -1089,6 +1225,7 @@
   },
   "Jawbreaker": {
     "name": "Jawbreaker",
+    "character": "Double",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "When TRANSMUTING, gain a random BUFF for 5/6/7 seconds.",
@@ -1097,6 +1234,7 @@
   },
   "Just Kitten": {
     "name": "Just Kitten",
+    "character": "Ms. Fortune",
     "tier": "Bronze",
     "element": "Water",
     "sa1": "25/35/50% chance when suffering a DEBUFF to immediately convert that DEBUFF to a stack of PRECISION.",
@@ -1105,6 +1243,7 @@
   },
   "Kill Joy": {
     "name": "Kill Joy",
+    "character": "Valentine",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Teammates gain permanent REGEN when first dropping below 25/35/50% HEALTH while at an ELEMENTAL ADVANTAGE.",
@@ -1113,6 +1252,7 @@
   },
   "Killing Time": {
     "name": "Killing Time",
+    "character": "Eliza",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "CHARGE ATTACKS are extended with an extra hit and can be charged longer for extra damage. Landing a CHARGE ATTACK grants permanent DEADEYE and adds 1/1.5/2% BLOCKBUSTER METER for each hit landed until the end of her combo.",
@@ -1121,6 +1261,7 @@
   },
   "Lapis Luxury": {
     "name": "Lapis Luxury",
+    "character": "Eliza",
     "tier": "Gold",
     "element": "Water",
     "sa1": "Once per match when TAGGING IN, match the meter value of the opponent's highest BLOCKBUSTER METER and inflict ARMOR BREAK for 10/12/15 seconds.",
@@ -1129,6 +1270,7 @@
   },
   "Last Hope": {
     "name": "Last Hope",
+    "character": "Valentine",
     "tier": "Gold",
     "element": "Light",
     "sa1": "While Valentine is alive, when any teammate is defeated, RESURRECT that teammate with 15/20/25% HEALTH. This effect only occurs once per other teammate.",
@@ -1137,6 +1279,7 @@
   },
   "Lethal Weapon": {
     "name": "Lethal Weapon",
+    "character": "Black Dahlia",
     "tier": "Silver",
     "element": "Water",
     "sa1": "All SHOTS have a 50/75/100% chance to inflict BLEED for 10 seconds.",
@@ -1145,6 +1288,7 @@
   },
   "Locked 'N' Loaded": {
     "name": "Locked 'N' Loaded",
+    "character": "Black Dahlia",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "When FIRING a SHOT, sacrifice 3% of Black Dahlia's MAX HEALTH to inflict WITHER and gain 5/7/8% BLOCKBUSTER METER.",
@@ -1153,6 +1297,7 @@
   },
   "Locked In": {
     "name": "Locked In",
+    "character": "Parasoul",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "While near a TEAR, 50/75/100% chance for SPECIAL MOVES to grant HASTE for 15 seconds and remove 1 opponent BUFF.",
@@ -1161,6 +1306,7 @@
   },
   "Love Crafted": {
     "name": "Love Crafted",
+    "character": "Squigly",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "While near an opponent, DISABLE BLOCKBUSTERS and inflict HEAL BLOCK after 3/2/1 second(s).",
@@ -1169,6 +1315,7 @@
   },
   "Lucky Lure": {
     "name": "Lucky Lure",
+    "character": "Umbrella",
     "tier": "Gold",
     "element": "Air",
     "sa1": "While Umbrella is alive, the active Fighter has a 30/40/50% chance to gain a BUFF based on a random teammate’s ELEMENT for 7 seconds when landing a CRITICAL HIT.",
@@ -1177,6 +1324,7 @@
   },
   "M-3OW": {
     "name": "M-3OW",
+    "character": "Robo-Fortune",
     "tier": "Bronze",
     "element": "Light",
     "sa1": "Deal 50/75/100% bonus damage while Robo-Fortune is far away from the opponent.",
@@ -1185,6 +1333,7 @@
   },
   "Mad Malice": {
     "name": "Mad Malice",
+    "character": "Marie",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "While Marie is alive, her teammates' CRITICAL HITS have a 15/20/25% chance to grant ENRAGE for 10/13/15 seconds.",
@@ -1193,6 +1342,7 @@
   },
   "Magicurl": {
     "name": "Magicurl",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "When the active Fighter is about to suffer a DEBUFF, Filia sacrifices 10% MAX HP to give the active Fighter IMMUNITY for 3/4/5 seconds. This effect can only trigger once every 10 seconds.",
@@ -1201,6 +1351,7 @@
   },
   "Maid of Honor": {
     "name": "Maid of Honor",
+    "character": "Marie",
     "tier": "Silver",
     "element": "Light",
     "sa1": "While Marie is alive, HITS blocked by all teammates have a 25/35/50% chance to convert 1 DEBUFF into a stack of BARRIER.",
@@ -1209,6 +1360,7 @@
   },
   "Mana Flow": {
     "name": "Mana Flow",
+    "character": "Squigly",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Squigly's standard BLOCKBUSTERS consume all DRAGON CHARGES to gain additional effects per DRAGON CHARGE. Gain 15/20/25% BLOCKBUSTER METER when gaining a DRAGON CHARGE and automatically gain 25% DRAGON CHARGE per second.",
@@ -1217,6 +1369,7 @@
   },
   "Martial Outlaw": {
     "name": "Martial Outlaw",
+    "character": "Black Dahlia",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Any teammate's CHARGE ATTACK HITS grant HASTE for 8/10/12 seconds.",
@@ -1225,6 +1378,7 @@
   },
   "Masked Menace": {
     "name": "Masked Menace",
+    "character": "Painwheel",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "While near an opponent, inflict CURSE and QUIETUS for 2 seconds after every 3/2/1 second(s).",
@@ -1233,6 +1387,7 @@
   },
   "Materia Girl": {
     "name": "Materia Girl",
+    "character": "Annie",
     "tier": "Gold",
     "element": "Water",
     "sa1": "20% chance to gain 5/7/10% STAR POWER meter when either Fighter is HIT (includes Blocking).",
@@ -1241,6 +1396,7 @@
   },
   "Mean One": {
     "name": "Mean One",
+    "character": "Peacock",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Gain ENRAGE for 10/12/15 seconds for every BUFF gained by the opponent.",
@@ -1249,6 +1405,7 @@
   },
   "Megalomaniac": {
     "name": "Megalomaniac",
+    "character": "Marie",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "While Marie is alive, she gains permanent ARMOR and EVASION for 10 seconds for every 40/35/30% HEALTH lost by any teammate. 1 stack of ARMOR is removed when her opponent uses a BLOCKBUSTER.",
@@ -1257,6 +1414,7 @@
   },
   "Megasonic": {
     "name": "Megasonic",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "When blocking a HIT, reduce damage taken by 25/50/75% and gain ENRAGE and THORNS for 10 seconds. One ENRAGE stack is removed every 10th COMBO HITS.",
@@ -1265,6 +1423,7 @@
   },
   "Mekastar": {
     "name": "Mekastar",
+    "character": "Cerebella",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "If none of Cerebella's BLOCKBUSTERS are fully charged, gain ENRAGE for 5/7/10 seconds and 5% BLOCKBUSTER METER every 3 seconds while not BLOCKING.",
@@ -1273,6 +1432,7 @@
   },
   "Meow & Furever": {
     "name": "Meow & Furever",
+    "character": "Ms. Fortune",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Gain FINAL STAND for 10 seconds and 3/4/5 stacks of PRECISION for every 10% HEALTH LOST.",
@@ -1281,6 +1441,7 @@
   },
   "Miss Mercury": {
     "name": "Miss Mercury",
+    "character": "Annie",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "9/11/13% chance on HIT to gain 13% STAR POWER and inflict QUIETUS for 13 seconds.",
@@ -1289,6 +1450,7 @@
   },
   "Model Leader": {
     "name": "Model Leader",
+    "character": "Annie",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "While Annie is alive, she clears the active Fighter's DEBUFFS and grants ARMOR for 15 seconds every 30/25/20 seconds. Water teammates also gain 2 stacks of ENRAGE for 15 seconds.",
@@ -1297,6 +1459,7 @@
   },
   "Moody Magus": {
     "name": "Moody Magus",
+    "character": "Marie",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "Gain a random BUFF for 10/20/30 seconds when defeating an opponent or using a MORTUARY CHARGE.",
@@ -1305,6 +1468,7 @@
   },
   "Moonstruck": {
     "name": "Moonstruck",
+    "character": "Annie",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Inflict WITHER for 10 seconds and gain 10/12/15% STAR POWER meter when landing a CRITICAL HIT with a projectile.",
@@ -1313,6 +1477,7 @@
   },
   "Ms. Trial": {
     "name": "Ms. Trial",
+    "character": "Ms. Fortune",
     "tier": "Silver",
     "element": "Air",
     "sa1": "When HITTING an attacking opponent, remove 1 of the opponent's BUFFS and gain 3/4/5 stacks of PRECISION.",
@@ -1321,6 +1486,7 @@
   },
   "Mummy Dearest": {
     "name": "Mummy Dearest",
+    "character": "Eliza",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "Using a SPECIAL MOVE sacrifices 10% of Eliza's MAX HEALTH to gain 15/25/35% BLOCKBUSTER METER and HEAVY REGEN for 10 seconds.",
@@ -1329,6 +1495,7 @@
   },
   "Myst-Match": {
     "name": "Myst-Match",
+    "character": "Double",
     "tier": "Silver",
     "element": "Water",
     "sa1": "While sharing the opponent’s same element, gain 1 stack of PRECISION every 3/2/1 second(s) and all HITS deal 100% bonus DAMAGE.",
@@ -1337,6 +1504,7 @@
   },
   "Nail Biter": {
     "name": "Nail Biter",
+    "character": "Squigly",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "Gain MIASMA or BARRIER for 15 seconds each every 0.5/0.3/0.25 seconds while charging WYRM'S TAIL.",
@@ -1345,6 +1513,7 @@
   },
   "Near Death": {
     "name": "Near Death",
+    "character": "Valentine",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "Transfer 1 DEBUFF from yourself to the opponent and inflict GUARD BREAK for 15 seconds after every 7/6/5 seconds while not suffering a HIT (including blocked HITS).",
@@ -1353,6 +1522,7 @@
   },
   "Nearly Departed": {
     "name": "Nearly Departed",
+    "character": "Squigly",
     "tier": "Silver",
     "element": "Light",
     "sa1": "When using a BLOCKBUSTER at an ODD COMBO COUNT, gain INVINCIBILITY for 5/6/8 seconds.",
@@ -1361,6 +1531,7 @@
   },
   "Necrobreaker": {
     "name": "Necrobreaker",
+    "character": "Squigly",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Once per match when suffering a HIT that would be fatal, gain FINAL STAND for 5/10/15 seconds.",
@@ -1369,6 +1540,7 @@
   },
   "Neuromancer": {
     "name": "Neuromancer",
+    "character": "Painwheel",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "Drain 5/7/10% BLOCKBUSTER METER for each non-BLOCKBUSTER HIT blocked by the opponent.",
@@ -1377,6 +1549,7 @@
   },
   "Night Terror": {
     "name": "Night Terror",
+    "character": "Fukua",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Gain 2 stacks of MIASMA for 10 seconds after every 4/3/2 seconds while far away from the opponent.",
@@ -1385,6 +1558,7 @@
   },
   "Nightshade": {
     "name": "Nightshade",
+    "character": "Eliza",
     "tier": "Silver",
     "element": "Water",
     "sa1": "Gain DEADEYE for 4/5/6 seconds whenever the opponent suffers a DEBUFF.",
@@ -1393,6 +1567,7 @@
   },
   "Ninja Star": {
     "name": "Ninja Star",
+    "character": "Annie",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "50/75/100% chance when hitting an attacking opponent to remove 1 opponent BUFF and inflict GUARD BREAK for 10 seconds.",
@@ -1401,6 +1576,7 @@
   },
   "No Egrets": {
     "name": "No Egrets",
+    "character": "Parasoul",
     "tier": "Silver",
     "element": "Water",
     "sa1": "On CRITICAL HIT, DISABLE the opponent’s BLOCKBUSTERS, SPECIAL MOVES, and TAG-INS for 4/5/6 seconds.",
@@ -1409,6 +1585,7 @@
   },
   "Noble Mogul": {
     "name": "Noble Mogul",
+    "character": "Eliza",
     "tier": "Gold",
     "element": "Light",
     "sa1": "While Eliza is alive, all teammates gain BARRIER every 30/25/20 seconds.",
@@ -1417,6 +1594,7 @@
   },
   "Number Cruncher": {
     "name": "Number Cruncher",
+    "character": "Robo-Fortune",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "25/35/50% chance to gain 1 stack of BLESSING for 20 seconds every 5 COMBO HITS.",
@@ -1425,6 +1603,7 @@
   },
   "Number One": {
     "name": "Number One",
+    "character": "Beowulf",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Gain DEADEYE and HASTE for 10/12/15 seconds each when activating HYPE MODE.",
@@ -1433,6 +1612,7 @@
   },
   "Nunsense": {
     "name": "Nunsense",
+    "character": "Double",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "When at an ELEMENTAL ADVANTAGE, gain 1/2/3 random BUFFS for 10 seconds any time the opponent gains a BUFF.",
@@ -1441,6 +1621,7 @@
   },
   "Nyanotech": {
     "name": "Nyanotech",
+    "character": "Robo-Fortune",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Gain UNFLINCHING and BARRIER for 8/10/12 seconds each when launching a HEADRONE",
@@ -1449,6 +1630,7 @@
   },
   "Octoplasm": {
     "name": "Octoplasm",
+    "character": "Marie",
     "tier": "Gold",
     "element": "Water",
     "sa1": "When TAGGING to or from Marie, the incoming Fighter gains 2 stacks of REGEN for 15 seconds and 10/12/15% BLOCKBUSTER METER.",
@@ -1457,6 +1639,7 @@
   },
   "Ogre Achiever": {
     "name": "Ogre Achiever",
+    "character": "Beowulf",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "When the opponent attempts to gain a BUFF, Beowulf has a 25/35/50% chance to prevent it and gain IMMUNITY for 10/12/15 seconds.",
@@ -1465,6 +1648,7 @@
   },
   "Oh Mai": {
     "name": "Oh Mai",
+    "character": "Valentine",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Gain 2 stacks of ENRAGE for 15/17/20 seconds and 5 stacks of PRECISION after defeating an opponent.",
@@ -1473,6 +1657,7 @@
   },
   "One Up": {
     "name": "One Up",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "For every 8 COMBO HITS landed, gain DEADEYE for 5/7/10 seconds and BARRIER.",
@@ -1481,6 +1666,7 @@
   },
   "Overclocked": {
     "name": "Overclocked",
+    "character": "Robo-Fortune",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "Gain PRECISION and BARRIER after every 5/4/3 seconds not suffering a hit (includes blocked hits).",
@@ -1489,6 +1675,7 @@
   },
   "Palace Plunderer": {
     "name": "Palace Plunderer",
+    "character": "Umbrella",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Gain EVASION for 7 seconds and grant all teammates 1/2/3% HEALTH every 5 seconds while not suffering a HIT (includes blocked hits).",
@@ -1497,6 +1684,7 @@
   },
   "Parasite Weave": {
     "name": "Parasite Weave",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "35% chance on CRITICAL HIT to gain MIASMA for 4/5/6 seconds. Also, while the opponent is not suffering from INVERSE POLARITY, inflict STUN for 3/3.5/4 seconds.",
@@ -1505,6 +1693,7 @@
   },
   "Patched Up": {
     "name": "Patched Up",
+    "character": "Ms. Fortune",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "8/12/15% chance when either Fighter is HIT (includes blocked hits) to transfer 1 opponent BUFF to Ms. Fortune.",
@@ -1513,6 +1702,7 @@
   },
   "Pea Shooter": {
     "name": "Pea Shooter",
+    "character": "Peacock",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Projectiles deal 15/25/35% bonus damage for all teammates.",
@@ -1521,6 +1711,7 @@
   },
   "Persona Assistant": {
     "name": "Persona Assistant",
+    "character": "Robo-Fortune",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Every 20 seconds while Robo-Fortune is alive, she gains 3/4/5 stacks of PRECISION and 3/4/5 stacks of ENRAGE for 5 seconds. Her teammates also gain 1 stack of BLESSING and BARRIER.",
@@ -1529,6 +1720,7 @@
   },
   "Phantom Threads": {
     "name": "Phantom Threads",
+    "character": "Fukua",
     "tier": "Gold",
     "element": "Light",
     "sa1": "When the opponent is KNOCKED DOWN, Fukua gains BLESSING for 10/15/20 seconds and removes 1 opponents BUFF.",
@@ -1537,6 +1729,7 @@
   },
   "Phantom Wrangler": {
     "name": "Phantom Wrangler",
+    "character": "Marie",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "HITS from SKELETAL SUMMONS deal 30% BONUS DAMAGE and have a 50% chance to inflict SLIME for 10/12/15 seconds.",
@@ -1545,6 +1738,7 @@
   },
   "Pickle Baller": {
     "name": "Pickle Baller",
+    "character": "Beowulf",
     "tier": "Gold",
     "element": "Air",
     "sa1": "While Beowulf is alive, the active fighter gains EVASION for 7 seconds and 3/4/5% BLOCKBUSTER METER when the opponent is KNOCKED DOWN.",
@@ -1553,6 +1747,7 @@
   },
   "Plot Twisted": {
     "name": "Plot Twisted",
+    "character": "Squigly",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "Reflect 10% of all damage taken per DEBUFF on Squigly (max: 40%). Also, once per match, RESURRECT with 25/35/50% HEALTH and 4 random DEBUFFS for 15 seconds each.",
@@ -1561,6 +1756,7 @@
   },
   "Poltergust": {
     "name": "Poltergust",
+    "character": "Squigly",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Using a BLOCKBUSTER inflicts SLIME on the opponent for 10 seconds. BLOCKBUSTERS deal 50/75/100% bonus damage to opponents suffering SLIME.",
@@ -1569,6 +1765,7 @@
   },
   "Primal Prodigy": {
     "name": "Primal Prodigy",
+    "character": "Peacock",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Gain 1 random BUFF for 10 seconds and 5% BLOCKBUSTER METER every 6/5/4 seconds while not suffering a HIT (includes blocked hits).",
@@ -1577,6 +1774,7 @@
   },
   "Primed": {
     "name": "Primed",
+    "character": "Parasoul",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Gain ENRAGE for 5/7/10 seconds when spawning a TEAR.",
@@ -1585,6 +1783,7 @@
   },
   "Princess Pride": {
     "name": "Princess Pride",
+    "character": "Parasoul",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Gain REGEN for 4/5/6 seconds and BARRIER when spawning a TEAR.",
@@ -1593,6 +1792,7 @@
   },
   "Prism Plumage": {
     "name": "Prism Plumage",
+    "character": "Peacock",
     "tier": "Silver",
     "element": "Neutral",
     "sa1": "While Peacock is alive, all teammates TAG IN with 2 BUFFS based on their ELEMENTS for 5/7/10 seconds (except after teammate death).",
@@ -1601,6 +1801,7 @@
   },
   "Private Dick": {
     "name": "Private Dick",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "5% chance on HIT to STUN opponent for 2/2.5/3 seconds. Also, BLOCKBUSTERS deal 50% BONUS DAMAGE against opponents suffering from STUN.",
@@ -1609,6 +1810,7 @@
   },
   "Proton Pulse": {
     "name": "Proton Pulse",
+    "character": "Robo-Fortune",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "20% chance on HIT to inflict POWER SURGE for 10/15/20 seconds on both fighters while near the opponent. Non-BLOCKBUSTER HITS grant 1/2/3% BLOCKBUSTER METER.",
@@ -1617,6 +1819,7 @@
   },
   "Prototype": {
     "name": "Prototype",
+    "character": "Robo-Fortune",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "BLOCKBUSTER HITS have a 15/20/25% chance to inflict POWER SURGE for 10 seconds.",
@@ -1625,6 +1828,7 @@
   },
   "Psycommander": {
     "name": "Psycommander",
+    "character": "Black Dahlia",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "When FIRING your last remaining SHOT, gain FINAL STAND and 3/4/5 stacks of ENRAGE for 10 seconds each.",
@@ -1633,6 +1837,7 @@
   },
   "Psykid": {
     "name": "Psykid",
+    "character": "Umbrella",
     "tier": "Gold",
     "element": "Light",
     "sa1": "When HITTING an attacking opponent, gain DEADEYE and inflict INVERSE POLARITY for 10/12/15 seconds each.",
@@ -1641,6 +1846,7 @@
   },
   "Puddle Pirate": {
     "name": "Puddle Pirate",
+    "character": "Umbrella",
     "tier": "Silver",
     "element": "Water",
     "sa1": "PUDDLE HITS remove 1/2/3 opponent BUFFS and inflict IMMOBILIZE for 10 seconds.",
@@ -1649,6 +1855,7 @@
   },
   "Purrfect Dark": {
     "name": "Purrfect Dark",
+    "character": "Ms. Fortune",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "After facing Ms. Fortune for 15/12/10 seconds, the opponent suffers DEATH MARK and CURSE.",
@@ -1657,6 +1864,7 @@
   },
   "Purrminator": {
     "name": "Purrminator",
+    "character": "Robo-Fortune",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "10/12/15% chance to gain 1 stack of PRECISION and inflict DEATH MARK for 10 seconds when the opponent BLOCKS a HIT.",
@@ -1665,6 +1873,7 @@
   },
   "Pyro-Technique": {
     "name": "Pyro-Technique",
+    "character": "Valentine",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "BLOCKBUSTER and SPECIAL MOVE HITS have a 20% chance to inflict WITHER and BLEED for 5/7/10 seconds.",
@@ -1673,6 +1882,7 @@
   },
   "Rage Appropriate": {
     "name": "Rage Appropriate",
+    "character": "Painwheel",
     "tier": "Silver",
     "element": "Water",
     "sa1": "Gain permanent ENRAGE when suffering a HIT (including blocked hits) that deals more than 10/7/5% MAX HEALTH.",
@@ -1681,6 +1891,7 @@
   },
   "Rain Shadow": {
     "name": "Rain Shadow",
+    "character": "Fukua",
     "tier": "Silver",
     "element": "Water",
     "sa1": "15% chance when landing a HIT (including BLOCKED HITS) to inflict ARMOR BREAK and POWER SURGE for 10/12/15 seconds each.",
@@ -1689,6 +1900,7 @@
   },
   "Rainbow Blight": {
     "name": "Rainbow Blight",
+    "character": "Double",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "When TRANSMUTING, gain BUFFS based on the resulting ELEMENT for 7/8/10 seconds.",
@@ -1697,6 +1909,7 @@
   },
   "Raining Champ": {
     "name": "Raining Champ",
+    "character": "Umbrella",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "While Umbrella is alive, the active Fighter gains 1 stack of BLESSING and UNFLINCHING for 15 seconds every 20/15/10 COMBO HITS.",
@@ -1705,6 +1918,7 @@
   },
   "Raw Nerv": {
     "name": "Raw Nerv",
+    "character": "Painwheel",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Gain FINAL STAND for 15 seconds and inflict permanent DEATHMARK when your HEALTH drops below 25/35/50% HEALTH.",
@@ -1713,6 +1927,7 @@
   },
   "Red Rider": {
     "name": "Red Rider",
+    "character": "Black Dahlia",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "STANDARD SHOTS inflict WITHER and HEAL BLOCK for 10/12/15 seconds each while near an opponent.",
@@ -1721,6 +1936,7 @@
   },
   "Red Velvet": {
     "name": "Red Velvet",
+    "character": "Eliza",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "Inflict HEX for 10/12/15 seconds when entering Sekhmet Mode, disabling opponent SIGNATURE ABILITIES for the duration of the effect.",
@@ -1729,6 +1945,7 @@
   },
   "Regally Blonde": {
     "name": "Regally Blonde",
+    "character": "Parasoul",
     "tier": "Gold",
     "element": "Water",
     "sa1": "50% chance to inflict CRIPPLE and reduce the opponent's BLOCKBUSTER METER by 25/35/50% when either Fighter uses a BLOCKBUSTER.",
@@ -1737,6 +1954,7 @@
   },
   "Reimaged": {
     "name": "Reimaged",
+    "character": "Robo-Fortune",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "The 1st COMBO HIT landed on Robo-Fortune converts 1 opponent BUFF into a random DEBUFF and grants ARMOR for 5/7/10 seconds each.",
@@ -1745,6 +1963,7 @@
   },
   "Rerun": {
     "name": "Rerun",
+    "character": "Peacock",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "All teammates TAG IN with ENRAGE for 10/12/15 seconds.",
@@ -1753,6 +1972,7 @@
   },
   "Resonant Evil": {
     "name": "Resonant Evil",
+    "character": "Big Band",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "Getting HIT has a 10% chance to grant ARMOR for 5/7/10 seconds.",
@@ -1761,6 +1981,7 @@
   },
   "Rhythm Rider": {
     "name": "Rhythm Rider",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Air",
     "sa1": "While Big Band is alive, all teammates gain HASTE and REGEN for 6/8/10 seconds after every 15 seconds.",
@@ -1769,6 +1990,7 @@
   },
   "Risky Ginger": {
     "name": "Risky Ginger",
+    "character": "Parasoul",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "Inflict DEATH MARK for 10/12/15 seconds and gain ENRAGE when HITTING an attacking opponent. A stack of ENRAGE is removed after each BLOCKED HIT.",
@@ -1777,6 +1999,7 @@
   },
   "Robocopy": {
     "name": "Robocopy",
+    "character": "Big Band",
     "tier": "Silver",
     "element": "Water",
     "sa1": "Once per match when suffering a HIT that would be fatal, gain 1/2/3 stacks of ARMOR and BARRIER. ARMOR lasts for 10 seconds.",
@@ -1785,6 +2008,7 @@
   },
   "Rock Star": {
     "name": "Rock Star",
+    "character": "Filia",
     "tier": "Silver",
     "element": "Light",
     "sa1": "While Filia is alive, teammates TAG IN with 1/2/3 stacks of BARRIER for 10 seconds.",
@@ -1793,6 +2017,7 @@
   },
   "Rogue Agent": {
     "name": "Rogue Agent",
+    "character": "Ms. Fortune",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Each HEAD HIT has a 25% chance to TRANSFER 1 opponent BUFF and convert it into 1/2/3 stack(s) of PRECISION.",
@@ -1801,6 +2026,7 @@
   },
   "Rose-Tinted": {
     "name": "Rose-Tinted",
+    "character": "Umbrella",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "While Umbrella is alive, all teammates gain 1 stack each of BARRIER and THORNS for 5/7/10 seconds for every 25% HEALTH lost.",
@@ -1809,6 +2035,7 @@
   },
   "Rough Copy": {
     "name": "Rough Copy",
+    "character": "Fukua",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "Any teammate gains permanent HASTE after facing an opponent with the same ELEMENT for 10/7/5 seconds.",
@@ -1817,6 +2044,7 @@
   },
   "Rusty": {
     "name": "Rusty",
+    "character": "Painwheel",
     "tier": "Bronze",
     "element": "Light",
     "sa1": "5/7/10% chance on HIT to inflict BLEED for 3 seconds.",
@@ -1825,6 +2053,7 @@
   },
   "Salty": {
     "name": "Salty",
+    "character": "Umbrella",
     "tier": "Bronze",
     "element": "Light",
     "sa1": "Once per match, gain BLESSING and 3 stacks of ENRAGE for 5/7/10 seconds when falling below 35% HEALTH.",
@@ -1833,6 +2062,7 @@
   },
   "Sawed Apart": {
     "name": "Sawed Apart",
+    "character": "Painwheel",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "SPECIAL MOVE and BLOCKBUSTER HITS have a 25/30/35% chance to inflict a random DEBUFF for 10 seconds. These debuffs are removed if Painwheel is knocked down.",
@@ -1841,6 +2071,7 @@
   },
   "Scale Tipper": {
     "name": "Scale Tipper",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "While Filia has more BUFFS or fewer DEBUFFS than the opponent, transfer 1 opponent BUFF every 2 seconds and inflict 1 random DEBUFF every second for 7 seconds.",
@@ -1849,6 +2080,7 @@
   },
   "Scare Giver": {
     "name": "Scare Giver",
+    "character": "Cerebella",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Inflict WITHER and grant HASTE for 6/7/8 seconds each when the opponent is KNOCKED DOWN.",
@@ -1857,6 +2089,7 @@
   },
   "Scared Stiff": {
     "name": "Scared Stiff",
+    "character": "Squigly",
     "tier": "Bronze",
     "element": "Light",
     "sa1": "Gain UNFLINCHING after facing the same opponent for 25/20/15 seconds. UNFLINCHING is removed when the opponent TAGS OUT or dies.",
@@ -1865,6 +2098,7 @@
   },
   "Scarlet Viper": {
     "name": "Scarlet Viper",
+    "character": "Eliza",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Inflict BLEED for 10/12/15 seconds on both Fighters when entering Sekhmet Mode.",
@@ -1873,6 +2107,7 @@
   },
   "Scrub": {
     "name": "Scrub",
+    "character": "Valentine",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "All teammates instantly recover 5/10/15% HEALTH when Valentine TAGS OUT.",
@@ -1881,6 +2116,7 @@
   },
   "Sea Witch": {
     "name": "Sea Witch",
+    "character": "Double",
     "tier": "Gold",
     "element": "Water",
     "sa1": "Using a BLOCKBUSTER inflicts CURSE and GUARD BREAK for 6/8/10 seconds each.",
@@ -1889,6 +2125,7 @@
   },
   "Seraph Soldier": {
     "name": "Seraph Soldier",
+    "character": "Valentine",
     "tier": "Diamond",
     "element": "Fire",
     "sa1": "While Valentine is alive, the active Fighter gains ENRAGE for 10 seconds when dealing at least 10% of the opponent's MAX HEALTH from a single HIT. Also, your active Fire Element Fighter permanently increases DAMAGE by 0.25/0.35/0.5% every second.",
@@ -1897,6 +2134,7 @@
   },
   "Serpent Sin": {
     "name": "Serpent Sin",
+    "character": "Double",
     "tier": "Silver",
     "element": "Air",
     "sa1": "SPECIAL MOVE HITS heal for 5/7/10% of Double’s MAX HEALTH.",
@@ -1905,6 +2143,7 @@
   },
   "Shadow Ops": {
     "name": "Shadow Ops",
+    "character": "Parasoul",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "Opponents suffer CURSE after 3/2/1 seconds while near a TEAR.",
@@ -1913,6 +2152,7 @@
   },
   "Shadow Puppet": {
     "name": "Shadow Puppet",
+    "character": "Fukua",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "3/4/5% chance on HIT to reset the timers of all Fukua's BUFFS and all opponent DEBUFFS.",
@@ -1921,6 +2161,7 @@
   },
   "Shear Force": {
     "name": "Shear Force",
+    "character": "Filia",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "When either Fighter suffers a DEBUFF, gain 10% BLOCKBUSTER METER and gain BLESSING and AUTO-BLOCK for 10/12/15 seconds each.",
@@ -1929,6 +2170,7 @@
   },
   "Sheltered": {
     "name": "Sheltered",
+    "character": "Parasoul",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "Increases CRIT RATE by 10/15/20% for all teammates.",
@@ -1937,6 +2179,7 @@
   },
   "Silent Kill": {
     "name": "Silent Kill",
+    "character": "Valentine",
     "tier": "Gold",
     "element": "Water",
     "sa1": "15/20/25% chance on HIT to REMOVE all DEBUFFS from self.",
@@ -1945,6 +2188,7 @@
   },
   "Sketchy": {
     "name": "Sketchy",
+    "character": "Peacock",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "While Peacock is alive, all teammates TAG IN with HASTE and IMMUNITY for 5/7/10 seconds (except after teammate death).",
@@ -1953,6 +2197,7 @@
   },
   "Snake Bite": {
     "name": "Snake Bite",
+    "character": "Beowulf",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Gain 1/2/3 stacks of EVASION and 25% BLOCKBUSTER METER when activating HYPE MODE.",
@@ -1961,6 +2206,7 @@
   },
   "Snake Charmer": {
     "name": "Snake Charmer",
+    "character": "Marie",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Using a SPECIAL MOVE grants 10/15/20% MORTUARY CHARGE and inflicts IMMOBILIZE and DISABLE BLOCKBUSTERS for 10 seconds each. When becoming fully CHARGED, also gain ENRAGE.",
@@ -1969,6 +2215,7 @@
   },
   "Solar Flair": {
     "name": "Solar Flair",
+    "character": "Annie",
     "tier": "Bronze",
     "element": "Fire",
     "sa1": "STAR POWER meter accumulates 25/35/50% faster.",
@@ -1977,6 +2224,7 @@
   },
   "Solid Gold": {
     "name": "Solid Gold",
+    "character": "Peacock",
     "tier": "Gold",
     "element": "Neutral",
     "sa1": "Every 15 seconds, permanently increase Attack by 25/30/35% and Crit Rate by 10/15/20% (even while benched).",
@@ -1985,6 +2233,7 @@
   },
   "Soul Crusher": {
     "name": "Soul Crusher",
+    "character": "Black Dahlia",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Gain DEADEYE and inflict GUARD BREAK for 5/7/10 seconds each whenever the opponent gains a BUFF.",
@@ -1993,6 +2242,7 @@
   },
   "Soulbound": {
     "name": "Soulbound",
+    "character": "Annie",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "While not in STAR POWER and not benefiting from EVASION, well-timed BLOCKS grant 30/40/50% STAR POWER meter, 1/2/3 stack(s) of BARRIER, and allows Annie to EVADE all attacks for 3 seconds.",
@@ -2001,6 +2251,7 @@
   },
   "Souls Sister": {
     "name": "Souls Sister",
+    "character": "Fukua",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Gain 1/2/3% BLOCKBUSTER METER per second while far away from the opponent.",
@@ -2009,6 +2260,7 @@
   },
   "Space Case": {
     "name": "Space Case",
+    "character": "Umbrella",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "While RAVENOUS, inflict DOOM for 15 seconds when an opponent's HEALTH drops below 25/35/50%. DOOM is removed if Umbrella TAGS OUT or is defeated.",
@@ -2017,6 +2269,7 @@
   },
   "Spell-Bent": {
     "name": "Spell-Bent",
+    "character": "Marie",
     "tier": "Gold",
     "element": "Light",
     "sa1": "SKELETAL SUMMON MOVES grant either REGEN for 10/12/15 seconds or BARRIER.",
@@ -2025,6 +2278,7 @@
   },
   "Splitting Image": {
     "name": "Splitting Image",
+    "character": "Filia",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "While HEALTH% is lower than the opponent's, gain permanent IMMUNITY and recover 1/1.5/2% HEALTH per second.",
@@ -2033,6 +2287,7 @@
   },
   "Stage Fright": {
     "name": "Stage Fright",
+    "character": "Squigly",
     "tier": "Bronze",
     "element": "Dark",
     "sa1": "The opponent suffers CURSE and HEX for 10/12/15 seconds when dropping below 25% HEALTH.",
@@ -2041,6 +2296,7 @@
   },
   "Stand Out": {
     "name": "Stand Out",
+    "character": "Eliza",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "50/60/75% of all damage inflicted is regained as HEALTH as long as Eliza's health percentage is lower than her opponent's (also applies on Blocked hits).",
@@ -2049,6 +2305,7 @@
   },
   "Star Child": {
     "name": "Star Child",
+    "character": "Annie",
     "tier": "Bronze",
     "element": "Air",
     "sa1": "Each HIT blocked has a 10% chance to inflict GUARD BREAK and ARMOR BREAK for 10/12/15 seconds.",
@@ -2057,6 +2314,7 @@
   },
   "Star Shine": {
     "name": "Star Shine",
+    "character": "Annie",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "Gain a random BUFF for 8/10/12 seconds every 4 seconds. Also, gain 8/9/10% STAR POWER for each BUFF gained by either Fighter while not in STAR POWER MODE.",
@@ -2065,6 +2323,7 @@
   },
   "Star-Crossed": {
     "name": "Star-Crossed",
+    "character": "Parasoul",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Well-timed BLOCKS STUN the opponent for 3/4/5 seconds and inflict GUARD BREAK. GUARD BREAK is removed when Parasoul TAGS OUT.",
@@ -2073,6 +2332,7 @@
   },
   "Star-Spangled": {
     "name": "Star-Spangled",
+    "character": "Cerebella",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Gain BARRIER and inflict GUARD BREAK for 10/12/15 seconds each when breaking or landing a THROW.",
@@ -2081,6 +2341,7 @@
   },
   "Starlight Rose": {
     "name": "Starlight Rose",
+    "character": "Annie",
     "tier": "Diamond",
     "element": "Neutral",
     "sa1": "While Annie is alive, all teammates' well-timed BLOCKS remove up to 2 DEBUFF(S) and grant BARRIER for 10/12/15 seconds.",
@@ -2089,6 +2350,7 @@
   },
   "Stellar Huntress": {
     "name": "Stellar Huntress",
+    "character": "Black Dahlia",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "When RELOADING with 3 SHOTS or less remaining, gain 3 LIGHTNING SHOTS. LIGHTNING SHOTS DISABLE TAG INS and have a 10% chance to DISABLE BLOCKBUSTERS for 10/12/15 seconds each.",
@@ -2097,6 +2359,7 @@
   },
   "Stone Sentinel": {
     "name": "Stone Sentinel",
+    "character": "Cerebella",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "While on Cerebella’s side of the stage, gain 40/50/60% damage reduction.",
@@ -2105,6 +2368,7 @@
   },
   "Summer Salt": {
     "name": "Summer Salt",
+    "character": "Parasoul",
     "tier": "Diamond",
     "element": "Light",
     "sa1": "Opponents lose 1 BUFF and 1/2/3% HEALTH every 2 seconds while near a TEAR.",
@@ -2113,6 +2377,7 @@
   },
   "Sundae School": {
     "name": "Sundae School",
+    "character": "Double",
     "tier": "Bronze",
     "element": "Water",
     "sa1": "When any teammate inflicts a DEBUFF (excluding STUN), increase its duration by 1/2/3 second(s).",
@@ -2121,6 +2386,7 @@
   },
   "Superluminal": {
     "name": "Superluminal",
+    "character": "Valentine",
     "tier": "Gold",
     "element": "Air",
     "sa1": "While Valentine is alive, the active Fighter’s SPECIAL MOVE COOLDOWNS recharge 70/85/100% faster while dashing or back-dashing. Successful DASH ATTACKS instantly refresh TAG INS.",
@@ -2129,6 +2395,7 @@
   },
   "Surgeon General": {
     "name": "Surgeon General",
+    "character": "Valentine",
     "tier": "Gold",
     "element": "Air",
     "sa1": "While Valentine is alive, she gains a permanent ENRAGE every 60/45/30 seconds.",
@@ -2137,6 +2404,7 @@
   },
   "Temple Tyrant": {
     "name": "Temple Tyrant",
+    "character": "Double",
     "tier": "Silver",
     "element": "Water",
     "sa1": "Double's THROWS grant ARMOR for 20 seconds and remove 1/2/3 DEBUFFS from herself.",
@@ -2145,6 +2413,7 @@
   },
   "Terror Byte": {
     "name": "Terror Byte",
+    "character": "Robo-Fortune",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "HEADRONE HITS (includes blocked hits) inflict INVERSE POLARITY and DISABLE opponent SPECIAL MOVES for 10/12/15 seconds each.",
@@ -2153,6 +2422,7 @@
   },
   "That's All Folks!": {
     "name": "That's All Folks!",
+    "character": "Peacock",
     "tier": "Gold",
     "element": "Light",
     "sa1": "15% chance when HIT to inflict ARMOR BREAK for 10 seconds and grant 3/4/5 stacks of PRECISION and 1 stack of EVASION.",
@@ -2161,6 +2431,7 @@
   },
   "Thrill Shrieker": {
     "name": "Thrill Shrieker",
+    "character": "Squigly",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "50/75/100% chance to gain ENRAGE when gaining a DRAGON CHARGE. Each ENRAGE is removed when a charge is spent.",
@@ -2169,6 +2440,7 @@
   },
   "Tidal Traveler": {
     "name": "Tidal Traveler",
+    "character": "Umbrella",
     "tier": "Gold",
     "element": "Water",
     "sa1": "Puddle HITS grant IMMUNITY for 10/12/15 seconds.",
@@ -2177,6 +2449,7 @@
   },
   "Time Thief": {
     "name": "Time Thief",
+    "character": "Ms. Fortune",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "When landing a HIT while throwing her head, Ms. Fortune gains HASTE for 10 seconds and deals damage equal to 50/75/100% of her ATTACK.",
@@ -2185,6 +2458,7 @@
   },
   "Timeless Hero": {
     "name": "Timeless Hero",
+    "character": "Annie",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Gain ENRAGE, AUTO-BLOCK or REGEN every 30/25/20 COMBO HITS. These BUFFs are removed when suffering a HIT.",
@@ -2193,6 +2467,7 @@
   },
   "Toad Warrior": {
     "name": "Toad Warrior",
+    "character": "Cerebella",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Gain 1/2/3% BLOCKBUSTER METER per second while near an opponent.",
@@ -2201,6 +2476,7 @@
   },
   "Tomb & Gloom": {
     "name": "Tomb & Gloom",
+    "character": "Eliza",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "Inflict WITHER, CURSE, QUIETUS or HEX for 5/7/10 seconds when using a BLOCKBUSTER or SPECIAL MOVE.",
@@ -2209,6 +2485,7 @@
   },
   "Treble Maker": {
     "name": "Treble Maker",
+    "character": "Big Band",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Heal for 5/7/10% of your MAX HEALTH after every 10th COMBO HIT suffered.",
@@ -2217,6 +2494,7 @@
   },
   "Trigger Happy": {
     "name": "Trigger Happy",
+    "character": "Black Dahlia",
     "tier": "Bronze",
     "element": "Dark",
     "sa1": "50/75/100% of the damage dealt by STANDARD SHOTS is also suffered by the opponent's teammates.",
@@ -2225,6 +2503,7 @@
   },
   "Triple Threat": {
     "name": "Triple Threat",
+    "character": "Annie",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Gain IMMUNITY, UNFLINCHING or INVINCIBLE for 9/12/15 seconds when activating STAR POWER. The BUFF is removed when exiting STAR POWER.",
@@ -2233,6 +2512,7 @@
   },
   "True Self": {
     "name": "True Self",
+    "character": "Fukua",
     "tier": "Diamond",
     "element": "Water",
     "sa1": "Fukua's successful KICK attacks grant a stack of SHADOW KICK (max. 10). Regain 1/1.5/2% MAX HEALTH when gaining a SHADOW KICK stack. The next BLOCKBUSTER used after reaching 10 SHADOW KICK stacks will summon GRENDEL'S HAND to HIT the opponent.",
@@ -2241,6 +2521,7 @@
   },
   "Très Chic": {
     "name": "Très Chic",
+    "character": "Valentine",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "While on her own side of the stage, Valentine gains 1 stack of BARRIER, THORNS or ARMOR every 5/4/3 seconds. These BUFFS are removed when KNOCKED DOWN.",
@@ -2249,6 +2530,7 @@
   },
   "Twisted Mettle": {
     "name": "Twisted Mettle",
+    "character": "Painwheel",
     "tier": "Bronze",
     "element": "Water",
     "sa1": "When suffering a CRITICAL HIT, inflict BLEED for 10/12/15 seconds.",
@@ -2257,6 +2539,7 @@
   },
   "Tyrannical": {
     "name": "Tyrannical",
+    "character": "Painwheel",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "CRITICAL HITS have a 35% chance to inflict BLEED or grant MIASMA for 6 seconds each.",
@@ -2265,6 +2548,7 @@
   },
   "Ultraviolent": {
     "name": "Ultraviolent",
+    "character": "Peacock",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Projectile HITS have a 25/35/50% chance to grant DEADEYE and BARRIER for 15 seconds each.",
@@ -2273,6 +2557,7 @@
   },
   "Unbearable": {
     "name": "Unbearable",
+    "character": "Big Band",
     "tier": "Gold",
     "element": "Water",
     "sa1": "While Big Band has living teammates, the active Fighter gains a 35% chance when suffering a DEBUFF to convert it to BARRIER for 10/12/15 seconds and heal all teammates for 5% MAX HEALTH.",
@@ -2281,6 +2566,7 @@
   },
   "Underdog": {
     "name": "Underdog",
+    "character": "Beowulf",
     "tier": "Bronze",
     "element": "Dark",
     "sa1": "Gain ARMOR and HASTE for 10/12/15 seconds when suffering a DEBUFF.",
@@ -2289,6 +2575,7 @@
   },
   "Understudy": {
     "name": "Understudy",
+    "character": "Cerebella",
     "tier": "Bronze",
     "element": "Water",
     "sa1": "All teammates deal 15/30/50% increased throw damage.",
@@ -2297,6 +2584,7 @@
   },
   "Undying Warrior": {
     "name": "Undying Warrior",
+    "character": "Marie",
     "tier": "Unknown",
     "element": "Light",
     "sa1": "Opponent BLOCKBUSTERS deal 40/80/120/160/200% bonus damage to Marie.",
@@ -2305,6 +2593,7 @@
   },
   "Unfazed": {
     "name": "Unfazed",
+    "character": "Black Dahlia",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "Gain UNFLINCHING and 1/2/3 stack(s) of THORNS for 10 seconds each when either Fighter BOUNCES off a wall.",
@@ -2313,6 +2602,7 @@
   },
   "Unholy Host": {
     "name": "Unholy Host",
+    "character": "Black Dahlia",
     "tier": "Diamond",
     "element": "Dark",
     "sa1": "When Black Dahlia or her opponent TAGS IN, she removes all enemy BUFFS and inflicts CURSE for 10/15/20 seconds.",
@@ -2321,6 +2611,7 @@
   },
   "Untouchable": {
     "name": "Untouchable",
+    "character": "Peacock",
     "tier": "Gold",
     "element": "Water",
     "sa1": "15% chance when either Fighter is hit to gain UNFLINCHING for 4/5/6 seconds and INVINCIBLE for 2 seconds.",
@@ -2329,6 +2620,7 @@
   },
   "Vaporwave Vixen": {
     "name": "Vaporwave Vixen",
+    "character": "Fukua",
     "tier": "Gold",
     "element": "Air",
     "sa1": "After IDLING or WALKING for 3/2/1 seconds(s) without suffering a hit, gain UNFLINCHING.",
@@ -2337,6 +2629,7 @@
   },
   "Vector Protector": {
     "name": "Vector Protector",
+    "character": "Robo-Fortune",
     "tier": "Silver",
     "element": "Air",
     "sa1": "Gain ARMOR for 8/10/12 seconds and refresh the timer of all ARMORS when either Fighter uses a SPECIAL MOVE.",
@@ -2345,6 +2638,7 @@
   },
   "Vintage Virtuoso": {
     "name": "Vintage Virtuoso",
+    "character": "Big Band",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Gain 1 stack of PRECISION every 15/10/5 combo hits.",
@@ -2353,6 +2647,7 @@
   },
   "Wave Warrior": {
     "name": "Wave Warrior",
+    "character": "Annie",
     "tier": "Gold",
     "element": "Water",
     "sa1": "Every 15th COMBO HIT, transfer up to 2 opponent BUFFS to self and reduce opponent BLOCKBUSTER METER by 15/20/25%.",
@@ -2361,6 +2656,7 @@
   },
   "Web Crawler": {
     "name": "Web Crawler",
+    "character": "Painwheel",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "After Painwheel has been in the air for 1 second, gain DEADEYE and inflict GUARD BREAK for 10/11/12 seconds each.",
@@ -2369,6 +2665,7 @@
   },
   "Weekend Warrior": {
     "name": "Weekend Warrior",
+    "character": "Beowulf",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Achieve max HYPE and gain HASTE for 10 seconds when Beowulf first drops below 25/35/50% HEALTH.",
@@ -2377,6 +2674,7 @@
   },
   "Wetwork": {
     "name": "Wetwork",
+    "character": "Valentine",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Gain EVASION every 2/1.5/1 second(s) while charging a CHARGE ATTACK.",
@@ -2385,6 +2683,7 @@
   },
   "Wild Child": {
     "name": "Wild Child",
+    "character": "Umbrella",
     "tier": "Silver",
     "element": "Dark",
     "sa1": "While not OVERSTUFFED, Umbrella's THROW HITS have a 20% chance to DRAIN 10/12/15% of the opponent's BLOCKBUSTER METER.",
@@ -2393,6 +2692,7 @@
   },
   "Wildcard": {
     "name": "Wildcard",
+    "character": "Peacock",
     "tier": "Silver",
     "element": "Fire",
     "sa1": "Inflict a random DEBUFF for 4/6/8 seconds when using a SPECIAL MOVE. Also once per match when suffering a HIT that would be fatal, regain 10% MAX HEALTH per DEBUFF on the opponent.",
@@ -2401,6 +2701,7 @@
   },
   "Wind Stalker": {
     "name": "Wind Stalker",
+    "character": "Ms. Fortune",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "DRAIN 3/4/5% BLOCKBUSTER METER per second while the opponent is near Ms. Fortune's head.",
@@ -2409,6 +2710,7 @@
   },
   "Windswept": {
     "name": "Windswept",
+    "character": "Filia",
     "tier": "Gold",
     "element": "Air",
     "sa1": "Your 1st COMBO HIT against an attacking opponent grants ENRAGE for 5/7/10 seconds and EVASION.",
@@ -2417,6 +2719,7 @@
   },
   "Wrestler X": {
     "name": "Wrestler X",
+    "character": "Beowulf",
     "tier": "Silver",
     "element": "Light",
     "sa1": "Beowulf starts the match with 1/2/3 stacks of permanent REGEN.",
@@ -2425,6 +2728,7 @@
   },
   "Wulfsbane": {
     "name": "Wulfsbane",
+    "character": "Beowulf",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "THROWS have a 50% chance to inflict CRIPPLE and HEAL BLOCK for 5/7/10 seconds.",
@@ -2433,6 +2737,7 @@
   },
   "Wunderkind": {
     "name": "Wunderkind",
+    "character": "Umbrella",
     "tier": "Gold",
     "element": "Fire",
     "sa1": "50% chance on BLOCKBUSTER HIT to inflict POWER SURGE and gain BARRIER for 10/12/15 seconds each (also applies on blocked hits).",
@@ -2441,6 +2746,7 @@
   },
   "X-Bot": {
     "name": "X-Bot",
+    "character": "Robo-Fortune",
     "tier": "Diamond",
     "element": "Air",
     "sa1": "Gain PRECISION and inflict DEATH MARK after 3/2/1 second(s) while far away from the opponent.",
@@ -2449,6 +2755,7 @@
   },
   "Xenomorph": {
     "name": "Xenomorph",
+    "character": "Double",
     "tier": "Gold",
     "element": "Dark",
     "sa1": "50/75/100% chance when TRANSMUTING to the DARK element to inflict a permanent DOOM effect, killing the enemy after 30 seconds. DOOM will be removed if Double is defeated.",
@@ -2457,6 +2764,7 @@
   },
   "Yellow One": {
     "name": "Yellow One",
+    "character": "Squigly",
     "tier": "Gold",
     "element": "Light",
     "sa1": "Gain BLESSING every 5 seconds. This BLESSING always lasts for 1/1.5/2 second(s) and becomes permanent when using SPECIAL MOVES and BLOCKBUSTERS. Permanent BLESSINGS are removed when this BLESSING expires.",

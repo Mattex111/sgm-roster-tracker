@@ -32,7 +32,7 @@ HTML = """
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f111a; color: #e6edf3; margin: 0; padding: 20px; }
         .header { position: sticky; top: 0; background: #161b22; padding: 16px 20px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; z-index: 100; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        input[type="text"] { padding: 9px 14px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 260px; font-size: 0.95rem; }
+        input[type="text"] { padding: 9px 14px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 220px; font-size: 0.95rem; }
         select { padding: 9px 14px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.95rem; cursor: pointer; }
         button { padding: 9px 16px; border-radius: 6px; border: none; background: #238636; color: #fff; font-weight: 600; cursor: pointer; transition: 0.2s; }
         button:hover { background: #2ea043; }
@@ -44,13 +44,14 @@ HTML = """
         .card-head { display: flex; align-items: center; justify-content: space-between; }
         .name-label { font-size: 1.1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .name-label input { transform: scale(1.2); cursor: pointer; }
-        .badges { display: flex; gap: 6px; }
+        .badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
         .tag { font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; font-weight: bold; text-transform: uppercase; }
         .Diamond { background: #3ec5ff; color: #051626; }
         .Gold { background: #e3b341; color: #201700; }
         .Silver { background: #8b949e; color: #0d1117; }
         .Bronze { background: #bf6a40; color: #fff; }
         .element-tag { font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; font-weight: bold; background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
+        .char-tag { font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; font-weight: bold; background: #30363d; color: #58a6ff; }
         .sa-box { font-size: 0.82rem; line-height: 1.35; color: #8b949e; background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #21262d; margin-top: 4px; }
         .sa-box strong { color: #58a6ff; }
     </style>
@@ -58,6 +59,14 @@ HTML = """
 <body>
     <div class="header">
         <input type="text" id="search" placeholder="Search variant..." oninput="filterCards()">
+
+        <select id="charFilter" onchange="filterCards()">
+            <option value="">All Fighters</option>
+            {% for c in characters %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+        </select>
+
         <select id="tierFilter" onchange="filterCards()">
             <option value="">All Tiers</option>
             <option value="Diamond">Diamond</option>
@@ -65,11 +74,13 @@ HTML = """
             <option value="Silver">Silver</option>
             <option value="Bronze">Bronze</option>
         </select>
+
         <select id="statusFilter" onchange="filterCards()">
             <option value="">All Statuses</option>
             <option value="unlocked">Unlocked Only</option>
             <option value="locked">Locked Only</option>
         </select>
+
         <button onclick="copyRoster()">Copy Roster for AI</button>
         <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
     </div>
@@ -78,6 +89,7 @@ HTML = """
         {% for key, v in variants.items() %}
         <div class="card {% if v.unlocked %}unlocked{% endif %}"
              data-name="{{ v.name.lower() }}"
+             data-char="{{ v.character }}"
              data-tier="{{ v.tier }}"
              data-unlocked="{{ 'true' if v.unlocked else 'false' }}">
             <div class="card-head">
@@ -86,6 +98,7 @@ HTML = """
                     {{ v.name }}
                 </label>
                 <div class="badges">
+                    <span class="char-tag">{{ v.character }}</span>
                     <span class="tag {{ v.tier }}">{{ v.tier }}</span>
                     <span class="element-tag">{{ v.element }}</span>
                 </div>
@@ -118,16 +131,18 @@ HTML = """
 
         function filterCards() {
             const query = document.getElementById('search').value.toLowerCase();
+            const char = document.getElementById('charFilter').value;
             const tier = document.getElementById('tierFilter').value;
             const status = document.getElementById('statusFilter').value;
 
             document.querySelectorAll('.card').forEach(c => {
                 const matchName = c.dataset.name.includes(query);
+                const matchChar = !char || c.dataset.char === char;
                 const matchTier = !tier || c.dataset.tier === tier;
                 const isUnlocked = c.dataset.unlocked === 'true';
                 const matchStatus = !status || (status === 'unlocked' && isUnlocked) || (status === 'locked' && !isUnlocked);
 
-                c.style.display = (matchName && matchTier && matchStatus) ? 'flex' : 'none';
+                c.style.display = (matchName && matchChar && matchTier && matchStatus) ? 'flex' : 'none';
             });
         }
 
@@ -140,7 +155,7 @@ HTML = """
                         return;
                     }
                     const header = "### MY SKULLGIRLS MOBILE UNLOCKED ROSTER\\n";
-                    const body = data.map(x => `- [${x.tier} - ${x.element}] ${x.name}:\\n  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`).join('\\n');
+                    const body = data.map(x => `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`).join('\\n');
                     const text = header + body;
 
                     navigator.clipboard.writeText(text).then(() => {
@@ -157,7 +172,9 @@ HTML = """
 
 @app.route("/")
 def index():
-    return render_template_string(HTML, variants=load_data())
+    data = load_data()
+    chars = sorted(list(set(v.get("character", "Unknown") for v in data.values() if v.get("character") != "Unknown")))
+    return render_template_string(HTML, variants=data, characters=chars)
 
 @app.route("/toggle", methods=["POST"])
 def toggle():
