@@ -7,6 +7,8 @@
 
 A clean, offline tool to track your Skullgirls Mobile collection, browse abilities and community tier ratings, and export your entire roster formatted for AI strategy chats (ChatGPT, Claude, Gemini).
 
+![Dashboard Preview](examples/1.png)
+
 ---
 
 ## ⚡ What It Does & How It Works
