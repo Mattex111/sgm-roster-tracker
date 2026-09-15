@@ -1,16 +1,27 @@
 import json
+import os
 from flask import Flask, jsonify, request, render_template_string
 
 app = Flask(__name__)
 DB_FILE = "sgm_database.json"
+USER_ROSTER_FILE = "my_roster.json"
 
-def load_db():
+def load_data():
     with open(DB_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+        db = json.load(f)
 
-def save_db(data):
-    with open(DB_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    unlocked_set = set()
+    if os.path.exists(USER_ROSTER_FILE):
+        with open(USER_ROSTER_FILE, "r", encoding="utf-8") as f:
+            unlocked_set = set(json.load(f))
+
+    for name in db:
+        db[name]["unlocked"] = name in unlocked_set
+    return db
+
+def save_user_roster(unlocked_names):
+    with open(USER_ROSTER_FILE, "w", encoding="utf-8") as f:
+        json.dump(list(unlocked_names), f, indent=2, ensure_ascii=False)
 
 HTML = """
 <!DOCTYPE html>
@@ -146,21 +157,31 @@ HTML = """
 
 @app.route("/")
 def index():
-    return render_template_string(HTML, variants=load_db())
+    return render_template_string(HTML, variants=load_data())
 
 @app.route("/toggle", methods=["POST"])
 def toggle():
     payload = request.json
-    db = load_db()
-    if payload["name"] in db:
-        db[payload["name"]]["unlocked"] = payload["unlocked"]
-        save_db(db)
+    name = payload.get("name")
+    unlocked = payload.get("unlocked", False)
+
+    unlocked_set = set()
+    if os.path.exists(USER_ROSTER_FILE):
+        with open(USER_ROSTER_FILE, "r", encoding="utf-8") as f:
+            unlocked_set = set(json.load(f))
+
+    if unlocked:
+        unlocked_set.add(name)
+    else:
+        unlocked_set.discard(name)
+
+    save_user_roster(unlocked_set)
     return jsonify({"status": "ok"})
 
 @app.route("/export")
 def export():
-    db = load_db()
-    return jsonify([v for v in db.values() if v.get("unlocked")])
+    data = load_data()
+    return jsonify([v for v in data.values() if v.get("unlocked")])
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
