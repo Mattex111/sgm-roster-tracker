@@ -1,10 +1,11 @@
+import sys
 import json
 import re
 import requests
 from bs4 import BeautifulSoup
 
 API_URL = "https://skullgirlsmobile.fandom.com/api.php"
-HEADERS = {"User-Agent": "SGM_Database_Builder/3.0"}
+HEADERS = {"User-Agent": "SGM_Database_Builder/4.0"}
 
 TIERS = ["Bronze", "Silver", "Gold", "Diamond"]
 ELEMENTS = ["Air", "Dark", "Fire", "Light", "Water", "Neutral"]
@@ -14,6 +15,46 @@ CHARACTERS = [
     "Painwheel", "Peacock", "Parasoul", "Robo-Fortune", "Squigly",
     "Umbrella", "Valentine", "Double"
 ]
+
+def get_tier_list_ratings():
+    print("Fetching wiki Tier List page...")
+    params = {
+        "action": "parse",
+        "page": "Tier_List",
+        "prop": "text",
+        "format": "json",
+    }
+    res = requests.get(API_URL, params=params, headers=HEADERS).json()
+    if "parse" not in res:
+        print("Warning: Unable to fetch Tier_List page via API.")
+        return {}
+
+    html_content = res["parse"]["text"]["*"]
+    soup = BeautifulSoup(html_content, "html.parser")
+    ratings = {}
+
+    for table in soup.find_all("table", class_="article-table"):
+        for row in table.find_all("tr"):
+            cols = row.find_all("td")
+            if len(cols) >= 5:
+                # Estrae il nome variante direttamente dal link <a>
+                link = cols[0].find("a")
+                v_name = link.get_text(strip=True) if link else cols[0].get_text(strip=True)
+
+                pf_off = cols[1].get_text(strip=True).upper()
+                rift_off = cols[2].get_text(strip=True).upper()
+                rift_def = cols[3].get_text(strip=True).upper()
+                realms = cols[4].get_text(strip=True).upper()
+
+                if v_name:
+                    ratings[v_name] = {
+                        "pf_off": pf_off,
+                        "rift_off": rift_off,
+                        "rift_def": rift_def,
+                        "realms": realms,
+                    }
+    print(f"Retrieved ratings for {len(ratings)} variants.")
+    return ratings
 
 def get_all_variants():
     variants = []
@@ -111,22 +152,45 @@ def parse_variant(page_title):
     }
 
 def run():
-    variants = get_all_variants()
-    print(f"Fetching data for {len(variants)} variants...")
-    db = {}
+    force_update = "--force" in sys.argv
+    ratings_only = "--ratings-only" in sys.argv
 
-    for name in variants:
-        try:
-            data = parse_variant(name)
-            if data and (data["sa1"] or data["sa2"]):
-                db[name] = data
-                print(f"[{data['character']} | {data['tier']} - {data['element']}] {name}")
-        except Exception as e:
-            print(f"Error parsing {name}: {e}")
+    # Carica il database esistente se disponibile
+    try:
+        with open("sgm_database.json", "r", encoding="utf-8") as f:
+            db = json.load(f)
+    except FileNotFoundError:
+        db = {}
+
+    if not ratings_only:
+        variants = get_all_variants()
+        print(f"Checking {len(variants)} variants...")
+
+        for name in variants:
+            # Salta se già presente e non forzato
+            if not force_update and name in db and (db[name].get("sa1") or db[name].get("sa2")):
+                continue
+
+            try:
+                data = parse_variant(name)
+                if data and (data["sa1"] or data["sa2"]):
+                    # Conserva i voti precedenti se già presenti
+                    if name in db and "ratings" in db[name]:
+                        data["ratings"] = db[name]["ratings"]
+                    db[name] = data
+                    print(f"Parsed: [{data['character']} | {data['tier']} - {data['element']}] {name}")
+            except Exception as e:
+                print(f"Error parsing {name}: {e}")
+
+    # Aggiorna sempre i voti della Tier List (richiede una sola richiesta HTTP)
+    ratings = get_tier_list_ratings()
+    for name, item in db.items():
+        if name in ratings:
+            item["ratings"] = ratings[name]
 
     with open("sgm_database.json", "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
-    print("\nDatabase successfully generated in sgm_database.json!")
+    print("\nDatabase successfully synced in sgm_database.json!")
 
 if __name__ == "__main__":
     run()

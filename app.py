@@ -31,10 +31,10 @@ HTML = """
     <title>SGM Roster Tracker</title>
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f111a; color: #e6edf3; margin: 0; padding: 20px; }
-        .header { position: sticky; top: 0; background: #161b22; padding: 16px 20px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; z-index: 100; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        input[type="text"] { padding: 9px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 170px; font-size: 0.95rem; }
-        select { padding: 9px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.95rem; cursor: pointer; }
-        button { padding: 9px 13px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
+        .header { position: sticky; top: 0; background: #161b22; padding: 14px 18px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; z-index: 100; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        input[type="text"] { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 150px; font-size: 0.9rem; }
+        select { padding: 8px 10px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.9rem; cursor: pointer; }
+        button { padding: 8px 13px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.88rem; }
         .btn-green { background: #238636; color: #fff; }
         .btn-green:hover { background: #2ea043; }
         .btn-secondary { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
@@ -42,23 +42,36 @@ HTML = """
         .btn-undo { background: #388bfd1a; color: #58a6ff; border: 1px solid #388bfd66; }
         .btn-undo:hover:not(:disabled) { background: #388bfd33; }
         .btn-undo:disabled { opacity: 0.4; cursor: not-allowed; }
+        .toggle-label { font-size: 0.85rem; color: #8b949e; display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
         .counter { margin-left: auto; font-size: 0.95rem; color: #8b949e; }
         .counter span { color: #58a6ff; font-weight: bold; }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 20px; }
-        .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, background 0.2s; }
+        .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, background 0.2s; }
         .card.unlocked { border-color: #238636; background: #0d1c14; }
         .card-head { display: flex; align-items: center; justify-content: space-between; }
-        .name-label { font-size: 1.1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .name-label { font-size: 1.05rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .name-label input { transform: scale(1.2); cursor: pointer; }
-        .badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-        .tag { font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; font-weight: bold; text-transform: uppercase; }
+        .badges { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+        .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; text-transform: uppercase; }
         .Diamond { background: #3ec5ff; color: #051626; }
         .Gold { background: #e3b341; color: #201700; }
         .Silver { background: #8b949e; color: #0d1117; }
         .Bronze { background: #bf6a40; color: #fff; }
-        .element-tag { font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; font-weight: bold; background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
-        .char-tag { font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; font-weight: bold; background: #30363d; color: #58a6ff; }
-        .sa-box { font-size: 0.82rem; line-height: 1.35; color: #8b949e; background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #21262d; margin-top: 4px; }
+        .element-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
+        .char-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; background: #30363d; color: #58a6ff; }
+
+        .ratings-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: #0b0e14; padding: 6px 4px; border-radius: 6px; border: 1px solid #21262d; text-align: center; }
+        .rate-box span:first-child { display: block; font-size: 0.65rem; color: #8b949e; text-transform: uppercase; margin-bottom: 2px; font-weight: normal; }
+        .rank-badge { font-weight: 800; font-size: 0.85rem; }
+        .rank-SS { color: #ff2d87 !important; text-shadow: 0 0 8px rgba(255, 45, 135, 0.4); }
+        .rank-S  { color: #00ff66 !important; text-shadow: 0 0 8px rgba(0, 255, 102, 0.4); }
+        .rank-A  { color: #ffd000 !important; }
+        .rank-B  { color: #ff7b00 !important; }
+        .rank-C  { color: #00bfff !important; }
+        .rank-U, .rank-TBD { color: #57606a !important; }
+
+        .sa-box { font-size: 0.82rem; line-height: 1.35; color: #8b949e; background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #21262d; }
         .sa-box strong { color: #58a6ff; }
     </style>
 </head>
@@ -97,9 +110,37 @@ HTML = """
             <option value="locked">Locked Only</option>
         </select>
 
+        <select id="modeFilter" onchange="filterCards()">
+            <option value="any">Any Mode</option>
+            <option value="pf_off">PF Offense</option>
+            <option value="rift_off">Rift Offense</option>
+            <option value="rift_def">Rift Defense</option>
+            <option value="realms">Parallel Realms</option>
+        </select>
+
+        <select id="rankFilter" onchange="filterCards()">
+            <option value="0">All Ranks</option>
+            <option value="5">SS Only</option>
+            <option value="4">S or better</option>
+            <option value="3">A or better</option>
+            <option value="2">B or better</option>
+            <option value="1">C or better</option>
+        </select>
+
         <button class="btn-secondary" onclick="batchToggle(true)">Select Visible</button>
         <button class="btn-secondary" onclick="batchToggle(false)">Deselect Visible</button>
         <button class="btn-undo" id="undoBtn" onclick="triggerUndo()" disabled title="Shortcut: Ctrl+Z">Undo</button>
+
+        <label class="toggle-label" title="Toggle tier list badges in card view">
+            <input type="checkbox" id="showRatingsToggle" onchange="toggleRatingsVisibility(this.checked)" checked>
+            Show Tier Ratings
+        </label>
+
+        <label class="toggle-label" title="Include tier ratings when copying roster">
+            <input type="checkbox" id="exportRatingsToggle" checked>
+            Export Ratings
+        </label>
+
         <button class="btn-green" onclick="copyRoster()">Copy Roster for AI</button>
 
         <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
@@ -113,7 +154,11 @@ HTML = """
              data-char="{{ v.character }}"
              data-element="{{ v.element }}"
              data-tier="{{ v.tier }}"
-             data-unlocked="{{ 'true' if v.unlocked else 'false' }}">
+             data-unlocked="{{ 'true' if v.unlocked else 'false' }}"
+             data-pfoff="{{ v.ratings.pf_off if v.ratings else 'U' }}"
+             data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
+             data-riftdef="{{ v.ratings.rift_def if v.ratings else 'U' }}"
+             data-realms="{{ v.ratings.realms if v.ratings else 'U' }}">
             <div class="card-head">
                 <label class="name-label">
                     <input type="checkbox" onchange="toggleLock('{{ v.name }}', this.checked, this)" {% if v.unlocked %}checked{% endif %}>
@@ -125,6 +170,16 @@ HTML = """
                     <span class="element-tag">{{ v.element }}</span>
                 </div>
             </div>
+
+            {% if v.ratings %}
+            <div class="ratings-row">
+                <div class="rate-box"><span>PF Off</span><span class="rank-badge rank-{{ v.ratings.pf_off.strip() }}">{{ v.ratings.pf_off }}</span></div>
+                <div class="rate-box"><span>Rift Off</span><span class="rank-badge rank-{{ v.ratings.rift_off.strip() }}">{{ v.ratings.rift_off }}</span></div>
+                <div class="rate-box"><span>Rift Def</span><span class="rank-badge rank-{{ v.ratings.rift_def.strip() }}">{{ v.ratings.rift_def }}</span></div>
+                <div class="rate-box"><span>Realms</span><span class="rank-badge rank-{{ v.ratings.realms.strip() }}">{{ v.ratings.realms }}</span></div>
+            </div>
+            {% endif %}
+
             <div class="sa-box"><strong>SA1:</strong> {{ v.sa1 if v.sa1 else "N/A" }}</div>
             <div class="sa-box"><strong>SA2:</strong> {{ v.sa2 if v.sa2 else "N/A" }}</div>
         </div>
@@ -133,6 +188,7 @@ HTML = """
 
     <script>
         const undoStack = [];
+        const RANK_VALUES = { 'SS': 5, 'S': 4, 'A': 3, 'B': 2, 'C': 1, 'U': 0, 'TBD': 0 };
 
         function updateUndoButton() {
             const btn = document.getElementById('undoBtn');
@@ -140,7 +196,6 @@ HTML = """
         }
 
         function saveSnapshot(entries) {
-            // entries: array of { name: string, previousState: boolean }
             undoStack.push(entries);
             updateUndoButton();
         }
@@ -226,12 +281,20 @@ HTML = """
             }
         });
 
+        function toggleRatingsVisibility(show) {
+            document.querySelectorAll('.ratings-row').forEach(el => {
+                el.style.display = show ? 'grid' : 'none';
+            });
+        }
+
         function filterCards() {
             const query = document.getElementById('search').value.toLowerCase();
             const char = document.getElementById('charFilter').value;
             const elem = document.getElementById('elementFilter').value;
             const tier = document.getElementById('tierFilter').value;
             const status = document.getElementById('statusFilter').value;
+            const mode = document.getElementById('modeFilter').value;
+            const minRank = parseInt(document.getElementById('rankFilter').value, 10);
 
             document.querySelectorAll('.card').forEach(c => {
                 const matchName = c.dataset.name.includes(query);
@@ -241,7 +304,27 @@ HTML = """
                 const isUnlocked = c.dataset.unlocked === 'true';
                 const matchStatus = !status || (status === 'unlocked' && isUnlocked) || (status === 'locked' && !isUnlocked);
 
-                c.style.display = (matchName && matchChar && matchElem && matchTier && matchStatus) ? 'flex' : 'none';
+                let matchRank = true;
+                if (minRank > 0) {
+                    const p = RANK_VALUES[c.dataset.pfoff] || 0;
+                    const ro = RANK_VALUES[c.dataset.riftoff] || 0;
+                    const rd = RANK_VALUES[c.dataset.riftdef] || 0;
+                    const rl = RANK_VALUES[c.dataset.realms] || 0;
+
+                    if (mode === 'any') {
+                        matchRank = Math.max(p, ro, rd, rl) >= minRank;
+                    } else if (mode === 'pf_off') {
+                        matchRank = p >= minRank;
+                    } else if (mode === 'rift_off') {
+                        matchRank = ro >= minRank;
+                    } else if (mode === 'rift_def') {
+                        matchRank = rd >= minRank;
+                    } else if (mode === 'realms') {
+                        matchRank = rl >= minRank;
+                    }
+                }
+
+                c.style.display = (matchName && matchChar && matchElem && matchTier && matchStatus && matchRank) ? 'flex' : 'none';
             });
         }
 
@@ -253,10 +336,18 @@ HTML = """
                         alert("No variants selected! Check some fighters first.");
                         return;
                     }
+                    const includeRatings = document.getElementById('exportRatingsToggle').checked;
                     const header = "### MY SKULLGIRLS MOBILE UNLOCKED ROSTER\\n";
-                    const body = data.map(x => `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`).join('\\n');
-                    const text = header + body;
+                    const body = data.map(x => {
+                        let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n`;
+                        if (includeRatings && x.ratings) {
+                            line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\\n`;
+                        }
+                        line += `  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`;
+                        return line;
+                    }).join('\\n');
 
+                    const text = header + body;
                     navigator.clipboard.writeText(text).then(() => {
                         alert(`Copied ${data.length} fighters to clipboard! Paste directly into your AI chat.`);
                     });

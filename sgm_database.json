@@ -6,7 +6,13 @@
     "element": "Light",
     "sa1": "Well-timed BLOCKS grant AUTO-BLOCK, FINAL STAND and IMMUNITY for 5/7/10 seconds each.",
     "sa2": "Inflict IMMOBILIZE for 10 seconds and gain 3/4/5 stacks of PRECISION when either fighter blocks a projectile.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Altar Ego": {
     "name": "Altar Ego",
@@ -15,7 +21,13 @@
     "element": "Fire",
     "sa1": "While near an opponent and not BLOCKING, inflict a random DEBUFF for 5/7/10 seconds every 2 seconds.",
     "sa2": "When using a TAUNT, remove all opponent DEBUFFS. For each DEBUFF removed, deal damage equal to 15/20/25% of Double's ATTACK to the opponent. Opponents defeated while TAUNTING cannot be revived.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Angel Maker": {
     "name": "Angel Maker",
@@ -24,7 +36,13 @@
     "element": "Water",
     "sa1": "When TAGGING from Umbrella, the incoming Fighter gains 3 stacks of ENRAGE, 3 stacks of MIASMA, and IMMUNITY for 15/18/20 seconds each at the cost of up to 35/30/25% of Umbrella's MAX HEALTH.",
     "sa2": "When Umbrella TAGS IN, gain 3 stacks of EVASION, 3 stacks of REGEN, and IMMUNITY for 10/12/15 seconds each and DRAIN 25/30/35% BLOCKBUSTER METER from the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "A",
+      "realms": "SS"
+    }
   },
   "Apex Complex": {
     "name": "Apex Complex",
@@ -33,7 +51,13 @@
     "element": "Neutral",
     "sa1": "While the opponent's HEALTH is above 65/50/35%, DASH ATTACKS inflict CURSE and grant HASTE for 10/12/15 seconds each on HIT.",
     "sa2": "Inflict WITHER for 5 seconds and deal damage equal to 5% of the opponent's MAX HEALTH every 4/3/2 seconds while near the opponent and benefiting from HASTE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Armed Forces": {
     "name": "Armed Forces",
@@ -42,7 +66,13 @@
     "element": "Air",
     "sa1": "10% chance when either Fighter is HIT to gain ARMOR and UNFLINCHING for 5/7/10 seconds each.",
     "sa2": "When Cerebella gains a BUFF, 50/75/100% chance to transfer 1 DEBUFF from herself to the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "S",
+      "realms": "C"
+    }
   },
   "Assassin's Greed": {
     "name": "Assassin's Greed",
@@ -51,7 +81,13 @@
     "element": "Light",
     "sa1": "When either Fighter uses a BLOCKBUSTER, the opponent loses 15/20/25% of their remaining HEALTH and suffers HEAVY BLEED for 5 seconds.",
     "sa2": "Gain 3/4/5% HEALTH per second while nearby an opponent suffering BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "S",
+      "realms": "A"
+    }
   },
   "Baba Yaga": {
     "name": "Baba Yaga",
@@ -60,7 +96,13 @@
     "element": "Air",
     "sa1": "Gain DEADEYE for 10/12/15 seconds when HITTING an opponent in the air. While benefitting from DEADEYE, HYPE MODE is extended to last for 15 seconds and Beowulf gains a HYPE CHARGE when the opponent is KNOCKED DOWN.",
     "sa2": "While in HYPE MODE, after a THROW, the opponent is shot into the air. Inflict HEX for 5/7/10 seconds while in HYPE MODE and hitting the opponent in the air.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Bad Hair Day": {
     "name": "Bad Hair Day",
@@ -69,7 +111,13 @@
     "element": "Dark",
     "sa1": "10% chance on HIT to inflict BLEED for 3/5/7 seconds.",
     "sa2": "10/12/15% bonus to CRIT RATE if opponent has BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Bad Ms Frosty": {
     "name": "Bad Ms Frosty",
@@ -78,7 +126,13 @@
     "element": "Water",
     "sa1": "50% chance on CRITICAL HIT to inflict ARMOR BREAK for 5/7/10 seconds.",
     "sa2": "Gain UNFLINCHING for 3/4/5 seconds when DASHING. DISABLE the opponent BLOCKBUSTERS while benefiting from UNFLINCHING.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Bare Bones": {
     "name": "Bare Bones",
@@ -87,7 +141,13 @@
     "element": "Dark",
     "sa1": "Gain THORNS for 8/10/12 seconds when using a SPECIAL MOVE.",
     "sa2": "When reaching 3 stacks of THORNS, remove all THORNS and gain MIASMA for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Bassline": {
     "name": "Bassline",
@@ -96,7 +156,13 @@
     "element": "Air",
     "sa1": "On TAG IN, gain HEAVY REGEN for 5/7/10 seconds and 20/25/35% BLOCKBUSTER METER..",
     "sa2": "Landing a DASH ATTACK grants ARMOR for 5/7/10 seconds and removes 1 DEBUFF from Big Band.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Beast King": {
     "name": "Beast King",
@@ -105,7 +171,13 @@
     "element": "Fire",
     "sa1": "Inflict WITHER and CURSE for 5/7/10 seconds each when dealing at least 10% of the opponent's MAX HEALTH from a single HIT.",
     "sa2": "Inflict 10/15/25% bonus damage for each DEBUFF stack applied to either fighter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Beat Box": {
     "name": "Beat Box",
@@ -114,7 +186,13 @@
     "element": "Fire",
     "sa1": "Gain ENRAGE for 3/4/5 seconds after using a SPECIAL MOVE.",
     "sa2": "Gain 15/20/25% BLOCKBUSTER METER when using a SPECIAL MOVE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Bellarina": {
     "name": "Bellarina",
@@ -123,7 +201,13 @@
     "element": "Neutral",
     "sa1": "When landing a DASH ATTACK, DRAIN 15% BLOCKBUSTER METER and gain DEADEYE for 10/12/15 seconds, and gain permanent 5/10/15% ATTACK.",
     "sa2": "While benefitting from DEADEYE, gain EVASION for 5/7/10 seconds when DASHING and transfer 1 opponent BUFF when HITTING an AIRBORNE opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Big Baddy": {
     "name": "Big Baddy",
@@ -132,7 +216,13 @@
     "element": "Water",
     "sa1": "While Big Band is alive, opponents deal 20/30/40% less damage with SPECIAL HITS and BLOCKBUSTER HITS.",
     "sa2": "When Big Band successfully lands a DASH ATTACK, drain 5% HEALTH from the enemy. When Big Band is HIT during his DASH ATTACK, he gains 2 stacks of AUTO-BLOCK for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "S",
+      "realms": "B"
+    }
   },
   "Big Top": {
     "name": "Big Top",
@@ -141,7 +231,13 @@
     "element": "Light",
     "sa1": "Once per match, RESURRECT with 10/25/50% HEALTH when defeated. Also gain INVINCIBLE and UNFLINCHING for 6/7/8 seconds.",
     "sa2": "When either Fighter is KNOCKED DOWN, remove 1 DEBUFF from self and gain HEAVY REGEN for 6/8/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "C",
+      "rift_def": "B",
+      "realms": "C"
+    }
   },
   "Bio-Exorcist": {
     "name": "Bio-Exorcist",
@@ -150,7 +246,13 @@
     "element": "Dark",
     "sa1": "With at least 1 DRAGON CHARGE and not BLOCKING, DRAIN 1/1.5/2% of a nearby opponent's HEALTH per second.",
     "sa2": "While CHARGED, DRAIN 15/20/25% HEALTH from each living teammate when suffering a HIT that would be fatal.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Biohazard": {
     "name": "Biohazard",
@@ -159,7 +261,13 @@
     "element": "Dark",
     "sa1": "While above 50% HEALTH, gain 6 BUCKSHOTS when reloading with no SHOTS remaining. BUCKSHOTS deal 25/35/50% bonus DAMAGE and remove 1 opponent BUFF on hit.",
     "sa2": "While below 50% HEALTH, regain 50/75/100% of Black Dahlia’s MAX HEALTH when reloading with no SHOTS remaining.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Biting Cold": {
     "name": "Biting Cold",
@@ -168,7 +276,13 @@
     "element": "Water",
     "sa1": "Gain 1 stack of BARRIER and THORNS for 5/7/10 seconds every 3 seconds while near a dead body.",
     "sa2": "Gain 3/4/5 stacks of REGEN for 10 seconds and 50% BLOCKBUSTER METER when defeating an opponent. Defeated opponents cannot be revived.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "A",
+      "rift_def": "A",
+      "realms": "B"
+    }
   },
   "Blitz & Glamour": {
     "name": "Blitz & Glamour",
@@ -177,7 +291,13 @@
     "element": "Light",
     "sa1": "While on the opponent's side of the stage, Cerebella has a 15% chance on HIT to inflict INVERSE POLARITY and ARMOR BREAK for 5/7/10 seconds each.",
     "sa2": "After 10/7/5 seconds while on her own side of the stage, Cerebella REMOVES all DEBUFFS from herself and gains IMMUNITY and REGEN. These BUFFS are removed when KNOCKED DOWN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Blood Drive": {
     "name": "Blood Drive",
@@ -186,7 +306,13 @@
     "element": "Fire",
     "sa1": "15% chance on HIT to inflict BLEED on yourself and HEAVY BLEED on opponent for 5/7/10 seconds each.",
     "sa2": "When using a SPECIAL MOVE or BLOCKBUSTER, remove all BLEEDS and gain ENRAGE for 5/7/10 seconds per BLEED removed.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Bloodbath": {
     "name": "Bloodbath",
@@ -195,7 +321,13 @@
     "element": "Dark",
     "sa1": "If either fighter uses a BLOCKBUSTER, both fighters are afflicted with BLEED for 5/7/10 seconds.",
     "sa2": "25/50/100% chance to convert all BLEED effects on self into REGEN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Bloody Valentine": {
     "name": "Bloody Valentine",
@@ -204,7 +336,13 @@
     "element": "Air",
     "sa1": "Regain 5/7/10% HEALTH when either Fighter uses a SPECIAL MOVE.",
     "sa2": "Regain 5/10/15% BLOCKBUSTER METER when either Fighter uses a BLOCKBUSTER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Blue Bomber": {
     "name": "Blue Bomber",
@@ -213,7 +351,13 @@
     "element": "Water",
     "sa1": "All BEAM and ENERGY attacks have a 25% chance on HIT to grant HASTE and inflict ARMOR BREAK For 7/10/12 seconds each.",
     "sa2": "Recover 25% HEALTH and gain 3/4/5 stacks of BARRIER when using a TIER 3 BLOCKBUSTER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Blue Screen": {
     "name": "Blue Screen",
@@ -222,7 +366,13 @@
     "element": "Water",
     "sa1": "Gain a stack of ARMOR every 10/7/5 seconds. ARMOR is removed when KNOCKED DOWN.",
     "sa2": "When defeated, instantly detonate and inflict 25/35/50% bonus damage for each stack of ARMOR applied to Robo-Fortune.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "SS",
+      "realms": "U"
+    }
   },
   "Blue Streak": {
     "name": "Blue Streak",
@@ -231,7 +381,13 @@
     "element": "Water",
     "sa1": "Grant DEADEYE and HASTE while Filia has at least 100/98/95% HEALTH. These BUFFS are removed when Filia’s HEALTH drops below 100/98/95%.",
     "sa2": "Gain IMMUNITY, FINAL STAND and UNFLINCHING for 5/6/7 seconds each when using a BLOCKBUSTER while benefiting from DEADEYE. Also gain 3 stacks of PRECISION.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Bombshell": {
     "name": "Bombshell",
@@ -240,7 +396,13 @@
     "element": "Neutral",
     "sa1": "Gain ENRAGE, BARRIER or REGEN for 10/12/15 seconds when spawning a TEAR.",
     "sa2": "When DETONATING at least 3 TEARS at once, TEARS are UNBLOCKABLE and Parasoul changes outfits. DETONATING 5 TEARS at once inflicts STUN for 1/1.5/2 seconds on HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Brain Freeze": {
     "name": "Brain Freeze",
@@ -249,7 +411,13 @@
     "element": "Water",
     "sa1": "While near the opponent, inflict IMMOBILIZE and SLOW for 7/10/12 seconds every 3 seconds. Reduce the opponent's ATTACK by 3% for every second they are IMMOBILIZED until they TAG OUT.",
     "sa2": "Deal 4/5/6% MAX HEALTH as damage to the opponent when either fighter is KNOCKED DOWN while the opponent is IMMOBILIZED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "U",
+      "rift_def": "A",
+      "realms": "S"
+    }
   },
   "Brass Bandit": {
     "name": "Brass Bandit",
@@ -258,7 +426,13 @@
     "element": "Dark",
     "sa1": "Remove 1 opponent BUFF, grant ENRAGE for 10 seconds and DRAIN 3% HEALTH every 15/12/10 COMBO HITS.",
     "sa2": "Reset the timer of all active BUFFS for every 30/25/20% HEALTH lost by either Fighter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "B",
+      "realms": "SS"
+    }
   },
   "Buffer Zone": {
     "name": "Buffer Zone",
@@ -267,7 +441,13 @@
     "element": "Air",
     "sa1": "When Robo-Fortune TAGS IN, remove all opponent BUFFS, inflict HEX and DISABLE TAG INS for 5/7/10 seconds each.",
     "sa2": "All BEAM and ENERGY attacks have a 10% chance on hit to grant BARRIER and UNFLINCHING for 5/7/10 seconds each. Also, transfer all active BUFFS to the incoming Fighter when TAGGING from Robo-Fortune.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "A",
+      "realms": "B"
+    }
   },
   "Buzzkill": {
     "name": "Buzzkill",
@@ -276,7 +456,13 @@
     "element": "Air",
     "sa1": "For each 20/15/10% HEALTH the opponent loses, inflict INVERSE POLARITY and WITHER for 10 seconds.",
     "sa2": "While Painwheel's HEALTH% is higher than the opponent's, gain 1 stack of EVASION every 10/7/5 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "S",
+      "realms": "S"
+    }
   },
   "Candy Crusher": {
     "name": "Candy Crusher",
@@ -285,7 +471,13 @@
     "element": "Air",
     "sa1": "Gain REGEN every 5/4/3 seconds while OVERSTUFFED. REGEN is removed when KNOCKED DOWN.",
     "sa2": "Once per match, gain permanent HASTE when reaching 5/4/3 stacks of REGEN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Chameleon Twist": {
     "name": "Chameleon Twist",
@@ -294,7 +486,13 @@
     "element": "Air",
     "sa1": "Gain MIASMA for 5/7/10 seconds when HITTING an attacking opponent.",
     "sa2": "5% chance when HIT while a BLOCKBUSTER is charged to gain EVASION and MIASMA for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Chaos Theory": {
     "name": "Chaos Theory",
@@ -303,7 +501,13 @@
     "element": "Dark",
     "sa1": "When TRANSMUTING, inflict BLEED on yourself and gain ENRAGE for 6/8/10 seconds each. Also when TRANSMUTING to the LIGHT element, gain BLESSING.",
     "sa2": "DASH ATTACKS remove all BLEEDS. DRAIN 3/4/5% HEALTH per BLEED removed.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Chill Guy": {
     "name": "Chill Guy",
@@ -312,7 +516,13 @@
     "element": "Water",
     "sa1": "When the active Fighter blocks a HIT, apply 1 stack of SLOW for 10/13/15 seconds. When the opponent reaches 5 stacks of SLOW, remove all SLOW stacks and inflict STUN for 6 seconds.",
     "sa2": "When any teammate HITS a stunned opponent, inflict ARMOR BREAK and gain DEADEYE for 5/8/10 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "B",
+      "realms": "S"
+    }
   },
   "Class Cutter": {
     "name": "Class Cutter",
@@ -321,7 +531,13 @@
     "element": "Dark",
     "sa1": "All HITS from a BLOCKBUSTER or SPECIAL MOVE have a 10% chance to be UNBLOCKABLE and inflict DEATH MARK for 10/12/15 seconds.",
     "sa2": "Inflict HEAVY BLEED and HEAL BLOCK for 10 seconds when dealing at least 10/7/5% of the opponent's MAX HEALTH from a single HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Claw & Order": {
     "name": "Claw & Order",
@@ -330,7 +546,13 @@
     "element": "Air",
     "sa1": "CRITICAL HITS have a 25/35/50% chance to reset the timers of all opponent DEBUFFS except STUN and DOOM.",
     "sa2": "Set the opponent's SPECIAL MOVES on cooldown and DISABLE their BLOCKBUSTERS for 10/12/15 seconds when dealing at least 10/7/5% of the opponent's MAX HEALTH from a single HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Clue Chaser": {
     "name": "Clue Chaser",
@@ -339,7 +561,13 @@
     "element": "Light",
     "sa1": "While Filia is alive, increase the active fighter's CRIT RATE by 5/7/10% every 3 COMBO HITS (up to 50/75/100%).",
     "sa2": "Filia's critical HITS above 20/15/10 combo hits ignore the opponent Fighter's ARMOR and DEFENSE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Cold Stones": {
     "name": "Cold Stones",
@@ -348,7 +576,13 @@
     "element": "Water",
     "sa1": "THROWS have a 10/15/20% chance to inflict STUN for 6 seconds.",
     "sa2": "Deal 25/35/50% bonus damage against STUNNED opponents.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Comet Custodian": {
     "name": "Comet Custodian",
@@ -357,7 +591,13 @@
     "element": "Air",
     "sa1": "Once summoned, Hilgard will remain on stage until Marie is KNOCKED DOWN or TAGS OUT. While Hilgard is on stage, Marie has a 20/35/50% chance to prevent an incoming DEBUFF and inflict HEAL BLOCK and CURSE for 10 seconds each.",
     "sa2": "Remove all opponent BUFFS and increase damage by 33/66/100% for the rest of the COMBO when the opponent BOUNCES off a wall.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Corrosive Agent": {
     "name": "Corrosive Agent",
@@ -366,7 +606,13 @@
     "element": "Water",
     "sa1": "Remove all DEBUFFS and gain 1/2/3 stack(s) of BARRIER when either Fighter uses a BLOCKBUSTER.",
     "sa2": "With 5 stacks of BARRIER, all SHOTS are UNBLOCKABLE and inflict SLIME on HIT for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "A",
+      "realms": "A"
+    }
   },
   "Cosmic Rebel": {
     "name": "Cosmic Rebel",
@@ -375,7 +621,13 @@
     "element": "Fire",
     "sa1": "Every 5th non-projectile COMBO HIT inflicts DEATH MARK for 10/12/15 seconds.",
     "sa2": "CRITICAL HITS grant IMMUNITY for 3/4/5 seconds, INVINCIBLE for 1 second, and 25% increased CRIT DAMAGE while the opponent is suffering from DEATH MARK.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Creature of Habit": {
     "name": "Creature of Habit",
@@ -384,7 +636,13 @@
     "element": "Air",
     "sa1": "Gain 1 stack of MIASMA every 5/4/3 seconds.",
     "sa2": "When reaching 5 stacks of MIASMA, convert them to 5 stacks of ENRAGE and regain 25/35/50% MAX HEALTH. ENRAGE is removed when Double is KNOCKED DOWN or TAGS-OUT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Criminal Mind": {
     "name": "Criminal Mind",
@@ -393,7 +651,13 @@
     "element": "Dark",
     "sa1": "Inflict DEATH MARK and gain THORNS for 5/7/10 seconds each when either Fighter deals at least 10% MAX HEALTH from a single HIT.",
     "sa2": "Opponents are inflicted with BLEED for 3/4/5 seconds when dashing while suffering from DEATH MARK.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "B"
+    }
   },
   "Crimson Cyclone": {
     "name": "Crimson Cyclone",
@@ -402,7 +666,13 @@
     "element": "Air",
     "sa1": "When either Fighter lands a THROW, gain ARMOR for 15 seconds. Cerebella's THROW HITS inflict HEAL BLOCK for 15 seconds and 50/75/100% of the damage inflicted is regained as HEALTH.",
     "sa2": "Gain 15% BLOCKBUSTER METER and have a 50% chance to refresh the COOLDOWN of all SPECIAL MOVES when landing a THROW. BLOCKBUSTERS deal 30% increased damage per stack of ARMOR on Cerebella.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Critty Kitty": {
     "name": "Critty Kitty",
@@ -420,7 +690,13 @@
     "element": "Water",
     "sa1": "For every 5th COMBO HIT landed on either Fighter, remove 1 DEBUFF and gain ARMOR for 7/8/10 seconds.",
     "sa2": "While benefiting from ARMOR, gain 1% HEALTH, 1/2/3% BLOCKBUSTER METER per second, and inflict WITHER for 4/5/6 seconds every 4 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "B",
+      "realms": "B"
+    }
   },
   "Dame Slayer": {
     "name": "Dame Slayer",
@@ -429,7 +705,13 @@
     "element": "Air",
     "sa1": "Once per match when RELOADING with no SHOTS remaining, gain 6 LIGHTNING SHOTS and inflict DOOM for 30/25/20 seconds. DOOM is removed if Black Dahlia TAGS OUT or is defeated.",
     "sa2": "LIGHTNING SHOTS deal 100% bonus damage and cause the opponent to lose 5/10/15% BLOCKBUSTER METER on HIT (also applies on blocked hits).",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Danger-Prone": {
     "name": "Danger-Prone",
@@ -438,7 +720,13 @@
     "element": "Air",
     "sa1": "Back-dashing grants HASTE and inflicts ARMOR BREAK on the opponent for 5/7/10 seconds each.",
     "sa2": "While benefiting from HASTE, both Fighters gain 50/75/100% increased CRIT DAMAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Dark Horse": {
     "name": "Dark Horse",
@@ -447,7 +735,13 @@
     "element": "Dark",
     "sa1": "Inflict CURSE and gain permanent HASTE after facing the same opponent for 15/12/10 seconds.",
     "sa2": "While Marie is alive and benefiting from HASTE, all Dark teammates deal 25/35/50% BONUS DAMAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Dark Lord": {
     "name": "Dark Lord",
@@ -456,7 +750,13 @@
     "element": "Dark",
     "sa1": "Eliza starts the match with permanent FATIGUE. The first time an opponent is defeated while Eliza is alive, FATIGUE is removed, she gains 50/75/100% HEALTH, and she permanently gains increased CRIT RATE and CRIT DAMAGE by 50%.",
     "sa2": "CRITICAL HITS inflict DEATH MARK, QUIETUS, or BLEED and grant ENRAGE for 10/12/15 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Dark Might": {
     "name": "Dark Might",
@@ -465,7 +765,13 @@
     "element": "Dark",
     "sa1": "When a teammate is defeated while Beowulf is alive, remove all opponent BUFFS. Also inflict 1/2/3 stacks of permanent POWER SURGE and permanent CURSE.",
     "sa2": "While the opponent is suffering from CURSE, SPECIAL MOVE and BLOCKBUSTER HITS have a 50/75/100% chance to be UNBLOCKABLE and grant UNFLINCHING for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "SS",
+      "realms": "A"
+    }
   },
   "Dead Heat": {
     "name": "Dead Heat",
@@ -474,7 +780,13 @@
     "element": "Fire",
     "sa1": "Gain 2 stacks of ENRAGE for 5 seconds every 10 seconds while below 25/35/50% HEALTH.",
     "sa2": "50/75/100% chance for SPECIAL MOVES to be UNBLOCKABLE while benefitting from ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Dead of Winter": {
     "name": "Dead of Winter",
@@ -483,7 +795,13 @@
     "element": "Water",
     "sa1": "While Squigly is alive, the active Fighter inflicts WITHER for 10 seconds and gains ARMOR every 15/12/10 seconds. These effects are removed when KNOCKED DOWN.",
     "sa2": "When the active Fighter is benefiting from this ARMOR and about to suffer a DEBUFF, remove ARMOR to prevent it and gain 20/30/40% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "A",
+      "rift_def": "A",
+      "realms": "A"
+    }
   },
   "Deal Breaker": {
     "name": "Deal Breaker",
@@ -492,7 +810,13 @@
     "element": "Fire",
     "sa1": "Grant IMMUNITY, HASTE, or ENRAGE for 10/12/15 seconds when either Fighter uses a BLOCKBUSTER. Also inflict GUARD BREAK and 2 random DEBUFFS for 10 seconds each.",
     "sa2": "50% chance to grant UNFLINCHING, REGEN, or ENRAGE for 10/12/15 seconds when a BUFF or DEBUFF on the opponent expires.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Death Defier": {
     "name": "Death Defier",
@@ -501,7 +825,13 @@
     "element": "Fire",
     "sa1": "Annie gains UNFLINCHING and 10/15/20% STAR POWER when DASHING. When activating STAR POWER at full meter, instantly empty it to gain 1 stack of permanent ENRAGE and MIASMA each.",
     "sa2": "When suffering a HIT that would be fatal, consume all permanent BUFFS on Annie to STUN the opponent for 1.5/2/2.5 seconds and then regain 5/10/15% MAX HEALTH per BUFF consumed.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Death Wish": {
     "name": "Death Wish",
@@ -510,7 +840,13 @@
     "element": "Dark",
     "sa1": "Every 7th COMBO HIT landed on Umbrella or the opponent TRANSFERS up to 1/2/3 enemy BUFF(S) to herself and inflicts HEX for 10 seconds.",
     "sa2": "Once per match when defeated, RESURRECT with 15/20/25% HEALTH and REVIVE all defeated teammates with 25% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "SS",
+      "realms": "SS"
+    }
   },
   "Decrypted": {
     "name": "Decrypted",
@@ -519,7 +855,13 @@
     "element": "Dark",
     "sa1": "Inflict 15/20/25% bonus damage for each of the opponents living teammates.",
     "sa2": "Transfer 1 enemy BUFF to yourself and inflict WITHER for 5/7/10 seconds when entering SEKHMET MODE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Demon Artist": {
     "name": "Demon Artist",
@@ -528,7 +870,13 @@
     "element": "Neutral",
     "sa1": "While CHARGED, inflict BLEED for 5/7/10 seconds for each 15% HEALTH lost by either Fighter.",
     "sa2": "Gain ENRAGE and REGEN for 8/10/12 seconds each when using a BLOCKBUSTER while the opponent is suffering from BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Diva Intervention": {
     "name": "Diva Intervention",
@@ -537,7 +885,13 @@
     "element": "Light",
     "sa1": "While in Sekhmet Mode, 25/35/50% of the damage inflicted by NON-BLOCKBUSTER attacks is regained as HEALTH.",
     "sa2": "While in Sekhmet Mode, NON-BLOCKBUSTER attacks deal 50/75/100% bonus damage and drain 4/6/8% of the opponent's BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Djinn Frizz": {
     "name": "Djinn Frizz",
@@ -546,7 +900,13 @@
     "element": "Fire",
     "sa1": "Every 15/12/10 seconds gain 3 random BUFF(S) for 5 seconds.",
     "sa2": "33% chance when using a BLOCKBUSTER to convert 1/2/3 BUFF(S) into permanent ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Don Passione": {
     "name": "Don Passione",
@@ -555,7 +915,13 @@
     "element": "Neutral",
     "sa1": "When Eliza is about to suffer a DEBUFF, 50% chance to prevent it and inflict either BLEED, HEX or QUIETUS for 8/10/12 seconds.",
     "sa2": "Gain permanent MIASMA for each DEBUFF an opponent has while exiting Sekhmet Mode (max 1/2/3 per exit). MIASMA is removed when the opponent is no longer suffering a DEBUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Doomsayer": {
     "name": "Doomsayer",
@@ -573,7 +939,13 @@
     "element": "Light",
     "sa1": "Successful BEAM attacks of SPECIAL MOVES grant IMMUNITY for 5/7/10 seconds and STUN the opponent for 2 seconds if they are not suffering from BLEED.",
     "sa2": "When STUN expires on the opponent, grant EVASION for 10/12/15 seconds to Robo-Fortune and inflict HEAVY BLEED for 5 seconds to the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Doublicious": {
     "name": "Doublicious",
@@ -582,7 +954,13 @@
     "element": "Light",
     "sa1": "10/15/25% chance on HIT to TRANSFER 1 BUFF from the opponent to yourself.",
     "sa2": "10/15/25% chance when HIT to TRANSFER 1 DEBUFF from yourself to the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Dragon Brawler": {
     "name": "Dragon Brawler",
@@ -591,7 +969,13 @@
     "element": "Fire",
     "sa1": "Gain 3/4/5 stacks of PRECISION when activating HYPE, and gain 100% increased CRIT DAMAGE while in HYPE MODE.",
     "sa2": "Gain 2 stacks of ENRAGE and 25/35/50% BLOCKBUSTER METER when defeating an opponent while in HYPE MODE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Dread Locks": {
     "name": "Dread Locks",
@@ -600,7 +984,13 @@
     "element": "Light",
     "sa1": "When HIT, reflect 15/25/35% of the incoming damage.",
     "sa2": "If the opponent lands a CRITICAL HIT, inflict HEAVY BLEED for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "S",
+      "realms": "U"
+    }
   },
   "Dream Band": {
     "name": "Dream Band",
@@ -609,7 +999,13 @@
     "element": "Light",
     "sa1": "MIRROR 1 opponent BUFF and reset its timer every 20/15/10 combo hits.",
     "sa2": "When either Fighter is KNOCKED DOWN, reset the timer of all active BUFFS and gain IMMUNITY for 5/7/8 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "A",
+      "realms": "A"
+    }
   },
   "Dream Catcher": {
     "name": "Dream Catcher",
@@ -618,7 +1014,13 @@
     "element": "Dark",
     "sa1": "SPECIAL MOVES and TAG INS have a 25% chance on HIT to STUN the opponent for 4/5/6 seconds (does not affect Dark Fighters).",
     "sa2": "Every 3/2/1 second(s) while facing a STUNNED opponent, Peacock gains 1 stack of PRECISION, and her teammates gain 5% BLOCKBUSTER METER, and 5% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Dream Demon": {
     "name": "Dream Demon",
@@ -627,7 +1029,13 @@
     "element": "Fire",
     "sa1": "Inflict permanent DEATH MARK and gain ENRAGE for every 20/15/10% HEALTH lost by either Fighter.",
     "sa2": "50/75/100% chance for Fukua's DASH ATTACKS to be UNBLOCKABLE if the opponent is suffering from DEATH MARK.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Eager Deceiver": {
     "name": "Eager Deceiver",
@@ -636,7 +1044,13 @@
     "element": "Neutral",
     "sa1": "Well-timed BLOCKS have a 50/75/100% chance to grant 1 stack each of EVASION, BARRIER and BLESSING.",
     "sa2": "50% chance when using a BLOCKBUSTER while RAVENOUS to convert 1/2/3 BUFF(S) into permanent ENRAGE. Gain permanent PRECISION while benefiting from 5 stacks of this ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Epic Sax": {
     "name": "Epic Sax",
@@ -645,7 +1059,13 @@
     "element": "Light",
     "sa1": "Gain 1/2/3% damage bonus per COMBO HIT.",
     "sa2": "Gain a random BUFF for every 20/15/10 COMBO HITS for 8 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Evergreen Evil": {
     "name": "Evergreen Evil",
@@ -654,7 +1074,13 @@
     "element": "Air",
     "sa1": "5/7/10% chance when HIT while not at an ELEMENTAL DISADVANTAGE to gain REGEN and THORNS for 5 seconds, and to remove all DEBUFFS.",
     "sa2": "When Double or any teammate gains a BUFF, its duration is increased by 3/4/5 seconds and Double gains 5% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "S",
+      "realms": "S"
+    }
   },
   "Fan Favorite": {
     "name": "Fan Favorite",
@@ -663,7 +1089,13 @@
     "element": "Light",
     "sa1": "While Beowulf is alive, all teammates gain FINAL STAND and UNFLINCHING for 5/7/10 seconds each every 20 seconds.",
     "sa2": "Inflict DEATH MARK and gain 2 stacks of ENRAGE for 5/7/10 seconds each when activating HYPE MODE while Beowulf has living teammates.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Fatal Fray": {
     "name": "Fatal Fray",
@@ -672,7 +1104,13 @@
     "element": "Light",
     "sa1": "When either Fighter lands a BLOCKED HIT, suffer a random DEBUFF for 5/7/10 seconds and permanently decrease the opponent’s ATTACK and DEFENSE by 4% until Ms. Fortune TAGS OUT or is defeated.",
     "sa2": "When either Fighter successfully HITS with a SPECIAL MOVE, transfer all DEBUFFS to the opponent and gain EVASION for 5 seconds and IMMUNITY for 5/7/10 seconds. If a DEBUFF was transferred, heal for 2% MAX HEALTH for each DEBUFF on the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "A",
+      "realms": "S"
+    }
   },
   "Feared Faux": {
     "name": "Feared Faux",
@@ -681,7 +1119,13 @@
     "element": "Dark",
     "sa1": "While Fukua’s Shadow Clone is active, SPECIAL HITS inflict CURSE for 5/7/10 seconds.",
     "sa2": "While Fukua’s Shadow Clone is active, SPECIAL MOVE HITS deal 60/80/100% bonus DAMAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Feathered Edges": {
     "name": "Feathered Edges",
@@ -690,7 +1134,13 @@
     "element": "Water",
     "sa1": "A well-timed BLOCK grants 1/2/3 stacks of BARRIER, and DISABLES opponent BLOCKBUSTERS and TAG INS for 10 seconds.",
     "sa2": "While benefiting from BARRIER, PROJECTILE HITS grant DEADEYE for 10/12/15 seconds",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Feline Lucky": {
     "name": "Feline Lucky",
@@ -699,7 +1149,13 @@
     "element": "Light",
     "sa1": "Gain 1/2/3 stack(s) of PRECISION every 7 seconds.",
     "sa2": "2% chance when either Fighter lands a CRITICAL HIT to gain IMMUNE, INVINCIBLE, FINAL STAND, and UNFLINCHING for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "C"
+    }
   },
   "Final Fang": {
     "name": "Final Fang",
@@ -708,7 +1164,13 @@
     "element": "Dark",
     "sa1": "When the opponent gains a BUFF, MIRROR 1 of their BUFFS and inflict CURSE for 5/6/7 seconds.",
     "sa2": "10/15/20% chance on HIT to inflict a random DEBUFF for 15 seconds while the opponent is suffering from a DEBUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Fire Branded": {
     "name": "Fire Branded",
@@ -717,7 +1179,13 @@
     "element": "Fire",
     "sa1": "Gain ENRAGE for 10/12/15 seconds and remove 1 opponent BUFF when using a SPECIAL MOVE or BLOCKBUSTER.",
     "sa2": "While in STAR POWER mode, CHARGE ATTACKS consume all stacks of ENRAGE, inflicting STUN, HEX and CURSE for 1/1.5/2 second(s) per stack consumed.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Firefly": {
     "name": "Firefly",
@@ -726,7 +1194,13 @@
     "element": "Fire",
     "sa1": "While BLOCKING, the active fighter gains 4/5/6% HEALTH per second. When at 100% HEALTH, gain BLESSING for 8/10/12 seconds every second instead.",
     "sa2": "While Painwheel is alive and the active Fighter is benefiting from BLESSING, grant 1/1.5/2% BLOCKBUSTER METER per second and a 50% chance on CRITICAL HIT to refresh SPECIAL COOLDOWNS.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "B",
+      "realms": "S"
+    }
   },
   "Flower Power": {
     "name": "Flower Power",
@@ -735,7 +1209,13 @@
     "element": "Fire",
     "sa1": "Every 2 seconds, unless either Fighter lands a HIT, suffer HEAVY BLEED for 2 seconds. When HITTING an attacking opponent remove up to 1/2/3 DEBUFF(S) from self.",
     "sa2": "While not suffering from any DEBUFF, Fukua gains IMMUNITY, INVINCIBILITY, and UNFLINCHING for 2/3/4 seconds each when HITTING an opponent in the air.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Fly Trap": {
     "name": "Fly Trap",
@@ -744,7 +1224,13 @@
     "element": "Air",
     "sa1": "Permanently increase Painwheel’s ATTACK by 25% for every 25/20/15% HEALTH lost by any Fighter. While Painwheel is the active Fighter, benched teammates also heal for 15/20/25% HEALTH.",
     "sa2": "Gain 1/2/3 stacks of permanent REGEN when defeating an opponent. Gain MIASMA for 3/6/9 seconds every 3 seconds while benefiting from REGEN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "S",
+      "realms": "SS"
+    }
   },
   "Foot Soldier": {
     "name": "Foot Soldier",
@@ -753,7 +1239,13 @@
     "element": "Dark",
     "sa1": "HEAD HITS have a 50/75/100% chance to grant DEADEYE and 1 random BUFF for 7 seconds each. Also remove 1 DEBUFF from self.",
     "sa2": "Deal 5/7/10% bonus damage for each BUFF applied to either Fighter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Fortune Cookie": {
     "name": "Fortune Cookie",
@@ -762,7 +1254,13 @@
     "element": "Dark",
     "sa1": "After facing the same opponent for 10 seconds, Ms. Fortune suffers CURSE for 20/15/10 seconds, but gains permanent PRECISION, bypassing all BUFF and DEBUFF prevention effects.",
     "sa2": "When CURSE is applied to Ms. Fortune, gain 1 stack of EVASION and HASTE for 10/20/30 seconds each, bypassing all BUFF prevention effects.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Frayed Ends": {
     "name": "Frayed Ends",
@@ -771,7 +1269,13 @@
     "element": "Fire",
     "sa1": "20% chance when HIT to inflict BLEED for 3/5/7 seconds.",
     "sa2": "Deal 25/35/50% bonus damage against an opponent suffering BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "U"
+    }
   },
   "Freaky Friday": {
     "name": "Freaky Friday",
@@ -780,7 +1284,13 @@
     "element": "Dark",
     "sa1": "CRITICAL HITS inflict BLEED and DEATH MARK for 3/4/5 seconds each.",
     "sa2": "Gain HASTE for 10 seconds and 3/4/5 stacks of PRECISION when defeating an opponent with a single HIT that deals at least 10% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Freedom Fighter": {
     "name": "Freedom Fighter",
@@ -789,7 +1299,13 @@
     "element": "Water",
     "sa1": "10% chance to inflict ARMOR BREAK and gain AUTO-BLOCK for 5/7/10 seconds when either fighter is HIT (includes Blocking).",
     "sa2": "When BLOCKING a BLOCKBUSTER or SPECIAL MOVE attack, DISABLE opponent BLOCKBUSTERS for 10/12/15 seconds and inflict STUN for 4 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "B",
+      "realms": "A"
+    }
   },
   "Freeze Frame": {
     "name": "Freeze Frame",
@@ -798,7 +1314,13 @@
     "element": "Water",
     "sa1": "PROJECTILE HITS inflict WITHER for 9 seconds. When the opponent reaches 5 stacks of WITHER, remove all WITHER stacks to inflict STUN for 2/3/4 seconds and set the opponent's SPECIAL MOVES and TAG-INS on cooldown.",
     "sa2": "When removing WITHER from the opponent, DRAIN 5/7/9% HEALTH and BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Fresh Heir": {
     "name": "Fresh Heir",
@@ -807,7 +1329,13 @@
     "element": "Air",
     "sa1": "DASH ATTACKS have a 50/75/100% chance on HIT to DISABLE opponent BLOCKBUSTERS for 10 seconds.",
     "sa2": "Gain 25/35/50% BLOCKBUSTER METER when defeating an opponent whose BLOCKBUSTERS are DISABLED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "C"
+    }
   },
   "Fur Monger": {
     "name": "Fur Monger",
@@ -816,7 +1344,13 @@
     "element": "Fire",
     "sa1": "50/75/100% chance to gain ENRAGE, THORNS or REGEN when FIRING a SHOT. These BUFFS are removed when KNOCKED DOWN.",
     "sa2": "All SHOTS deal 5/10/15% bonus damage for each BUFF applied to Black Dahlia.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Furmidable": {
     "name": "Furmidable",
@@ -825,7 +1359,13 @@
     "element": "Light",
     "sa1": "CHARGE ATTACK HITS grant IMMUNITY for 5/7/10 seconds and 5 stacks of PRECISION.",
     "sa2": "While benefitting from IMMUNITY, SPECIAL MOVE HITS are UNBLOCKABLE. While benefitting from PRECISION, they inflict INVERSE POLARITY for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Furry Fury": {
     "name": "Furry Fury",
@@ -834,7 +1374,13 @@
     "element": "Fire",
     "sa1": "10/15/20% chance on HIT to inflict BLEED and gain ENRAGE for 5/7/10 seconds each while Ms. Fortune's health percentage is higher than her opponent's.",
     "sa2": "Remove 1 BUFF from a nearby opponent every 3/2/1 seconds while at 3 or more stacks of ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "G.I. Jazz": {
     "name": "G.I. Jazz",
@@ -843,7 +1389,13 @@
     "element": "Air",
     "sa1": "Once per match, gain 3/4/5 stacks of REGEN and 3 stacks of ARMOR for 10 seconds each when falling below 25% HEALTH.",
     "sa2": "While HEALTH is greater than 75/65/50%, gain 1 stack(s) of permanent ARMOR.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "SS",
+      "realms": "U"
+    }
   },
   "Galactic Glamour": {
     "name": "Galactic Glamour",
@@ -852,7 +1404,13 @@
     "element": "Air",
     "sa1": "25/35/50% chance on CRITICAL HIT to inflict GUARD BREAK for 10 seconds.",
     "sa2": "25/35/50% chance when suffering a CRITICAL HIT to gain AUTO-BLOCK for 10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Gang Green": {
     "name": "Gang Green",
@@ -861,7 +1419,13 @@
     "element": "Air",
     "sa1": "Squigly gains BLOCKBUSTER METER equal to 1/2/3% of her MOVE SPEED.",
     "sa2": "Gains 1 stack of MIASMA for 5 seconds every 3/2/1 second(s) while not BLOCKING near a dead body.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Glacial Ghoul": {
     "name": "Glacial Ghoul",
@@ -870,7 +1434,13 @@
     "element": "Water",
     "sa1": "Gain BARRIER when gaining a DRAGON CHARGE. Also using your last DRAGON CHARGE converts all stacks of BARRIER into 5/7/10% HEALTH each.",
     "sa2": "While CHARGED and benefiting from BARRIER, gain permanent ENRAGE after every 10/8/6 seconds and permanent IMMUNITY after every 12 seconds. Both BUFFS are removed when the opponent is defeated.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Golden Gunner": {
     "name": "Golden Gunner",
@@ -879,7 +1449,13 @@
     "element": "Light",
     "sa1": "Gain 3/4/5 stack(s) of PRECISION when RELOADING with no SHOTS remaining.",
     "sa2": "With at least 3 stacks of PRECISION, all SHOTS are UNBLOCKABLE and deal 50/75/100% bonus damage.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Grand Mother": {
     "name": "Grand Mother",
@@ -888,7 +1464,13 @@
     "element": "Dark",
     "sa1": "Successful DASH ATTACKS have a 50/75/100% chance to inflict CURSE for 5 seconds. When a DEBUFF on the opponent expires, inflict 1 random DEBUFF for 5 seconds.",
     "sa2": "Permanently increase Double’s ATTACK and reduce the opponent’s DEFENSE by 0.5/0.75/1% each when inflicting a DEBUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Grave Danger": {
     "name": "Grave Danger",
@@ -897,7 +1479,13 @@
     "element": "Air",
     "sa1": "When using a BLOCKBUSTER while CHARGED, convert all DEBUFFS into 10% BLOCKBUSTER METER per DEBUFF and gain HEAVY REGEN for 10/12/15 seconds.",
     "sa2": "While on the opponent's side of the stage, gain DEADEYE and inflict QUIETUS for 10/12/15 seconds each when using a BLOCKBUSTER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Gravedigger": {
     "name": "Gravedigger",
@@ -906,7 +1494,13 @@
     "element": "Light",
     "sa1": "Gain IMMUNITY and UNFLINCHING for 10/12/15 seconds each when the opponent is KNOCKED DOWN.",
     "sa2": "Gain PRECISION every 4/3/2 seconds while benefiting from IMMUNITY or UNFLINCHING.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Graveyard Shift": {
     "name": "Graveyard Shift",
@@ -915,7 +1509,13 @@
     "element": "Dark",
     "sa1": "Valentine and all teammates gain HEAVY REGEN for 10/12/15 seconds when any fighter is defeated.",
     "sa2": "15% chance on HIT to inflict CURSE and HEAL BLOCK for 5/7/10 seconds when benefiting from REGEN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Gray Matter": {
     "name": "Gray Matter",
@@ -924,7 +1524,13 @@
     "element": "Dark",
     "sa1": "All teammates start the match with 15/20/25% BLOCKBUSTER METER.",
     "sa2": "Once per match while Cerebella is alive, all teammates gain 25/35/50% BLOCKBUSTER METER when dropping below 25% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Grim Fan": {
     "name": "Grim Fan",
@@ -933,7 +1539,13 @@
     "element": "Light",
     "sa1": "Once per match, gain UNFLINCHING and IMMUNITY for 15 seconds when dropping below 25/35/50% HEALTH.",
     "sa2": "When Painwheel's UNFLINCHING expires, RESURRECT teammates with 20/25/30% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "A",
+      "realms": "C"
+    }
   },
   "Grin Reaper": {
     "name": "Grin Reaper",
@@ -942,7 +1554,13 @@
     "element": "Air",
     "sa1": "Regain 15% BLOCKBUSTER METER and inflict INVERSE POLARITY for 10/12/15 seconds when either Fighter uses a BLOCKBUSTER.",
     "sa2": "Gain a MORTUARY CHARGE and 2 stacks of MIASMA for 8/10/12 seconds when defeating an opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Gust Buster": {
     "name": "Gust Buster",
@@ -951,7 +1569,13 @@
     "element": "Air",
     "sa1": "HITS from SKELETAL SUMMONS deal 15/25/35% BONUS DAMAGE and TRANSFER up to 3 opponent BUFF(s) to self.",
     "sa2": "While CHARGED, CHARGE ATTACK HITS convert all BUFFS and DEBUFFS on self into BARRIER, MIASMA or ENRAGE for 15/25/35 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Hack n' Splash": {
     "name": "Hack n' Splash",
@@ -960,7 +1584,13 @@
     "element": "Water",
     "sa1": "A well-timed BLOCK against standard attacks grants 3/4/5 stacks of PRECISION and inflicts CRIPPLE and ARMOR BREAK for 10 seconds.",
     "sa2": "Landing CRITICAL HITS with Ms. Fortune's HEAD deal an additional 1/2/3% of the opponent's MAX HEALTH if they are inflicted with CRIPPLE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Hair Apparent": {
     "name": "Hair Apparent",
@@ -969,7 +1599,13 @@
     "element": "Air",
     "sa1": "Using a SPECIAL MOVE grants HASTE for 10/12/15 seconds.",
     "sa2": "Using a BLOCKBUSTER has a 50/75/100% chance to reset the COOLDOWN of all SPECIAL MOVES.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Hallow Fiend": {
     "name": "Hallow Fiend",
@@ -978,7 +1614,13 @@
     "element": "Water",
     "sa1": "While none of Valentine’s BLOCKBUSTERS are fully charged, NON-BLOCKBUSTER HITS drain 3/4/5% BLOCKBUSTER METER.",
     "sa2": "If none of the opponent’s BLOCKBUSTERS are fully charged, BLOCKBUSTER HITS inflict HEX for 4/5/6 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Harlequin": {
     "name": "Harlequin",
@@ -987,7 +1629,13 @@
     "element": "Fire",
     "sa1": "SPECIAL MOVES deal 10/15/20% bonus damage for all teammates.",
     "sa2": "COOLDOWN for SPECIAL MOVES is reduced by 25/30/35% for all teammates.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Head Hunter": {
     "name": "Head Hunter",
@@ -996,7 +1644,13 @@
     "element": "Fire",
     "sa1": "Gain one stack of PRECISION every 1.5/1/0.5 seconds while BLOCKING and not being hit.",
     "sa2": "With at least three stacks of PRECISION, all BEAM and ENERGY attacks are UNBLOCKABLE and inflict POWER SURGE for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Headstrong": {
     "name": "Headstrong",
@@ -1005,7 +1659,13 @@
     "element": "Light",
     "sa1": "THROWS have a 50% chance to inflict CRIPPLE for 4/5/7 seconds.",
     "sa2": "Also inflict ARMOR BREAK for 4/5/7 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Heart of Darkness": {
     "name": "Heart of Darkness",
@@ -1014,7 +1674,13 @@
     "element": "Dark",
     "sa1": "Once per match when TRANSMUTING to the opponent's element, permanently copy their Signature Ability, remove all their BUFFS and inflict HEX for 20/25/30 seconds.",
     "sa2": "When defeating an opponent suffering from a DEBUFF, gain 3 stacks of MIASMA and inflict 3 random DEBUFFS on the next opponent for 10/15/20 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Heartless": {
     "name": "Heartless",
@@ -1023,7 +1689,13 @@
     "element": "Dark",
     "sa1": "HITS from SKELETAL SUMMONS deal 25/35/50% BONUS DAMAGE. These HITS are UNBLOCKABLE when the opponent is below 50% HEALTH or suffering from at least 3 DEBUFFS.",
     "sa2": "While Marie is alive, the last surviving opponent TAGS IN with HEX, HEAVY BLEED and QUIETUS for 10/15/20 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Heavy Handed": {
     "name": "Heavy Handed",
@@ -1032,7 +1704,13 @@
     "element": "Fire",
     "sa1": "Gain ENRAGE and PRECISION every 0.3/0.2/0.1 seconds while charging a CHARGE ATTACK. Gain UNFLINCHING for 10 seconds when reaching 5 stacks of ENRAGE. ENRAGES will be removed when Cerebella is HIT.",
     "sa2": "Regain 10% MAX HEALTH and remove 1/2/3 opponent BUFFS when dealing at least 10% of the opponent's MAX HEALTH from a single HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Heavy Metal": {
     "name": "Heavy Metal",
@@ -1041,7 +1719,13 @@
     "element": "Water",
     "sa1": "10/12/15% chance to gain ARMOR for 5 seconds when either fighter is HIT with a close-range attack (includes Blocking).",
     "sa2": "While benefiting from ARMOR, BLOCKBUSTERS deal 50/75/100% bonus damage.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "A",
+      "realms": "S"
+    }
   },
   "Heavy Reign": {
     "name": "Heavy Reign",
@@ -1050,7 +1734,13 @@
     "element": "Air",
     "sa1": "50% chance on CRITICAL HIT to gain 10/12/15% BLOCKBUSTER METER.",
     "sa2": "50% chance to gain 10/12/15% BLOCKBUSTER METER when suffering a CRITICAL HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Hell's Belle": {
     "name": "Hell's Belle",
@@ -1059,7 +1749,13 @@
     "element": "Fire",
     "sa1": "While the opponent's HEALTH is above 35%, 10/12/15% chance on HIT to inflict BLEED for 5 seconds and a random DEBUFF.",
     "sa2": "Every 10 seconds as the active Fighter, Fukua grants her teammates MIASMA for 10/12/15 seconds and EVASION.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Hellcat": {
     "name": "Hellcat",
@@ -1068,7 +1764,13 @@
     "element": "Fire",
     "sa1": "Gain ENRAGE after every 12/10/8 seconds while above 50% HEALTH. ENRAGE is removed when dropping below 50% HEALTH.",
     "sa2": "Gain 3/4/5 stacks of PRECISION when defeating an opponent while benefiting from ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Hex Caliber": {
     "name": "Hex Caliber",
@@ -1077,7 +1779,13 @@
     "element": "Light",
     "sa1": "Every 10th COMBO HIT landed on Black Dahlia or the opponent grants UNFLINCHING for 5/7/10 seconds. Also gain permanent PRECISION while benefiting from this UNFLINCHING.",
     "sa2": "ALL SHOTS are UNBLOCKABLE and grant IMMUNITY for 5/7/10 seconds while benefiting from PRECISION.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "B",
+      "realms": "SS"
+    }
   },
   "High Ruler": {
     "name": "High Ruler",
@@ -1086,7 +1794,13 @@
     "element": "Dark",
     "sa1": "Opponents have their BLOCKBUSTERS and TAG-INS DISABLED after 3/2/1 second(s) while near a TEAR.",
     "sa2": "Detonated TEARS inflict CURSE and HEX for 5/7/10 seconds on HIT. Dark Fighters also suffer FATIGUE for 5 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Hype Man": {
     "name": "Hype Man",
@@ -1095,7 +1809,13 @@
     "element": "Air",
     "sa1": "While in HYPE MODE, DRAIN opponent BLOCKBUSTER METER by 5/7/10% per landed HIT.",
     "sa2": "When activating HYPE MODE, teammates in reserve gain 25/35/50% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Icy Hot": {
     "name": "Icy Hot",
@@ -1104,7 +1824,13 @@
     "element": "Water",
     "sa1": "All teammates TAG IN with REGEN for 10/12/15 seconds.",
     "sa2": "On TAG IN, all teammates gain 10/12/15% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Idol Echo": {
     "name": "Idol Echo",
@@ -1113,7 +1839,13 @@
     "element": "Fire",
     "sa1": "Gain 1 random BUFF and inflict 1 random DEBUFF every 3/2/1 second(s) while in a combo. All BUFFS and DEBUFFS are removed at the end of a combo.",
     "sa2": "Fukua deals 5/7/10% more damage per BUFF applied to her. When Fukua gains 10 or more BUFFS, remove all opponent BUFFS.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Idol Threat": {
     "name": "Idol Threat",
@@ -1122,7 +1854,13 @@
     "element": "Water",
     "sa1": "EVADING an attack grants FINAL STAND and ARMOR for 5/7/10 seconds.",
     "sa2": "Inflict ARMOR BREAK for 5 seconds when HITTING an attacking opponent. Additionally, 100/150/200% of the damage inflicted is regained as HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Immoral Fiber": {
     "name": "Immoral Fiber",
@@ -1131,7 +1869,13 @@
     "element": "Fire",
     "sa1": "When defeated, deal damage equivalent to 25/35/50% of your MAX HEALTH.",
     "sa2": "When defeated, heal all teammates by 25/35/50% of your MAX HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "SS",
+      "realms": "U"
+    }
   },
   "In Denile": {
     "name": "In Denile",
@@ -1140,7 +1884,13 @@
     "element": "Water",
     "sa1": "Inflict ARMOR BREAK for 5/10/15 seconds when entering Sekhmet Mode.",
     "sa2": "Remove all DEBUFFS and gain IMMUNITY for 5/10/15 seconds when entering Sekhmet Mode.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Indomitable": {
     "name": "Indomitable",
@@ -1149,7 +1899,13 @@
     "element": "Fire",
     "sa1": "Grant DEADEYE and inflict HEAL BLOCK when the opponent's HEALTH drops below 60/70/80%. Both effects are removed if Parasoul is KNOCKED DOWN.",
     "sa2": "Transfer 1 opponent BUFF and gain MIASMA for 7 seconds every 5/4/3 seconds while on the opponent's side of the stage and benefiting from DEADEYE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Infernal Twin": {
     "name": "Infernal Twin",
@@ -1158,7 +1914,13 @@
     "element": "Fire",
     "sa1": "When hitting an attacking opponent, gain ENRAGE for 10/12/15 seconds and refresh the duration of all ENRAGES.",
     "sa2": "When HIT while benefiting from 5/4/3 stacks of ENRAGE, inflict FATIGUE for 5 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Inkfluencer": {
     "name": "Inkfluencer",
@@ -1167,7 +1929,13 @@
     "element": "Neutral",
     "sa1": "NON-BLOCKBUSTER PROJECTILES inflict SLIME and INK the opponent for 10 seconds each, and DRAIN 10/15/20% BLOCKBUSTER METER on HIT. BLOCKBUSTERS deal 20% more damage per stack of INK (up to 5 stacks).",
     "sa2": "Gain BARRIER when entering or exiting THE HOLE IDEA. While in THE HOLE IDEA, SPECIAL MOVES recharge 50/75/100% faster and gain 10/20/30% BLOCKBUSTER METER per second.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Inkling": {
     "name": "Inkling",
@@ -1176,7 +1944,13 @@
     "element": "Dark",
     "sa1": "Deal 15/20/25% bonus damage for each living teammate.",
     "sa2": "SPECIAL MOVES have a 15/20/25% chance to be UNBLOCKABLE while Peacock has living teammates.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Inner Pieces": {
     "name": "Inner Pieces",
@@ -1185,7 +1959,13 @@
     "element": "Neutral",
     "sa1": "When entering Sekhmet Mode, gain a BUFF for 10/12/15 seconds per teammate. The BUFF gained is determined by each teammate's ELEMENT.",
     "sa2": "50/75/100% chance when TAGGING to or from Eliza for all active BUFFS to transfer to the incoming Fighter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Ionic Icon": {
     "name": "Ionic Icon",
@@ -1194,7 +1974,13 @@
     "element": "Light",
     "sa1": "All teammates' TAG IN attacks inflict DEATH MARK for 10/15/20 seconds and STUN the opponent for 4 seconds. Peacock also gains 1/2/3 stack of BARRIER.",
     "sa2": "Every 15 COMBO HITS by a Light Element teammate removes 1 opponent BUFF and inflicts POWER SURGE for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Iron Matron": {
     "name": "Iron Matron",
@@ -1203,7 +1989,13 @@
     "element": "Fire",
     "sa1": "Detonated TEARS grant 1 stack of ENRAGE for 10/12/15 seconds on HIT.",
     "sa2": "DASH ATTACKS are UNBLOCKABLE while benefiting from at least 3 stacks of ENRAGE. Successful DASH ATTACKS grant MIASMA and inflict ARMOR BREAK for 3/4/5 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Ivy League": {
     "name": "Ivy League",
@@ -1212,7 +2004,13 @@
     "element": "Air",
     "sa1": "Inflict SLOW for 5/7/10 seconds when spawning a TEAR. Opponents are IMMOBILIZED while near a TEAR.",
     "sa2": "DRAIN 1/1.5/2% HEALTH per second while the opponent is near a TEAR.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Jack-O-Specter": {
     "name": "Jack-O-Specter",
@@ -1221,7 +2019,13 @@
     "element": "Dark",
     "sa1": "Gain a random BUFF for 10/12/15 seconds when either Fighter uses a SPECIAL MOVE.",
     "sa2": "Inflict 3 random DEBUFFS on the opponent for 10/12/15 seconds each when either Fighter uses a BLOCKBUSTER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Jawbreaker": {
     "name": "Jawbreaker",
@@ -1230,7 +2034,13 @@
     "element": "Light",
     "sa1": "When TRANSMUTING, gain a random BUFF for 5/6/7 seconds.",
     "sa2": "Deal 10/15/20% bonus damage for each BUFF applied to Double.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Just Kitten": {
     "name": "Just Kitten",
@@ -1239,7 +2049,13 @@
     "element": "Water",
     "sa1": "25/35/50% chance when suffering a DEBUFF to immediately convert that DEBUFF to a stack of PRECISION.",
     "sa2": "5/10/15% chance when either Fighter is hit by any non-projectile HIT to gain 1 stack of EVASION and HASTE for 10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Kill Joy": {
     "name": "Kill Joy",
@@ -1248,7 +2064,13 @@
     "element": "Light",
     "sa1": "Teammates gain permanent REGEN when first dropping below 25/35/50% HEALTH while at an ELEMENTAL ADVANTAGE.",
     "sa2": "Once per match on DEATH, RESURRECT all defeated teammates with 15/20/25% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "C"
+    }
   },
   "Killing Time": {
     "name": "Killing Time",
@@ -1257,7 +2079,13 @@
     "element": "Fire",
     "sa1": "CHARGE ATTACKS are extended with an extra hit and can be charged longer for extra damage. Landing a CHARGE ATTACK grants permanent DEADEYE and adds 1/1.5/2% BLOCKBUSTER METER for each hit landed until the end of her combo.",
     "sa2": "BLOCKBUSTER HITS inflict CURSE for 10 seconds. If a BLOCKBUSTER HIT occurs after a CHARGE ATTACK in the same combo, gain 3/4/5 stacks of permanent ENRAGE until the end of her combo.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Lapis Luxury": {
     "name": "Lapis Luxury",
@@ -1266,7 +2094,13 @@
     "element": "Water",
     "sa1": "Once per match when TAGGING IN, match the meter value of the opponent's highest BLOCKBUSTER METER and inflict ARMOR BREAK for 10/12/15 seconds.",
     "sa2": "Once per match when using a TIER 3 BLOCKBUSTER, switch HEALTH percentages with the opponent and gain HEAVY REGEN for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Last Hope": {
     "name": "Last Hope",
@@ -1275,7 +2109,13 @@
     "element": "Light",
     "sa1": "While Valentine is alive, when any teammate is defeated, RESURRECT that teammate with 15/20/25% HEALTH. This effect only occurs once per other teammate.",
     "sa2": "Also grant HEAVY REGEN for 5/10/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "A",
+      "realms": "U"
+    }
   },
   "Lethal Weapon": {
     "name": "Lethal Weapon",
@@ -1284,7 +2124,13 @@
     "element": "Water",
     "sa1": "All SHOTS have a 50/75/100% chance to inflict BLEED for 10 seconds.",
     "sa2": "Gain 1/2/3% METER and 1% HEALTH per second while nearby an opponent suffering BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Locked 'N' Loaded": {
     "name": "Locked 'N' Loaded",
@@ -1293,7 +2139,13 @@
     "element": "Air",
     "sa1": "When FIRING a SHOT, sacrifice 3% of Black Dahlia's MAX HEALTH to inflict WITHER and gain 5/7/8% BLOCKBUSTER METER.",
     "sa2": "When using a BLOCKBUSTER, DRAIN 3/4/5% of the opponent's MAX HEALTH per stack of WITHER and convert all stacks of WITHER on the opponent to INVERSE POLARITY for 3 seconds per stack.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Locked In": {
     "name": "Locked In",
@@ -1302,7 +2154,13 @@
     "element": "Dark",
     "sa1": "While near a TEAR, 50/75/100% chance for SPECIAL MOVES to grant HASTE for 15 seconds and remove 1 opponent BUFF.",
     "sa2": "While at least 1 TEAR is on the stage, CRITICAL HITS grant INVINCIBLE for 1 second and 5/7/10% of all CRIT DAMAGE dealt is regained as HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Love Crafted": {
     "name": "Love Crafted",
@@ -1311,7 +2169,13 @@
     "element": "Dark",
     "sa1": "While near an opponent, DISABLE BLOCKBUSTERS and inflict HEAL BLOCK after 3/2/1 second(s).",
     "sa2": "Every 10th COMBO HIT will land as a CRITICAL HIT, and will inflict DEATH MARK and HEAVY BLEED for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Lucky Lure": {
     "name": "Lucky Lure",
@@ -1320,7 +2184,13 @@
     "element": "Air",
     "sa1": "While Umbrella is alive, the active Fighter has a 30/40/50% chance to gain a BUFF based on a random teammate’s ELEMENT for 7 seconds when landing a CRITICAL HIT.",
     "sa2": "While Umbrella is alive, increase the active Fighter’s CRIT DAMAGE by 5/10/15% per stack of REGEN on the Fighter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "M-3OW": {
     "name": "M-3OW",
@@ -1329,7 +2199,13 @@
     "element": "Light",
     "sa1": "Deal 50/75/100% bonus damage while Robo-Fortune is far away from the opponent.",
     "sa2": "Gain INVINCIBLE for 3/4/5 seconds after 3 seconds while far away from the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Mad Malice": {
     "name": "Mad Malice",
@@ -1338,7 +2214,13 @@
     "element": "Light",
     "sa1": "While Marie is alive, her teammates' CRITICAL HITS have a 15/20/25% chance to grant ENRAGE for 10/13/15 seconds.",
     "sa2": "Marie gains permanent ENRAGE for every 50/40/30% HEALTH lost by any teammate or opponent. Gain permanent PRECISION while benefiting from 5 stacks of this ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Magicurl": {
     "name": "Magicurl",
@@ -1347,7 +2229,13 @@
     "element": "Neutral",
     "sa1": "When the active Fighter is about to suffer a DEBUFF, Filia sacrifices 10% MAX HP to give the active Fighter IMMUNITY for 3/4/5 seconds. This effect can only trigger once every 10 seconds.",
     "sa2": "Also deal 10% MAX HEALTH damage to the opponent and inflict HEAL BLOCK for 5 seconds. Filia’s BLOCKBUSTER or SPECIAL HITS have a 25/30/35% chance of healing her for 10% MAX HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "A",
+      "realms": "S"
+    }
   },
   "Maid of Honor": {
     "name": "Maid of Honor",
@@ -1356,7 +2244,13 @@
     "element": "Light",
     "sa1": "While Marie is alive, HITS blocked by all teammates have a 25/35/50% chance to convert 1 DEBUFF into a stack of BARRIER.",
     "sa2": "While Marie is alive, all teammates recover 1/1.5/2% HEALTH per second while benefitting from BARRIER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "SS",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Mana Flow": {
     "name": "Mana Flow",
@@ -1365,7 +2259,13 @@
     "element": "Fire",
     "sa1": "Squigly's standard BLOCKBUSTERS consume all DRAGON CHARGES to gain additional effects per DRAGON CHARGE. Gain 15/20/25% BLOCKBUSTER METER when gaining a DRAGON CHARGE and automatically gain 25% DRAGON CHARGE per second.",
     "sa2": "When using a BLOCKBUSTER, gain permanent PRECISION until the COMBO ends. Permanently gain 10/15/20% ATTACK when spending a DRAGON CHARGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Martial Outlaw": {
     "name": "Martial Outlaw",
@@ -1374,7 +2274,13 @@
     "element": "Air",
     "sa1": "Any teammate's CHARGE ATTACK HITS grant HASTE for 8/10/12 seconds.",
     "sa2": "All teammates have a 15/20/25% chance on HIT to inflict ARMOR BREAK and HEAVY BLEED for 10 seconds each while benefiting from HASTE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Masked Menace": {
     "name": "Masked Menace",
@@ -1383,7 +2289,13 @@
     "element": "Light",
     "sa1": "While near an opponent, inflict CURSE and QUIETUS for 2 seconds after every 3/2/1 second(s).",
     "sa2": "While the opponent is suffering from QUIETUS, landing a BURST inflicts permanent DOOM for 25/20/15 seconds and heals 15% HEALTH. DOOM is removed when the opponent gains a BUFF or Painwheel dies.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "SS",
+      "realms": "S"
+    }
   },
   "Materia Girl": {
     "name": "Materia Girl",
@@ -1392,7 +2304,13 @@
     "element": "Water",
     "sa1": "20% chance to gain 5/7/10% STAR POWER meter when either Fighter is HIT (includes Blocking).",
     "sa2": "While in STAR POWER MODE, gain permanent PRECISION, DEADEYE or HASTE, and 3/4/5% BLOCKBUSTER METER per second. The permanent BUFF is removed when exiting STAR POWER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Mean One": {
     "name": "Mean One",
@@ -1401,7 +2319,13 @@
     "element": "Fire",
     "sa1": "Gain ENRAGE for 10/12/15 seconds for every BUFF gained by the opponent.",
     "sa2": "Projectiles have a 25/35/50% chance on HIT to convert 1 opponent BUFF into a random DEBUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Megalomaniac": {
     "name": "Megalomaniac",
@@ -1410,7 +2334,13 @@
     "element": "Water",
     "sa1": "While Marie is alive, she gains permanent ARMOR and EVASION for 10 seconds for every 40/35/30% HEALTH lost by any teammate. 1 stack of ARMOR is removed when her opponent uses a BLOCKBUSTER.",
     "sa2": "While Marie is the active Fighter, is fighting the same opponent, and has at least 3 stacks of ARMOR, she inflicts STUN for 2/3/4 seconds every 10 seconds and DRAINS 10% BLOCKBUSTER METER every 5 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "SS",
+      "realms": "C"
+    }
   },
   "Megasonic": {
     "name": "Megasonic",
@@ -1419,7 +2349,13 @@
     "element": "Dark",
     "sa1": "When blocking a HIT, reduce damage taken by 25/50/75% and gain ENRAGE and THORNS for 10 seconds. One ENRAGE stack is removed every 10th COMBO HITS.",
     "sa2": "While benefiting from ENRAGE, 25/35/50% of the damage dealt is regained as HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "B",
+      "realms": "S"
+    }
   },
   "Mekastar": {
     "name": "Mekastar",
@@ -1428,7 +2364,13 @@
     "element": "Neutral",
     "sa1": "If none of Cerebella's BLOCKBUSTERS are fully charged, gain ENRAGE for 5/7/10 seconds and 5% BLOCKBUSTER METER every 3 seconds while not BLOCKING.",
     "sa2": "Gain BARRIER and inflict CURSE for 15 seconds each when using a BLOCKBUSTER. Also while benefiting from ENRAGE, 3% chance on HIT to instantly defeat the opponent if they have less than 30/40/50% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Meow & Furever": {
     "name": "Meow & Furever",
@@ -1437,7 +2379,13 @@
     "element": "Light",
     "sa1": "Gain FINAL STAND for 10 seconds and 3/4/5 stacks of PRECISION for every 10% HEALTH LOST.",
     "sa2": "Enemy is inflicted with DEATH MARK for 10/12/15 seconds and STUN for 4 seconds when FINAL STAND expires.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "B",
+      "realms": "B"
+    }
   },
   "Miss Mercury": {
     "name": "Miss Mercury",
@@ -1446,7 +2394,13 @@
     "element": "Dark",
     "sa1": "9/11/13% chance on HIT to gain 13% STAR POWER and inflict QUIETUS for 13 seconds.",
     "sa2": "When activating STAR POWER, instantly empty it to convert 1/2/3 BUFFS on the opponent to random DEBUFFS for 13 seconds. Also inflict CURSE for 13 seconds when activated at full meter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Model Leader": {
     "name": "Model Leader",
@@ -1455,7 +2409,13 @@
     "element": "Water",
     "sa1": "While Annie is alive, she clears the active Fighter's DEBUFFS and grants ARMOR for 15 seconds every 30/25/20 seconds. Water teammates also gain 2 stacks of ENRAGE for 15 seconds.",
     "sa2": "Gain permanent AUTO-BLOCK for each 25/20/15% HEALTH lost. All Teammates benefiting from ARMOR or AUTO-BLOCK gain 4/5/6% BLOCKBUSTER METER when using a SPECIAL MOVE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "A",
+      "realms": "A"
+    }
   },
   "Moody Magus": {
     "name": "Moody Magus",
@@ -1464,7 +2424,13 @@
     "element": "Fire",
     "sa1": "Gain a random BUFF for 10/20/30 seconds when defeating an opponent or using a MORTUARY CHARGE.",
     "sa2": "Gain 1/1.5/2% BLOCKBUSTER METER per second while benefiting from a BUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Moonstruck": {
     "name": "Moonstruck",
@@ -1473,7 +2439,13 @@
     "element": "Dark",
     "sa1": "Inflict WITHER for 10 seconds and gain 10/12/15% STAR POWER meter when landing a CRITICAL HIT with a projectile.",
     "sa2": "Once per match when activating STAR POWER at full meter, REVIVE and HEAL teammates by 50/75/100% of Annie's missing HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Ms. Trial": {
     "name": "Ms. Trial",
@@ -1482,7 +2454,13 @@
     "element": "Air",
     "sa1": "When HITTING an attacking opponent, remove 1 of the opponent's BUFFS and gain 3/4/5 stacks of PRECISION.",
     "sa2": "PRECISION HITS have a 50/75/100% chance to ignore the opponent's DEFENSE and ARMOR.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Mummy Dearest": {
     "name": "Mummy Dearest",
@@ -1491,7 +2469,13 @@
     "element": "Light",
     "sa1": "Using a SPECIAL MOVE sacrifices 10% of Eliza's MAX HEALTH to gain 15/25/35% BLOCKBUSTER METER and HEAVY REGEN for 10 seconds.",
     "sa2": "Gain BLESSING and IMMUNITY for 20/25/30 seconds each when entering SEKHMET MODE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Myst-Match": {
     "name": "Myst-Match",
@@ -1500,7 +2484,13 @@
     "element": "Water",
     "sa1": "While sharing the opponent’s same element, gain 1 stack of PRECISION every 3/2/1 second(s) and all HITS deal 100% bonus DAMAGE.",
     "sa2": "Double’s PRECISION HITS deal 1/1.5/2% MAX HEALTH as damage to the opponent’s teammates.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Nail Biter": {
     "name": "Nail Biter",
@@ -1509,7 +2499,13 @@
     "element": "Neutral",
     "sa1": "Gain MIASMA or BARRIER for 15 seconds each every 0.5/0.3/0.25 seconds while charging WYRM'S TAIL.",
     "sa2": "While fully CHARGED, EVADE all attacks while DASHING. Successful DASH ATTACKS inflict 1/2/3 random DEBUFFS (excluding STUN or DOOM) for 10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Near Death": {
     "name": "Near Death",
@@ -1518,7 +2514,13 @@
     "element": "Neutral",
     "sa1": "Transfer 1 DEBUFF from yourself to the opponent and inflict GUARD BREAK for 15 seconds after every 7/6/5 seconds while not suffering a HIT (including blocked HITS).",
     "sa2": "While the opponent is suffering from a DEBUFF, grant DEADEYE for 10/12/15 seconds when using a BLOCKBUSTER. Also while the opponent has 3 or more stacks of GUARD BREAK, BLOCKBUSTERS deal 50/75/100% bonus damage.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Nearly Departed": {
     "name": "Nearly Departed",
@@ -1527,7 +2529,13 @@
     "element": "Light",
     "sa1": "When using a BLOCKBUSTER at an ODD COMBO COUNT, gain INVINCIBILITY for 5/6/8 seconds.",
     "sa2": "Also RESURRECT teammates with 15/20/25% HEALTH if Squigly is below 50% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Necrobreaker": {
     "name": "Necrobreaker",
@@ -1536,7 +2544,13 @@
     "element": "Light",
     "sa1": "Once per match when suffering a HIT that would be fatal, gain FINAL STAND for 5/10/15 seconds.",
     "sa2": "Gain 5/6/7% HEALTH per second while charging WYRM'S TAIL.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Neuromancer": {
     "name": "Neuromancer",
@@ -1545,7 +2559,13 @@
     "element": "Dark",
     "sa1": "Drain 5/7/10% BLOCKBUSTER METER for each non-BLOCKBUSTER HIT blocked by the opponent.",
     "sa2": "10/12/15% of damage dealt from a BLOCKBUSTER is also suffered by the opponent's teammates.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "S",
+      "rift_def": "SS",
+      "realms": "S"
+    }
   },
   "Night Terror": {
     "name": "Night Terror",
@@ -1554,7 +2574,13 @@
     "element": "Dark",
     "sa1": "Gain 2 stacks of MIASMA for 10 seconds after every 4/3/2 seconds while far away from the opponent.",
     "sa2": "Inflict IMMOBILIZE and FATIGUE for 10 seconds each every 4/3/2 seconds while near the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "B",
+      "realms": "A"
+    }
   },
   "Nightshade": {
     "name": "Nightshade",
@@ -1563,7 +2589,13 @@
     "element": "Water",
     "sa1": "Gain DEADEYE for 4/5/6 seconds whenever the opponent suffers a DEBUFF.",
     "sa2": "Sekhmet hits deal 50/75/100% bonus damage. Opponents defeated by Sekhmet hits cannot be revived.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Ninja Star": {
     "name": "Ninja Star",
@@ -1572,7 +2604,13 @@
     "element": "Dark",
     "sa1": "50/75/100% chance when hitting an attacking opponent to remove 1 opponent BUFF and inflict GUARD BREAK for 10 seconds.",
     "sa2": "Projectiles deal 25/35/50% bonus damage for each DEBUFF applied to the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "No Egrets": {
     "name": "No Egrets",
@@ -1581,7 +2619,13 @@
     "element": "Water",
     "sa1": "On CRITICAL HIT, DISABLE the opponent’s BLOCKBUSTERS, SPECIAL MOVES, and TAG-INS for 4/5/6 seconds.",
     "sa2": "While Parasoul is alive, increase the active Fighter’s ACCURACY by 3/4/5% per CRITICAL HIT until the COMBO ends (up to 30/40/50%).",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Noble Mogul": {
     "name": "Noble Mogul",
@@ -1590,7 +2634,13 @@
     "element": "Light",
     "sa1": "While Eliza is alive, all teammates gain BARRIER every 30/25/20 seconds.",
     "sa2": "While Eliza is alive, all LIGHT teammates deal 5/10/15% bonus damage for each stack of BARRIER applied to them. Also Eliza gains IMMUNITY while benefiting from BARRIER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Number Cruncher": {
     "name": "Number Cruncher",
@@ -1599,7 +2649,13 @@
     "element": "Dark",
     "sa1": "25/35/50% chance to gain 1 stack of BLESSING for 20 seconds every 5 COMBO HITS.",
     "sa2": "When reaching 5 stacks of BLESSING, remove all BLESSINGS and inflict 5 stacks of GUARD BREAK for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Number One": {
     "name": "Number One",
@@ -1608,7 +2664,13 @@
     "element": "Fire",
     "sa1": "Gain DEADEYE and HASTE for 10/12/15 seconds each when activating HYPE MODE.",
     "sa2": "15/20/25% chance on HIT to gain ENRAGE for 15 seconds while benefiting from HASTE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Nunsense": {
     "name": "Nunsense",
@@ -1617,7 +2679,13 @@
     "element": "Air",
     "sa1": "When at an ELEMENTAL ADVANTAGE, gain 1/2/3 random BUFFS for 10 seconds any time the opponent gains a BUFF.",
     "sa2": "When at an ELEMENTAL ADVANTAGE, inflict 1/2/3 random DEBUFFS for 10 seconds after suffering any DEBUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Nyanotech": {
     "name": "Nyanotech",
@@ -1626,7 +2694,13 @@
     "element": "Fire",
     "sa1": "Gain UNFLINCHING and BARRIER for 8/10/12 seconds each when launching a HEADRONE",
     "sa2": "While benefiting from BARRIER and about to suffer a DEBUFF, 50/75/100% chance to prevent it and gain ENRAGE for 12 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Octoplasm": {
     "name": "Octoplasm",
@@ -1635,7 +2709,13 @@
     "element": "Water",
     "sa1": "When TAGGING to or from Marie, the incoming Fighter gains 2 stacks of REGEN for 15 seconds and 10/12/15% BLOCKBUSTER METER.",
     "sa2": "While Marie is alive, WATER teammates’ hits have a 15/20/25% chance to inflict BLEED, SLIME, or QUIETUS for 15 seconds each while benefiting from REGEN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Ogre Achiever": {
     "name": "Ogre Achiever",
@@ -1644,7 +2724,13 @@
     "element": "Light",
     "sa1": "When the opponent attempts to gain a BUFF, Beowulf has a 25/35/50% chance to prevent it and gain IMMUNITY for 10/12/15 seconds.",
     "sa2": "While in HYPE MODE, BLOCKBUSTERS have a 50/75/100% chance to grant permanent ENRAGE and heal for 10% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Oh Mai": {
     "name": "Oh Mai",
@@ -1653,7 +2739,13 @@
     "element": "Fire",
     "sa1": "Gain 2 stacks of ENRAGE for 15/17/20 seconds and 5 stacks of PRECISION after defeating an opponent.",
     "sa2": "When any fighter is defeated, all teammates gain 2 stacks of ENRAGE for 7/10/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "One Up": {
     "name": "One Up",
@@ -1662,7 +2754,13 @@
     "element": "Neutral",
     "sa1": "For every 8 COMBO HITS landed, gain DEADEYE for 5/7/10 seconds and BARRIER.",
     "sa2": "When reaching 8, 16, 32 and 64 COMBO HITS, reduce opponent's CURRENT HEALTH and BLOCKBUSTER METER by .5/.75/1% for each current COMBO HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Overclocked": {
     "name": "Overclocked",
@@ -1671,7 +2769,13 @@
     "element": "Neutral",
     "sa1": "Gain PRECISION and BARRIER after every 5/4/3 seconds not suffering a hit (includes blocked hits).",
     "sa2": "All attacks are UNBLOCKABLE while at 5/4/3 or more stacks of PRECISION, and 50% of incoming damage is reflected while at 5/4/3 or more stacks of BARRIER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Palace Plunderer": {
     "name": "Palace Plunderer",
@@ -1680,7 +2784,13 @@
     "element": "Air",
     "sa1": "Gain EVASION for 7 seconds and grant all teammates 1/2/3% HEALTH every 5 seconds while not suffering a HIT (includes blocked hits).",
     "sa2": "Every 15/12/10 COMBO HITS while benefiting from a BUFF, transfer 1 opponent BUFF to self and grant teammates ENRAGE for 30 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Parasite Weave": {
     "name": "Parasite Weave",
@@ -1689,7 +2799,13 @@
     "element": "Fire",
     "sa1": "35% chance on CRITICAL HIT to gain MIASMA for 4/5/6 seconds. Also, while the opponent is not suffering from INVERSE POLARITY, inflict STUN for 3/3.5/4 seconds.",
     "sa2": "While the opponent is STUNNED, 25/30/35% chance on CRITICAL HIT to convert their STUN into INVERSE POLARITY for 8 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Patched Up": {
     "name": "Patched Up",
@@ -1698,7 +2814,13 @@
     "element": "Dark",
     "sa1": "8/12/15% chance when either Fighter is HIT (includes blocked hits) to transfer 1 opponent BUFF to Ms. Fortune.",
     "sa2": "While benefiting from at least 3 stacks of any BUFFs, HITS (including blocked hits) inflict WITHER and CURSE for 4/7/10 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Pea Shooter": {
     "name": "Pea Shooter",
@@ -1707,7 +2829,13 @@
     "element": "Air",
     "sa1": "Projectiles deal 15/25/35% bonus damage for all teammates.",
     "sa2": "All projectiles have a 10/15% chance to inflict ARMOR BREAK for 3/6 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Persona Assistant": {
     "name": "Persona Assistant",
@@ -1716,7 +2844,13 @@
     "element": "Light",
     "sa1": "Every 20 seconds while Robo-Fortune is alive, she gains 3/4/5 stacks of PRECISION and 3/4/5 stacks of ENRAGE for 5 seconds. Her teammates also gain 1 stack of BLESSING and BARRIER.",
     "sa2": "50/75/100% chance for DASH ATTACKS to be UNBLOCKABLE while benefiting from ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "B"
+    }
   },
   "Phantom Threads": {
     "name": "Phantom Threads",
@@ -1725,7 +2859,13 @@
     "element": "Light",
     "sa1": "When the opponent is KNOCKED DOWN, Fukua gains BLESSING for 10/15/20 seconds and removes 1 opponents BUFF.",
     "sa2": "When using a BLOCKBUSTER, remove all BLESSINGS and gain ENRAGE for 10 seconds and heal for 5/7/10% HEALTH per BLESSING removed.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Phantom Wrangler": {
     "name": "Phantom Wrangler",
@@ -1734,7 +2874,13 @@
     "element": "Fire",
     "sa1": "HITS from SKELETAL SUMMONS deal 30% BONUS DAMAGE and have a 50% chance to inflict SLIME for 10/12/15 seconds.",
     "sa2": "Drain 2/3/4% BLOCKBUSTER METER per stack of SLIME on the opponent when they BOUNCE off a wall.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Pickle Baller": {
     "name": "Pickle Baller",
@@ -1743,7 +2889,13 @@
     "element": "Air",
     "sa1": "While Beowulf is alive, the active fighter gains EVASION for 7 seconds and 3/4/5% BLOCKBUSTER METER when the opponent is KNOCKED DOWN.",
     "sa2": "When any teammate EVADES an attack, grant REGEN for 6/8/10 seconds and 2 stacks of PRECISION.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Plot Twisted": {
     "name": "Plot Twisted",
@@ -1752,7 +2904,13 @@
     "element": "Water",
     "sa1": "Reflect 10% of all damage taken per DEBUFF on Squigly (max: 40%). Also, once per match, RESURRECT with 25/35/50% HEALTH and 4 random DEBUFFS for 15 seconds each.",
     "sa2": "Suffer a random DEBUFF for 4/6/8 seconds every 4 seconds. Squigly’s NON-BLOCKBUSTER HITS deal 1% MAX HEALTH as damage to the opponent per DEBUFF on either Fighter (max 3%).",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "S",
+      "realms": "A"
+    }
   },
   "Poltergust": {
     "name": "Poltergust",
@@ -1761,7 +2919,13 @@
     "element": "Air",
     "sa1": "Using a BLOCKBUSTER inflicts SLIME on the opponent for 10 seconds. BLOCKBUSTERS deal 50/75/100% bonus damage to opponents suffering SLIME.",
     "sa2": "When a BUFF on either Fighter expires or is removed, gain 15/20/25% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Primal Prodigy": {
     "name": "Primal Prodigy",
@@ -1770,7 +2934,13 @@
     "element": "Air",
     "sa1": "Gain 1 random BUFF for 10 seconds and 5% BLOCKBUSTER METER every 6/5/4 seconds while not suffering a HIT (includes blocked hits).",
     "sa2": "When a BUFF on Peacock expires, inflict CURSE and DISABLE opponent SPECIAL MOVES for 6/7/8 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Primed": {
     "name": "Primed",
@@ -1779,7 +2949,13 @@
     "element": "Dark",
     "sa1": "Gain ENRAGE for 5/7/10 seconds when spawning a TEAR.",
     "sa2": "Detonated TEARS inflict BLEED for 3/4/5 seconds on HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Princess Pride": {
     "name": "Princess Pride",
@@ -1788,7 +2964,13 @@
     "element": "Light",
     "sa1": "Gain REGEN for 4/5/6 seconds and BARRIER when spawning a TEAR.",
     "sa2": "On TEAR DETONATION, consume all stacks of BARRIER and immediately recover 2/4/6% HEALTH per active TEAR. The detonated TEARS also deal 20% bonus damage per stack consumed.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Prism Plumage": {
     "name": "Prism Plumage",
@@ -1797,7 +2979,13 @@
     "element": "Neutral",
     "sa1": "While Peacock is alive, all teammates TAG IN with 2 BUFFS based on their ELEMENTS for 5/7/10 seconds (except after teammate death).",
     "sa2": "While Peacock is alive, all projectiles have a 10% chance to inflict DEBUFFS based on the opponent's ELEMENT for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Private Dick": {
     "name": "Private Dick",
@@ -1806,7 +2994,13 @@
     "element": "Fire",
     "sa1": "5% chance on HIT to STUN opponent for 2/2.5/3 seconds. Also, BLOCKBUSTERS deal 50% BONUS DAMAGE against opponents suffering from STUN.",
     "sa2": "When Big Band is about to suffer a DEBUFF, he has a 25/35/50% chance to prevent it and gain ENRAGE for 8 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "B",
+      "realms": "S"
+    }
   },
   "Proton Pulse": {
     "name": "Proton Pulse",
@@ -1815,7 +3009,13 @@
     "element": "Light",
     "sa1": "20% chance on HIT to inflict POWER SURGE for 10/15/20 seconds on both fighters while near the opponent. Non-BLOCKBUSTER HITS grant 1/2/3% BLOCKBUSTER METER.",
     "sa2": "When using a BLOCKBUSTER, gain ENRAGE, REGEN, or EVASION for 10/15/20 seconds per stack of POWER SURGE on both fighters and remove all POWER SURGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Prototype": {
     "name": "Prototype",
@@ -1824,7 +3024,13 @@
     "element": "Air",
     "sa1": "BLOCKBUSTER HITS have a 15/20/25% chance to inflict POWER SURGE for 10 seconds.",
     "sa2": "When using a BLOCKBUSTER, gain 15/20/25% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Psycommander": {
     "name": "Psycommander",
@@ -1833,7 +3039,13 @@
     "element": "Fire",
     "sa1": "When FIRING your last remaining SHOT, gain FINAL STAND and 3/4/5 stacks of ENRAGE for 10 seconds each.",
     "sa2": "Gain DEADEYE and 1/2/3 stack(s) of EVASION for 10 seconds each when using a SPECIAL MOVE while benefiting from ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Psykid": {
     "name": "Psykid",
@@ -1842,7 +3054,13 @@
     "element": "Light",
     "sa1": "When HITTING an attacking opponent, gain DEADEYE and inflict INVERSE POLARITY for 10/12/15 seconds each.",
     "sa2": "50/75/100% chance to reset the timers of all Umbrella's BUFFS and all opponent DEBUFFS except STUN and DOOM when the opponent BOUNCES off a wall.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Puddle Pirate": {
     "name": "Puddle Pirate",
@@ -1851,7 +3069,13 @@
     "element": "Water",
     "sa1": "PUDDLE HITS remove 1/2/3 opponent BUFFS and inflict IMMOBILIZE for 10 seconds.",
     "sa2": "While the opponent has no BUFFS, PUDDLE HITS grant ENRAGE for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Purrfect Dark": {
     "name": "Purrfect Dark",
@@ -1860,7 +3084,13 @@
     "element": "Dark",
     "sa1": "After facing Ms. Fortune for 15/12/10 seconds, the opponent suffers DEATH MARK and CURSE.",
     "sa2": "HEAD HITS have a 10% chance to instantly defeat enemies if they are suffering from DEATH MARK and are below 25/35/50% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Purrminator": {
     "name": "Purrminator",
@@ -1869,7 +3099,13 @@
     "element": "Dark",
     "sa1": "10/12/15% chance to gain 1 stack of PRECISION and inflict DEATH MARK for 10 seconds when the opponent BLOCKS a HIT.",
     "sa2": "Each CRITICAL HIT permanently increases DAMAGE by 1/2/3%.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Pyro-Technique": {
     "name": "Pyro-Technique",
@@ -1878,7 +3114,13 @@
     "element": "Fire",
     "sa1": "BLOCKBUSTER and SPECIAL MOVE HITS have a 20% chance to inflict WITHER and BLEED for 5/7/10 seconds.",
     "sa2": "20% chance on HIT to gain ENRAGE for 5/7/10 seconds if the opponent is suffering from WITHER or BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Rage Appropriate": {
     "name": "Rage Appropriate",
@@ -1887,7 +3129,13 @@
     "element": "Water",
     "sa1": "Gain permanent ENRAGE when suffering a HIT (including blocked hits) that deals more than 10/7/5% MAX HEALTH.",
     "sa2": "Every 15/12/10th COMBO HIT grants HEAVY REGEN and 2 stacks of ARMOR for 10 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Rain Shadow": {
     "name": "Rain Shadow",
@@ -1896,7 +3144,13 @@
     "element": "Water",
     "sa1": "15% chance when landing a HIT (including BLOCKED HITS) to inflict ARMOR BREAK and POWER SURGE for 10/12/15 seconds each.",
     "sa2": "Every 5 seconds while Fukua is on the opponent’s side of the stage and while not STUNNED, opponents lose all current BUFFS and suffer STUN for 2/3/4 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Rainbow Blight": {
     "name": "Rainbow Blight",
@@ -1905,7 +3159,13 @@
     "element": "Neutral",
     "sa1": "When TRANSMUTING, gain BUFFS based on the resulting ELEMENT for 7/8/10 seconds.",
     "sa2": "When TRANSMUTING, inflict DEBUFFS based on the resulting ELEMENT for 7/8/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Raining Champ": {
     "name": "Raining Champ",
@@ -1914,7 +3174,13 @@
     "element": "Light",
     "sa1": "While Umbrella is alive, the active Fighter gains 1 stack of BLESSING and UNFLINCHING for 15 seconds every 20/15/10 COMBO HITS.",
     "sa2": "While Umbrella is alive, increase all teammates' ATTACK by 2/3/4% of the Fighter's CURRENT HEALTH for each stack of BLESSING currently on the Fighter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Raw Nerv": {
     "name": "Raw Nerv",
@@ -1923,7 +3189,13 @@
     "element": "Dark",
     "sa1": "Gain FINAL STAND for 15 seconds and inflict permanent DEATHMARK when your HEALTH drops below 25/35/50% HEALTH.",
     "sa2": "While benefiting from FINAL STAND, 5/7/10% chance on HIT to gain ENRAGE and 50% of all damage inflicted is regained as HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "B",
+      "realms": "SS"
+    }
   },
   "Red Rider": {
     "name": "Red Rider",
@@ -1932,7 +3204,13 @@
     "element": "Fire",
     "sa1": "STANDARD SHOTS inflict WITHER and HEAL BLOCK for 10/12/15 seconds each while near an opponent.",
     "sa2": "25/35/50% of all damage inflicted is regained as HEALTH while the opponent is suffering from HEAL BLOCK.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Red Velvet": {
     "name": "Red Velvet",
@@ -1941,7 +3219,13 @@
     "element": "Fire",
     "sa1": "Inflict HEX for 10/12/15 seconds when entering Sekhmet Mode, disabling opponent SIGNATURE ABILITIES for the duration of the effect.",
     "sa2": "If an opponent TAGS OUT while suffering from HEX, the next opponent will be inflicted with 3 random DEBUFFS for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Regally Blonde": {
     "name": "Regally Blonde",
@@ -1950,7 +3234,13 @@
     "element": "Water",
     "sa1": "50% chance to inflict CRIPPLE and reduce the opponent's BLOCKBUSTER METER by 25/35/50% when either Fighter uses a BLOCKBUSTER.",
     "sa2": "While near an opponent, DISABLE their SPECIAL MOVES and gain AUTO-BLOCK every 4/3/2 seconds. Both effects are removed when no longer near an opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "C"
+    }
   },
   "Reimaged": {
     "name": "Reimaged",
@@ -1959,7 +3249,13 @@
     "element": "Water",
     "sa1": "The 1st COMBO HIT landed on Robo-Fortune converts 1 opponent BUFF into a random DEBUFF and grants ARMOR for 5/7/10 seconds each.",
     "sa2": "When defeated or DETONATING, reduce the opponent's BLOCKBUSTER METER by 100%. Also once per match, RESURRECT with 15/20/25% HEALTH and gain permanent REGEN and ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "SS",
+      "realms": "U"
+    }
   },
   "Rerun": {
     "name": "Rerun",
@@ -1968,7 +3264,13 @@
     "element": "Fire",
     "sa1": "All teammates TAG IN with ENRAGE for 10/12/15 seconds.",
     "sa2": "COOLDOWN for TAG INS reduced by 25/35/50% for all teammates.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Resonant Evil": {
     "name": "Resonant Evil",
@@ -1977,7 +3279,13 @@
     "element": "Dark",
     "sa1": "Getting HIT has a 10% chance to grant ARMOR for 5/7/10 seconds.",
     "sa2": "5% chance when HIT to STUN the opponent for 3/4/5 seconds while benefitting from ARMOR.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "A",
+      "realms": "U"
+    }
   },
   "Rhythm Rider": {
     "name": "Rhythm Rider",
@@ -1986,7 +3294,13 @@
     "element": "Air",
     "sa1": "While Big Band is alive, all teammates gain HASTE and REGEN for 6/8/10 seconds after every 15 seconds.",
     "sa2": "While benefiting from HASTE and REGEN, DASH ATTACKS inflict CURSE. Also when Big Band or any teammate gains a BUFF while the opponent is suffering from CURSE, its duration is increased by 3/4/5 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Risky Ginger": {
     "name": "Risky Ginger",
@@ -1995,7 +3309,13 @@
     "element": "Fire",
     "sa1": "Inflict DEATH MARK for 10/12/15 seconds and gain ENRAGE when HITTING an attacking opponent. A stack of ENRAGE is removed after each BLOCKED HIT.",
     "sa2": "With at least 5/4/3 stacks of ENRAGE, BLOCKBUSTERS become UNBLOCKABLE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Robocopy": {
     "name": "Robocopy",
@@ -2004,7 +3324,13 @@
     "element": "Water",
     "sa1": "Once per match when suffering a HIT that would be fatal, gain 1/2/3 stacks of ARMOR and BARRIER. ARMOR lasts for 10 seconds.",
     "sa2": "For each 20% HEALTH lost by either Fighter, gain ENRAGE for 15 seconds and 15/20/25% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "B",
+      "realms": "S"
+    }
   },
   "Rock Star": {
     "name": "Rock Star",
@@ -2013,7 +3339,13 @@
     "element": "Light",
     "sa1": "While Filia is alive, teammates TAG IN with 1/2/3 stacks of BARRIER for 10 seconds.",
     "sa2": "When any teammate's BARRIER expires, they gain FINAL STAND for 10 seconds and 10/15/20% METER for all BLOCKBUSTERS.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Rogue Agent": {
     "name": "Rogue Agent",
@@ -2022,7 +3354,13 @@
     "element": "Dark",
     "sa1": "Each HEAD HIT has a 25% chance to TRANSFER 1 opponent BUFF and convert it into 1/2/3 stack(s) of PRECISION.",
     "sa2": "PRECISION HITS grant EVASION and inflict DEATH MARK for 5/7/10 seconds. Each stack of EVASION is removed after an evaded HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Rose-Tinted": {
     "name": "Rose-Tinted",
@@ -2031,7 +3369,13 @@
     "element": "Fire",
     "sa1": "While Umbrella is alive, all teammates gain 1 stack each of BARRIER and THORNS for 5/7/10 seconds for every 25% HEALTH lost.",
     "sa2": "While Umbrella is alive, she clears all teammate DEBUFFS every 30/25/20 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "S",
+      "rift_def": "SS",
+      "realms": "B"
+    }
   },
   "Rough Copy": {
     "name": "Rough Copy",
@@ -2040,7 +3384,13 @@
     "element": "Air",
     "sa1": "Any teammate gains permanent HASTE after facing an opponent with the same ELEMENT for 10/7/5 seconds.",
     "sa2": "Any teammate inflicts permanent SLOW after facing an opponent of the same CHARACTER TYPE for 10/7/5 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Rusty": {
     "name": "Rusty",
@@ -2049,7 +3399,13 @@
     "element": "Light",
     "sa1": "5/7/10% chance on HIT to inflict BLEED for 3 seconds.",
     "sa2": "Also converts 1/2/3 of the opponent's BUFFS into BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Salty": {
     "name": "Salty",
@@ -2058,7 +3414,13 @@
     "element": "Light",
     "sa1": "Once per match, gain BLESSING and 3 stacks of ENRAGE for 5/7/10 seconds when falling below 35% HEALTH.",
     "sa2": "While benefiting from ENRAGE, THROWS have a 50% chance to inflict BLEED for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "U"
+    }
   },
   "Sawed Apart": {
     "name": "Sawed Apart",
@@ -2067,7 +3429,13 @@
     "element": "Dark",
     "sa1": "SPECIAL MOVE and BLOCKBUSTER HITS have a 25/30/35% chance to inflict a random DEBUFF for 10 seconds. These debuffs are removed if Painwheel is knocked down.",
     "sa2": "While Painwheel is the active Fighter, when a DEBUFF on the opponent expires, deal damage equal to 1/2/3% of their MAX HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Scale Tipper": {
     "name": "Scale Tipper",
@@ -2076,7 +3444,13 @@
     "element": "Dark",
     "sa1": "While Filia has more BUFFS or fewer DEBUFFS than the opponent, transfer 1 opponent BUFF every 2 seconds and inflict 1 random DEBUFF every second for 7 seconds.",
     "sa2": "When the current number of BUFFS and DEBUFFS between both Fighters is more than or equal to 17, the opponent suffers permanent DOOM for 10 seconds, bypassing all DEBUFF preventing effects.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "A",
+      "realms": "SS"
+    }
   },
   "Scare Giver": {
     "name": "Scare Giver",
@@ -2085,7 +3459,13 @@
     "element": "Dark",
     "sa1": "Inflict WITHER and grant HASTE for 6/7/8 seconds each when the opponent is KNOCKED DOWN.",
     "sa2": "15/20/25% chance on HIT to grant ENRAGE for 10 seconds and to DRAIN 3/4/5% HEALTH from the opponent while benefiting from HASTE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Scared Stiff": {
     "name": "Scared Stiff",
@@ -2094,7 +3474,13 @@
     "element": "Light",
     "sa1": "Gain UNFLINCHING after facing the same opponent for 25/20/15 seconds. UNFLINCHING is removed when the opponent TAGS OUT or dies.",
     "sa2": "Cannot suffer more than 15/10/5% HEALTH from a single HIT.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Scarlet Viper": {
     "name": "Scarlet Viper",
@@ -2103,7 +3489,13 @@
     "element": "Fire",
     "sa1": "Inflict BLEED for 10/12/15 seconds on both Fighters when entering Sekhmet Mode.",
     "sa2": "Gain ENRAGE for 10/12/15 seconds when suffering a DEBUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Scrub": {
     "name": "Scrub",
@@ -2112,7 +3504,13 @@
     "element": "Air",
     "sa1": "All teammates instantly recover 5/10/15% HEALTH when Valentine TAGS OUT.",
     "sa2": "Teammates in reserve regenerate SCRATCH DAMAGE and gain BLOCKBUSTER meter 50/75/100% faster.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Sea Witch": {
     "name": "Sea Witch",
@@ -2121,7 +3519,13 @@
     "element": "Water",
     "sa1": "Using a BLOCKBUSTER inflicts CURSE and GUARD BREAK for 6/8/10 seconds each.",
     "sa2": "Using a SPECIAL MOVE grants HASTE and DEADEYE for 6/8/10 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Seraph Soldier": {
     "name": "Seraph Soldier",
@@ -2130,7 +3534,13 @@
     "element": "Fire",
     "sa1": "While Valentine is alive, the active Fighter gains ENRAGE for 10 seconds when dealing at least 10% of the opponent's MAX HEALTH from a single HIT. Also, your active Fire Element Fighter permanently increases DAMAGE by 0.25/0.35/0.5% every second.",
     "sa2": "While Valentine is alive, 15/20/25% of all damage inflicted by the active Fighter's CRITICAL HITS is regained as HEALTH while that Fighter is benefiting from ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Serpent Sin": {
     "name": "Serpent Sin",
@@ -2139,7 +3549,13 @@
     "element": "Air",
     "sa1": "SPECIAL MOVE HITS heal for 5/7/10% of Double’s MAX HEALTH.",
     "sa2": "Gain MIASMA for 3/4/5 seconds when the opponent gains a BUFF or suffers a DEBUFF while Double’s HEALTH is higher than the opponent’s.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Shadow Ops": {
     "name": "Shadow Ops",
@@ -2148,7 +3564,13 @@
     "element": "Dark",
     "sa1": "Opponents suffer CURSE after 3/2/1 seconds while near a TEAR.",
     "sa2": "Gain THORNS every 3/2/1 seconds while near a TEAR.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Shadow Puppet": {
     "name": "Shadow Puppet",
@@ -2157,7 +3579,13 @@
     "element": "Dark",
     "sa1": "3/4/5% chance on HIT to reset the timers of all Fukua's BUFFS and all opponent DEBUFFS.",
     "sa2": "Once per match when suffering a HIT that would be fatal, freeze time for 7 seconds and gain 3/4/5 stacks of MIASMA for 7 seconds. Time resumes if Fukua attacks.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "SS",
+      "realms": "SS"
+    }
   },
   "Shear Force": {
     "name": "Shear Force",
@@ -2166,7 +3594,13 @@
     "element": "Air",
     "sa1": "When either Fighter suffers a DEBUFF, gain 10% BLOCKBUSTER METER and gain BLESSING and AUTO-BLOCK for 10/12/15 seconds each.",
     "sa2": "When using a BLOCKBUSTER, inflict QUIETUS for 15 seconds and deal 10/12/15% bonus damage per BUFF applied to Filia. Also opponents defeated by BLOCKBUSTERS cannot be revived.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Sheltered": {
     "name": "Sheltered",
@@ -2175,7 +3609,13 @@
     "element": "Fire",
     "sa1": "Increases CRIT RATE by 10/15/20% for all teammates.",
     "sa2": "On CRITICAL HIT, gain ENRAGE for 5/6/7 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Silent Kill": {
     "name": "Silent Kill",
@@ -2184,7 +3624,13 @@
     "element": "Water",
     "sa1": "15/20/25% chance on HIT to REMOVE all DEBUFFS from self.",
     "sa2": "15/20/25% chance on HIT to REMOVE all opponent BUFFS.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Sketchy": {
     "name": "Sketchy",
@@ -2193,7 +3639,13 @@
     "element": "Air",
     "sa1": "While Peacock is alive, all teammates TAG IN with HASTE and IMMUNITY for 5/7/10 seconds (except after teammate death).",
     "sa2": "While Peacock is alive, all opponents TAG IN with SLOW and CURSE for 5/7/10 seconds (except after teammate death).",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Snake Bite": {
     "name": "Snake Bite",
@@ -2202,7 +3654,13 @@
     "element": "Air",
     "sa1": "Gain 1/2/3 stacks of EVASION and 25% BLOCKBUSTER METER when activating HYPE MODE.",
     "sa2": "Gain permanent HASTE and 3/4/5 stacks of BARRIER when defeating an opponent while in HYPE MODE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Snake Charmer": {
     "name": "Snake Charmer",
@@ -2211,7 +3669,13 @@
     "element": "Air",
     "sa1": "Using a SPECIAL MOVE grants 10/15/20% MORTUARY CHARGE and inflicts IMMOBILIZE and DISABLE BLOCKBUSTERS for 10 seconds each. When becoming fully CHARGED, also gain ENRAGE.",
     "sa2": "When using a MORTUARY CHARGE, all teammates gain 1/2/3% BLOCKBUSTER METER every second and permanent ENRAGE for the rest of the match.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Solar Flair": {
     "name": "Solar Flair",
@@ -2220,7 +3684,13 @@
     "element": "Fire",
     "sa1": "STAR POWER meter accumulates 25/35/50% faster.",
     "sa2": "When activating STAR POWER at full meter, gain permanent HASTE, 3/4/5 stacks of permanent ENRAGE, but suffer FATIGUE for 5 seconds. All effects are removed when exiting STAR POWER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Solid Gold": {
     "name": "Solid Gold",
@@ -2229,7 +3699,13 @@
     "element": "Neutral",
     "sa1": "Every 15 seconds, permanently increase Attack by 25/30/35% and Crit Rate by 10/15/20% (even while benched).",
     "sa2": "When either Fighter lands a CRITICAL HIT, 30/40/50% chance to gain ENRAGE and BLESSING for 10 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Soul Crusher": {
     "name": "Soul Crusher",
@@ -2238,7 +3714,13 @@
     "element": "Light",
     "sa1": "Gain DEADEYE and inflict GUARD BREAK for 5/7/10 seconds each whenever the opponent gains a BUFF.",
     "sa2": "Deal 5/7/10% bonus damage for each BUFF or DEBUFF applied to the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Soulbound": {
     "name": "Soulbound",
@@ -2247,7 +3729,13 @@
     "element": "Light",
     "sa1": "While not in STAR POWER and not benefiting from EVASION, well-timed BLOCKS grant 30/40/50% STAR POWER meter, 1/2/3 stack(s) of BARRIER, and allows Annie to EVADE all attacks for 3 seconds.",
     "sa2": "When activating STAR POWER, sacrifice 35% of MAX HEALTH to gain DEADEYE for 10/12/15 seconds. While in STAR POWER, BENCHED opponents suffer HEX and ALL opponents lose 1/2/3% HEALTH every second.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Souls Sister": {
     "name": "Souls Sister",
@@ -2256,7 +3744,13 @@
     "element": "Fire",
     "sa1": "Gain 1/2/3% BLOCKBUSTER METER per second while far away from the opponent.",
     "sa2": "Gain ENRAGE for 5/7/10 seconds when landing a HIT while far away from the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Space Case": {
     "name": "Space Case",
@@ -2265,7 +3759,13 @@
     "element": "Dark",
     "sa1": "While RAVENOUS, inflict DOOM for 15 seconds when an opponent's HEALTH drops below 25/35/50%. DOOM is removed if Umbrella TAGS OUT or is defeated.",
     "sa2": "When defeating an opponent, gain 3 stacks of PRECISION and 3 stacks of a BUFF determined by the opponent's ELEMENT for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "B"
+    }
   },
   "Spell-Bent": {
     "name": "Spell-Bent",
@@ -2274,7 +3774,13 @@
     "element": "Light",
     "sa1": "SKELETAL SUMMON MOVES grant either REGEN for 10/12/15 seconds or BARRIER.",
     "sa2": "While benefiting from REGEN and BARRIER, HITS from SKELETAL SUMMONS deal an additional 1/1.5/2% of the opponent's MAX HEALTH and DRAIN 3% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Splitting Image": {
     "name": "Splitting Image",
@@ -2283,7 +3789,13 @@
     "element": "Light",
     "sa1": "While HEALTH% is lower than the opponent's, gain permanent IMMUNITY and recover 1/1.5/2% HEALTH per second.",
     "sa2": "Gain 5% BLOCKBUSTER METER and 1 stack of PRECISION after every 5/4/3 seconds while facing a Fukua, Filia, or a Light Element opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "A",
+      "rift_def": "B",
+      "realms": "B"
+    }
   },
   "Stage Fright": {
     "name": "Stage Fright",
@@ -2292,7 +3804,13 @@
     "element": "Dark",
     "sa1": "The opponent suffers CURSE and HEX for 10/12/15 seconds when dropping below 25% HEALTH.",
     "sa2": "Inflict a 30/25/20 second DOOM when defeated with a BLOCKBUSTER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "U"
+    }
   },
   "Stand Out": {
     "name": "Stand Out",
@@ -2301,7 +3819,13 @@
     "element": "Air",
     "sa1": "50/60/75% of all damage inflicted is regained as HEALTH as long as Eliza's health percentage is lower than her opponent's (also applies on Blocked hits).",
     "sa2": "When the opponent attempts to gain a BUFF, Eliza has a 25/35/50% chance to prevent it and gain 25% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Star Child": {
     "name": "Star Child",
@@ -2310,7 +3834,13 @@
     "element": "Air",
     "sa1": "Each HIT blocked has a 10% chance to inflict GUARD BREAK and ARMOR BREAK for 10/12/15 seconds.",
     "sa2": "SPECIAL MOVES and BLOCKBUSTERS deal 15/25/35% bonus damage.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Star Shine": {
     "name": "Star Shine",
@@ -2319,7 +3849,13 @@
     "element": "Light",
     "sa1": "Gain a random BUFF for 8/10/12 seconds every 4 seconds. Also, gain 8/9/10% STAR POWER for each BUFF gained by either Fighter while not in STAR POWER MODE.",
     "sa2": "Remove all DEBUFFS and gain IMMUNITY for 5/7/10 seconds and permanent PRECISION when activating STAR POWER MODE at full meter. Permanent PRECISION is removed when an opponent is defeated.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Star-Crossed": {
     "name": "Star-Crossed",
@@ -2328,7 +3864,13 @@
     "element": "Air",
     "sa1": "Well-timed BLOCKS STUN the opponent for 3/4/5 seconds and inflict GUARD BREAK. GUARD BREAK is removed when Parasoul TAGS OUT.",
     "sa2": "BLOCKBUSTERS deal 50/75/100% bonus damage against opponents suffering from GUARD BREAK.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Star-Spangled": {
     "name": "Star-Spangled",
@@ -2337,7 +3879,13 @@
     "element": "Air",
     "sa1": "Gain BARRIER and inflict GUARD BREAK for 10/12/15 seconds each when breaking or landing a THROW.",
     "sa2": "While benefiting from BARRIER and the opponent is in the air, 15/20/25% chance on HIT to inflict BLEED and FATIGUE for 7 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Starlight Rose": {
     "name": "Starlight Rose",
@@ -2346,7 +3894,13 @@
     "element": "Neutral",
     "sa1": "While Annie is alive, all teammates' well-timed BLOCKS remove up to 2 DEBUFF(S) and grant BARRIER for 10/12/15 seconds.",
     "sa2": "While Annie is alive, all teammates gain ENRAGE and REGEN for 5/6/7 seconds each every 3 seconds while benefiting from BARRIER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "B",
+      "realms": "SS"
+    }
   },
   "Stellar Huntress": {
     "name": "Stellar Huntress",
@@ -2355,7 +3909,13 @@
     "element": "Dark",
     "sa1": "When RELOADING with 3 SHOTS or less remaining, gain 3 LIGHTNING SHOTS. LIGHTNING SHOTS DISABLE TAG INS and have a 10% chance to DISABLE BLOCKBUSTERS for 10/12/15 seconds each.",
     "sa2": "While the opponent is suffering from DISABLE TAG IN, LIGHTNING SHOTS deal 0.5/1/1.5% MAX HEALTH as bonus damage to the opponent's teammates. While the opponent is suffering from DISABLE BLOCKBUSTERS, deal an additional 0.5/1/1.5% MAX HEALTH to all opponents.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Stone Sentinel": {
     "name": "Stone Sentinel",
@@ -2364,7 +3924,13 @@
     "element": "Dark",
     "sa1": "While on Cerebella’s side of the stage, gain 40/50/60% damage reduction.",
     "sa2": "While on the opponent’s side of the stage, the active Fighter gains 1 stack of BARRIER for 10 seconds every 10/7/5 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "A",
+      "realms": "A"
+    }
   },
   "Summer Salt": {
     "name": "Summer Salt",
@@ -2373,7 +3939,13 @@
     "element": "Light",
     "sa1": "Opponents lose 1 BUFF and 1/2/3% HEALTH every 2 seconds while near a TEAR.",
     "sa2": "When DETONATING at least 3 TEARS at once, REMOVE all DEBUFFS and gain 3/4/5 stacks of PRECISION. The detonated TEARS also deal 100% BONUS DAMAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Sundae School": {
     "name": "Sundae School",
@@ -2382,7 +3954,13 @@
     "element": "Water",
     "sa1": "When any teammate inflicts a DEBUFF (excluding STUN), increase its duration by 1/2/3 second(s).",
     "sa2": "When any teammate suffers a DEBUFF (excluding STUN), reduce its duration by 1/2/3 second(s).",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Superluminal": {
     "name": "Superluminal",
@@ -2391,7 +3969,13 @@
     "element": "Air",
     "sa1": "While Valentine is alive, the active Fighter’s SPECIAL MOVE COOLDOWNS recharge 70/85/100% faster while dashing or back-dashing. Successful DASH ATTACKS instantly refresh TAG INS.",
     "sa2": "While Valentine is alive, the active Fighter’s first SPECIAL MOVE HIT of a combo grants all teammates EVASION and the first BLOCKBUSTER HIT grants all teammates HASTE for 5/6/7 seconds each.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Surgeon General": {
     "name": "Surgeon General",
@@ -2400,7 +3984,13 @@
     "element": "Air",
     "sa1": "While Valentine is alive, she gains a permanent ENRAGE every 60/45/30 seconds.",
     "sa2": "While Valentine is alive, teammates gain IMMUNITY and HEAVY REGEN for 10/12/15 seconds every 30 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "S",
+      "rift_def": "C",
+      "realms": "B"
+    }
   },
   "Temple Tyrant": {
     "name": "Temple Tyrant",
@@ -2409,7 +3999,13 @@
     "element": "Water",
     "sa1": "Double's THROWS grant ARMOR for 20 seconds and remove 1/2/3 DEBUFFS from herself.",
     "sa2": "When the opponent is KNOCKED DOWN after a THROW, inflict STUN for 4 seconds. DRAIN 2/3/4% HEALTH per second from STUNNED opponents.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "B",
+      "realms": "B"
+    }
   },
   "Terror Byte": {
     "name": "Terror Byte",
@@ -2418,7 +4014,13 @@
     "element": "Dark",
     "sa1": "HEADRONE HITS (includes blocked hits) inflict INVERSE POLARITY and DISABLE opponent SPECIAL MOVES for 10/12/15 seconds each.",
     "sa2": "While near an opponent suffering from a DEBUFF, both fighters gain 1/1.5/2% HEALTH per second.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "That's All Folks!": {
     "name": "That's All Folks!",
@@ -2427,7 +4029,13 @@
     "element": "Light",
     "sa1": "15% chance when HIT to inflict ARMOR BREAK for 10 seconds and grant 3/4/5 stacks of PRECISION and 1 stack of EVASION.",
     "sa2": "While Peacock is alive, opponents have 50/60/75% reduced CRIT RATE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "C"
+    }
   },
   "Thrill Shrieker": {
     "name": "Thrill Shrieker",
@@ -2436,7 +4044,13 @@
     "element": "Fire",
     "sa1": "50/75/100% chance to gain ENRAGE when gaining a DRAGON CHARGE. Each ENRAGE is removed when a charge is spent.",
     "sa2": "The opponent suffers damage equal to 25/35/50% of their current HEALTH when tagging out while Squigly has ENRAGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Tidal Traveler": {
     "name": "Tidal Traveler",
@@ -2445,7 +4059,13 @@
     "element": "Water",
     "sa1": "Puddle HITS grant IMMUNITY for 10/12/15 seconds.",
     "sa2": "While benefitting from IMMUNITY, BUBBLE attacks deal 25/35/50% bonus damage. Also DISABLE BLOCKBUSTERS and inflict ARMOR BREAK for 15 seconds each (also applies on blocked hits).",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "B"
+    }
   },
   "Time Thief": {
     "name": "Time Thief",
@@ -2454,7 +4074,13 @@
     "element": "Fire",
     "sa1": "When landing a HIT while throwing her head, Ms. Fortune gains HASTE for 10 seconds and deals damage equal to 50/75/100% of her ATTACK.",
     "sa2": "50/75/100% of the damage suffered while in HEADLESS MODE is regained when Ms. Fortune recalls her head.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Timeless Hero": {
     "name": "Timeless Hero",
@@ -2463,7 +4089,13 @@
     "element": "Air",
     "sa1": "Gain ENRAGE, AUTO-BLOCK or REGEN every 30/25/20 COMBO HITS. These BUFFs are removed when suffering a HIT.",
     "sa2": "Once per match when obtaining all of the above BUFFS, gain 50/75/100% BLOCKBUSTER METER and infinite STAR POWER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Toad Warrior": {
     "name": "Toad Warrior",
@@ -2472,7 +4104,13 @@
     "element": "Air",
     "sa1": "Gain 1/2/3% BLOCKBUSTER METER per second while near an opponent.",
     "sa2": "Deal 25/35/50% bonus damage while a BLOCKBUSTER is fully charged.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Tomb & Gloom": {
     "name": "Tomb & Gloom",
@@ -2481,7 +4119,13 @@
     "element": "Dark",
     "sa1": "Inflict WITHER, CURSE, QUIETUS or HEX for 5/7/10 seconds when using a BLOCKBUSTER or SPECIAL MOVE.",
     "sa2": "Also gain 1 stack of EVASION for 5/7/10 seconds when using a BLOCKBUSTER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Treble Maker": {
     "name": "Treble Maker",
@@ -2490,7 +4134,13 @@
     "element": "Light",
     "sa1": "Heal for 5/7/10% of your MAX HEALTH after every 10th COMBO HIT suffered.",
     "sa2": "When HIT while above 50% HEALTH, reflect 15/25/35% of the incoming damage.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "U",
+      "rift_off": "U",
+      "rift_def": "A",
+      "realms": "U"
+    }
   },
   "Trigger Happy": {
     "name": "Trigger Happy",
@@ -2499,7 +4149,13 @@
     "element": "Dark",
     "sa1": "50/75/100% of the damage dealt by STANDARD SHOTS is also suffered by the opponent's teammates.",
     "sa2": "Gain ENRAGE for 10/12/15 seconds each time the opponent's teammates take damage.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Triple Threat": {
     "name": "Triple Threat",
@@ -2508,7 +4164,13 @@
     "element": "Light",
     "sa1": "Gain IMMUNITY, UNFLINCHING or INVINCIBLE for 9/12/15 seconds when activating STAR POWER. The BUFF is removed when exiting STAR POWER.",
     "sa2": "33% chance when using a SPECIAL MOVE to reset all BUFF timers and gain 20/25/30% STAR POWER meter.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "A",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "True Self": {
     "name": "True Self",
@@ -2517,7 +4179,13 @@
     "element": "Water",
     "sa1": "Fukua's successful KICK attacks grant a stack of SHADOW KICK (max. 10). Regain 1/1.5/2% MAX HEALTH when gaining a SHADOW KICK stack. The next BLOCKBUSTER used after reaching 10 SHADOW KICK stacks will summon GRENDEL'S HAND to HIT the opponent.",
     "sa2": "When GRENDEL's HAND successfully HITS, gain UNFLINCHING for 10/12/15 seconds. When gaining a SHADOW KICK stack while benefiting from UNFLINCHING, deal 2/2.5/3% MAX HEALTH as damage to the opponent and gain 2/3/4% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Très Chic": {
     "name": "Très Chic",
@@ -2526,7 +4194,13 @@
     "element": "Dark",
     "sa1": "While on her own side of the stage, Valentine gains 1 stack of BARRIER, THORNS or ARMOR every 5/4/3 seconds. These BUFFS are removed when KNOCKED DOWN.",
     "sa2": "While on the opponent's side of the stage, CRITICAL HITS inflict BLEED, DEATH MARK, or ARMOR BREAK for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Twisted Mettle": {
     "name": "Twisted Mettle",
@@ -2535,7 +4209,13 @@
     "element": "Water",
     "sa1": "When suffering a CRITICAL HIT, inflict BLEED for 10/12/15 seconds.",
     "sa2": "25/35/50% chance on HIT to inflict BLEED for 3 seconds if opponent is suffering BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "C",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "U"
+    }
   },
   "Tyrannical": {
     "name": "Tyrannical",
@@ -2544,7 +4224,13 @@
     "element": "Dark",
     "sa1": "CRITICAL HITS have a 35% chance to inflict BLEED or grant MIASMA for 6 seconds each.",
     "sa2": "While benefiting from at least 3 stacks of MIASMA, or the opponent suffers from at least 3 stacks of BLEED, CRITICAL HITS have a 50% chance to remove 1 opponent BUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Ultraviolent": {
     "name": "Ultraviolent",
@@ -2553,7 +4239,13 @@
     "element": "Dark",
     "sa1": "Projectile HITS have a 25/35/50% chance to grant DEADEYE and BARRIER for 15 seconds each.",
     "sa2": "Projectiles HITS inflict 25/35/50% bonus damage and grant HASTE for 10 seconds while benefiting from DEADEYE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "S"
+    }
   },
   "Unbearable": {
     "name": "Unbearable",
@@ -2562,7 +4254,13 @@
     "element": "Water",
     "sa1": "While Big Band has living teammates, the active Fighter gains a 35% chance when suffering a DEBUFF to convert it to BARRIER for 10/12/15 seconds and heal all teammates for 5% MAX HEALTH.",
     "sa2": "With one teammate alive, Big Band takes 20% reduced damage and gains a 1% chance to instantly defeat the opponent with TIER 3 BLOCKBUSTER HITS. With no teammates alive, these effects are doubled.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "S",
+      "realms": "A"
+    }
   },
   "Underdog": {
     "name": "Underdog",
@@ -2571,7 +4269,13 @@
     "element": "Dark",
     "sa1": "Gain ARMOR and HASTE for 10/12/15 seconds when suffering a DEBUFF.",
     "sa2": "When Beowulf gains a BUFF, he also gains 5/7/10% BLOCKBUSTER METER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "C"
+    }
   },
   "Understudy": {
     "name": "Understudy",
@@ -2580,7 +4284,13 @@
     "element": "Water",
     "sa1": "All teammates deal 15/30/50% increased throw damage.",
     "sa2": "Gain ARMOR for 10/12/15 seconds when THROWING the opponent.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Undying Warrior": {
     "name": "Undying Warrior",
@@ -2598,7 +4308,13 @@
     "element": "Dark",
     "sa1": "Gain UNFLINCHING and 1/2/3 stack(s) of THORNS for 10 seconds each when either Fighter BOUNCES off a wall.",
     "sa2": "Gain MIASMA for 10 seconds every 4/3/2 seconds while benefiting from THORNS.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Unholy Host": {
     "name": "Unholy Host",
@@ -2607,7 +4323,13 @@
     "element": "Dark",
     "sa1": "When Black Dahlia or her opponent TAGS IN, she removes all enemy BUFFS and inflicts CURSE for 10/15/20 seconds.",
     "sa2": "DRAIN 1/1.5/2% HEALTH per second from the opponent if they are suffering from CURSE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "SS",
+      "rift_def": "SS",
+      "realms": "SS"
+    }
   },
   "Untouchable": {
     "name": "Untouchable",
@@ -2616,7 +4338,13 @@
     "element": "Water",
     "sa1": "15% chance when either Fighter is hit to gain UNFLINCHING for 4/5/6 seconds and INVINCIBLE for 2 seconds.",
     "sa2": "While benefiting from UNFLINCHING or INVINCIBLE, deal 25/35/50% bonus damage and regain 25/35/50% of damage inflicted as HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "A",
+      "rift_def": "A",
+      "realms": "SS"
+    }
   },
   "Vaporwave Vixen": {
     "name": "Vaporwave Vixen",
@@ -2625,7 +4353,13 @@
     "element": "Air",
     "sa1": "After IDLING or WALKING for 3/2/1 seconds(s) without suffering a hit, gain UNFLINCHING.",
     "sa2": "After Fukua and her opponent have not suffered a HIT (including blocked hits) for 2 seconds, gain THORNS and MIASMA for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "A",
+      "realms": "S"
+    }
   },
   "Vector Protector": {
     "name": "Vector Protector",
@@ -2634,7 +4368,13 @@
     "element": "Air",
     "sa1": "Gain ARMOR for 8/10/12 seconds and refresh the timer of all ARMORS when either Fighter uses a SPECIAL MOVE.",
     "sa2": "Using a BLOCKBUSTER converts all ARMOR stacks into MIASMA for 8/10/12 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Vintage Virtuoso": {
     "name": "Vintage Virtuoso",
@@ -2643,7 +4383,13 @@
     "element": "Fire",
     "sa1": "Gain 1 stack of PRECISION every 15/10/5 combo hits.",
     "sa2": "PRECISION HITS grant ENRAGE and inflict GUARD BREAK for 5/7/10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Wave Warrior": {
     "name": "Wave Warrior",
@@ -2652,7 +4398,13 @@
     "element": "Water",
     "sa1": "Every 15th COMBO HIT, transfer up to 2 opponent BUFFS to self and reduce opponent BLOCKBUSTER METER by 15/20/25%.",
     "sa2": "While Annie has living teammates, gaining a BUFF permanently increases DAMAGE by 5/7/10% and heals all teammates for 5% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Web Crawler": {
     "name": "Web Crawler",
@@ -2661,7 +4413,13 @@
     "element": "Air",
     "sa1": "After Painwheel has been in the air for 1 second, gain DEADEYE and inflict GUARD BREAK for 10/11/12 seconds each.",
     "sa2": "10/12/15% chance on HIT to remove 1 opponent BUFF and gain EVASION for 10 seconds while near an opponent suffering from GUARD BREAK.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "B",
+      "rift_def": "B",
+      "realms": "A"
+    }
   },
   "Weekend Warrior": {
     "name": "Weekend Warrior",
@@ -2670,7 +4428,13 @@
     "element": "Light",
     "sa1": "Achieve max HYPE and gain HASTE for 10 seconds when Beowulf first drops below 25/35/50% HEALTH.",
     "sa2": "When activating HYPE MODE, remove all DEBUFFS and gain IMMUNITY, FINAL STAND, and HEAVY REGEN for 10/12/15 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "S",
+      "rift_def": "B",
+      "realms": "A"
+    }
   },
   "Wetwork": {
     "name": "Wetwork",
@@ -2679,7 +4443,13 @@
     "element": "Air",
     "sa1": "Gain EVASION every 2/1.5/1 second(s) while charging a CHARGE ATTACK.",
     "sa2": "When knocking an opponent into the air, Valentine gains ENRAGE and the opponent suffers ARMOR BREAK and DEATH MARK for 4/5/7 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "U",
+      "realms": "A"
+    }
   },
   "Wild Child": {
     "name": "Wild Child",
@@ -2688,7 +4458,13 @@
     "element": "Dark",
     "sa1": "While not OVERSTUFFED, Umbrella's THROW HITS have a 20% chance to DRAIN 10/12/15% of the opponent's BLOCKBUSTER METER.",
     "sa2": "Inflict 2 stacks of SLIME for 10/12/15 seconds when the opponent is KNOCKED DOWN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "A",
+      "rift_def": "C",
+      "realms": "B"
+    }
   },
   "Wildcard": {
     "name": "Wildcard",
@@ -2697,7 +4473,13 @@
     "element": "Fire",
     "sa1": "Inflict a random DEBUFF for 4/6/8 seconds when using a SPECIAL MOVE. Also once per match when suffering a HIT that would be fatal, regain 10% MAX HEALTH per DEBUFF on the opponent.",
     "sa2": "When Peacock suffers a HIT that would be fatal while the opponent is suffering a DEBUFF, reduce their HEALTH by 25/35/50%.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "U",
+      "rift_def": "B",
+      "realms": "C"
+    }
   },
   "Wind Stalker": {
     "name": "Wind Stalker",
@@ -2706,7 +4488,13 @@
     "element": "Air",
     "sa1": "DRAIN 3/4/5% BLOCKBUSTER METER per second while the opponent is near Ms. Fortune's head.",
     "sa2": "Inflict QUIETUS, DEATH MARK, DISABLE TAG INS, and DOOM for 15 seconds each when an opponent's HEALTH drops below 25/30/35%. DOOM is removed if the opponent uses a BLOCKBUSTER.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "A"
+    }
   },
   "Windswept": {
     "name": "Windswept",
@@ -2715,7 +4503,13 @@
     "element": "Air",
     "sa1": "Your 1st COMBO HIT against an attacking opponent grants ENRAGE for 5/7/10 seconds and EVASION.",
     "sa2": "After EVADING, 50/75/100% chance to gain PERMANENT PRECISION. PRECISION is removed when either Fighter is KNOCKED DOWN.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "S",
+      "rift_def": "U",
+      "realms": "SS"
+    }
   },
   "Wrestler X": {
     "name": "Wrestler X",
@@ -2724,7 +4518,13 @@
     "element": "Light",
     "sa1": "Beowulf starts the match with 1/2/3 stacks of permanent REGEN.",
     "sa2": "While in HYPE MODE, all HITS have a 15/20/25% chance to inflict BLEED for 10 seconds.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "B",
+      "rift_def": "U",
+      "realms": "B"
+    }
   },
   "Wulfsbane": {
     "name": "Wulfsbane",
@@ -2733,7 +4533,13 @@
     "element": "Dark",
     "sa1": "THROWS have a 50% chance to inflict CRIPPLE and HEAL BLOCK for 5/7/10 seconds.",
     "sa2": "Deal 25/35/50% bonus damage against enemies suffering from a DEBUFF.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "Wunderkind": {
     "name": "Wunderkind",
@@ -2742,7 +4548,13 @@
     "element": "Fire",
     "sa1": "50% chance on BLOCKBUSTER HIT to inflict POWER SURGE and gain BARRIER for 10/12/15 seconds each (also applies on blocked hits).",
     "sa2": "While Umbrella is alive, the active fighter DRAINS 3/4/5% of the opponent's HEALTH every 3 seconds while they are suffering from 3 or more stacks of POWER SURGE.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "S",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "S"
+    }
   },
   "X-Bot": {
     "name": "X-Bot",
@@ -2751,7 +4563,13 @@
     "element": "Air",
     "sa1": "Gain PRECISION and inflict DEATH MARK after 3/2/1 second(s) while far away from the opponent.",
     "sa2": "Also gain BARRIER and heal for 3/4/5% HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "SS",
+      "rift_off": "B",
+      "rift_def": "C",
+      "realms": "SS"
+    }
   },
   "Xenomorph": {
     "name": "Xenomorph",
@@ -2760,7 +4578,13 @@
     "element": "Dark",
     "sa1": "50/75/100% chance when TRANSMUTING to the DARK element to inflict a permanent DOOM effect, killing the enemy after 30 seconds. DOOM will be removed if Double is defeated.",
     "sa2": "When defeated, inflict 1/2/3 stack(s) of permanent BLEED.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "B",
+      "rift_off": "U",
+      "rift_def": "C",
+      "realms": "B"
+    }
   },
   "Yellow One": {
     "name": "Yellow One",
@@ -2769,6 +4593,12 @@
     "element": "Light",
     "sa1": "Gain BLESSING every 5 seconds. This BLESSING always lasts for 1/1.5/2 second(s) and becomes permanent when using SPECIAL MOVES and BLOCKBUSTERS. Permanent BLESSINGS are removed when this BLESSING expires.",
     "sa2": "While benefiting from at least 3 stacks of permanent BLESSING, SPECIAL MOVES and BLOCKBUSTERS are UNBLOCKABLE and regain 25/35/50% of damage inflicted as HEALTH.",
-    "unlocked": false
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "A",
+      "rift_off": "C",
+      "rift_def": "C",
+      "realms": "A"
+    }
   }
 }
