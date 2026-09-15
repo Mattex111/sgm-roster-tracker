@@ -31,11 +31,14 @@ HTML = """
     <title>SGM Roster Tracker</title>
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f111a; color: #e6edf3; margin: 0; padding: 20px; }
-        .header { position: sticky; top: 0; background: #161b22; padding: 16px 20px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; z-index: 100; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        input[type="text"] { padding: 9px 14px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 220px; font-size: 0.95rem; }
-        select { padding: 9px 14px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.95rem; cursor: pointer; }
-        button { padding: 9px 16px; border-radius: 6px; border: none; background: #238636; color: #fff; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        button:hover { background: #2ea043; }
+        .header { position: sticky; top: 0; background: #161b22; padding: 16px 20px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; z-index: 100; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        input[type="text"] { padding: 9px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 180px; font-size: 0.95rem; }
+        select { padding: 9px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.95rem; cursor: pointer; }
+        button { padding: 9px 14px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
+        .btn-green { background: #238636; color: #fff; }
+        .btn-green:hover { background: #2ea043; }
+        .btn-secondary { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
+        .btn-secondary:hover { background: #30363d; }
         .counter { margin-left: auto; font-size: 0.95rem; color: #8b949e; }
         .counter span { color: #58a6ff; font-weight: bold; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 20px; }
@@ -67,6 +70,16 @@ HTML = """
             {% endfor %}
         </select>
 
+        <select id="elementFilter" onchange="filterCards()">
+            <option value="">All Elements</option>
+            <option value="Air">Air</option>
+            <option value="Dark">Dark</option>
+            <option value="Fire">Fire</option>
+            <option value="Light">Light</option>
+            <option value="Water">Water</option>
+            <option value="Neutral">Neutral</option>
+        </select>
+
         <select id="tierFilter" onchange="filterCards()">
             <option value="">All Tiers</option>
             <option value="Diamond">Diamond</option>
@@ -81,7 +94,10 @@ HTML = """
             <option value="locked">Locked Only</option>
         </select>
 
-        <button onclick="copyRoster()">Copy Roster for AI</button>
+        <button class="btn-secondary" onclick="batchToggle(true)">Select Visible</button>
+        <button class="btn-secondary" onclick="batchToggle(false)">Deselect Visible</button>
+        <button class="btn-green" onclick="copyRoster()">Copy Roster for AI</button>
+
         <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
     </div>
 
@@ -89,7 +105,9 @@ HTML = """
         {% for key, v in variants.items() %}
         <div class="card {% if v.unlocked %}unlocked{% endif %}"
              data-name="{{ v.name.lower() }}"
+             data-rawname="{{ v.name }}"
              data-char="{{ v.character }}"
+             data-element="{{ v.element }}"
              data-tier="{{ v.tier }}"
              data-unlocked="{{ 'true' if v.unlocked else 'false' }}">
             <div class="card-head">
@@ -132,17 +150,41 @@ HTML = """
         function filterCards() {
             const query = document.getElementById('search').value.toLowerCase();
             const char = document.getElementById('charFilter').value;
+            const elem = document.getElementById('elementFilter').value;
             const tier = document.getElementById('tierFilter').value;
             const status = document.getElementById('statusFilter').value;
 
             document.querySelectorAll('.card').forEach(c => {
                 const matchName = c.dataset.name.includes(query);
                 const matchChar = !char || c.dataset.char === char;
+                const matchElem = !elem || c.dataset.element === elem;
                 const matchTier = !tier || c.dataset.tier === tier;
                 const isUnlocked = c.dataset.unlocked === 'true';
                 const matchStatus = !status || (status === 'unlocked' && isUnlocked) || (status === 'locked' && !isUnlocked);
 
-                c.style.display = (matchName && matchChar && matchTier && matchStatus) ? 'flex' : 'none';
+                c.style.display = (matchName && matchChar && matchElem && matchTier && matchStatus) ? 'flex' : 'none';
+            });
+        }
+
+        function batchToggle(status) {
+            const visibleCards = Array.from(document.querySelectorAll('.card')).filter(c => c.style.display !== 'none');
+            const names = visibleCards.map(c => c.dataset.rawname);
+
+            if (names.length === 0) return;
+
+            fetch('/toggle_batch', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({names: names, unlocked: status})
+            }).then(() => {
+                visibleCards.forEach(c => {
+                    c.dataset.unlocked = status ? 'true' : 'false';
+                    const cb = c.querySelector('input[type="checkbox"]');
+                    if (cb) cb.checked = status;
+                    if (status) c.classList.add('unlocked');
+                    else c.classList.remove('unlocked');
+                });
+                updateCount();
             });
         }
 
@@ -191,6 +233,25 @@ def toggle():
         unlocked_set.add(name)
     else:
         unlocked_set.discard(name)
+
+    save_user_roster(unlocked_set)
+    return jsonify({"status": "ok"})
+
+@app.route("/toggle_batch", methods=["POST"])
+def toggle_batch():
+    payload = request.json
+    names = payload.get("names", [])
+    unlocked = payload.get("unlocked", False)
+
+    unlocked_set = set()
+    if os.path.exists(USER_ROSTER_FILE):
+        with open(USER_ROSTER_FILE, "r", encoding="utf-8") as f:
+            unlocked_set = set(json.load(f))
+
+    if unlocked:
+        unlocked_set.update(names)
+    else:
+        unlocked_set.difference_update(names)
 
     save_user_roster(unlocked_set)
     return jsonify({"status": "ok"})
