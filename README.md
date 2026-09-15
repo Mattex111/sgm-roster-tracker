@@ -14,7 +14,7 @@ A clean, offline tool to track your Skullgirls Mobile collection, browse abiliti
 Managing a collection of 300+ fighters across different tiers and game modes can get messy. This tool keeps everything organized directly on your computer:
 
 * 📋 **Visual Roster Checklist:** Browse every variant in the game sorted by base characters, tiers, and elements. Check the box for fighters you own—choices save automatically in real time.
-* 🏆 **Community Meta Ratings:** Every card displays the latest Wiki tier list grades across 4 game modes: **PF Offense**, **Rift Offense**, **Rift Defense**, and **Parallel Realms** (from SS down to U).
+* 🏆 **Community Meta Ratings:** Every card displays grades sourced directly from the official [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List) across 4 game modes: **PF Offense**, **Rift Offense**, **Rift Defense**, and **Parallel Realms** (from SS down to U).
 * 🔍 **Smart Filtering & Search:**
   * Instant search by variant name.
   * Filter by Base Fighter (*Filia, Beowulf, Dahlia, etc.*), Element, or Rarity Tier.
