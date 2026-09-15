@@ -180,6 +180,10 @@ HTML = """
 
             if (targetCards.length === 0) return;
 
+            const actionText = status ? "SELECT" : "DESELECT";
+            const confirmed = confirm(`Are you sure you want to ${actionText} all ${targetCards.length} visible fighter(s)?`);
+            if (!confirmed) return;
+
             const snapshot = targetCards.map(c => ({
                 name: c.dataset.rawname,
                 previousState: c.dataset.unlocked === 'true'
