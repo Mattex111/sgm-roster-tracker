@@ -1,6 +1,6 @@
 # Skullgirls Mobile - Roster Tracker
 
-An advanced offline web tool designed for Skullgirls Mobile players to track collection progress, inspect fighter kits and Fandom Wiki loadouts, filter by combat modifiers or search freely with real-time keyword highlighting, and export custom rosters to clipboard.
+An advanced offline web tool designed for Skullgirls Mobile players to track their collection, build custom teams with synergy analysis, manage wishlists, inspect fighter kits and official Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
 
 ![Dashboard Preview](examples/1.gif)
 
