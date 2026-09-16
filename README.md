@@ -22,33 +22,49 @@ Offline web tool to track collection progress, inspect base stats and abilities,
 
 ## Setup & Run
 
-### 1. Clone & Environment
+### For Windows Users
 
-```bash
-git clone https://github.com/Mattex111/sgm-roster-tracker.git
-cd sgm-roster-tracker
+1. **Clone the repository & enter the folder:**
+   ```cmd
+   git clone https://github.com/Mattex111/sgm-roster-tracker.git
+   cd sgm-roster-tracker
+   ```
+2. **Create and activate the virtual environment:**
+    ```cmd
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+3. **Install dependencies:**
+    ```cmd
+    pip install -r requirements.txt
+    ```
+4. **Start the application:**
+    ```cmd
+    python app.py
+    ```
+    Open http://localhost:5000 in your browser.
 
-python3 -m venv venv
-source venv/bin/activate
-# Windows: venv\Scripts\activate
+### For Linux / macOS Users
 
-```
-
-### 2. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-
-```
-
-### 3. Start Application
-
-```bash
-python3 app.py
-
-```
-
-Open `http://localhost:5000` in your browser.
+1. **Clone the repository & enter the folder:**
+    ```Bash
+    git clone [https://github.com/Mattex111/sgm-roster-tracker.git](https://github.com/Mattex111/sgm-roster-tracker.git)
+    cd sgm-roster-tracker
+    ```
+2. **Create and activate the virtual environment:**
+    ```Bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+3. **Install dependencies:**
+    ```Bash
+    pip install -r requirements.txt
+    ```
+4. **Start the application:**
+    ```Bash
+    python3 app.py
+    ```
+    Open http://localhost:5000 in your browser.
 
 ## Data Sync (Optional)
 
