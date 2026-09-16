@@ -1,5 +1,20 @@
+# Environments & Virtualenvs
 venv/
+.venv/
+env/
+
+# Python cache & bytecode
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Operating System & IDE files
 .DS_Store
+.vscode/
+.idea/
+
+# User-specific local data
 my_roster.json
+my_wishlist.json
+

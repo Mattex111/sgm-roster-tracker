@@ -1,19 +1,44 @@
+"""
+Skullgirls Mobile - Roster Tracker Backend Server
+
+Flask application providing offline web endpoints for tracking unlocked fighters,
+inspecting stats and meta tier ratings, and exporting custom roster selections.
+"""
+
 import json
 import os
-from flask import Flask, jsonify, request, render_template_string
+from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
+
+# Data file paths
 DB_FILE = "sgm_database.json"
 BASE_ABILITIES_FILE = "base_abilities.json"
 USER_ROSTER_FILE = "my_roster.json"
+WISHLIST_FILE = "my_wishlist.json"
+
 
 def load_base_abilities():
+    """
+    Load character Prestige and Marquee base abilities dataset.
+
+    Returns:
+        dict: Mapping of character names to their Prestige & Marquee details.
+    """
     if os.path.exists(BASE_ABILITIES_FILE):
         with open(BASE_ABILITIES_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
+
 def load_data():
+    """
+    Load all fighter variants from sgm_database.json and cross-reference
+    with user's my_roster.json state file.
+
+    Returns:
+        dict: Complete dictionary of variant data with 'unlocked' boolean set.
+    """
     with open(DB_FILE, "r", encoding="utf-8") as f:
         db = json.load(f)
 
@@ -26,1027 +51,64 @@ def load_data():
         db[name]["unlocked"] = name in unlocked_set
     return db
 
+
 def save_user_roster(unlocked_names):
+    """
+    Persist unlocked fighter names set into local my_roster.json file.
+
+    Args:
+        unlocked_names (iterable): Collection of unlocked variant names.
+    """
     with open(USER_ROSTER_FILE, "w", encoding="utf-8") as f:
         json.dump(list(unlocked_names), f, indent=2, ensure_ascii=False)
 
-HTML = r"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SGM Roster Tracker</title>
-    <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background: #0f111a; color: #e6edf3; margin: 0; padding: 20px; }
-        .header { position: sticky; top: 0; background: #161b22; padding: 14px 18px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; z-index: 100; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        input[type="text"] { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 140px; font-size: 0.9rem; }
-        select { padding: 8px 10px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.9rem; cursor: pointer; }
-        button { padding: 8px 13px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.88rem; }
-        .btn-green { background: #238636; color: #fff; }
-        .btn-green:hover { background: #2ea043; }
-        .btn-secondary { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
-        .btn-secondary:hover { background: #30363d; }
-        .btn-undo { background: #388bfd1a; color: #58a6ff; border: 1px solid #388bfd66; }
-        .btn-undo:hover:not(:disabled) { background: #388bfd33; }
-        .btn-undo:disabled { opacity: 0.4; cursor: not-allowed; }
-        .toggle-label { font-size: 0.85rem; color: #8b949e; display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
-        .counter { margin-left: auto; font-size: 0.95rem; color: #8b949e; }
-        .counter span { color: #58a6ff; font-weight: bold; }
 
-        .multiselect-container { position: relative; display: inline-block; }
-        .multiselect-btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.9rem; cursor: pointer; text-align: left; min-width: 140px; display: flex; justify-content: space-between; align-items: center; }
-        .multiselect-btn:hover { border-color: #58a6ff; }
-        .multiselect-dropdown { display: none; position: absolute; top: 100%; left: 0; background: #161b22; border: 1px solid #30363d; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.7); max-height: 380px; overflow-y: auto; width: 230px; z-index: 200; padding: 6px 0; }
-        .multiselect-dropdown.show { display: block; }
-        .multiselect-group-title { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #58a6ff; padding: 6px 12px 2px; }
-        .multiselect-item { display: flex; align-items: center; gap: 8px; padding: 5px 12px; font-size: 0.82rem; color: #c9d1d9; cursor: pointer; user-select: none; }
-        .multiselect-item:hover { background: #21262d; color: #fff; }
-        .multiselect-item input { cursor: pointer; transform: scale(1.1); }
+def load_wishlist():
+    """
+    Load the user's relic wishlist from my_wishlist.json.
+
+    Returns:
+        dict: Dictionary containing 'golds' and 'diamonds' arrays.
+    """
+    if os.path.exists(WISHLIST_FILE):
+        with open(WISHLIST_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {"golds": [], "diamonds": []}
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 20px; }
-        .card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            transition: border-color 0.2s, background 0.2s, transform 0.05s;
-            cursor: pointer;
-            user-select: none;
-        }
-        .card:hover { border-color: #58a6ff; }
-        .card:active { transform: scale(0.995); }
-        .card.unlocked { border-color: #238636; background: #0d1c14; }
-        .card.unlocked:hover { border-color: #2ea043; }
-
-        .card-head { display: flex; align-items: center; justify-content: space-between; }
-        .name-label { font-size: 1.05rem; font-weight: bold; display: flex; align-items: center; }
-
-        .badges { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
-        .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; text-transform: uppercase; }
-        .Diamond { background: #3ec5ff; color: #051626; }
-        .Gold { background: #e3b341; color: #201700; }
-        .Silver { background: #8b949e; color: #0d1117; }
-        .Bronze { background: #bf6a40; color: #fff; }
-        .element-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
-        .char-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; background: #30363d; color: #58a6ff; }
-
-        .stats-row { display: flex; justify-content: space-between; background: #0d1117; border: 1px solid #21262d; border-radius: 6px; padding: 5px 12px; font-size: 0.8rem; font-weight: 600; }
-        .stat-item { display: flex; gap: 6px; align-items: center; }
-        .stat-atk { color: #ff7b72; }
-        .stat-hp { color: #7ee787; }
-
-        .ratings-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: #0b0e14; padding: 6px 4px; border-radius: 6px; border: 1px solid #21262d; text-align: center; }
-        .rate-box span:first-child { display: block; font-size: 0.65rem; color: #8b949e; text-transform: uppercase; margin-bottom: 2px; font-weight: normal; }
-        .rank-badge { font-weight: 800; font-size: 0.85rem; }
-        .rank-SS { color: #ff2d87 !important; text-shadow: 0 0 8px rgba(255, 45, 135, 0.4); }
-        .rank-S  { color: #00ff66 !important; text-shadow: 0 0 8px rgba(0, 255, 102, 0.4); }
-        .rank-A  { color: #ffd000 !important; }
-        .rank-B  { color: #ff7b00 !important; }
-        .rank-C  { color: #00bfff !important; }
-        .rank-U, .rank-TBD { color: #57606a !important; }
-
-        .sa-box { font-size: 0.82rem; line-height: 1.35; color: #8b949e; background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #21262d; }
-        .sa-box strong { color: #58a6ff; }
-
-        details.base-kit { margin-top: 2px; font-size: 0.78rem; background: #0a0d12; border: 1px dashed #30363d; border-radius: 6px; padding: 6px 8px; cursor: default; }
-        details.base-kit summary { cursor: pointer; color: #d29922; font-weight: 600; outline: none; user-select: none; }
-        details.base-kit summary:hover { color: #e3b341; }
-        .base-kit-content { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; color: #c9d1d9; cursor: text; user-select: text; }
-        .base-kit-content strong { color: #e3b341; }
-
-        .card-footer-action { display: flex; justify-content: flex-end; margin-top: 2px; }
-        .inspect-btn { background: #21262d; color: #58a6ff; border: 1px solid #30363d; font-size: 0.78rem; padding: 4px 10px; border-radius: 4px; font-weight: 600; cursor: pointer; }
-        .inspect-btn:hover { background: #30363d; color: #79c0ff; border-color: #58a6ff; }
-
-        .moveset-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
-        .move-badge { font-size: 0.75rem; background: #21262d; color: #58a6ff; padding: 3px 8px; border-radius: 4px; border: 1px solid #30363d; }
-
-        mark.effect-highlight { background-color: rgba(255, 208, 0, 0.28); color: #ffd000; border-bottom: 2px solid #ffd000; font-weight: 700; padding: 0 2px; border-radius: 2px; }
-
-        /* Modal Styles */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); z-index: 500; align-items: center; justify-content: center; }
-        .modal-overlay.show { display: flex; }
-        .modal { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 22px; width: 440px; max-width: 90vw; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 12px 36px rgba(0,0,0,0.8); }
-        .modal h3 { margin: 0; font-size: 1.15rem; color: #fff; }
-        .modal-section { display: flex; flex-direction: column; gap: 8px; }
-        .modal-section-title { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; color: #8b949e; }
-        .modal-radio { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #e6edf3; cursor: pointer; }
-        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
-
-        /* In-Game Style Expanded Modal */
-        .fighter-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            align-items: center; justify-content: center;
-        }
-        .fighter-modal-overlay.show { display: flex; }
-
-        .fighter-modal {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 14px;
-            width: 820px; max-width: 96vw; max-height: 90vh;
-            padding: 28px;
-            display: flex; flex-direction: column; gap: 18px;
-            box-shadow: 0 24px 64px rgba(0,0,0,0.95);
-            position: relative;
-            animation: modalPop 0.2s ease-out;
-        }
-        @keyframes modalPop {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-close-btn {
-            position: absolute; top: 18px; right: 18px;
-            background: #21262d; border: 1px solid #30363d; color: #c9d1d9;
-            width: 34px; height: 34px; border-radius: 50%; font-weight: bold; cursor: pointer; z-index: 10;
-        }
-        .modal-close-btn:hover { background: #30363d; color: #fff; }
-
-        .modal-body-layout {
-            display: flex; gap: 24px; align-items: flex-start;
-        }
-        .modal-card-img-container {
-            flex-shrink: 0;
-            width: 220px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .modal-card-img-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid #30363d;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-        }
-        .modal-stats-card {
-            background: #0d1117;
-            border: 1px solid #21262d;
-            border-radius: 6px;
-            padding: 6px 10px;
-            font-size: 0.75rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-
-        .modal-right-content {
-            flex: 1;
-            display: flex; flex-direction: column; gap: 14px;
-            min-width: 0;
-        }
-
-        .modal-tabs {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
-            border-bottom: 1px solid #30363d; padding-bottom: 10px;
-        }
-        .m-tab-btn {
-            background: #21262d; color: #8b949e; border: 1px solid #30363d;
-            padding: 10px; font-size: 0.85rem; font-weight: bold; border-radius: 6px; cursor: pointer; text-align: center;
-        }
-        .m-tab-btn.active { background: #238636; color: #fff; border-color: #2ea043; }
-        .m-tab-pane { overflow-y: auto; max-height: 56vh; padding-right: 4px; display: flex; flex-direction: column; gap: 10px; }
-
-        .modal-box { font-size: 0.9rem; line-height: 1.45; color: #c9d1d9; background: #0d1117; padding: 12px; border-radius: 6px; border: 1px solid #21262d; }
-        .modal-box strong { color: #58a6ff; display: block; margin-bottom: 4px; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <input type="text" id="search" placeholder="Search variant or text..." oninput="filterAndSortCards()">
-
-        <select id="charFilter" onchange="filterAndSortCards()">
-            <option value="">All Fighters</option>
-            {% for c in characters %}
-            <option value="{{ c }}">{{ c }}</option>
-            {% endfor %}
-        </select>
-
-        <select id="elementFilter" onchange="filterAndSortCards()">
-            <option value="">All Elements</option>
-            <option value="Air">Air</option>
-            <option value="Dark">Dark</option>
-            <option value="Fire">Fire</option>
-            <option value="Light">Light</option>
-            <option value="Water">Water</option>
-            <option value="Neutral">Neutral</option>
-        </select>
-
-        <div class="multiselect-container" id="tierMultiSelect">
-            <div class="multiselect-btn" onclick="toggleDropdown('tierDropdown')">
-                <span id="tierLabel">All Tiers</span>
-                <span>▾</span>
-            </div>
-            <div class="multiselect-dropdown" id="tierDropdown" style="width: 160px;">
-                <label class="multiselect-item"><input type="checkbox" value="Diamond" onchange="onTierChange()"> Diamond</label>
-                <label class="multiselect-item"><input type="checkbox" value="Gold" onchange="onTierChange()"> Gold</label>
-                <label class="multiselect-item"><input type="checkbox" value="Silver" onchange="onTierChange()"> Silver</label>
-                <label class="multiselect-item"><input type="checkbox" value="Bronze" onchange="onTierChange()"> Bronze</label>
-            </div>
-        </div>
-
-        <div class="multiselect-container" id="modifierMultiSelect">
-            <div class="multiselect-btn" onclick="toggleDropdown('modifierDropdown')">
-                <span id="modifierLabel">Modifiers (0)</span>
-                <span>▾</span>
-            </div>
-            <div class="multiselect-dropdown" id="modifierDropdown">
-                <div class="multiselect-group-title">Buffs</div>
-                {% for b in ["armor", "auto-block", "barrier", "blessing", "deadeye", "enrage", "evasion", "final stand", "haste", "heavy regen", "immunity", "invincible", "miasma", "precision", "regen", "thorns", "unflinching"] %}
-                <label class="multiselect-item">
-                    <input type="checkbox" value="{{ b }}" onchange="onModifierChange()">
-                    {{ b.title() }}
-                </label>
-                {% endfor %}
-
-                <div class="multiselect-group-title">Debuffs</div>
-                {% for d in ["armor break", "bleed", "heavy bleed", "cripple", "curse", "death mark", "disable blockbuster", "disable special", "disable tag", "doom", "fatigue", "guard break", "heal block", "hex", "immobilize", "inverse polarity", "power surge", "quietus", "slime", "slow", "stun", "wither"] %}
-                <label class="multiselect-item">
-                    <input type="checkbox" value="{{ d }}" onchange="onModifierChange()">
-                    {{ d.title() }}
-                </label>
-                {% endfor %}
-            </div>
-        </div>
-
-        <select id="statusFilter" onchange="filterAndSortCards()">
-            <option value="">All Statuses</option>
-            <option value="unlocked">Unlocked Only</option>
-            <option value="locked">Locked Only</option>
-        </select>
-
-        <select id="modeFilter" onchange="filterAndSortCards()">
-            <option value="any">Any Mode</option>
-            <option value="pf_off">PF Offense</option>
-            <option value="rift_off">Rift Offense</option>
-            <option value="rift_def">Rift Defense</option>
-            <option value="realms">Parallel Realms</option>
-        </select>
-
-        <select id="rankFilter" onchange="filterAndSortCards()">
-            <option value="0">All Ranks</option>
-            <option value="5">SS Only</option>
-            <option value="4">S or better</option>
-            <option value="3">A or better</option>
-            <option value="2">B or better</option>
-            <option value="1">C or better</option>
-        </select>
-
-        <select id="sortBy" onchange="filterAndSortCards()">
-            <option value="name_asc">Sort: Name (A-Z)</option>
-            <option value="name_desc">Sort: Name (Z-A)</option>
-            <option value="atk_desc">Sort: ATK (High → Low)</option>
-            <option value="atk_asc">Sort: ATK (Low → High)</option>
-            <option value="hp_desc">Sort: HP (High → Low)</option>
-            <option value="hp_asc">Sort: HP (Low → High)</option>
-        </select>
-
-        <button class="btn-secondary" onclick="batchToggle(true)">Select Visible</button>
-        <button class="btn-secondary" onclick="batchToggle(false)">Deselect Visible</button>
-        <button class="btn-undo" id="undoBtn" onclick="triggerUndo()" disabled title="Shortcut: Ctrl+Z">Undo</button>
-
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <label class="toggle-label" title="Toggle tier list badges in card view">
-                <input type="checkbox" id="showRatingsToggle" onchange="toggleRatingsVisibility(this.checked)" checked>
-                Show Tier Ratings
-            </label>
-
-            <label class="toggle-label" title="Include MA & PA when filtering by Buff/Debuff">
-                <input type="checkbox" id="includeBaseKitFilterToggle" onchange="filterAndSortCards()" checked>
-                Include MA & PA in filter
-            </label>
-        </div>
-
-        <button class="btn-green" onclick="openExportModal()">Export Roster</button>
-
-        <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
-    </div>
-
-    <!-- Export Options Modal -->
-    <div class="modal-overlay" id="exportModal">
-        <div class="modal">
-            <h3>Export Roster to Clipboard</h3>
-
-            <div class="modal-section">
-                <div class="modal-section-title">Scope</div>
-                <label class="modal-radio">
-                    <input type="radio" name="exportScope" value="visible_unlocked" checked>
-                    Visible unlocked fighters only (Current Filter)
-                </label>
-                <label class="modal-radio">
-                    <input type="radio" name="exportScope" value="all_unlocked">
-                    All unlocked fighters (Ignore Filters)
-                </label>
-                <label class="modal-radio">
-                    <input type="radio" name="exportScope" value="visible_all">
-                    All visible fighters (Including Unowned)
-                </label>
-            </div>
-
-            <div class="modal-section">
-                <div class="modal-section-title">Format Level</div>
-                <label class="modal-radio">
-                    <input type="radio" name="exportFormat" value="full" checked>
-                    <strong>Full Details:</strong> Stats, Ratings, SA1, SA2, Prestige & Marquee
-                </label>
-                <label class="modal-radio">
-                    <input type="radio" name="exportFormat" value="compact">
-                    <strong>Compact:</strong> Single-line summary with ATK/HP and all 4 Meta ratings
-                </label>
-                <label class="modal-radio">
-                    <input type="radio" name="exportFormat" value="names">
-                    <strong>Names Only:</strong> Plain comma-separated list
-                </label>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn-secondary" onclick="closeExportModal()">Cancel</button>
-                <button class="btn-green" onclick="executeExport()">Copy to Clipboard</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="grid" id="cardGrid">
-        {% for key, v in variants.items() %}
-        {% set base = base_abilities.get(v.character, {}) %}
-        {% set base_text = (base.prestige.description if base.prestige else '') + ' ' + (base.marquee_options | map(attribute='description') | join(' ') if base.marquee_options else '') %}
-        {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
-        {% set full_kit = sa_only + ' ' + base_text %}
-        {% set searchable_content = (v.name + ' ' + v.character + ' ' + full_kit).lower() %}
-        <div class="card {% if v.unlocked %}unlocked{% endif %}"
-             onclick="onCardClick(event, this)"
-             data-search="{{ searchable_content }}"
-             data-name="{{ v.name.lower() }}"
-             data-rawname="{{ v.name }}"
-             data-char="{{ v.character }}"
-             data-element="{{ v.element }}"
-             data-tier="{{ v.tier }}"
-             data-atk="{{ v.atk_max if v.atk_max else 0 }}"
-             data-hp="{{ v.hp_max if v.hp_max else 0 }}"
-             data-sakit="{{ sa_only.lower() }}"
-             data-fullkit="{{ full_kit.lower() }}"
-             data-unlocked="{{ 'true' if v.unlocked else 'false' }}"
-             data-pfoff="{{ v.ratings.pf_off if v.ratings else 'U' }}"
-             data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
-             data-riftdef="{{ v.ratings.rift_def if v.ratings else 'U' }}"
-             data-realms="{{ v.ratings.realms if v.ratings else 'U' }}"
-             data-fighter='{{ v | tojson | safe }}'
-             data-base='{{ base | tojson | safe }}'>
-
-            <div class="card-body-row" style="display: flex; gap: 10px; align-items: flex-start;">
-                {% if v.image_url %}
-                <img src="{{ v.image_url }}" alt="{{ v.name }}" style="width: 55px; height: auto; border-radius: 4px; border: 1px solid #30363d; flex-shrink: 0;" loading="lazy">
-                {% endif %}
-                <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
-
-                    <div class="card-head">
-                        <div class="name-label">
-                            <span class="name-text" data-original="{{ v.name }}">{{ v.name }}</span>
-                        </div>
-                        <div class="badges">
-                            <span class="char-tag">{{ v.character }}</span>
-                            <span class="tag {{ v.tier }}">{{ v.tier }}</span>
-                            <span class="element-tag">{{ v.element }}</span>
-                        </div>
-                    </div>
-
-                    {% if v.atk_max or v.hp_max %}
-                    <div class="stats-row">
-                        <span class="stat-item stat-atk">⚔️ ATK: {{ "{:,}".format(v.atk_max) if v.atk_max else "N/A" }}</span>
-                        <span class="stat-item stat-hp">❤️ HP: {{ "{:,}".format(v.hp_max) if v.hp_max else "N/A" }}</span>
-                    </div>
-                    {% endif %}
-
-                    {% if v.ratings %}
-                    <div class="ratings-row">
-                        <div class="rate-box"><span>PF Off</span><span class="rank-badge rank-{{ v.ratings.pf_off.strip() }}">{{ v.ratings.pf_off }}</span></div>
-                        <div class="rate-box"><span>Rift Off</span><span class="rank-badge rank-{{ v.ratings.rift_off.strip() }}">{{ v.ratings.rift_off }}</span></div>
-                        <div class="rate-box"><span>Rift Def</span><span class="rank-badge rank-{{ v.ratings.rift_def.strip() }}">{{ v.ratings.rift_def }}</span></div>
-                        <div class="rate-box"><span>Realms</span><span class="rank-badge rank-{{ v.ratings.realms.strip() }}">{{ v.ratings.realms }}</span></div>
-                    </div>
-                    {% endif %}
-
-                    <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
-                    <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
-
-                    {% if base %}
-                    <details class="base-kit" onclick="event.stopPropagation()">
-                        <summary>Character Kit (MA & PA)</summary>
-                        <div class="base-kit-content">
-                            {% if base.prestige %}
-                            <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
-                            {% endif %}
-                            {% if base.marquee_options %}
-                            <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
-                            {% for m in base.marquee_options %}
-                            <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                    </details>
-                    {% endif %}
-
-                    <div class="card-footer-action">
-                        <button class="inspect-btn" onclick="openFighterModal(event, this)">Inspect 🔍</button>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-        {% endfor %}
-    </div>
-
-    <!-- Character Details Modal (In-Game Style) -->
-    <div class="fighter-modal-overlay" id="fighterModal" onclick="closeFighterModal(event)">
-        <div class="fighter-modal" id="fighterModalContent">
-            <button class="modal-close-btn" onclick="closeFighterModalDirect()">✕</button>
-
-            <div class="modal-header-info">
-                <h2 id="modalFighterName" style="margin: 0; color: #fff; font-size: 1.4rem;">Character Name</h2>
-                <div id="modalFighterSub" style="color: #8b949e; font-size: 0.9rem; margin-top: 2px;">Character | Tier | Element</div>
-            </div>
-
-            <div class="modal-body-layout">
-                <div class="modal-card-img-container">
-                    <img id="modalCardImg" src="" alt="Fighter Art">
-                    <div class="modal-stats-card">
-                        <span class="stat-item stat-atk">⚔️ <span id="modalAtkVal" style="color:#ff7b72;">N/A</span></span>
-                        <span class="stat-item stat-hp">❤️ <span id="modalHpVal" style="color:#7ee787;">N/A</span></span>
-                    </div>
-                </div>
-
-                <div class="modal-right-content">
-                    <div class="modal-tabs">
-                        <button class="m-tab-btn active" onclick="switchModalTab(event, 'info')">INFO (SA)</button>
-                        <button class="m-tab-btn" onclick="switchModalTab(event, 'kit')">KIT (MA & PA)</button>
-                        <button class="m-tab-btn" onclick="switchModalTab(event, 'loadout')">LOADOUT & STATS</button>
-                    </div>
-
-                    <!-- Tab: INFO -->
-                    <div class="m-tab-pane" id="pane-info">
-                        <div class="modal-box"><strong>Signature Ability 1:</strong> <span id="modalSa1"></span></div>
-                        <div class="modal-box"><strong>Signature Ability 2:</strong> <span id="modalSa2"></span></div>
-                    </div>
-
-                    <!-- Tab: KIT -->
-                    <div class="m-tab-pane" id="pane-kit" style="display: none;">
-                        <div class="modal-box"><strong>Prestige Ability:</strong> <span id="modalPrestige"></span></div>
-                        <div class="modal-box"><strong>Marquee Options:</strong> <div id="modalMarquee" style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;"></div></div>
-                    </div>
-
-                    <!-- Tab: LOADOUT -->
-                    <div class="m-tab-pane" id="pane-loadout" style="display: none;">
-                        <div class="modal-box"><strong>Stat Investment:</strong> <div id="modalStats" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;"></div></div>
-                        <div class="modal-box"><strong>Preferred Moveset:</strong> <div id="modalMoves" class="moveset-badges" style="margin-top: 6px;"></div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const undoStack = [];
-        const RANK_VALUES = { 'SS': 5, 'S': 4, 'A': 3, 'B': 2, 'C': 1, 'U': 0, 'TBD': 0 };
-
-        document.querySelectorAll('.desc-text, .name-text').forEach(el => {
-            el.dataset.original = el.innerHTML;
-        });
-
-        function toggleDropdown(id) {
-            const el = document.getElementById(id);
-            const isShown = el.classList.contains('show');
-            document.querySelectorAll('.multiselect-dropdown').forEach(d => d.classList.remove('show'));
-            if (!isShown) el.classList.add('show');
-        }
-
-        window.addEventListener('click', (e) => {
-            if (!e.target.closest('.multiselect-container')) {
-                document.querySelectorAll('.multiselect-dropdown').forEach(d => d.classList.remove('show'));
-            }
-        });
-
-        function getSelectedTiers() {
-            return Array.from(document.querySelectorAll('#tierDropdown input:checked')).map(cb => cb.value);
-        }
-
-        function onTierChange() {
-            const selected = getSelectedTiers();
-            const label = document.getElementById('tierLabel');
-            if (selected.length === 0) {
-                label.innerText = "All Tiers";
-            } else if (selected.length <= 2) {
-                label.innerText = selected.join(', ');
-            } else {
-                label.innerText = `Tiers (${selected.length})`;
-            }
-            filterAndSortCards();
-        }
-
-        function getSelectedModifiers() {
-            return Array.from(document.querySelectorAll('#modifierDropdown input:checked')).map(cb => cb.value.toLowerCase());
-        }
-
-        function onModifierChange() {
-            const selected = getSelectedModifiers();
-            document.getElementById('modifierLabel').innerText = `Modifiers (${selected.length})`;
-            filterAndSortCards();
-        }
-
-        function updateUndoButton() {
-            const btn = document.getElementById('undoBtn');
-            btn.disabled = undoStack.length === 0;
-        }
-
-        function saveSnapshot(entries) {
-            undoStack.push(entries);
-            updateUndoButton();
-        }
-
-        function updateCount() {
-            const count = document.querySelectorAll('.card.unlocked').length;
-            document.getElementById('unlockCount').innerText = count;
-        }
-
-        function setCardState(name, status) {
-            const card = document.querySelector(`.card[data-rawname="${CSS.escape(name)}"]`);
-            if (card) {
-                card.dataset.unlocked = status ? 'true' : 'false';
-                if (status) card.classList.add('unlocked');
-                else card.classList.remove('unlocked');
-            }
-        }
-
-        function onCardClick(event, cardElement) {
-            if (event.target.closest('.inspect-btn') || event.target.closest('details.base-kit')) return;
-
-            const name = cardElement.dataset.rawname;
-            const currentState = cardElement.dataset.unlocked === 'true';
-            const newState = !currentState;
-
-            saveSnapshot([{ name: name, previousState: currentState }]);
-
-            fetch('/toggle', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({name: name, unlocked: newState})
-            }).then(() => {
-                setCardState(name, newState);
-                updateCount();
-            });
-        }
-
-        function openFighterModal(event, btnElement) {
-            event.stopPropagation();
-            const card = btnElement.closest('.card');
-            const fighter = JSON.parse(card.dataset.fighter);
-            const baseKit = JSON.parse(card.dataset.base || '{}');
-
-            document.getElementById('modalFighterName').innerText = fighter.name;
-            document.getElementById('modalFighterSub').innerText = `${fighter.character} | ${fighter.tier} | ${fighter.element}`;
-
-            // Set Card Art Image in Modal
-            const imgEl = document.getElementById('modalCardImg');
-            if (fighter.image_url) {
-                imgEl.src = fighter.image_url;
-                imgEl.style.display = 'block';
-            } else {
-                imgEl.style.display = 'none';
-            }
-
-            // Set Stats under image in Modal
-            document.getElementById('modalAtkVal').innerText = fighter.atk_max ? fighter.atk_max.toLocaleString() : 'N/A';
-            document.getElementById('modalHpVal').innerText = fighter.hp_max ? fighter.hp_max.toLocaleString() : 'N/A';
-
-            // Info Pane (SA)
-            document.getElementById('modalSa1').innerText = fighter.sa1 || "N/A";
-            document.getElementById('modalSa2').innerText = fighter.sa2 || "N/A";
-
-            // Kit Pane (Prestige & Marquee)
-            const prestigeEl = document.getElementById('modalPrestige');
-            if (baseKit.prestige) {
-                prestigeEl.innerHTML = `<strong>${baseKit.prestige.name}:</strong> ${baseKit.prestige.description}`;
-            } else {
-                prestigeEl.innerText = "N/A";
-            }
-
-            const marqueeContainer = document.getElementById('modalMarquee');
-            marqueeContainer.innerHTML = '';
-            if (baseKit.marquee_options && baseKit.marquee_options.length > 0) {
-                baseKit.marquee_options.forEach(m => {
-                    const div = document.createElement('div');
-                    div.innerHTML = `• <em>${m.name}</em>: ${m.description}`;
-                    marqueeContainer.appendChild(div);
-                });
-            } else {
-                marqueeContainer.innerText = "N/A";
-            }
-
-            // Loadout Pane (Stats & Moves)
-            const statsContainer = document.getElementById('modalStats');
-            statsContainer.innerHTML = '';
-            if (fighter.loadouts && fighter.loadouts.stat_investment && fighter.loadouts.stat_investment.length > 0) {
-                fighter.loadouts.stat_investment.forEach(stat => {
-                    const div = document.createElement('div');
-                    div.innerText = `• ${stat}`;
-                    statsContainer.appendChild(div);
-                });
-            } else {
-                statsContainer.innerText = "No specific stat investment notes.";
-            }
-
-            const movesContainer = document.getElementById('modalMoves');
-            movesContainer.innerHTML = '';
-            if (fighter.loadouts && fighter.loadouts.preferred_moveset && fighter.loadouts.preferred_moveset.length > 0) {
-                fighter.loadouts.preferred_moveset.forEach(move => {
-                    const span = document.createElement('span');
-                    span.className = 'move-badge';
-                    span.innerText = move;
-                    movesContainer.appendChild(span);
-                });
-            } else {
-                movesContainer.innerText = "No preferred moveset specified.";
-            }
-
-            document.getElementById('fighterModal').classList.add('show');
-        }
-
-        function closeFighterModal(e) {
-            if (e.target.id === 'fighterModal') closeFighterModalDirect();
-        }
-
-        function closeFighterModalDirect() {
-            document.getElementById('fighterModal').classList.remove('show');
-        }
-
-        function switchModalTab(event, tabName) {
-            document.querySelectorAll('.m-tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.m-tab-pane').forEach(p => p.style.display = 'none');
-
-            event.target.classList.add('active');
-            if (tabName === 'info') {
-                document.getElementById('pane-info').style.display = 'flex';
-            } else if (tabName === 'kit') {
-                document.getElementById('pane-kit').style.display = 'flex';
-            } else if (tabName === 'loadout') {
-                document.getElementById('pane-loadout').style.display = 'flex';
-            }
-        }
-
-        function batchToggle(status) {
-            const visibleCards = Array.from(document.querySelectorAll('.card')).filter(c => c.style.display !== 'none');
-            const targetCards = visibleCards.filter(c => (c.dataset.unlocked === 'true') !== status);
-
-            if (targetCards.length === 0) return;
-
-            const actionText = status ? "SELECT" : "DESELECT";
-            const confirmed = confirm(`Are you sure you want to ${actionText} all ${targetCards.length} visible fighter(s)?`);
-            if (!confirmed) return;
-
-            const snapshot = targetCards.map(c => ({
-                name: c.dataset.rawname,
-                previousState: c.dataset.unlocked === 'true'
-            }));
-            saveSnapshot(snapshot);
-
-            const names = targetCards.map(c => c.dataset.rawname);
-            fetch('/toggle_batch', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({names: names, unlocked: status})
-            }).then(() => {
-                names.forEach(name => setCardState(name, status));
-                updateCount();
-            });
-        }
-
-        function triggerUndo() {
-            if (undoStack.length === 0) return;
-            const lastAction = undoStack.pop();
-            updateUndoButton();
-
-            fetch('/apply_states', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({states: lastAction})
-            }).then(() => {
-                lastAction.forEach(item => setCardState(item.name, item.previousState));
-                updateCount();
-            });
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-                if (document.activeElement.tagName !== 'INPUT') {
-                    e.preventDefault();
-                    triggerUndo();
-                }
-            }
-        });
-
-        function toggleRatingsVisibility(show) {
-            document.querySelectorAll('.ratings-row').forEach(el => {
-                el.style.display = show ? 'grid' : 'none';
-            });
-        }
-
-        function doesKitContainEffect(kitText, effect) {
-            if (!effect) return true;
-
-            if (effect === 'armor') {
-                kitText = kitText.replace(/armor\s+break/gi, '');
-                return /\barmors?\b/i.test(kitText);
-            }
-            if (effect === 'armor break') {
-                return /\barmor\s+breaks?\b/i.test(kitText);
-            }
-            if (effect === 'regen') {
-                kitText = kitText.replace(/heavy\s+regen/gi, '');
-                return /\bregens?\b/i.test(kitText);
-            }
-            if (effect === 'heavy regen') {
-                return /\bheavy\s+regens?\b/i.test(kitText);
-            }
-            if (effect === 'bleed') {
-                kitText = kitText.replace(/heavy\s+bleed/gi, '');
-                return /\bbleeds?\b/i.test(kitText);
-            }
-            if (effect === 'heavy bleed') {
-                return /\bheavy\s+bleeds?\b/i.test(kitText);
-            }
-            if (effect === 'auto-block' || effect === 'auto block') {
-                return /\bauto[- ]?blocks?\b/i.test(kitText);
-            }
-            if (effect === 'invincible') {
-                return /\binvincib(?:le|ility)\b/i.test(kitText);
-            }
-            if (effect === 'disable blockbuster' || effect === 'disable blockbusters') {
-                return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*)blockbusters?\b|\bblockbusters?(?:[^\.\n;]+)?\s+disabled\b/i.test(kitText);
-            }
-            if (effect === 'disable special' || effect === 'disable specials') {
-                return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:tag[\s-]ins?|blockbusters?),?\s*(?:and\s+)?)?)?specials?(?:\s+moves?)?\b|\bspecials?(?:\s+moves?)?\s+disabled\b/i.test(kitText);
-            }
-            if (effect === 'disable tag' || effect === 'disable tag ins') {
-                return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:special\s+moves?|blockbusters?),?\s*(?:and\s+)?)?)?tag(?:[\s-]ins?)?\b|\btags?(?:[\s-]ins?)?\s+disabled\b/i.test(kitText);
-            }
-
-            const regex = new RegExp(`\\b${effect}s?\\b`, 'i');
-            return regex.test(kitText);
-        }
-
-        function applyHighlights(card, selectedEffects) {
-            const textElements = card.querySelectorAll('.desc-text, .name-text');
-            const searchQuery = document.getElementById('search').value.trim().toLowerCase();
-            const searchWords = searchQuery.length > 1 ? searchQuery.split(/\s+/).filter(w => w.length > 0) : [];
-
-            if (selectedEffects.length === 0 && searchWords.length === 0) {
-                textElements.forEach(el => {
-                    el.innerHTML = el.dataset.original;
-                });
-                return;
-            }
-
-            textElements.forEach(el => {
-                let html = el.dataset.original;
-
-                if (el.classList.contains('desc-text')) {
-                    selectedEffects.forEach(effect => {
-                        let pattern;
-                        if (effect === 'armor') {
-                            pattern = /\b(armor)(?!\s+break)\b/gi;
-                        } else if (effect === 'armor break') {
-                            pattern = /\b(armor\s+breaks?)\b/gi;
-                        } else if (effect === 'regen') {
-                            pattern = /(?<!heavy\s+)\b(regens?)\b/gi;
-                        } else if (effect === 'heavy regen') {
-                            pattern = /\b(heavy\s+regens?)\b/gi;
-                        } else if (effect === 'bleed') {
-                            pattern = /(?<!heavy\s+)\b(bleeds?)\b/gi;
-                        } else if (effect === 'heavy bleed') {
-                            pattern = /\b(heavy\s+bleeds?)\b/gi;
-                        } else if (effect === 'auto-block' || effect === 'auto block') {
-                            pattern = /\b(auto[- ]?blocks?)\b/gi;
-                        } else if (effect === 'invincible') {
-                            pattern = /\b(invincib(?:le|ility))\b/gi;
-                        } else if (effect === 'disable blockbuster' || effect === 'disable blockbusters') {
-                            pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*)blockbusters?|blockbusters?(?:[^\.\n;]+)?\s+disabled)\b/gi;
-                        } else if (effect === 'disable special' || effect === 'disable specials') {
-                            pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:tag[\s-]ins?|blockbusters?),?\s*(?:and\s+)?)?)?specials?(?:\s+moves?)?|specials?(?:\s+moves?)?\s+disabled)\b/gi;
-                        } else if (effect === 'disable tag' || effect === 'disable tag ins') {
-                            pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:special\s+moves?|blockbusters?),?\s*(?:and\s+)?)?)?tag(?:[\s-]ins?)?|tag(?:[\s-]ins?)?\s+disabled)\b/gi;
-                        } else {
-                            pattern = new RegExp(`\\b(${effect}s?)\\b`, 'gi');
-                        }
-                        html = html.replace(pattern, '<mark class="effect-highlight">$1</mark>');
-                    });
-                }
-
-                searchWords.forEach(word => {
-                    if (word.length < 2) return;
-                    const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const wordPattern = new RegExp(`(${safeWord})`, 'gi');
-                    html = html.replace(wordPattern, (match) => {
-                        return `<mark class="effect-highlight">${match}</mark>`;
-                    });
-                });
-
-                el.innerHTML = html;
-            });
-        }
-
-        function filterAndSortCards() {
-            const query = document.getElementById('search').value.toLowerCase();
-            const char = document.getElementById('charFilter').value;
-            const elem = document.getElementById('elementFilter').value;
-            const selectedTiers = getSelectedTiers();
-            const selectedEffects = getSelectedModifiers();
-            const includeBaseKit = document.getElementById('includeBaseKitFilterToggle').checked;
-            const status = document.getElementById('statusFilter').value;
-            const mode = document.getElementById('modeFilter').value;
-            const minRank = parseInt(document.getElementById('rankFilter').value, 10);
-            const sortBy = document.getElementById('sortBy').value;
-
-            const grid = document.getElementById('cardGrid');
-            const cards = Array.from(document.querySelectorAll('.card'));
-
-            cards.forEach(c => {
-                const matchSearch = c.dataset.search.includes(query);
-                const matchChar = !char || c.dataset.char === char;
-                const matchElem = !elem || c.dataset.element === elem;
-                const matchTier = selectedTiers.length === 0 || selectedTiers.includes(c.dataset.tier);
-
-                const targetKit = includeBaseKit ? c.dataset.fullkit : c.dataset.sakit;
-                const matchEffect = selectedEffects.every(eff => doesKitContainEffect(targetKit, eff));
-
-                const isUnlocked = c.dataset.unlocked === 'true';
-                const matchStatus = !status || (status === 'unlocked' && isUnlocked) || (status === 'locked' && !isUnlocked);
-                const isValidTier = c.dataset.tier !== 'Unknown';
-
-                let matchRank = true;
-                if (minRank > 0) {
-                    const p = RANK_VALUES[c.dataset.pfoff] || 0;
-                    const ro = RANK_VALUES[c.dataset.riftoff] || 0;
-                    const rd = RANK_VALUES[c.dataset.riftdef] || 0;
-                    const rl = RANK_VALUES[c.dataset.realms] || 0;
-
-                    if (mode === 'any') {
-                        matchRank = Math.max(p, ro, rd, rl) >= minRank;
-                    } else if (mode === 'pf_off') {
-                        matchRank = p >= minRank;
-                    } else if (mode === 'rift_off') {
-                        matchRank = ro >= minRank;
-                    } else if (mode === 'rift_def') {
-                        matchRank = rd >= minRank;
-                    } else if (mode === 'realms') {
-                        matchRank = rl >= minRank;
-                    }
-                }
-
-                const visible = isValidTier && matchSearch && matchChar && matchElem && matchTier && matchEffect && matchStatus && matchRank;
-                c.style.display = visible ? 'flex' : 'none';
-
-                if (visible) {
-                    applyHighlights(c, selectedEffects);
-                }
-            });
-
-            cards.sort((a, b) => {
-                const atkA = parseInt(a.dataset.atk, 10) || 0;
-                const atkB = parseInt(b.dataset.atk, 10) || 0;
-                const hpA = parseInt(a.dataset.hp, 10) || 0;
-                const hpB = parseInt(b.dataset.hp, 10) || 0;
-                const nameA = a.dataset.name;
-                const nameB = b.dataset.name;
-
-                if (sortBy === 'atk_desc') return atkB - atkA;
-                if (sortBy === 'atk_asc') {
-                    if (atkA === 0) return 1;
-                    if (atkB === 0) return -1;
-                    return atkA - atkB;
-                }
-                if (sortBy === 'hp_desc') return hpB - hpA;
-                if (sortBy === 'hp_asc') {
-                    if (hpA === 0) return 1;
-                    if (hpB === 0) return -1;
-                    return hpA - hpB;
-                }
-                if (sortBy === 'name_desc') return nameB.localeCompare(nameA);
-                return nameA.localeCompare(nameB);
-            });
-
-            cards.forEach(c => grid.appendChild(c));
-        }
-
-        function openExportModal() {
-            document.getElementById('exportModal').classList.add('show');
-        }
-
-        function closeExportModal() {
-            document.getElementById('exportModal').classList.remove('show');
-        }
-
-        window.addEventListener('click', (e) => {
-            const overlay = document.getElementById('exportModal');
-            if (e.target === overlay) {
-                closeExportModal();
-            }
-        });
-
-        function executeExport() {
-            const scope = document.querySelector('input[name="exportScope"]:checked').value;
-            const format = document.querySelector('input[name="exportFormat"]:checked').value;
-
-            fetch('/export_all')
-                .then(r => r.json())
-                .then(res => {
-                    const allFighters = res.fighters || {};
-                    const baseKits = res.base_abilities || {};
-
-                    let targets = [];
-                    const allCards = Array.from(document.querySelectorAll('.card'));
-
-                    if (scope === 'visible_unlocked') {
-                        const visibleCards = allCards.filter(c => c.style.display !== 'none' && c.dataset.unlocked === 'true');
-                        targets = visibleCards.map(c => allFighters[c.dataset.rawname]).filter(Boolean);
-                    } else if (scope === 'visible_all') {
-                        const visibleCards = allCards.filter(c => c.style.display !== 'none');
-                        targets = visibleCards.map(c => allFighters[c.dataset.rawname]).filter(Boolean);
-                    } else if (scope === 'all_unlocked') {
-                        targets = Object.values(allFighters).filter(f => f.unlocked);
-                    }
-
-                    if (targets.length === 0) {
-                        alert("No fighters matched your chosen export settings!");
-                        return;
-                    }
-
-                    let outputText = "";
-
-                    if (format === 'names') {
-                        outputText = targets.map(t => t.name).join(', ');
-                    } else if (format === 'compact') {
-                        outputText = targets.map(x => {
-                            const r = x.ratings || {};
-                            const atk = x.atk_max ? (x.atk_max / 1000).toFixed(1) + 'k' : 'N/A';
-                            const hp = x.hp_max ? (x.hp_max / 1000).toFixed(1) + 'k' : 'N/A';
-                            return `- [${x.character} | ${x.tier} - ${x.element}] ${x.name} (ATK: ${atk} | HP: ${hp} | PF: ${r.pf_off || 'U'} | R-Off: ${r.rift_off || 'U'} | R-Def: ${r.rift_def || 'U'} | Realms: ${r.realms || 'U'})`;
-                        }).join('\n');
-                    } else if (format === 'full') {
-                        const header = "### MY SKULLGIRLS MOBILE ROSTER\n";
-                        const body = targets.map(x => {
-                            let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\n`;
-                            if (x.atk_max || x.hp_max) {
-                                line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\n`;
-                            }
-                            if (x.ratings) {
-                                line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\n`;
-                            }
-                            line += `  SA1: ${x.sa1}\n  SA2: ${x.sa2}`;
-
-                            if (baseKits[x.character]) {
-                                const b = baseKits[x.character];
-                                const paName = b.prestige ? b.prestige.name : 'None';
-                                const maNames = (b.marquee_options || []).map(m => m.name).join(' / ');
-                                line += `\n  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}`;
-                            }
-                            return line;
-                        }).join('\n');
-                        outputText = header + body;
-                    }
-
-                    navigator.clipboard.writeText(outputText).then(() => {
-                        closeExportModal();
-                        alert(`Successfully copied ${targets.length} fighter(s) to clipboard!`);
-                    });
-                });
-        }
-
-        updateCount();
-    </script>
-</body>
-</html>
-"""
 
 @app.route("/")
 def index():
+    """
+    Render main application index dashboard template.
+    """
     data = load_data()
     base_abilities = load_base_abilities()
-    chars = sorted(list(set(v.get("character", "Unknown") for v in data.values() if v.get("character") != "Unknown")))
-    return render_template_string(HTML, variants=data, characters=chars, base_abilities=base_abilities)
+    wishlist = load_wishlist()
+    chars = sorted(
+        list(
+            set(
+                v.get("character", "Unknown")
+                for v in data.values()
+                if v.get("character") != "Unknown"
+            )
+        )
+    )
+    return render_template(
+        "index.html",
+        variants=data,
+        characters=chars,
+        base_abilities=base_abilities,
+        wishlist=wishlist,
+    )
+
 
 @app.route("/toggle", methods=["POST"])
 def toggle():
-    payload = request.json
+    """
+    Toggle owned/unlocked status for a single fighter variant.
+    Payload: {"name": "Variant Name", "unlocked": true/false}
+    """
+    payload = request.json or {}
     name = payload.get("name")
     unlocked = payload.get("unlocked", False)
 
@@ -1063,9 +125,14 @@ def toggle():
     save_user_roster(unlocked_set)
     return jsonify({"status": "ok"})
 
+
 @app.route("/toggle_batch", methods=["POST"])
 def toggle_batch():
-    payload = request.json
+    """
+    Batch update owned status for multiple fighter variants.
+    Payload: {"names": ["Name 1", "Name 2"], "unlocked": true/false}
+    """
+    payload = request.json or {}
     names = payload.get("names", [])
     unlocked = payload.get("unlocked", False)
 
@@ -1082,9 +149,14 @@ def toggle_batch():
     save_user_roster(unlocked_set)
     return jsonify({"status": "ok"})
 
+
 @app.route("/apply_states", methods=["POST"])
 def apply_states():
-    payload = request.json
+    """
+    Apply snapshot state changes (used by client-side Undo handler).
+    Payload: {"states": [{"name": "Variant Name", "previousState": true/false}]}
+    """
+    payload = request.json or {}
     states = payload.get("states", [])
 
     unlocked_set = set()
@@ -1103,14 +175,35 @@ def apply_states():
     save_user_roster(unlocked_set)
     return jsonify({"status": "ok"})
 
+
+@app.route("/update_wishlist", methods=["POST"])
+def update_wishlist():
+    """
+    Save the user's updated relic wishlist.
+    Payload: {"golds": ["..."], "diamonds": ["..."]}
+    """
+    payload = request.json or {}
+    golds = payload.get("golds", [])
+    diamonds = payload.get("diamonds", [])
+
+    with open(WISHLIST_FILE, "w", encoding="utf-8") as f:
+        json.dump({"golds": golds, "diamonds": diamonds}, f, indent=2, ensure_ascii=False)
+    
+    return jsonify({"status": "ok"})
+
+
 @app.route("/export_all")
 def export_all():
+    """
+    API endpoint returning raw fighter dataset and base abilities for clipboard exports.
+    """
     data = load_data()
     base_abilities = load_base_abilities()
     return jsonify({
         "fighters": data,
         "base_abilities": base_abilities
     })
+
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

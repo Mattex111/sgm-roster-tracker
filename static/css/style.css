@@ -1,0 +1,848 @@
+/* ==========================================================================
+   SGM Roster Tracker - Main Stylesheet
+   ========================================================================== */
+
+:root {
+    --bg-panel: #161b22;
+    --bg-card: #0d1117;
+    --bg-hover: #21262d;
+    --border-color: #30363d;
+    --primary-color: #238636;
+    --text-main: #c9d1d9;
+    --text-muted: #8b949e;
+}
+
+/* Global Resets & Base Typography */
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0f111a;
+    color: var(--text-main);
+    margin: 0;
+    padding: 20px;
+}
+
+/* Sticky Header Navigation & Filter Bar */
+.header {
+    position: sticky;
+    top: 0;
+    background: #161b22;
+    padding: 14px 18px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    z-index: 100;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Inputs & Select Controls */
+input[type="text"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    background: #0d1117;
+    color: #fff;
+    width: 140px;
+    font-size: 0.9rem;
+}
+
+select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    background: #0d1117;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Button Variants */
+button {
+    padding: 8px 13px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    font-size: 0.88rem;
+}
+
+.btn-green {
+    background: #238636;
+    color: #fff;
+}
+.btn-green:hover {
+    background: #2ea043;
+}
+
+.btn-secondary {
+    background: #21262d;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+}
+.btn-secondary:hover {
+    background: #30363d;
+}
+
+.btn-undo {
+    background: #388bfd1a;
+    color: #58a6ff;
+    border: 1px solid #388bfd66;
+}
+.btn-undo:hover:not(:disabled) {
+    background: #388bfd33;
+}
+.btn-undo:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Toggles & Counter Header Widgets */
+.toggle-label {
+    font-size: 0.85rem;
+    color: #8b949e;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.counter {
+    margin-left: auto;
+    font-size: 0.95rem;
+    color: #8b949e;
+}
+.counter span {
+    color: #58a6ff;
+    font-weight: bold;
+}
+
+/* Multiselect Dropdowns (Tiers & Modifiers) */
+.multiselect-container {
+    position: relative;
+    display: inline-block;
+}
+
+.multiselect-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    background: #0d1117;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: left;
+    min-width: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.multiselect-btn:hover {
+    border-color: #58a6ff;
+}
+
+.multiselect-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+    max-height: 380px;
+    overflow-y: auto;
+    width: 230px;
+    z-index: 200;
+    padding: 6px 0;
+}
+.multiselect-dropdown.show {
+    display: block;
+}
+
+.multiselect-group-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #58a6ff;
+    padding: 6px 12px 2px;
+}
+
+.multiselect-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    font-size: 0.82rem;
+    color: #c9d1d9;
+    cursor: pointer;
+    user-select: none;
+}
+.multiselect-item:hover {
+    background: #21262d;
+    color: #fff;
+}
+.multiselect-item input {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* Card Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.card {
+    position: relative;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.2s, background 0.2s, transform 0.05s;
+    cursor: pointer;
+    user-select: none;
+}
+.card:hover {
+    border-color: #58a6ff;
+}
+.card:active {
+    transform: scale(0.995);
+}
+
+/* Card Unlocked / Owned State */
+.card.unlocked {
+    border-color: #238636;
+    background: #0d1c14;
+}
+.card.unlocked:hover {
+    border-color: #2ea043;
+}
+
+.card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.name-label {
+    font-size: 1.05rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* Badges & Tags */
+.badges {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.tag {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.Diamond {
+    background: #3ec5ff;
+    color: #051626;
+}
+.Gold {
+    background: #e3b341;
+    color: #201700;
+}
+.Silver {
+    background: #8b949e;
+    color: #0d1117;
+}
+.Bronze {
+    background: #bf6a40;
+    color: #fff;
+}
+
+.element-tag {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
+    background: #21262d;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+}
+
+.char-tag {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
+    background: #30363d;
+    color: #58a6ff;
+}
+
+/* Fighter Base Stats Row */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.stat-item {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.stat-atk {
+    color: #ff7b72;
+}
+.stat-hp {
+    color: #7ee787;
+}
+
+/* Meta Tier Ratings Row */
+.ratings-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    background: #0b0e14;
+    padding: 6px 4px;
+    border-radius: 6px;
+    border: 1px solid #21262d;
+    text-align: center;
+}
+
+.rate-box span:first-child {
+    display: block;
+    font-size: 0.65rem;
+    color: #8b949e;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    font-weight: normal;
+}
+
+.rank-badge {
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+.rank-SS {
+    color: #ff2d87 !important;
+    text-shadow: 0 0 8px rgba(255, 45, 135, 0.4);
+}
+.rank-S {
+    color: #00ff66 !important;
+    text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+.rank-A {
+    color: #ffd000 !important;
+}
+.rank-B {
+    color: #ff7b00 !important;
+}
+.rank-C {
+    color: #00bfff !important;
+}
+.rank-U,
+.rank-TBD {
+    color: #57606a !important;
+}
+
+/* Signature Ability Boxes */
+.sa-box {
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: #8b949e;
+    background: #0d1117;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #21262d;
+}
+.sa-box strong {
+    color: #58a6ff;
+}
+
+/* Expandable Base Kit Accordion */
+details.base-kit {
+    margin-top: 2px;
+    font-size: 0.78rem;
+    background: #0a0d12;
+    border: 1px dashed #30363d;
+    border-radius: 6px;
+    padding: 6px 8px;
+    cursor: default;
+}
+details.base-kit summary {
+    cursor: pointer;
+    color: #d29922;
+    font-weight: 600;
+    outline: none;
+    user-select: none;
+}
+details.base-kit summary:hover {
+    color: #e3b341;
+}
+
+.base-kit-content {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: #c9d1d9;
+    cursor: text;
+    user-select: text;
+}
+.base-kit-content strong {
+    color: #e3b341;
+}
+
+/* Card Action Footer */
+.card-footer-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2px;
+}
+
+.inspect-btn {
+    background: #21262d;
+    color: #58a6ff;
+    border: 1px solid #30363d;
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.inspect-btn:hover {
+    background: #30363d;
+    color: #79c0ff;
+    border-color: #58a6ff;
+}
+
+.moveset-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.move-badge {
+    font-size: 0.75rem;
+    background: #21262d;
+    color: #58a6ff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #30363d;
+}
+
+/* Modifier Keyword Highlights */
+mark.effect-highlight {
+    background-color: rgba(255, 208, 0, 0.28);
+    color: #ffd000;
+    border-bottom: 2px solid #ffd000;
+    font-weight: 700;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* Standard Export Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+}
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 22px;
+    width: 440px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8);
+}
+.modal h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #fff;
+}
+
+.modal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.modal-section-title {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #8b949e;
+}
+.modal-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #e6edf3;
+    cursor: pointer;
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+/* Expanded In-Game Inspector Modal */
+.fighter-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+.fighter-modal-overlay.show {
+    display: flex;
+}
+
+.fighter-modal {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    width: 820px;
+    max-width: 96vw;
+    max-height: 90vh;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95);
+    position: relative;
+    animation: modalPop 0.2s ease-out;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+}
+.modal-close-btn:hover {
+    background: #30363d;
+    color: #fff;
+}
+
+.modal-body-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.modal-card-img-container {
+    flex-shrink: 0;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.modal-card-img-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.modal-stats-card {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.modal-right-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+}
+
+.modal-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 10px;
+}
+
+.m-tab-btn {
+    background: #21262d;
+    color: #8b949e;
+    border: 1px solid #30363d;
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+.m-tab-btn.active {
+    background: #238636;
+    color: #fff;
+    border-color: #2ea043;
+}
+
+.m-tab-pane {
+    overflow-y: auto;
+    max-height: 56vh;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-box {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: #c9d1d9;
+    background: #0d1117;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #21262d;
+}
+.modal-box strong {
+    color: #58a6ff;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* =========================================
+   Wishlist Styles
+   ========================================= */
+.wishlist-star {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1.2rem;
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.5);
+    z-index: 10;
+    pointer-events: none;
+    display: none; /* Shown via inline style or class when active */
+}
+
+/* Modal styles for Wishlist */
+.wishlist-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.wishlist-section h4 {
+    margin: 0 0 10px 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.wishlist-slots {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wishlist-slot {
+    width: 100px;
+    height: 140px;
+    background: var(--bg-card);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    padding: 5px;
+    text-align: center;
+}
+
+.wishlist-slot:hover {
+    border-color: var(--primary-color);
+    background: var(--bg-hover);
+}
+
+.wishlist-slot.filled {
+    border-style: solid;
+}
+
+.wishlist-slot.gold.filled {
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.wishlist-slot.diamond.filled {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.wishlist-slot img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.wishlist-slot .slot-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--text-main);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.wishlist-slot .remove-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.wishlist-slot.filled:hover .remove-btn {
+    display: flex;
+}
+
+.wishlist-slot.empty::after {
+    content: "+";
+    font-size: 2rem;
+    color: var(--text-muted);
+}
+
+/* Wishlist Fighter Picker */
+#wishlistPicker {
+    position: fixed;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    width: 270px;
+    display: none;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+#wishlistPickerResults {
+    max-height: 240px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.picker-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    color: #c9d1d9;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    font-size: 0.88rem;
+}
+
+.picker-item:hover {
+    background: #21262d;
+    color: #fff;
+    border-color: #58a6ff;
+}
+
+.picker-item img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #30363d;
+    background: #000;
+}
