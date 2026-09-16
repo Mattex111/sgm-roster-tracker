@@ -30,7 +30,7 @@ def save_user_roster(unlocked_names):
     with open(USER_ROSTER_FILE, "w", encoding="utf-8") as f:
         json.dump(list(unlocked_names), f, indent=2, ensure_ascii=False)
 
-HTML = """
+HTML = r"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,7 +104,6 @@ HTML = """
 
         mark.effect-highlight { background-color: rgba(255, 208, 0, 0.28); color: #ffd000; border-bottom: 2px solid #ffd000; font-weight: 700; padding: 0 2px; border-radius: 2px; }
 
-        /* Modal Styles */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); z-index: 500; align-items: center; justify-content: center; }
         .modal-overlay.show { display: flex; }
         .modal { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 22px; width: 440px; max-width: 90vw; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 12px 36px rgba(0,0,0,0.8); }
@@ -292,7 +291,6 @@ HTML = """
              data-riftdef="{{ v.ratings.rift_def if v.ratings else 'U' }}"
              data-realms="{{ v.ratings.realms if v.ratings else 'U' }}">
 
-            <!-- START LAYOUT WITH IMAGE -->
             <div class="card-body-row" style="display: flex; gap: 10px; align-items: flex-start;">
                 {% if v.image_url %}
                 <img src="{{ v.image_url }}" alt="{{ v.name }}" style="width: 55px; height: auto; border-radius: 4px; border: 1px solid #30363d; flex-shrink: 0;" loading="lazy">
@@ -349,7 +347,6 @@ HTML = """
 
                 </div>
             </div>
-            <!-- END LAYOUT WITH IMAGE -->
 
         </div>
         {% endfor %}
@@ -501,11 +498,48 @@ HTML = """
 
         function doesKitContainEffect(kitText, effect) {
             if (!effect) return true;
-            if (effect === 'armor') kitText = kitText.replace(/armor break/g, '');
-            if (effect === 'regen') kitText = kitText.replace(/heavy regen/g, '');
-            if (effect === 'bleed') kitText = kitText.replace(/heavy bleed/g, '');
 
-            const regex = new RegExp(`\\\\b${effect}\\\\b`, 'i');
+            if (effect === 'armor') {
+                kitText = kitText.replace(/armor\s+break/gi, '');
+                return /\barmors?\b/i.test(kitText);
+            }
+            if (effect === 'armor break') {
+                return /\barmor\s+breaks?\b/i.test(kitText);
+            }
+            if (effect === 'regen') {
+                kitText = kitText.replace(/heavy\s+regen/gi, '');
+                return /\bregens?\b/i.test(kitText);
+            }
+            if (effect === 'heavy regen') {
+                return /\bheavy\s+regens?\b/i.test(kitText);
+            }
+            if (effect === 'bleed') {
+                kitText = kitText.replace(/heavy\s+bleed/gi, '');
+                return /\bbleeds?\b/i.test(kitText);
+            }
+            if (effect === 'heavy bleed') {
+                return /\bheavy\s+bleeds?\b/i.test(kitText);
+            }
+            if (effect === 'auto-block' || effect === 'auto block') {
+                return /\bauto[- ]?blocks?\b/i.test(kitText);
+            }
+            if (effect === 'invincible') {
+                return /\binvincib(?:le|ility)\b/i.test(kitText);
+            }
+            // DISABLE BLOCKBUSTERS: il verbo 'disable' deve riferirsi direttamente a blockbuster, senza specials o tag-in in mezzo
+            if (effect === 'disable blockbuster' || effect === 'disable blockbusters') {
+                return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*)blockbusters?\b|\bblockbusters?(?:[^\.\n;]+)?\s+disabled\b/i.test(kitText);
+            }
+            // DISABLE SPECIALS: il verbo 'disable' deve riferirsi a special moves
+            if (effect === 'disable special' || effect === 'disable specials') {
+                return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:tag[\s-]ins?|blockbusters?),?\s*(?:and\s+)?)?)?specials?(?:\s+moves?)?\b|\bspecials?(?:\s+moves?)?\s+disabled\b/i.test(kitText);
+            }
+            // DISABLE TAG INS
+            if (effect === 'disable tag' || effect === 'disable tag ins') {
+                return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:special\s+moves?|blockbusters?),?\s*(?:and\s+)?)?)?tag(?:[\s-]ins?)?\b|\btags?(?:[\s-]ins?)?\s+disabled\b/i.test(kitText);
+            }
+
+            const regex = new RegExp(`\\b${effect}s?\\b`, 'i');
             return regex.test(kitText);
         }
 
@@ -525,13 +559,29 @@ HTML = """
                 selectedEffects.forEach(effect => {
                     let pattern;
                     if (effect === 'armor') {
-                        pattern = new RegExp(`\\\\b(armor)(?!\\\\s+break)\\\\b`, 'gi');
+                        pattern = /\b(armor)(?!\s+break)\b/gi;
+                    } else if (effect === 'armor break') {
+                        pattern = /\b(armor\s+breaks?)\b/gi;
                     } else if (effect === 'regen') {
-                        pattern = new RegExp(`(?<!heavy\\\\s+)\\\\b(regen)\\\\b`, 'gi');
+                        pattern = /(?<!heavy\s+)\b(regens?)\b/gi;
+                    } else if (effect === 'heavy regen') {
+                        pattern = /\b(heavy\s+regens?)\b/gi;
                     } else if (effect === 'bleed') {
-                        pattern = new RegExp(`(?<!heavy\\\\s+)\\\\b(bleed)\\\\b`, 'gi');
+                        pattern = /(?<!heavy\s+)\b(bleeds?)\b/gi;
+                    } else if (effect === 'heavy bleed') {
+                        pattern = /\b(heavy\s+bleeds?)\b/gi;
+                    } else if (effect === 'auto-block' || effect === 'auto block') {
+                        pattern = /\b(auto[- ]?blocks?)\b/gi;
+                    } else if (effect === 'invincible') {
+                        pattern = /\b(invincib(?:le|ility))\b/gi;
+                    } else if (effect === 'disable blockbuster' || effect === 'disable blockbusters') {
+                        pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*)blockbusters?|blockbusters?(?:[^\.\n;]+)?\s+disabled)\b/gi;
+                    } else if (effect === 'disable special' || effect === 'disable specials') {
+                        pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:tag[\s-]ins?|blockbusters?),?\s*(?:and\s+)?)?)?specials?(?:\s+moves?)?|specials?(?:\s+moves?)?\s+disabled)\b/gi;
+                    } else if (effect === 'disable tag' || effect === 'disable tag ins') {
+                        pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:special\s+moves?|blockbusters?),?\s*(?:and\s+)?)?)?tag(?:[\s-]ins?)?|tag(?:[\s-]ins?)?\s+disabled)\b/gi;
                     } else {
-                        pattern = new RegExp(`\\\\b(${effect})\\\\b`, 'gi');
+                        pattern = new RegExp(`\\b(${effect}s?)\\b`, 'gi');
                     }
                     html = html.replace(pattern, '<mark class="effect-highlight">$1</mark>');
                 });
@@ -623,7 +673,6 @@ HTML = """
             cards.forEach(c => grid.appendChild(c));
         }
 
-        /* Modal Handlers */
         function openExportModal() {
             document.getElementById('exportModal').classList.add('show');
         }
@@ -649,7 +698,6 @@ HTML = """
                     const allFighters = res.fighters || {};
                     const baseKits = res.base_abilities || {};
 
-                    // Determine targets
                     let targets = [];
                     const allCards = Array.from(document.querySelectorAll('.card'));
 
@@ -678,27 +726,27 @@ HTML = """
                             const atk = x.atk_max ? (x.atk_max / 1000).toFixed(1) + 'k' : 'N/A';
                             const hp = x.hp_max ? (x.hp_max / 1000).toFixed(1) + 'k' : 'N/A';
                             return `- [${x.character} | ${x.tier} - ${x.element}] ${x.name} (ATK: ${atk} | HP: ${hp} | PF: ${r.pf_off || 'U'} | R-Off: ${r.rift_off || 'U'} | R-Def: ${r.rift_def || 'U'} | Realms: ${r.realms || 'U'})`;
-                        }).join('\\n');
+                        }).join('\n');
                     } else if (format === 'full') {
-                        const header = "### MY SKULLGIRLS MOBILE ROSTER\\n";
+                        const header = "### MY SKULLGIRLS MOBILE ROSTER\n";
                         const body = targets.map(x => {
-                            let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n`;
+                            let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\n`;
                             if (x.atk_max || x.hp_max) {
-                                line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\\n`;
+                                line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\n`;
                             }
                             if (x.ratings) {
-                                line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\\n`;
+                                line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\n`;
                             }
-                            line += `  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`;
+                            line += `  SA1: ${x.sa1}\n  SA2: ${x.sa2}`;
 
                             if (baseKits[x.character]) {
                                 const b = baseKits[x.character];
                                 const paName = b.prestige ? b.prestige.name : 'None';
                                 const maNames = (b.marquee_options || []).map(m => m.name).join(' / ');
-                                line += `\\n  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}`;
+                                line += `\n  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}`;
                             }
                             return line;
-                        }).join('\\n');
+                        }).join('\n');
                         outputText = header + body;
                     }
 
