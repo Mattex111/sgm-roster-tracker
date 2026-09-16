@@ -301,7 +301,7 @@ HTML = """
 
                     <div class="card-head">
                         <label class="name-label">
-                            <input type="checkbox" onchange="toggleLock('{{ v.name }}', this.checked, this)" {% if v.unlocked %}checked{% endif %}>
+                            <input type="checkbox" onchange='toggleLock({{ v.name | tojson }}, this.checked, this)' {% if v.unlocked %}checked{% endif %}>
                             {{ v.name }}
                         </label>
                         <div class="badges">
