@@ -67,9 +67,3 @@ python3 scrape.py
 python3 scrape_base_abilities.py
 
 ```
-
-
-
-## License
-
-MIT
