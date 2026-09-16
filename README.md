@@ -20,7 +20,7 @@ An advanced offline web tool designed for Skullgirls Mobile players to track col
 
 ## Screenshots
 
-<img src="examples/1.png" width="300" alt="Stats"> <img src="examples/2.png" width="300" alt="Export Modal">
+<img src="examples/1.png" width="300" alt="Roster"> <img src="examples/2.png" width="300" alt="Export Modal"> <img src="examples/3.png" width="300" alt="TeamBuilder">
 
 ## Setup & Run
 
