@@ -48,7 +48,7 @@ Offline web tool to track collection progress, inspect base stats and abilities,
 
 1. **Clone the repository & enter the folder:**
     ```Bash
-    git clone [https://github.com/Mattex111/sgm-roster-tracker.git](https://github.com/Mattex111/sgm-roster-tracker.git)
+    git clone https://github.com/Mattex111/sgm-roster-tracker.git
     cd sgm-roster-tracker
     ```
 2. **Create and activate the virtual environment:**
