@@ -1,78 +1,88 @@
-# 💀 Skullgirls Mobile - Roster & Ability Tracker
+# Skullgirls Mobile - Roster Tracker
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-Web%20App-000000?style=flat&logo=flask&logoColor=white)
-![Offline First](https://img.shields.io/badge/Data-Local%20%26%20Offline-2ea043?style=flat)
-![License](https://img.shields.io/badge/License-MIT-blue?style=flat)
-
-A clean, offline tool to track your Skullgirls Mobile collection, browse abilities and community tier ratings, and export your entire roster formatted for AI strategy chats (ChatGPT, Claude, Gemini).
+Offline web tool to track collection progress, inspect base stats and abilities, filter by combat modifiers, and export custom rosters for Discord, Reddit, or team building.
 
 ![Dashboard Preview](examples/1.png)
 
----
+## Features
 
-## ⚡ What It Does & How It Works
+- **Interactive Checklist:** Mark owned fighters in real time with persistent local storage (`my_roster.json`).
+- **Base Stats (Max Lvl 60):** Card view displays official Max ATK and HP stats for accurate damage/tank scaling.
+- **Full Character Kit:** Expandable details showing character-specific Prestige Abilities and Marquee options (MA & PA).
+- **Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with real-time keyword highlighting.
+- **Tier Multi-Select:** Choose single or combined rarity pools (*Diamond*, *Gold*, *Silver*, *Bronze*).
+- **Meta Grades:** Community tier ratings across 4 modes (PF Offense, Rift Offense, Rift Defense, Parallel Realms).
+- **Custom Clipboard Exporter:** Export selections in Full markdown, single-line Compact summaries, or comma-separated name lists.
+- **Accident Prevention:** Bulk selection safeguards with one-click Undo (`Ctrl+Z`).
+- **100% Offline & Private:** No accounts, external servers, or tracking cookies.
 
-Managing a collection of 300+ fighters across different tiers and game modes can get messy. This tool keeps everything organized directly on your computer:
+## Screenshots
 
-* 📋 **Visual Roster Checklist:** Browse every variant in the game sorted by base characters, tiers, and elements. Check the box for fighters you own—choices save automatically in real time.
-* 🏆 **Community Meta Ratings:** Every card displays grades sourced directly from the [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List) across 4 game modes: **PF Offense**, **Rift Offense**, **Rift Defense**, and **Parallel Realms** (from SS down to U).
-* 🔍 **Smart Filtering & Search:**
-  * Instant search by variant name.
-  * Filter by Base Fighter (*Filia, Beowulf, Dahlia, etc.*), Element, or Rarity Tier.
-  * Filter by Meta Score (e.g., show only fighters with *S or better* in *Rift Defense*).
-  * Batch actions: Select or deselect all visible filtered fighters with one click.
-* 🛡️ **Accident Protection:** Confirmation prompt before bulk modifications, plus a full **Undo** button (`Ctrl+Z` on keyboard) to restore previous states instantly.
-* 💾 **Safe Local Save:** Your collection is saved in a private local file (`my_roster.json`). Updating the app or running the scraper will **never** reset your checked fighters.
-* 🤖 **One-Click AI Strategy Export:** Click **"Copy Roster for AI"** to grab a clean Markdown summary of your collection (with exact SA1 & SA2 passive descriptions and tier scores). Paste it into any LLM to get instant team synergies and investment advice without hallucinations.
+<img src="examples/1.png" width="300" alt="Filters & Stats"> <img src="examples/2.png" width="300" alt="Card View"> <img src="examples/3.png" width="300" alt="Export Modal">
 
----
+## Setup & Run
 
-## 🚀 Quick Setup
+### 1. Clone & Environment
 
-### 1. Clone this repository
 ```bash
 git clone [https://github.com/Mattex111/sgm-roster-tracker.git](https://github.com/Mattex111/sgm-roster-tracker.git)
 cd sgm-roster-tracker
-```
 
-### 2. Create and activate a virtual environment
-
-```bash
 python3 -m venv venv
 source venv/bin/activate
+# Windows: venv\Scripts\activate
 
 ```
 
-> **Windows:** `venv\Scripts\activate`
-
-### 3. Install requirements
+### 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 
 ```
 
-### 4. (Optional) Sync latest wiki data & tier ratings
-
-The project already comes with a populated database. If a new game patch drops, you can refresh it anytime:
-
-```bash
-python3 scrape.py
-
-```
-
-> **Tips:**
-> * `python3 scrape.py` (Default): Fast sync. Skips characters you already have and updates tier list scores in ~5 seconds.
-> * `python3 scrape.py --force`: Full rescan. Re-downloads every character page from scratch to capture official balance reworks or ability rewrites.
-> 
-> 
-
-### 5. Launch the tracker
+### 3. Start Application
 
 ```bash
 python3 app.py
 
 ```
 
-Open **`http://localhost:5000`** in your browser, check off the fighters you own, and you're ready to go!
+Open `http://localhost:5000` in your browser.
+
+## Data Sync (Optional)
+
+The repository includes pre-scraped, verified datasets (`sgm_database.json` and `base_abilities.json`). To pull official balance updates or newly released fighters from the wiki:
+
+* Sync variant stats and tier ratings:
+```bash
+python3 scrape.py
+
+```
+
+
+*(Pass `--force` to re-download all pages from scratch).*
+* Sync base character kits (Prestige & Marquee):
+```bash
+python3 scrape_base_abilities.py
+
+```
+
+
+
+## License
+
+MIT
+
+```
+
+---
+
+Per applicare le modifiche e caricarle sul repository:
+
+```bash
+git add README.md
+git commit -m "Refactor README: clean, concise, and professional tone"
+git push
+
+```

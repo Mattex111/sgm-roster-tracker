@@ -53,9 +53,8 @@ HTML = """
         .counter { margin-left: auto; font-size: 0.95rem; color: #8b949e; }
         .counter span { color: #58a6ff; font-weight: bold; }
 
-        /* Multiselect Dropdown */
         .multiselect-container { position: relative; display: inline-block; }
-        .multiselect-btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.9rem; cursor: pointer; text-align: left; min-width: 170px; display: flex; justify-content: space-between; align-items: center; }
+        .multiselect-btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.9rem; cursor: pointer; text-align: left; min-width: 140px; display: flex; justify-content: space-between; align-items: center; }
         .multiselect-btn:hover { border-color: #58a6ff; }
         .multiselect-dropdown { display: none; position: absolute; top: 100%; left: 0; background: #161b22; border: 1px solid #30363d; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.7); max-height: 380px; overflow-y: auto; width: 230px; z-index: 200; padding: 6px 0; }
         .multiselect-dropdown.show { display: block; }
@@ -103,8 +102,17 @@ HTML = """
         .base-kit-content { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; color: #c9d1d9; }
         .base-kit-content strong { color: #e3b341; }
 
-        /* Highlight mark tag */
         mark.effect-highlight { background-color: rgba(255, 208, 0, 0.28); color: #ffd000; border-bottom: 2px solid #ffd000; font-weight: 700; padding: 0 2px; border-radius: 2px; }
+
+        /* Modal Styles */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); z-index: 500; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 22px; width: 440px; max-width: 90vw; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 12px 36px rgba(0,0,0,0.8); }
+        .modal h3 { margin: 0; font-size: 1.15rem; color: #fff; }
+        .modal-section { display: flex; flex-direction: column; gap: 8px; }
+        .modal-section-title { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; color: #8b949e; }
+        .modal-radio { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #e6edf3; cursor: pointer; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
     </style>
 </head>
 <body>
@@ -128,17 +136,21 @@ HTML = """
             <option value="Neutral">Neutral</option>
         </select>
 
-        <select id="tierFilter" onchange="filterAndSortCards()">
-            <option value="">All Tiers</option>
-            <option value="Diamond">Diamond</option>
-            <option value="Gold">Gold</option>
-            <option value="Silver">Silver</option>
-            <option value="Bronze">Bronze</option>
-        </select>
+        <div class="multiselect-container" id="tierMultiSelect">
+            <div class="multiselect-btn" onclick="toggleDropdown('tierDropdown')">
+                <span id="tierLabel">All Tiers</span>
+                <span>▾</span>
+            </div>
+            <div class="multiselect-dropdown" id="tierDropdown" style="width: 160px;">
+                <label class="multiselect-item"><input type="checkbox" value="Diamond" onchange="onTierChange()"> Diamond</label>
+                <label class="multiselect-item"><input type="checkbox" value="Gold" onchange="onTierChange()"> Gold</label>
+                <label class="multiselect-item"><input type="checkbox" value="Silver" onchange="onTierChange()"> Silver</label>
+                <label class="multiselect-item"><input type="checkbox" value="Bronze" onchange="onTierChange()"> Bronze</label>
+            </div>
+        </div>
 
-        <!-- Multi-select Modifiers Dropdown -->
         <div class="multiselect-container" id="modifierMultiSelect">
-            <div class="multiselect-btn" onclick="toggleModifierDropdown()">
+            <div class="multiselect-btn" onclick="toggleDropdown('modifierDropdown')">
                 <span id="modifierLabel">Modifiers (0)</span>
                 <span>▾</span>
             </div>
@@ -207,21 +219,55 @@ HTML = """
                 <input type="checkbox" id="includeBaseKitFilterToggle" onchange="filterAndSortCards()" checked>
                 Include MA & PA in filter
             </label>
-
-            <label class="toggle-label" title="Include tier ratings when copying roster">
-                <input type="checkbox" id="exportRatingsToggle" checked>
-                Export Ratings
-            </label>
-
-            <label class="toggle-label" title="Include Prestige & Marquee abilities when copying roster">
-                <input type="checkbox" id="exportBaseKitToggle" checked>
-                Export Base Kit
-            </label>
         </div>
 
-        <button class="btn-green" onclick="copyRoster()">Copy Roster for AI</button>
+        <button class="btn-green" onclick="openExportModal()">Export Roster</button>
 
         <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
+    </div>
+
+    <!-- Export Options Modal -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <h3>Export Roster to Clipboard</h3>
+
+            <div class="modal-section">
+                <div class="modal-section-title">Scope</div>
+                <label class="modal-radio">
+                    <input type="radio" name="exportScope" value="visible_unlocked" checked>
+                    Visible unlocked fighters only (Current Filter)
+                </label>
+                <label class="modal-radio">
+                    <input type="radio" name="exportScope" value="all_unlocked">
+                    All unlocked fighters (Ignore Filters)
+                </label>
+                <label class="modal-radio">
+                    <input type="radio" name="exportScope" value="visible_all">
+                    All visible fighters (Including Unowned)
+                </label>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">Format Level</div>
+                <label class="modal-radio">
+                    <input type="radio" name="exportFormat" value="full" checked>
+                    <strong>Full Details:</strong> Stats, Ratings, SA1, SA2, Prestige & Marquee
+                </label>
+                <label class="modal-radio">
+                    <input type="radio" name="exportFormat" value="compact">
+                    <strong>Compact:</strong> Single-line summary with ATK/HP and all 4 Meta ratings
+                </label>
+                <label class="modal-radio">
+                    <input type="radio" name="exportFormat" value="names">
+                    <strong>Names Only:</strong> Plain comma-separated list
+                </label>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeExportModal()">Cancel</button>
+                <button class="btn-green" onclick="executeExport()">Copy to Clipboard</button>
+            </div>
+        </div>
     </div>
 
     <div class="grid" id="cardGrid">
@@ -300,22 +346,39 @@ HTML = """
         const undoStack = [];
         const RANK_VALUES = { 'SS': 5, 'S': 4, 'A': 3, 'B': 2, 'C': 1, 'U': 0, 'TBD': 0 };
 
-        // Save original text on load for pristine highlight resetting
         document.querySelectorAll('.desc-text').forEach(el => {
             el.dataset.original = el.innerHTML;
         });
 
-        function toggleModifierDropdown() {
-            document.getElementById('modifierDropdown').classList.toggle('show');
+        function toggleDropdown(id) {
+            const el = document.getElementById(id);
+            const isShown = el.classList.contains('show');
+            document.querySelectorAll('.multiselect-dropdown').forEach(d => d.classList.remove('show'));
+            if (!isShown) el.classList.add('show');
         }
 
-        // Close dropdown when clicking outside
         window.addEventListener('click', (e) => {
-            const container = document.getElementById('modifierMultiSelect');
-            if (!container.contains(e.target)) {
-                document.getElementById('modifierDropdown').classList.remove('show');
+            if (!e.target.closest('.multiselect-container')) {
+                document.querySelectorAll('.multiselect-dropdown').forEach(d => d.classList.remove('show'));
             }
         });
+
+        function getSelectedTiers() {
+            return Array.from(document.querySelectorAll('#tierDropdown input:checked')).map(cb => cb.value);
+        }
+
+        function onTierChange() {
+            const selected = getSelectedTiers();
+            const label = document.getElementById('tierLabel');
+            if (selected.length === 0) {
+                label.innerText = "All Tiers";
+            } else if (selected.length <= 2) {
+                label.innerText = selected.join(', ');
+            } else {
+                label.innerText = `Tiers (${selected.length})`;
+            }
+            filterAndSortCards();
+        }
 
         function getSelectedModifiers() {
             return Array.from(document.querySelectorAll('#modifierDropdown input:checked')).map(cb => cb.value.toLowerCase());
@@ -449,13 +512,10 @@ HTML = """
                 selectedEffects.forEach(effect => {
                     let pattern;
                     if (effect === 'armor') {
-                        // Match 'armor' only if not immediately followed by ' break'
                         pattern = new RegExp(`\\\\b(armor)(?!\\\\s+break)\\\\b`, 'gi');
                     } else if (effect === 'regen') {
-                        // Match 'regen' only if not preceded by 'heavy '
                         pattern = new RegExp(`(?<!heavy\\\\s+)\\\\b(regen)\\\\b`, 'gi');
                     } else if (effect === 'bleed') {
-                        // Match 'bleed' only if not preceded by 'heavy '
                         pattern = new RegExp(`(?<!heavy\\\\s+)\\\\b(bleed)\\\\b`, 'gi');
                     } else {
                         pattern = new RegExp(`\\\\b(${effect})\\\\b`, 'gi');
@@ -471,7 +531,7 @@ HTML = """
             const query = document.getElementById('search').value.toLowerCase();
             const char = document.getElementById('charFilter').value;
             const elem = document.getElementById('elementFilter').value;
-            const tier = document.getElementById('tierFilter').value;
+            const selectedTiers = getSelectedTiers();
             const selectedEffects = getSelectedModifiers();
             const includeBaseKit = document.getElementById('includeBaseKitFilterToggle').checked;
             const status = document.getElementById('statusFilter').value;
@@ -486,11 +546,9 @@ HTML = """
                 const matchName = c.dataset.name.includes(query);
                 const matchChar = !char || c.dataset.char === char;
                 const matchElem = !elem || c.dataset.element === elem;
-                const matchTier = !tier || c.dataset.tier === tier;
+                const matchTier = selectedTiers.length === 0 || selectedTiers.includes(c.dataset.tier);
 
                 const targetKit = includeBaseKit ? c.dataset.fullkit : c.dataset.sakit;
-
-                // Must match ALL selected modifiers (AND condition)
                 const matchEffect = selectedEffects.every(eff => doesKitContainEffect(targetKit, eff));
 
                 const isUnlocked = c.dataset.unlocked === 'true';
@@ -520,7 +578,6 @@ HTML = """
                 const visible = isValidTier && matchName && matchChar && matchElem && matchTier && matchEffect && matchStatus && matchRank;
                 c.style.display = visible ? 'flex' : 'none';
 
-                // Real-time keyword highlighter
                 if (visible) {
                     applyHighlights(c, selectedEffects);
                 }
@@ -553,43 +610,88 @@ HTML = """
             cards.forEach(c => grid.appendChild(c));
         }
 
-        function copyRoster() {
-            fetch('/export')
+        /* Modal Handlers */
+        function openExportModal() {
+            document.getElementById('exportModal').classList.add('show');
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('show');
+        }
+
+        window.addEventListener('click', (e) => {
+            const overlay = document.getElementById('exportModal');
+            if (e.target === overlay) {
+                closeExportModal();
+            }
+        });
+
+        function executeExport() {
+            const scope = document.querySelector('input[name="exportScope"]:checked').value;
+            const format = document.querySelector('input[name="exportFormat"]:checked').value;
+
+            fetch('/export_all')
                 .then(r => r.json())
                 .then(res => {
-                    const fighters = res.fighters || [];
+                    const allFighters = res.fighters || {};
                     const baseKits = res.base_abilities || {};
 
-                    if (fighters.length === 0) {
-                        alert("No variants selected! Check some fighters first.");
+                    // Determine targets
+                    let targets = [];
+                    const allCards = Array.from(document.querySelectorAll('.card'));
+
+                    if (scope === 'visible_unlocked') {
+                        const visibleCards = allCards.filter(c => c.style.display !== 'none' && c.dataset.unlocked === 'true');
+                        targets = visibleCards.map(c => allFighters[c.dataset.rawname]).filter(Boolean);
+                    } else if (scope === 'visible_all') {
+                        const visibleCards = allCards.filter(c => c.style.display !== 'none');
+                        targets = visibleCards.map(c => allFighters[c.dataset.rawname]).filter(Boolean);
+                    } else if (scope === 'all_unlocked') {
+                        targets = Object.values(allFighters).filter(f => f.unlocked);
+                    }
+
+                    if (targets.length === 0) {
+                        alert("No fighters matched your chosen export settings!");
                         return;
                     }
-                    const includeRatings = document.getElementById('exportRatingsToggle').checked;
-                    const includeBaseKit = document.getElementById('exportBaseKitToggle').checked;
 
-                    const header = "### MY SKULLGIRLS MOBILE UNLOCKED ROSTER\\n";
-                    const body = fighters.map(x => {
-                        let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n`;
-                        if (x.atk_max || x.hp_max) {
-                            line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\\n`;
-                        }
-                        if (includeRatings && x.ratings) {
-                            line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\\n`;
-                        }
-                        line += `  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`;
+                    let outputText = "";
 
-                        if (includeBaseKit && baseKits[x.character]) {
-                            const b = baseKits[x.character];
-                            const paName = b.prestige ? b.prestige.name : 'None';
-                            const maNames = (b.marquee_options || []).map(m => m.name).join(' / ');
-                            line += `\\n  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}`;
-                        }
-                        return line;
-                    }).join('\\n');
+                    if (format === 'names') {
+                        outputText = targets.map(t => t.name).join(', ');
+                    } else if (format === 'compact') {
+                        outputText = targets.map(x => {
+                            const r = x.ratings || {};
+                            const atk = x.atk_max ? (x.atk_max / 1000).toFixed(1) + 'k' : 'N/A';
+                            const hp = x.hp_max ? (x.hp_max / 1000).toFixed(1) + 'k' : 'N/A';
+                            return `- [${x.character} | ${x.tier} - ${x.element}] ${x.name} (ATK: ${atk} | HP: ${hp} | PF: ${r.pf_off || 'U'} | R-Off: ${r.rift_off || 'U'} | R-Def: ${r.rift_def || 'U'} | Realms: ${r.realms || 'U'})`;
+                        }).join('\\n');
+                    } else if (format === 'full') {
+                        const header = "### MY SKULLGIRLS MOBILE ROSTER\\n";
+                        const body = targets.map(x => {
+                            let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\\n`;
+                            if (x.atk_max || x.hp_max) {
+                                line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\\n`;
+                            }
+                            if (x.ratings) {
+                                line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\\n`;
+                            }
+                            line += `  SA1: ${x.sa1}\\n  SA2: ${x.sa2}`;
 
-                    const text = header + body;
-                    navigator.clipboard.writeText(text).then(() => {
-                        alert(`Copied ${fighters.length} fighters to clipboard! Paste directly into your AI chat.`);
+                            if (baseKits[x.character]) {
+                                const b = baseKits[x.character];
+                                const paName = b.prestige ? b.prestige.name : 'None';
+                                const maNames = (b.marquee_options || []).map(m => m.name).join(' / ');
+                                line += `\\n  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}`;
+                            }
+                            return line;
+                        }).join('\\n');
+                        outputText = header + body;
+                    }
+
+                    navigator.clipboard.writeText(outputText).then(() => {
+                        closeExportModal();
+                        alert(`Successfully copied ${targets.length} fighter(s) to clipboard!`);
                     });
                 });
         }
@@ -666,13 +768,12 @@ def apply_states():
     save_user_roster(unlocked_set)
     return jsonify({"status": "ok"})
 
-@app.route("/export")
-def export():
+@app.route("/export_all")
+def export_all():
     data = load_data()
     base_abilities = load_base_abilities()
-    unlocked_fighters = [v for v in data.values() if v.get("unlocked")]
     return jsonify({
-        "fighters": unlocked_fighters,
+        "fighters": data,
         "base_abilities": base_abilities
     })
 
