@@ -17,4 +17,6 @@ __pycache__/
 # User-specific local data
 my_roster.json
 my_wishlist.json
+my_teams.json
+
 

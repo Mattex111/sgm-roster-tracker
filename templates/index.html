@@ -8,8 +8,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <!-- Header Control Panel & Filters -->
-    <div class="header">
+    <!-- Main Top Navigation -->
+    <nav class="main-nav">
+        <button class="nav-tab active" id="tabRoster" onclick="switchView('roster')">Roster Tracker</button>
+        <button class="nav-tab" id="tabTeams" onclick="switchView('teams')">Team Builder</button>
+    </nav>
+
+    <!-- Roster Tracker View Panel -->
+    <div id="rosterView" class="view-panel active">
+        <!-- Header Control Panel & Filters -->
+        <div class="header">
         <input type="text" id="search" placeholder="Search variant or text..." oninput="filterAndSortCards()">
 
         <select id="charFilter" onchange="filterAndSortCards()">
@@ -261,6 +269,28 @@
         </div>
         {% endfor %}
     </div>
+    </div> <!-- End #rosterView -->
+
+    <!-- Team Builder View Panel -->
+    <div id="teamsView" class="view-panel">
+        <div class="header" style="justify-content: space-between;">
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <button class="btn-primary" onclick="openCreateTeamModal()">Create Team</button>
+                <select id="teamModeFilter" onchange="renderTeams()">
+                    <option value="">All Modes</option>
+                    <option value="Prize Fight">Prize Fight</option>
+                    <option value="Rift Offense">Rift Offense</option>
+                    <option value="Rift Defense">Rift Defense</option>
+                    <option value="Parallel Realms">Parallel Realms</option>
+                </select>
+            </div>
+            <div class="counter">Total Teams: <span id="teamCount">0</span></div>
+        </div>
+
+        <div class="teams-container" id="teamsGrid">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
 
     <!-- Character Details Modal (In-Game Inspector Style) -->
     <div class="fighter-modal-overlay" id="fighterModal" onclick="closeFighterModal(event)">
@@ -339,9 +369,68 @@
         <div id="wishlistPickerResults"></div>
     </div>
 
+    <!-- Team Editor Modal -->
+    <div class="modal-overlay" id="teamEditorModal" onclick="if(event.target === this) closeTeamEditorModal()">
+        <div class="modal" style="max-width: 780px;">
+            <h3 id="teamEditorTitle" style="margin: 0 0 16px 0;">Create New Team</h3>
+            <div class="team-editor-form">
+                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" id="teamNameInput" placeholder="Team Name (e.g. Rift Offense Alpha)" style="flex: 1; min-width: 220px; font-size: 0.95rem;">
+                    <select id="teamModeSelect" onchange="updateSynergyPreview(); if(document.getElementById('teamFighterPicker').style.display==='block') filterTeamFighterPicker();" style="font-size: 0.95rem;">
+                        <option value="Prize Fight">Prize Fight</option>
+                        <option value="Rift Offense">Rift Offense</option>
+                        <option value="Rift Defense">Rift Defense</option>
+                        <option value="Parallel Realms">Parallel Realms</option>
+                    </select>
+                </div>
+
+                <div class="team-slots-builder">
+                    <div class="team-slot-builder" onclick="openTeamFighterPicker(0, event)">
+                        <span class="slot-label">Fighter 1</span>
+                        <div id="slotContent0" class="slot-content empty">+ Pick Fighter</div>
+                    </div>
+                    <div class="team-slot-builder" onclick="openTeamFighterPicker(1, event)">
+                        <span class="slot-label">Fighter 2</span>
+                        <div id="slotContent1" class="slot-content empty">+ Pick Fighter</div>
+                    </div>
+                    <div class="team-slot-builder" onclick="openTeamFighterPicker(2, event)">
+                        <span class="slot-label">Fighter 3</span>
+                        <div id="slotContent2" class="slot-content empty">+ Pick Fighter</div>
+                    </div>
+                </div>
+
+                <div class="synergy-preview-section" style="margin-top: 20px;">
+                    <h4 style="margin: 0 0 10px 0; color: #58a6ff; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;">Combined Team Synergies</h4>
+                    <div id="synergyPreview" class="synergy-preview-box">
+                        <p style="color: #8b949e; text-align: center; margin: 0; font-size: 0.9rem;">Add fighters to preview combined Signature Abilities and Support effects.</p>
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="margin-top: 24px;">
+                    <button class="btn-secondary" onclick="closeTeamEditorModal()">Cancel</button>
+                    <button class="btn-green" onclick="saveTeamFromModal()">Save Team</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Fighter Picker Popover -->
+    <div id="teamFighterPicker">
+        <input type="text" id="teamFighterSearch" placeholder="Search fighter or character..." oninput="filterTeamFighterPicker()" style="width:100%; margin-bottom:8px; padding:6px 10px; background:#0d1117; color:white; border:1px solid #30363d; border-radius:6px; font-size: 0.88rem; box-sizing: border-box;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 0.8rem; color: #8b949e;">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                <input type="checkbox" id="pickerUnlockedOnly" onchange="filterTeamFighterPicker()">
+                <span>Unlocked Only</span>
+            </label>
+            <span id="pickerSortLabel" style="font-size: 0.75rem; color: #58a6ff;">Sorted by Mode Rank</span>
+        </div>
+        <div id="teamFighterPickerResults"></div>
+    </div>
+
     <!-- Main Client Script -->
     <script>
         const INITIAL_WISHLIST = {{ wishlist | tojson }};
+        const INITIAL_TEAMS = {{ teams | tojson }};
     </script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>

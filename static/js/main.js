@@ -8,8 +8,9 @@
 const undoStack = [];
 const RANK_VALUES = { 'SS': 5, 'S': 4, 'A': 3, 'B': 2, 'C': 1, 'U': 0, 'TBD': 0 };
 
-let wishlistGolds = (INITIAL_WISHLIST && INITIAL_WISHLIST.golds) ? INITIAL_WISHLIST.golds : [];
-let wishlistDiamonds = (INITIAL_WISHLIST && INITIAL_WISHLIST.diamonds) ? INITIAL_WISHLIST.diamonds : [];
+let wishlistGolds = (typeof INITIAL_WISHLIST !== 'undefined' && INITIAL_WISHLIST.golds) ? INITIAL_WISHLIST.golds : [];
+let wishlistDiamonds = (typeof INITIAL_WISHLIST !== 'undefined' && INITIAL_WISHLIST.diamonds) ? INITIAL_WISHLIST.diamonds : [];
+let teamsState = (typeof INITIAL_TEAMS !== 'undefined' && Array.isArray(INITIAL_TEAMS)) ? INITIAL_TEAMS : [];
 
 // Cache initial text for highlighting restore
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.dataset.original = el.innerHTML;
     });
     updateCount();
+    renderTeams();
 });
 
 /**
@@ -801,6 +803,469 @@ function saveWishlist() {
 document.addEventListener('click', (e) => {
     const picker = document.getElementById('wishlistPicker');
     if (picker && picker.style.display === 'block' && !e.target.closest('.wishlist-slot') && !e.target.closest('#wishlistPicker')) {
+        picker.style.display = 'none';
+    }
+});
+
+/* =========================================
+   Main View Switcher
+   ========================================= */
+function switchView(viewName) {
+    document.querySelectorAll('.view-panel').forEach(el => {
+        el.classList.remove('active');
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+    
+    if (viewName === 'roster') {
+        const roster = document.getElementById('rosterView');
+        if (roster) {
+            roster.classList.add('active');
+            roster.style.display = 'block';
+        }
+        const tabRoster = document.getElementById('tabRoster');
+        if (tabRoster) tabRoster.classList.add('active');
+    } else if (viewName === 'teams') {
+        const teams = document.getElementById('teamsView');
+        if (teams) {
+            teams.classList.add('active');
+            teams.style.display = 'block';
+        }
+        const tabTeams = document.getElementById('tabTeams');
+        if (tabTeams) tabTeams.classList.add('active');
+        renderTeams();
+    }
+}
+
+/* =========================================
+   Team Builder Controller
+   ========================================= */
+let editingTeamId = null;
+let draftTeamFighters = [null, null, null];
+let activeTeamPickerSlot = null;
+
+function getModeAttrKey(modeName) {
+    if (modeName === 'Prize Fight') return 'pfoff';
+    if (modeName === 'Rift Offense') return 'riftoff';
+    if (modeName === 'Rift Defense') return 'riftdef';
+    if (modeName === 'Parallel Realms') return 'realms';
+    return 'pfoff';
+}
+
+function getModeShortLabel(modeName) {
+    if (modeName === 'Prize Fight') return 'PF';
+    if (modeName === 'Rift Offense') return 'Rift Off';
+    if (modeName === 'Rift Defense') return 'Rift Def';
+    if (modeName === 'Parallel Realms') return 'Realms';
+    return 'PF';
+}
+
+function renderTeams() {
+    const grid = document.getElementById('teamsGrid');
+    const modeFilter = document.getElementById('teamModeFilter') ? document.getElementById('teamModeFilter').value : '';
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    const filteredTeams = teamsState.filter(t => !modeFilter || t.mode === modeFilter);
+    const countEl = document.getElementById('teamCount');
+    if (countEl) countEl.innerText = filteredTeams.length;
+    
+    if (filteredTeams.length === 0) {
+        grid.innerHTML = `<div style="background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 40px; text-align: center; color: #8b949e;">
+            <p style="font-size: 1.1rem; margin-bottom: 8px;">No team loadouts found</p>
+            <p style="font-size: 0.9rem; margin: 0;">Click <strong>Create Team</strong> to build your first 3-fighter loadout and analyze synergies.</p>
+        </div>`;
+        return;
+    }
+    
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    
+    filteredTeams.forEach(team => {
+        const card = document.createElement('div');
+        card.className = 'team-card';
+        const teamMode = team.mode || 'Prize Fight';
+        const modeAttr = getModeAttrKey(teamMode);
+        
+        let fightersHtml = '';
+        let teamFighterElements = [];
+        
+        for (let i = 0; i < 3; i++) {
+            const fighterName = team.fighters ? team.fighters[i] : null;
+            if (fighterName) {
+                const cardEl = allCards.find(c => c.dataset.rawname === fighterName);
+                if (cardEl) {
+                    teamFighterElements.push(cardEl);
+                    const imgEl = cardEl.querySelector('img');
+                    const img = imgEl ? imgEl.src : '';
+                    const char = cardEl.dataset.char || '';
+                    const tier = cardEl.dataset.tier || '';
+                    const elem = cardEl.dataset.element || '';
+                    const isUnlocked = cardEl.dataset.unlocked === 'true';
+                    const rank = (cardEl.dataset[modeAttr] || 'U').trim();
+                    
+                    fightersHtml += `
+                        <div class="team-fighter-slot" style="${isUnlocked ? '' : 'opacity: 0.75;'}">
+                            ${img ? `<img src="${img}" style="${isUnlocked ? '' : 'filter: grayscale(35%);'}">` : ''}
+                            <div class="team-fighter-info" style="flex: 1;">
+                                <div class="team-fighter-name" style="display:flex; align-items:center; gap:6px;">
+                                    <span>${fighterName}</span>
+                                    <span class="rank-badge rank-${rank}" title="${teamMode} Rank">${rank}</span>
+                                    ${isUnlocked ? '' : '<span style="font-size:0.75rem; color:#8b949e; border:1px solid #30363d; border-radius:3px; padding:0 3px;">🔒 Locked</span>'}
+                                </div>
+                                <div class="team-fighter-meta">${char} • ${tier} • ${elem}</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    fightersHtml += `
+                        <div class="team-fighter-slot">
+                            <div class="team-fighter-info">
+                                <div class="team-fighter-name">${fighterName}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                fightersHtml += `
+                    <div class="team-fighter-slot" style="opacity: 0.5;">
+                        <div class="team-fighter-info">
+                            <div class="team-fighter-name" style="color: #8b949e;">Fighter ${i+1} Empty</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Generate combined synergy items
+        const synergyHtml = generateSynergyHtml(teamFighterElements, teamMode);
+        
+        card.innerHTML = `
+            <div class="team-header-row">
+                <div class="team-title-group">
+                    <span class="team-name">${team.name}</span>
+                    <span class="team-mode-badge">${teamMode}</span>
+                </div>
+                <div class="team-actions">
+                    <button class="btn-secondary" onclick="openEditTeamModal('${team.id}')" style="padding: 5px 10px; font-size: 0.8rem;">Edit</button>
+                    <button class="btn-secondary" onclick="deleteTeam('${team.id}')" style="padding: 5px 10px; font-size: 0.8rem; color: #ff7b72; border-color: #ff444444;">Delete</button>
+                </div>
+            </div>
+            <div class="team-fighters-grid">
+                ${fightersHtml}
+            </div>
+            <div class="synergy-panel">
+                <h4>Combined Synergies & Signature Abilities</h4>
+                ${synergyHtml}
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    });
+}
+
+function generateSynergyHtml(fighterCardElements, teamMode) {
+    if (!fighterCardElements || fighterCardElements.length === 0) {
+        return `<p style="color: #8b949e; font-size: 0.85rem; margin: 0;">No fighters selected for this team.</p>`;
+    }
+    
+    const modeAttr = getModeAttrKey(teamMode || 'Prize Fight');
+    let html = '';
+    fighterCardElements.forEach(cardEl => {
+        const name = cardEl.dataset.rawname;
+        const isUnlocked = cardEl.dataset.unlocked === 'true';
+        const rank = (cardEl.dataset[modeAttr] || 'U').trim();
+        let dataFighter = {};
+        try {
+            dataFighter = JSON.parse(cardEl.dataset.fighter || '{}');
+        } catch (e) {}
+        
+        const sa1 = dataFighter.sa1;
+        const sa2 = dataFighter.sa2;
+        
+        if (sa1 || sa2) {
+            html += `
+                <div class="synergy-item">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                        <strong style="color: #7ee787;">${name}</strong>
+                        <span class="rank-badge rank-${rank}" title="Rank: ${rank}">${rank}</span>
+                        ${isUnlocked ? '' : '<span style="color:#8b949e; font-size:0.75rem; border:1px solid #30363d; border-radius:3px; padding:0 3px;">🔒 Locked</span>'}
+                    </div>
+                    ${sa1 ? `<div style="margin-top:2px;">• <em>SA1:</em> ${sa1}</div>` : ''}
+                    ${sa2 ? `<div style="margin-top:2px;">• <em>SA2:</em> ${sa2}</div>` : ''}
+                </div>
+            `;
+        }
+    });
+    
+    return html || `<p style="color: #8b949e; font-size: 0.85rem; margin: 0;">No signature abilities available.</p>`;
+}
+
+function openCreateTeamModal() {
+    editingTeamId = null;
+    draftTeamFighters = [null, null, null];
+    document.getElementById('teamEditorTitle').innerText = 'Create New Team';
+    document.getElementById('teamNameInput').value = '';
+    document.getElementById('teamModeSelect').value = 'Prize Fight';
+    updateTeamSlotBuilders();
+    updateSynergyPreview();
+    document.getElementById('teamEditorModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function openEditTeamModal(teamId) {
+    const team = teamsState.find(t => t.id === teamId);
+    if (!team) return;
+    
+    editingTeamId = teamId;
+    draftTeamFighters = team.fighters ? [...team.fighters] : [null, null, null];
+    document.getElementById('teamEditorTitle').innerText = 'Edit Team Loadout';
+    document.getElementById('teamNameInput').value = team.name || '';
+    document.getElementById('teamModeSelect').value = team.mode || 'Prize Fight';
+    updateTeamSlotBuilders();
+    updateSynergyPreview();
+    document.getElementById('teamEditorModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTeamEditorModal() {
+    document.getElementById('teamEditorModal').style.display = 'none';
+    document.getElementById('teamFighterPicker').style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+function updateTeamSlotBuilders() {
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    const modalMode = document.getElementById('teamModeSelect') ? document.getElementById('teamModeSelect').value : 'Prize Fight';
+    const modeAttr = getModeAttrKey(modalMode);
+    
+    for (let i = 0; i < 3; i++) {
+        const slotEl = document.getElementById(`slotContent${i}`);
+        const name = draftTeamFighters[i];
+        if (name) {
+            const cardEl = allCards.find(c => c.dataset.rawname === name);
+            const imgEl = cardEl ? cardEl.querySelector('img') : null;
+            const img = imgEl ? imgEl.src : '';
+            const isUnlocked = cardEl ? cardEl.dataset.unlocked === 'true' : true;
+            const rank = cardEl ? (cardEl.dataset[modeAttr] || 'U').trim() : 'U';
+            
+            slotEl.className = 'slot-content filled';
+            slotEl.innerHTML = `
+                ${img ? `<img src="${img}" style="${isUnlocked ? '' : 'filter: grayscale(35%);'}">` : ''}
+                <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 2px;">
+                    <div style="display: flex; align-items: center; gap: 6px; width: 100%; min-width: 0;">
+                        <span style="font-weight: 600; font-size: 0.9rem; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</span>
+                        <span class="rank-badge rank-${rank}" style="flex-shrink: 0;">${rank}</span>
+                    </div>
+                    ${isUnlocked ? '<span style="font-size: 0.7rem; color: #7ee787;">Unlocked</span>' : '<span style="font-size: 0.7rem; color: #8b949e;">🔒 Locked</span>'}
+                </div>
+                <button onclick="clearTeamSlot(${i}, event)" style="margin-left: auto; background: none; border: none; color: #ff7b72; font-size: 1.2rem; cursor: pointer; padding: 2px 4px; flex-shrink: 0;" title="Remove Fighter">✕</button>
+            `;
+        } else {
+            slotEl.className = 'slot-content empty';
+            slotEl.innerHTML = '+ Pick Fighter';
+        }
+    }
+}
+
+function clearTeamSlot(slotIndex, event) {
+    if (event) event.stopPropagation();
+    draftTeamFighters[slotIndex] = null;
+    updateTeamSlotBuilders();
+    updateSynergyPreview();
+}
+
+function updateSynergyPreview() {
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    const selectedCards = draftTeamFighters
+        .filter(Boolean)
+        .map(name => allCards.find(c => c.dataset.rawname === name))
+        .filter(Boolean);
+        
+    const modalMode = document.getElementById('teamModeSelect') ? document.getElementById('teamModeSelect').value : 'Prize Fight';
+    const container = document.getElementById('synergyPreview');
+    container.innerHTML = generateSynergyHtml(selectedCards, modalMode);
+}
+
+function saveTeamFromModal() {
+    const name = document.getElementById('teamNameInput').value.trim() || 'Untitled Team';
+    const mode = document.getElementById('teamModeSelect').value;
+    
+    // Check for duplicate fighters in the draft team
+    const selectedFighters = draftTeamFighters.filter(Boolean);
+    const uniqueFighters = new Set(selectedFighters);
+    if (selectedFighters.length !== uniqueFighters.size) {
+        alert('A team loadout cannot contain duplicate fighters! Please select unique variants for each slot.');
+        return;
+    }
+    
+    if (editingTeamId) {
+        const team = teamsState.find(t => t.id === editingTeamId);
+        if (team) {
+            team.name = name;
+            team.mode = mode;
+            team.fighters = [...draftTeamFighters];
+        }
+    } else {
+        const newTeam = {
+            id: 'team_' + Date.now(),
+            name: name,
+            mode: mode,
+            fighters: [...draftTeamFighters]
+        };
+        teamsState.push(newTeam);
+    }
+    
+    closeTeamEditorModal();
+    saveTeamsToServer();
+}
+
+function deleteTeam(teamId) {
+    if (confirm('Are you sure you want to delete this team loadout?')) {
+        teamsState = teamsState.filter(t => t.id !== teamId);
+        saveTeamsToServer();
+    }
+}
+
+function saveTeamsToServer() {
+    fetch('/update_teams', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teams: teamsState })
+    }).then(() => renderTeams());
+}
+
+function openTeamFighterPicker(slotIndex, event) {
+    if (event) event.stopPropagation();
+    activeTeamPickerSlot = slotIndex;
+    const picker = document.getElementById('teamFighterPicker');
+    const rect = event.currentTarget.getBoundingClientRect();
+    
+    let top = rect.bottom + 8;
+    let left = rect.left;
+    
+    if (left + 310 > window.innerWidth) left = window.innerWidth - 320;
+    if (left < 10) left = 10;
+    if (top + 320 > window.innerHeight) top = rect.top - 320;
+    if (top < 10) top = 10;
+
+    picker.style.top = `${top}px`;
+    picker.style.left = `${left}px`;
+    picker.style.display = 'block';
+    
+    const searchInput = document.getElementById('teamFighterSearch');
+    searchInput.value = '';
+    filterTeamFighterPicker();
+    setTimeout(() => searchInput.focus(), 50);
+}
+
+function filterTeamFighterPicker() {
+    const query = document.getElementById('teamFighterSearch').value.toLowerCase().trim();
+    const unlockedOnly = document.getElementById('pickerUnlockedOnly') ? document.getElementById('pickerUnlockedOnly').checked : false;
+    const modalMode = document.getElementById('teamModeSelect') ? document.getElementById('teamModeSelect').value : 'Prize Fight';
+    
+    const modeAttr = getModeAttrKey(modalMode);
+    const modeLabel = getModeShortLabel(modalMode);
+    
+    const sortLabel = document.getElementById('pickerSortLabel');
+    if (sortLabel) sortLabel.innerText = `Sorted by ${modeLabel} Rank`;
+    
+    const results = document.getElementById('teamFighterPickerResults');
+    results.innerHTML = '';
+    
+    const cards = Array.from(document.querySelectorAll('.card'));
+    let matches = cards.filter(c => {
+        const searchTxt = (c.dataset.search || '').toLowerCase();
+        const rawName = (c.dataset.rawname || '').toLowerCase();
+        const isUnlocked = c.dataset.unlocked === 'true';
+        
+        if (unlockedOnly && !isUnlocked) return false;
+        return !query || searchTxt.includes(query) || rawName.includes(query);
+    });
+    
+    // Sort matches by tier list rank for the selected mode (SS -> S -> A -> B -> C -> U)
+    matches.sort((a, b) => {
+        const nameA = a.dataset.rawname;
+        const nameB = b.dataset.rawname;
+        
+        // Put already selected fighters at the end
+        const isSelA = draftTeamFighters.some((f, idx) => f === nameA && idx !== activeTeamPickerSlot);
+        const isSelB = draftTeamFighters.some((f, idx) => f === nameB && idx !== activeTeamPickerSlot);
+        if (isSelA !== isSelB) return isSelA ? 1 : -1;
+        
+        const rankA = (a.dataset[modeAttr] || 'U').trim();
+        const rankB = (b.dataset[modeAttr] || 'U').trim();
+        const valA = RANK_VALUES[rankA] || 0;
+        const valB = RANK_VALUES[rankB] || 0;
+        
+        if (valA !== valB) return valB - valA;
+        
+        const unA = a.dataset.unlocked === 'true' ? 1 : 0;
+        const unB = b.dataset.unlocked === 'true' ? 1 : 0;
+        if (unA !== unB) return unB - unA;
+        
+        return (nameA || '').localeCompare(nameB || '');
+    });
+    
+    if (matches.length === 0) {
+        results.innerHTML = '<div style="color: #8b949e; text-align: center; padding: 12px; font-size: 0.85rem;">No matching fighters found</div>';
+        return;
+    }
+
+    matches.forEach(c => {
+        const name = c.dataset.rawname;
+        const imgEl = c.querySelector('img');
+        const img = imgEl ? imgEl.src : '';
+        const tier = c.dataset.tier || '';
+        const isUnlocked = c.dataset.unlocked === 'true';
+        const rank = (c.dataset[modeAttr] || 'U').trim();
+        
+        const isAlreadyInTeam = draftTeamFighters.some((f, idx) => f === name && idx !== activeTeamPickerSlot);
+        
+        const div = document.createElement('div');
+        div.className = `picker-item ${isAlreadyInTeam || !isUnlocked ? 'locked-item' : ''}`;
+        if (isAlreadyInTeam) {
+            div.style.cursor = 'not-allowed';
+            div.style.opacity = '0.45';
+        }
+        
+        let statusBadge = '';
+        if (isAlreadyInTeam) {
+            statusBadge = '<span class="picker-badge-locked" style="color: #ff7b72; border-color: #ff7b7266;">In Team</span>';
+        } else if (isUnlocked) {
+            statusBadge = '<span class="picker-badge-unlocked">Unlocked</span>';
+        } else {
+            statusBadge = '<span class="picker-badge-locked">🔒 Locked</span>';
+        }
+        
+        div.innerHTML = `
+            ${img ? `<img src="${img}" style="${!isUnlocked || isAlreadyInTeam ? 'filter: grayscale(40%);' : ''}">` : ''} 
+            <div style="flex:1; display:flex; flex-direction:column; gap:1px; overflow:hidden;">
+                <div style="font-weight:600; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; display:flex; align-items:center; gap:6px;">
+                    <span>${name}</span>
+                    <span style="font-size:0.75rem; color:#8b949e; font-weight:400;">(${tier})</span>
+                </div>
+            </div>
+            <span class="rank-badge rank-${rank}" title="${modeLabel} Rank: ${rank}">${rank}</span>
+            ${statusBadge}
+        `;
+        
+        div.onclick = (e) => {
+            e.stopPropagation();
+            if (isAlreadyInTeam) return;
+            draftTeamFighters[activeTeamPickerSlot] = name;
+            document.getElementById('teamFighterPicker').style.display = 'none';
+            updateTeamSlotBuilders();
+            updateSynergyPreview();
+        };
+        results.appendChild(div);
+    });
+}
+
+// Close team picker when clicking outside
+document.addEventListener('click', (e) => {
+    const picker = document.getElementById('teamFighterPicker');
+    if (picker && picker.style.display === 'block' && !e.target.closest('.team-slot-builder') && !e.target.closest('#teamFighterPicker')) {
         picker.style.display = 'none';
     }
 });

@@ -16,6 +16,7 @@ DB_FILE = "sgm_database.json"
 BASE_ABILITIES_FILE = "base_abilities.json"
 USER_ROSTER_FILE = "my_roster.json"
 WISHLIST_FILE = "my_wishlist.json"
+TEAMS_FILE = "my_teams.json"
 
 
 def load_base_abilities():
@@ -76,6 +77,30 @@ def load_wishlist():
     return {"golds": [], "diamonds": []}
 
 
+def load_teams():
+    """
+    Load custom saved team loadouts from my_teams.json.
+
+    Returns:
+        list: List of team dictionaries.
+    """
+    if os.path.exists(TEAMS_FILE):
+        with open(TEAMS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return []
+
+
+def save_teams(teams):
+    """
+    Save custom team loadouts to my_teams.json.
+
+    Args:
+        teams (list): List of team dictionaries.
+    """
+    with open(TEAMS_FILE, "w", encoding="utf-8") as f:
+        json.dump(teams, f, indent=2, ensure_ascii=False)
+
+
 @app.route("/")
 def index():
     """
@@ -84,6 +109,7 @@ def index():
     data = load_data()
     base_abilities = load_base_abilities()
     wishlist = load_wishlist()
+    teams = load_teams()
     chars = sorted(
         list(
             set(
@@ -99,6 +125,7 @@ def index():
         characters=chars,
         base_abilities=base_abilities,
         wishlist=wishlist,
+        teams=teams,
     )
 
 
@@ -189,6 +216,18 @@ def update_wishlist():
     with open(WISHLIST_FILE, "w", encoding="utf-8") as f:
         json.dump({"golds": golds, "diamonds": diamonds}, f, indent=2, ensure_ascii=False)
     
+    return jsonify({"status": "ok"})
+
+
+@app.route("/update_teams", methods=["POST"])
+def update_teams():
+    """
+    Save the user's updated team loadouts.
+    Payload: {"teams": [...]}
+    """
+    payload = request.json or {}
+    teams = payload.get("teams", [])
+    save_teams(teams)
     return jsonify({"status": "ok"})
 
 
