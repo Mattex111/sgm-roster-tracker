@@ -7,11 +7,11 @@ Offline web tool to track collection progress, inspect base stats and abilities,
 ## Features
 
 - **Interactive Checklist:** Mark owned fighters in real time with persistent local storage (`my_roster.json`).
-- **Base Stats (Max Lvl 60):** Card view displays official Max ATK and HP stats for accurate damage/tank scaling.
+- **Base Stats (Max Lvl 60):** Card view displays official Max ATK and HP stats.
 - **Full Character Kit:** Expandable details showing character-specific Prestige Abilities and Marquee options (MA & PA).
-- **Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with real-time keyword highlighting.
+- **Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with keyword highlighting.
 - **Tier Multi-Select:** Choose single or combined rarity pools (*Diamond*, *Gold*, *Silver*, *Bronze*).
-- **Meta Grades:** Community tier ratings across 4 modes (PF Offense, Rift Offense, Rift Defense, Parallel Realms).
+- **Meta Grades:** Community tier ratings across 4 modes (PF Offense, Rift Offense, Rift Defense, Parallel Realms) sourced from the [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
 - **Custom Clipboard Exporter:** Export selections in Full markdown, single-line Compact summaries, or comma-separated name lists.
 - **Accident Prevention:** Bulk selection safeguards with one-click Undo (`Ctrl+Z`).
 - **100% Offline & Private:** No accounts, external servers, or tracking cookies.
@@ -52,7 +52,7 @@ Open `http://localhost:5000` in your browser.
 
 ## Data Sync (Optional)
 
-The repository includes pre-scraped, verified datasets (`sgm_database.json` and `base_abilities.json`). To pull official balance updates or newly released fighters from the wiki:
+The repository includes pre-scraped datasets (`sgm_database.json` and `base_abilities.json`). To pull official balance updates or newly released fighters from the wiki:
 
 * Sync variant stats and tier ratings:
 ```bash
@@ -73,16 +73,3 @@ python3 scrape_base_abilities.py
 ## License
 
 MIT
-
-```
-
----
-
-Per applicare le modifiche e caricarle sul repository:
-
-```bash
-git add README.md
-git commit -m "Refactor README: clean, concise, and professional tone"
-git push
-
-```
