@@ -64,11 +64,26 @@ HTML = r"""
         .multiselect-item input { cursor: pointer; transform: scale(1.1); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 20px; }
-        .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, background 0.2s; }
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.2s, background 0.2s, transform 0.05s;
+            cursor: pointer;
+            user-select: none;
+        }
+        .card:hover { border-color: #58a6ff; }
+        .card:active { transform: scale(0.995); }
         .card.unlocked { border-color: #238636; background: #0d1c14; }
+        .card.unlocked:hover { border-color: #2ea043; }
+
         .card-head { display: flex; align-items: center; justify-content: space-between; }
-        .name-label { font-size: 1.05rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
-        .name-label input { transform: scale(1.2); cursor: pointer; }
+        .name-label { font-size: 1.05rem; font-weight: bold; display: flex; align-items: center; }
+
         .badges { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
         .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; text-transform: uppercase; }
         .Diamond { background: #3ec5ff; color: #051626; }
@@ -96,10 +111,10 @@ HTML = r"""
         .sa-box { font-size: 0.82rem; line-height: 1.35; color: #8b949e; background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #21262d; }
         .sa-box strong { color: #58a6ff; }
 
-        details.base-kit { margin-top: 2px; font-size: 0.78rem; background: #0a0d12; border: 1px dashed #30363d; border-radius: 6px; padding: 6px 8px; }
+        details.base-kit { margin-top: 2px; font-size: 0.78rem; background: #0a0d12; border: 1px dashed #30363d; border-radius: 6px; padding: 6px 8px; cursor: default; }
         details.base-kit summary { cursor: pointer; color: #d29922; font-weight: 600; outline: none; user-select: none; }
         details.base-kit summary:hover { color: #e3b341; }
-        .base-kit-content { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; color: #c9d1d9; }
+        .base-kit-content { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; color: #c9d1d9; cursor: text; user-select: text; }
         .base-kit-content strong { color: #e3b341; }
 
         mark.effect-highlight { background-color: rgba(255, 208, 0, 0.28); color: #ffd000; border-bottom: 2px solid #ffd000; font-weight: 700; padding: 0 2px; border-radius: 2px; }
@@ -276,6 +291,7 @@ HTML = r"""
         {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
         {% set full_kit = sa_only + ' ' + base_text %}
         <div class="card {% if v.unlocked %}unlocked{% endif %}"
+             onclick="onCardClick(event, this)"
              data-name="{{ v.name.lower() }}"
              data-rawname="{{ v.name }}"
              data-char="{{ v.character }}"
@@ -298,10 +314,9 @@ HTML = r"""
                 <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
 
                     <div class="card-head">
-                        <label class="name-label">
-                            <input type="checkbox" onchange='toggleLock({{ v.name | tojson }}, this.checked, this)' {% if v.unlocked %}checked{% endif %}>
+                        <div class="name-label">
                             {{ v.name }}
-                        </label>
+                        </div>
                         <div class="badges">
                             <span class="char-tag">{{ v.character }}</span>
                             <span class="tag {{ v.tier }}">{{ v.tier }}</span>
@@ -329,7 +344,7 @@ HTML = r"""
                     <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
 
                     {% if base %}
-                    <details class="base-kit">
+                    <details class="base-kit" onclick="event.stopPropagation()">
                         <summary>Character Kit (MA & PA)</summary>
                         <div class="base-kit-content">
                             {% if base.prestige %}
@@ -419,22 +434,26 @@ HTML = r"""
             const card = document.querySelector(`.card[data-rawname="${CSS.escape(name)}"]`);
             if (card) {
                 card.dataset.unlocked = status ? 'true' : 'false';
-                const cb = card.querySelector('input[type="checkbox"]');
-                if (cb) cb.checked = status;
                 if (status) card.classList.add('unlocked');
                 else card.classList.remove('unlocked');
             }
         }
 
-        function toggleLock(name, status, el) {
-            saveSnapshot([{ name: name, previousState: !status }]);
+        function onCardClick(event, cardElement) {
+            if (event.target.closest('details.base-kit')) return;
+
+            const name = cardElement.dataset.rawname;
+            const currentState = cardElement.dataset.unlocked === 'true';
+            const newState = !currentState;
+
+            saveSnapshot([{ name: name, previousState: currentState }]);
 
             fetch('/toggle', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({name: name, unlocked: status})
+                body: JSON.stringify({name: name, unlocked: newState})
             }).then(() => {
-                setCardState(name, status);
+                setCardState(name, newState);
                 updateCount();
             });
         }
@@ -526,15 +545,12 @@ HTML = r"""
             if (effect === 'invincible') {
                 return /\binvincib(?:le|ility)\b/i.test(kitText);
             }
-            // DISABLE BLOCKBUSTERS: il verbo 'disable' deve riferirsi direttamente a blockbuster, senza specials o tag-in in mezzo
             if (effect === 'disable blockbuster' || effect === 'disable blockbusters') {
                 return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*)blockbusters?\b|\bblockbusters?(?:[^\.\n;]+)?\s+disabled\b/i.test(kitText);
             }
-            // DISABLE SPECIALS: il verbo 'disable' deve riferirsi a special moves
             if (effect === 'disable special' || effect === 'disable specials') {
                 return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:tag[\s-]ins?|blockbusters?),?\s*(?:and\s+)?)?)?specials?(?:\s+moves?)?\b|\bspecials?(?:\s+moves?)?\s+disabled\b/i.test(kitText);
             }
-            // DISABLE TAG INS
             if (effect === 'disable tag' || effect === 'disable tag ins') {
                 return /\bdisable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:special\s+moves?|blockbusters?),?\s*(?:and\s+)?)?)?tag(?:[\s-]ins?)?\b|\btags?(?:[\s-]ins?)?\s+disabled\b/i.test(kitText);
             }
