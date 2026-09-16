@@ -9,6 +9,8 @@ Offline web tool to track collection progress, inspect base stats and abilities,
 - **Interactive Checklist:** Click anywhere on a fighter card to mark it as owned in real time with persistent local storage (`my_roster.json`).
 - **Base Stats (Max Lvl 60):** Card view displays official Max ATK and HP stats.
 - **Full Character Kit:** Expandable details showing character-specific Prestige Abilities and Marquee options (MA & PA).
+- **Official Wiki Loadouts:** Integrated Stat Investments and Preferred Movesets scraped directly from the official Skullgirls Mobile Fandom Wiki.
+- **Global Text Search & Highlight:** Search freely across variant names, descriptions, and kits with real-time keyword highlighting.
 - **Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with keyword highlighting.
 - **Tier Multi-Select:** Choose single or combined rarity pools (*Diamond*, *Gold*, *Silver*, *Bronze*).
 - **Meta Grades:** Community tier ratings across 4 modes (PF Offense, Rift Offense, Rift Defense, Parallel Realms) sourced from the [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
