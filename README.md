@@ -2,7 +2,7 @@
 
 Offline web tool to track collection progress, inspect base stats and abilities, filter by combat modifiers, and export custom rosters for Discord, Reddit, or team building.
 
-<video src="examples/output.mp4" width="100%" autoplay loop muted playsinline></video>
+![Dashboard Preview](examples/1.gif)
 
 ## Features
 
