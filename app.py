@@ -291,53 +291,66 @@ HTML = """
              data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
              data-riftdef="{{ v.ratings.rift_def if v.ratings else 'U' }}"
              data-realms="{{ v.ratings.realms if v.ratings else 'U' }}">
-            <div class="card-head">
-                <label class="name-label">
-                    <input type="checkbox" onchange="toggleLock('{{ v.name }}', this.checked, this)" {% if v.unlocked %}checked{% endif %}>
-                    {{ v.name }}
-                </label>
-                <div class="badges">
-                    <span class="char-tag">{{ v.character }}</span>
-                    <span class="tag {{ v.tier }}">{{ v.tier }}</span>
-                    <span class="element-tag">{{ v.element }}</span>
+
+            <!-- START LAYOUT WITH IMAGE -->
+            <div class="card-body-row" style="display: flex; gap: 10px; align-items: flex-start;">
+                {% if v.image_url %}
+                <img src="{{ v.image_url }}" alt="{{ v.name }}" style="width: 55px; height: auto; border-radius: 4px; border: 1px solid #30363d; flex-shrink: 0;" loading="lazy">
+                {% endif %}
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+
+                    <div class="card-head">
+                        <label class="name-label">
+                            <input type="checkbox" onchange="toggleLock('{{ v.name }}', this.checked, this)" {% if v.unlocked %}checked{% endif %}>
+                            {{ v.name }}
+                        </label>
+                        <div class="badges">
+                            <span class="char-tag">{{ v.character }}</span>
+                            <span class="tag {{ v.tier }}">{{ v.tier }}</span>
+                            <span class="element-tag">{{ v.element }}</span>
+                        </div>
+                    </div>
+
+                    {% if v.atk_max or v.hp_max %}
+                    <div class="stats-row">
+                        <span class="stat-item stat-atk">⚔️ ATK: {{ "{:,}".format(v.atk_max) if v.atk_max else "N/A" }}</span>
+                        <span class="stat-item stat-hp">❤️ HP: {{ "{:,}".format(v.hp_max) if v.hp_max else "N/A" }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if v.ratings %}
+                    <div class="ratings-row">
+                        <div class="rate-box"><span>PF Off</span><span class="rank-badge rank-{{ v.ratings.pf_off.strip() }}">{{ v.ratings.pf_off }}</span></div>
+                        <div class="rate-box"><span>Rift Off</span><span class="rank-badge rank-{{ v.ratings.rift_off.strip() }}">{{ v.ratings.rift_off }}</span></div>
+                        <div class="rate-box"><span>Rift Def</span><span class="rank-badge rank-{{ v.ratings.rift_def.strip() }}">{{ v.ratings.rift_def }}</span></div>
+                        <div class="rate-box"><span>Realms</span><span class="rank-badge rank-{{ v.ratings.realms.strip() }}">{{ v.ratings.realms }}</span></div>
+                    </div>
+                    {% endif %}
+
+                    <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
+                    <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
+
+                    {% if base %}
+                    <details class="base-kit">
+                        <summary>Character Kit (MA & PA)</summary>
+                        <div class="base-kit-content">
+                            {% if base.prestige %}
+                            <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
+                            {% endif %}
+                            {% if base.marquee_options %}
+                            <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
+                            {% for m in base.marquee_options %}
+                            <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </details>
+                    {% endif %}
+
                 </div>
             </div>
+            <!-- END LAYOUT WITH IMAGE -->
 
-            {% if v.atk_max or v.hp_max %}
-            <div class="stats-row">
-                <span class="stat-item stat-atk">⚔️ ATK: {{ "{:,}".format(v.atk_max) if v.atk_max else "N/A" }}</span>
-                <span class="stat-item stat-hp">❤️ HP: {{ "{:,}".format(v.hp_max) if v.hp_max else "N/A" }}</span>
-            </div>
-            {% endif %}
-
-            {% if v.ratings %}
-            <div class="ratings-row">
-                <div class="rate-box"><span>PF Off</span><span class="rank-badge rank-{{ v.ratings.pf_off.strip() }}">{{ v.ratings.pf_off }}</span></div>
-                <div class="rate-box"><span>Rift Off</span><span class="rank-badge rank-{{ v.ratings.rift_off.strip() }}">{{ v.ratings.rift_off }}</span></div>
-                <div class="rate-box"><span>Rift Def</span><span class="rank-badge rank-{{ v.ratings.rift_def.strip() }}">{{ v.ratings.rift_def }}</span></div>
-                <div class="rate-box"><span>Realms</span><span class="rank-badge rank-{{ v.ratings.realms.strip() }}">{{ v.ratings.realms }}</span></div>
-            </div>
-            {% endif %}
-
-            <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
-            <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
-
-            {% if base %}
-            <details class="base-kit">
-                <summary>Character Kit (MA & PA)</summary>
-                <div class="base-kit-content">
-                    {% if base.prestige %}
-                    <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
-                    {% endif %}
-                    {% if base.marquee_options %}
-                    <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
-                    {% for m in base.marquee_options %}
-                    <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
-                    {% endfor %}
-                    {% endif %}
-                </div>
-            </details>
-            {% endif %}
         </div>
         {% endfor %}
     </div>

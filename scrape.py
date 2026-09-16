@@ -166,6 +166,16 @@ def parse_variant(page_title):
             elif len(clean_nums) == 1:
                 hp_max = clean_nums[0]
 
+    # Extract Variant Card Image URL
+    image_url = None
+    img_box = soup.find("figure", {"data-source": "image"})
+    if img_box:
+        img_tag = img_box.find("img")
+        if img_tag and img_tag.get("src"):
+            raw_src = img_tag["src"]
+            # Pulisce l'URL dai parametri di ridimensionamento dinamico del wiki
+            image_url = re.sub(r'/scale-to-width-down/\d+', '', raw_src).split('?')[0]
+
     return {
         "name": page_title,
         "character": character,
@@ -177,6 +187,7 @@ def parse_variant(page_title):
         "hp_max": hp_max,
         "sa1": sa1,
         "sa2": sa2,
+        "image_url": image_url,  # <-- AGGIUNGI QUESTA RIGA QUI
         "unlocked": False,
     }
 
