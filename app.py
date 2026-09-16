@@ -53,6 +53,17 @@ HTML = """
         .counter { margin-left: auto; font-size: 0.95rem; color: #8b949e; }
         .counter span { color: #58a6ff; font-weight: bold; }
 
+        /* Multiselect Dropdown */
+        .multiselect-container { position: relative; display: inline-block; }
+        .multiselect-btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; font-size: 0.9rem; cursor: pointer; text-align: left; min-width: 170px; display: flex; justify-content: space-between; align-items: center; }
+        .multiselect-btn:hover { border-color: #58a6ff; }
+        .multiselect-dropdown { display: none; position: absolute; top: 100%; left: 0; background: #161b22; border: 1px solid #30363d; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.7); max-height: 380px; overflow-y: auto; width: 230px; z-index: 200; padding: 6px 0; }
+        .multiselect-dropdown.show { display: block; }
+        .multiselect-group-title { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #58a6ff; padding: 6px 12px 2px; }
+        .multiselect-item { display: flex; align-items: center; gap: 8px; padding: 5px 12px; font-size: 0.82rem; color: #c9d1d9; cursor: pointer; user-select: none; }
+        .multiselect-item:hover { background: #21262d; color: #fff; }
+        .multiselect-item input { cursor: pointer; transform: scale(1.1); }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 20px; }
         .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, background 0.2s; }
         .card.unlocked { border-color: #238636; background: #0d1c14; }
@@ -91,6 +102,9 @@ HTML = """
         details.base-kit summary:hover { color: #e3b341; }
         .base-kit-content { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; color: #c9d1d9; }
         .base-kit-content strong { color: #e3b341; }
+
+        /* Highlight mark tag */
+        mark.effect-highlight { background-color: rgba(255, 208, 0, 0.28); color: #ffd000; border-bottom: 2px solid #ffd000; font-weight: 700; padding: 0 2px; border-radius: 2px; }
     </style>
 </head>
 <body>
@@ -121,6 +135,31 @@ HTML = """
             <option value="Silver">Silver</option>
             <option value="Bronze">Bronze</option>
         </select>
+
+        <!-- Multi-select Modifiers Dropdown -->
+        <div class="multiselect-container" id="modifierMultiSelect">
+            <div class="multiselect-btn" onclick="toggleModifierDropdown()">
+                <span id="modifierLabel">Modifiers (0)</span>
+                <span>▾</span>
+            </div>
+            <div class="multiselect-dropdown" id="modifierDropdown">
+                <div class="multiselect-group-title">Buffs</div>
+                {% for b in ["armor", "auto-block", "barrier", "blessing", "deadeye", "enrage", "evasion", "final stand", "haste", "heavy regen", "immunity", "invincible", "miasma", "precision", "regen", "thorns", "unflinching"] %}
+                <label class="multiselect-item">
+                    <input type="checkbox" value="{{ b }}" onchange="onModifierChange()">
+                    {{ b.title() }}
+                </label>
+                {% endfor %}
+
+                <div class="multiselect-group-title">Debuffs</div>
+                {% for d in ["armor break", "bleed", "heavy bleed", "cripple", "curse", "death mark", "disable blockbuster", "disable special", "disable tag", "doom", "fatigue", "guard break", "heal block", "hex", "immobilize", "inverse polarity", "power surge", "quietus", "slime", "slow", "stun", "wither"] %}
+                <label class="multiselect-item">
+                    <input type="checkbox" value="{{ d }}" onchange="onModifierChange()">
+                    {{ d.title() }}
+                </label>
+                {% endfor %}
+            </div>
+        </div>
 
         <select id="statusFilter" onchange="filterAndSortCards()">
             <option value="">All Statuses</option>
@@ -158,20 +197,27 @@ HTML = """
         <button class="btn-secondary" onclick="batchToggle(false)">Deselect Visible</button>
         <button class="btn-undo" id="undoBtn" onclick="triggerUndo()" disabled title="Shortcut: Ctrl+Z">Undo</button>
 
-        <label class="toggle-label" title="Toggle tier list badges in card view">
-            <input type="checkbox" id="showRatingsToggle" onchange="toggleRatingsVisibility(this.checked)" checked>
-            Show Tier Ratings
-        </label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <label class="toggle-label" title="Toggle tier list badges in card view">
+                <input type="checkbox" id="showRatingsToggle" onchange="toggleRatingsVisibility(this.checked)" checked>
+                Show Tier Ratings
+            </label>
 
-        <label class="toggle-label" title="Include tier ratings when copying roster">
-            <input type="checkbox" id="exportRatingsToggle" checked>
-            Export Ratings
-        </label>
+            <label class="toggle-label" title="Include MA & PA when filtering by Buff/Debuff">
+                <input type="checkbox" id="includeBaseKitFilterToggle" onchange="filterAndSortCards()" checked>
+                Include MA & PA in filter
+            </label>
 
-        <label class="toggle-label" title="Include Prestige & Marquee abilities when copying roster">
-            <input type="checkbox" id="exportBaseKitToggle" checked>
-            Export Base Kit
-        </label>
+            <label class="toggle-label" title="Include tier ratings when copying roster">
+                <input type="checkbox" id="exportRatingsToggle" checked>
+                Export Ratings
+            </label>
+
+            <label class="toggle-label" title="Include Prestige & Marquee abilities when copying roster">
+                <input type="checkbox" id="exportBaseKitToggle" checked>
+                Export Base Kit
+            </label>
+        </div>
 
         <button class="btn-green" onclick="copyRoster()">Copy Roster for AI</button>
 
@@ -180,7 +226,10 @@ HTML = """
 
     <div class="grid" id="cardGrid">
         {% for key, v in variants.items() %}
-        {% set base = base_abilities.get(v.character) %}
+        {% set base = base_abilities.get(v.character, {}) %}
+        {% set base_text = (base.prestige.description if base.prestige else '') + ' ' + (base.marquee_options | map(attribute='description') | join(' ') if base.marquee_options else '') %}
+        {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
+        {% set full_kit = sa_only + ' ' + base_text %}
         <div class="card {% if v.unlocked %}unlocked{% endif %}"
              data-name="{{ v.name.lower() }}"
              data-rawname="{{ v.name }}"
@@ -189,6 +238,8 @@ HTML = """
              data-tier="{{ v.tier }}"
              data-atk="{{ v.atk_max if v.atk_max else 0 }}"
              data-hp="{{ v.hp_max if v.hp_max else 0 }}"
+             data-sakit="{{ sa_only.lower() }}"
+             data-fullkit="{{ full_kit.lower() }}"
              data-unlocked="{{ 'true' if v.unlocked else 'false' }}"
              data-pfoff="{{ v.ratings.pf_off if v.ratings else 'U' }}"
              data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
@@ -222,20 +273,20 @@ HTML = """
             </div>
             {% endif %}
 
-            <div class="sa-box"><strong>SA1:</strong> {{ v.sa1 if v.sa1 else "N/A" }}</div>
-            <div class="sa-box"><strong>SA2:</strong> {{ v.sa2 if v.sa2 else "N/A" }}</div>
+            <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
+            <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
 
             {% if base %}
             <details class="base-kit">
                 <summary>Character Kit (MA & PA)</summary>
                 <div class="base-kit-content">
                     {% if base.prestige %}
-                    <div><strong>Prestige ({{ base.prestige.name }}):</strong> {{ base.prestige.description }}</div>
+                    <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
                     {% endif %}
                     {% if base.marquee_options %}
                     <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
                     {% for m in base.marquee_options %}
-                    <div style="padding-left: 6px;">• <em>{{ m.name }}:</em> {{ m.description }}</div>
+                    <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
                     {% endfor %}
                     {% endif %}
                 </div>
@@ -248,6 +299,33 @@ HTML = """
     <script>
         const undoStack = [];
         const RANK_VALUES = { 'SS': 5, 'S': 4, 'A': 3, 'B': 2, 'C': 1, 'U': 0, 'TBD': 0 };
+
+        // Save original text on load for pristine highlight resetting
+        document.querySelectorAll('.desc-text').forEach(el => {
+            el.dataset.original = el.innerHTML;
+        });
+
+        function toggleModifierDropdown() {
+            document.getElementById('modifierDropdown').classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            const container = document.getElementById('modifierMultiSelect');
+            if (!container.contains(e.target)) {
+                document.getElementById('modifierDropdown').classList.remove('show');
+            }
+        });
+
+        function getSelectedModifiers() {
+            return Array.from(document.querySelectorAll('#modifierDropdown input:checked')).map(cb => cb.value.toLowerCase());
+        }
+
+        function onModifierChange() {
+            const selected = getSelectedModifiers();
+            document.getElementById('modifierLabel').innerText = `Modifiers (${selected.length})`;
+            filterAndSortCards();
+        }
 
         function updateUndoButton() {
             const btn = document.getElementById('undoBtn');
@@ -345,11 +423,57 @@ HTML = """
             });
         }
 
+        function doesKitContainEffect(kitText, effect) {
+            if (!effect) return true;
+            if (effect === 'armor') kitText = kitText.replace(/armor break/g, '');
+            if (effect === 'regen') kitText = kitText.replace(/heavy regen/g, '');
+            if (effect === 'bleed') kitText = kitText.replace(/heavy bleed/g, '');
+
+            const regex = new RegExp(`\\\\b${effect}\\\\b`, 'i');
+            return regex.test(kitText);
+        }
+
+        function applyHighlights(card, selectedEffects) {
+            const descElements = card.querySelectorAll('.desc-text');
+
+            if (selectedEffects.length === 0) {
+                descElements.forEach(el => {
+                    el.innerHTML = el.dataset.original;
+                });
+                return;
+            }
+
+            descElements.forEach(el => {
+                let html = el.dataset.original;
+
+                selectedEffects.forEach(effect => {
+                    let pattern;
+                    if (effect === 'armor') {
+                        // Match 'armor' only if not immediately followed by ' break'
+                        pattern = new RegExp(`\\\\b(armor)(?!\\\\s+break)\\\\b`, 'gi');
+                    } else if (effect === 'regen') {
+                        // Match 'regen' only if not preceded by 'heavy '
+                        pattern = new RegExp(`(?<!heavy\\\\s+)\\\\b(regen)\\\\b`, 'gi');
+                    } else if (effect === 'bleed') {
+                        // Match 'bleed' only if not preceded by 'heavy '
+                        pattern = new RegExp(`(?<!heavy\\\\s+)\\\\b(bleed)\\\\b`, 'gi');
+                    } else {
+                        pattern = new RegExp(`\\\\b(${effect})\\\\b`, 'gi');
+                    }
+                    html = html.replace(pattern, '<mark class="effect-highlight">$1</mark>');
+                });
+
+                el.innerHTML = html;
+            });
+        }
+
         function filterAndSortCards() {
             const query = document.getElementById('search').value.toLowerCase();
             const char = document.getElementById('charFilter').value;
             const elem = document.getElementById('elementFilter').value;
             const tier = document.getElementById('tierFilter').value;
+            const selectedEffects = getSelectedModifiers();
+            const includeBaseKit = document.getElementById('includeBaseKitFilterToggle').checked;
             const status = document.getElementById('statusFilter').value;
             const mode = document.getElementById('modeFilter').value;
             const minRank = parseInt(document.getElementById('rankFilter').value, 10);
@@ -363,6 +487,12 @@ HTML = """
                 const matchChar = !char || c.dataset.char === char;
                 const matchElem = !elem || c.dataset.element === elem;
                 const matchTier = !tier || c.dataset.tier === tier;
+
+                const targetKit = includeBaseKit ? c.dataset.fullkit : c.dataset.sakit;
+
+                // Must match ALL selected modifiers (AND condition)
+                const matchEffect = selectedEffects.every(eff => doesKitContainEffect(targetKit, eff));
+
                 const isUnlocked = c.dataset.unlocked === 'true';
                 const matchStatus = !status || (status === 'unlocked' && isUnlocked) || (status === 'locked' && !isUnlocked);
                 const isValidTier = c.dataset.tier !== 'Unknown';
@@ -387,7 +517,13 @@ HTML = """
                     }
                 }
 
-                c.style.display = (isValidTier && matchName && matchChar && matchElem && matchTier && matchStatus && matchRank) ? 'flex' : 'none';
+                const visible = isValidTier && matchName && matchChar && matchElem && matchTier && matchEffect && matchStatus && matchRank;
+                c.style.display = visible ? 'flex' : 'none';
+
+                // Real-time keyword highlighter
+                if (visible) {
+                    applyHighlights(c, selectedEffects);
+                }
             });
 
             cards.sort((a, b) => {
