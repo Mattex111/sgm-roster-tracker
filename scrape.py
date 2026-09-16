@@ -173,8 +173,76 @@ def parse_variant(page_title):
         img_tag = img_box.find("img")
         if img_tag and img_tag.get("src"):
             raw_src = img_tag["src"]
-            # Pulisce l'URL dai parametri di ridimensionamento dinamico del wiki
             image_url = re.sub(r'/scale-to-width-down/\d+', '', raw_src).split('?')[0]
+
+    # 3. Extract Loadouts (Stat Investment & Preferred Moveset)
+    stat_investment = []
+    preferred_moveset = []
+
+    # Cerca la sezione Stat Investment
+    stat_heading = soup.find(lambda tag: tag.name in ["h3", "h4"] and "Stat Investment" in tag.get_text())
+    if stat_heading:
+        curr = stat_heading.find_next_sibling()
+        while curr and curr.name not in ["h2", "h3", "h4"]:
+            if curr.name == "ul":
+                for li in curr.find_all("li"):
+                    stat_investment.append(" ".join(li.get_text().split()))
+            curr = curr.find_next_sibling()
+
+    # Cerca la sezione Preferred Moveset
+    move_heading = soup.find(lambda tag: tag.name in ["h3", "h4"] and "Preferred Moveset" in tag.get_text())
+    if move_heading:
+        curr = move_heading.find_next_sibling()
+        while curr and curr.name not in ["h2", "h3", "h4"]:
+            table = curr if curr.name == "table" else curr.find("table")
+            if table:
+                rows = table.find_all("tr")
+                if rows:
+                    cells = rows[0].find_all(["td", "th"])
+                    for cell in cells:
+                        # Rimuove eventuali tag di stile o script superflui ma preserva la struttura
+                        for br in cell.find_all("br"):
+                            br.replace_with(" / ")
+
+                        # Estrae il testo della cella gestendo i vari blocchi
+                        cell_text = cell.get_text(separator=" ", strip=True)
+
+                        # Se la cella contiene "or", suddividiamo l'alternativa in modo pulito
+                        if " or " in cell_text.lower():
+                            # Pulisce e divide usando "or" come separatore
+                            parts = re.split(r'\s+or\s+', cell_text, flags=re.I)
+                            clean_parts = [" ".join(p.split()) for p in parts if p.strip()]
+                            preferred_moveset.append(" / ".join(clean_parts))
+                        else:
+                            # Prende i titoli delle immagini se disponibili, altrimenti il testo
+                            img_titles = [img.get("alt") or img.get("title") for img in cell.find_all("img")]
+                            if img_titles:
+                                valid_titles = [t.strip() for t in img_titles if t]
+                                preferred_moveset.append(" / ".join(valid_titles))
+                            elif cell_text:
+                                preferred_moveset.append(" ".join(cell_text.split()))
+
+            # Fallback se c'è una lista nascosta di testo
+            if curr.name == "div" and "display:none" in curr.get("style", ""):
+                for li in curr.find_all("li"):
+                    m_text = li.get_text(strip=True)
+                    if m_text and m_text not in preferred_moveset:
+                        preferred_moveset.append(m_text)
+            curr = curr.find_next_sibling()
+
+    # Pulisce la lista rimuovendo eventuali doppioni o stringhe residue con "or" appiccicato
+    cleaned_moveset = []
+    for m in preferred_moveset:
+        # Se la stringa contiene "or" senza spazi (es. TurnorOsiris), la scartiamo perché abbiamo già quella formattata con lo slash
+        if re.search(r'[a-z]or[A-Z]', m) or re.search(r'[a-z]or[a-z]', m):
+            continue
+        if m not in cleaned_moveset:
+            cleaned_moveset.append(m)
+
+    loadouts = {
+        "stat_investment": stat_investment,
+        "preferred_moveset": cleaned_moveset
+    }
 
     return {
         "name": page_title,
@@ -187,7 +255,8 @@ def parse_variant(page_title):
         "hp_max": hp_max,
         "sa1": sa1,
         "sa2": sa2,
-        "image_url": image_url,  # <-- AGGIUNGI QUESTA RIGA QUI
+        "image_url": image_url,
+        "loadouts": loadouts,
         "unlocked": False,
     }
 
@@ -195,14 +264,12 @@ def run():
     force_update = "--force" in sys.argv
     ratings_only = "--ratings-only" in sys.argv
 
-    # Load existing database if present
     try:
         with open("sgm_database.json", "r", encoding="utf-8") as f:
             db = json.load(f)
     except FileNotFoundError:
         db = {}
 
-    # Purge existing invalid entries (e.g. unplayable Raid Bosses with Unknown tier)
     db = {name: data for name, data in db.items() if data.get("tier") in TIERS}
 
     if not ratings_only:
@@ -210,22 +277,19 @@ def run():
         print(f"Checking {len(variants)} variants...")
 
         for name in variants:
-            # Skip if already exists (unless --force is passed or new atk/hp fields are missing)
-            if not force_update and name in db and (db[name].get("sa1") or db[name].get("sa2")) and "atk_max" in db[name]:
+            if not force_update and name in db and (db[name].get("sa1") or db[name].get("sa2")) and "loadouts" in db[name]:
                 continue
 
             try:
                 data = parse_variant(name)
-                # Save only playable variants with valid abilities and playable tiers
                 if data and (data["sa1"] or data["sa2"]) and data["tier"] in TIERS:
                     if name in db and "ratings" in db[name]:
                         data["ratings"] = db[name]["ratings"]
                     db[name] = data
-                    print(f"Parsed: [{data['character']} | {data['tier']} - {data['element']}] {name} (ATK: {data['atk_max']}, HP: {data['hp_max']})")
+                    print(f"Parsed: [{data['character']} | {data['tier']} - {data['element']}] {name}")
             except Exception as e:
                 print(f"Error parsing {name}: {e}")
 
-    # Always update Tier List ratings (takes only one HTTP request)
     ratings = get_tier_list_ratings()
     for name, item in db.items():
         if name in ratings:

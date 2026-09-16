@@ -117,8 +117,16 @@ HTML = r"""
         .base-kit-content { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; color: #c9d1d9; cursor: text; user-select: text; }
         .base-kit-content strong { color: #e3b341; }
 
+        .card-footer-action { display: flex; justify-content: flex-end; margin-top: 2px; }
+        .inspect-btn { background: #21262d; color: #58a6ff; border: 1px solid #30363d; font-size: 0.78rem; padding: 4px 10px; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        .inspect-btn:hover { background: #30363d; color: #79c0ff; border-color: #58a6ff; }
+
+        .moveset-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+        .move-badge { font-size: 0.75rem; background: #21262d; color: #58a6ff; padding: 3px 8px; border-radius: 4px; border: 1px solid #30363d; }
+
         mark.effect-highlight { background-color: rgba(255, 208, 0, 0.28); color: #ffd000; border-bottom: 2px solid #ffd000; font-weight: 700; padding: 0 2px; border-radius: 2px; }
 
+        /* Modal Styles */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); z-index: 500; align-items: center; justify-content: center; }
         .modal-overlay.show { display: flex; }
         .modal { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 22px; width: 440px; max-width: 90vw; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 12px 36px rgba(0,0,0,0.8); }
@@ -127,11 +135,95 @@ HTML = r"""
         .modal-section-title { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; color: #8b949e; }
         .modal-radio { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #e6edf3; cursor: pointer; }
         .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+
+        /* In-Game Style Expanded Modal */
+        .fighter-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            align-items: center; justify-content: center;
+        }
+        .fighter-modal-overlay.show { display: flex; }
+
+        .fighter-modal {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            width: 820px; max-width: 96vw; max-height: 90vh;
+            padding: 28px;
+            display: flex; flex-direction: column; gap: 18px;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.95);
+            position: relative;
+            animation: modalPop 0.2s ease-out;
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close-btn {
+            position: absolute; top: 18px; right: 18px;
+            background: #21262d; border: 1px solid #30363d; color: #c9d1d9;
+            width: 34px; height: 34px; border-radius: 50%; font-weight: bold; cursor: pointer; z-index: 10;
+        }
+        .modal-close-btn:hover { background: #30363d; color: #fff; }
+
+        .modal-body-layout {
+            display: flex; gap: 24px; align-items: flex-start;
+        }
+        .modal-card-img-container {
+            flex-shrink: 0;
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .modal-card-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+        }
+        .modal-stats-card {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .modal-right-content {
+            flex: 1;
+            display: flex; flex-direction: column; gap: 14px;
+            min-width: 0;
+        }
+
+        .modal-tabs {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+            border-bottom: 1px solid #30363d; padding-bottom: 10px;
+        }
+        .m-tab-btn {
+            background: #21262d; color: #8b949e; border: 1px solid #30363d;
+            padding: 10px; font-size: 0.85rem; font-weight: bold; border-radius: 6px; cursor: pointer; text-align: center;
+        }
+        .m-tab-btn.active { background: #238636; color: #fff; border-color: #2ea043; }
+        .m-tab-pane { overflow-y: auto; max-height: 56vh; padding-right: 4px; display: flex; flex-direction: column; gap: 10px; }
+
+        .modal-box { font-size: 0.9rem; line-height: 1.45; color: #c9d1d9; background: #0d1117; padding: 12px; border-radius: 6px; border: 1px solid #21262d; }
+        .modal-box strong { color: #58a6ff; display: block; margin-bottom: 4px; }
     </style>
 </head>
 <body>
     <div class="header">
-        <input type="text" id="search" placeholder="Search variant..." oninput="filterAndSortCards()">
+        <input type="text" id="search" placeholder="Search variant or text..." oninput="filterAndSortCards()">
 
         <select id="charFilter" onchange="filterAndSortCards()">
             <option value="">All Fighters</option>
@@ -290,8 +382,10 @@ HTML = r"""
         {% set base_text = (base.prestige.description if base.prestige else '') + ' ' + (base.marquee_options | map(attribute='description') | join(' ') if base.marquee_options else '') %}
         {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
         {% set full_kit = sa_only + ' ' + base_text %}
+        {% set searchable_content = (v.name + ' ' + v.character + ' ' + full_kit).lower() %}
         <div class="card {% if v.unlocked %}unlocked{% endif %}"
              onclick="onCardClick(event, this)"
+             data-search="{{ searchable_content }}"
              data-name="{{ v.name.lower() }}"
              data-rawname="{{ v.name }}"
              data-char="{{ v.character }}"
@@ -305,7 +399,9 @@ HTML = r"""
              data-pfoff="{{ v.ratings.pf_off if v.ratings else 'U' }}"
              data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
              data-riftdef="{{ v.ratings.rift_def if v.ratings else 'U' }}"
-             data-realms="{{ v.ratings.realms if v.ratings else 'U' }}">
+             data-realms="{{ v.ratings.realms if v.ratings else 'U' }}"
+             data-fighter='{{ v | tojson | safe }}'
+             data-base='{{ base | tojson | safe }}'>
 
             <div class="card-body-row" style="display: flex; gap: 10px; align-items: flex-start;">
                 {% if v.image_url %}
@@ -315,7 +411,7 @@ HTML = r"""
 
                     <div class="card-head">
                         <div class="name-label">
-                            {{ v.name }}
+                            <span class="name-text" data-original="{{ v.name }}">{{ v.name }}</span>
                         </div>
                         <div class="badges">
                             <span class="char-tag">{{ v.character }}</span>
@@ -360,6 +456,10 @@ HTML = r"""
                     </details>
                     {% endif %}
 
+                    <div class="card-footer-action">
+                        <button class="inspect-btn" onclick="openFighterModal(event, this)">Inspect 🔍</button>
+                    </div>
+
                 </div>
             </div>
 
@@ -367,11 +467,59 @@ HTML = r"""
         {% endfor %}
     </div>
 
+    <!-- Character Details Modal (In-Game Style) -->
+    <div class="fighter-modal-overlay" id="fighterModal" onclick="closeFighterModal(event)">
+        <div class="fighter-modal" id="fighterModalContent">
+            <button class="modal-close-btn" onclick="closeFighterModalDirect()">✕</button>
+
+            <div class="modal-header-info">
+                <h2 id="modalFighterName" style="margin: 0; color: #fff; font-size: 1.4rem;">Character Name</h2>
+                <div id="modalFighterSub" style="color: #8b949e; font-size: 0.9rem; margin-top: 2px;">Character | Tier | Element</div>
+            </div>
+
+            <div class="modal-body-layout">
+                <div class="modal-card-img-container">
+                    <img id="modalCardImg" src="" alt="Fighter Art">
+                    <div class="modal-stats-card">
+                        <span class="stat-item stat-atk">⚔️ <span id="modalAtkVal" style="color:#ff7b72;">N/A</span></span>
+                        <span class="stat-item stat-hp">❤️ <span id="modalHpVal" style="color:#7ee787;">N/A</span></span>
+                    </div>
+                </div>
+
+                <div class="modal-right-content">
+                    <div class="modal-tabs">
+                        <button class="m-tab-btn active" onclick="switchModalTab(event, 'info')">INFO (SA)</button>
+                        <button class="m-tab-btn" onclick="switchModalTab(event, 'kit')">KIT (MA & PA)</button>
+                        <button class="m-tab-btn" onclick="switchModalTab(event, 'loadout')">LOADOUT & STATS</button>
+                    </div>
+
+                    <!-- Tab: INFO -->
+                    <div class="m-tab-pane" id="pane-info">
+                        <div class="modal-box"><strong>Signature Ability 1:</strong> <span id="modalSa1"></span></div>
+                        <div class="modal-box"><strong>Signature Ability 2:</strong> <span id="modalSa2"></span></div>
+                    </div>
+
+                    <!-- Tab: KIT -->
+                    <div class="m-tab-pane" id="pane-kit" style="display: none;">
+                        <div class="modal-box"><strong>Prestige Ability:</strong> <span id="modalPrestige"></span></div>
+                        <div class="modal-box"><strong>Marquee Options:</strong> <div id="modalMarquee" style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;"></div></div>
+                    </div>
+
+                    <!-- Tab: LOADOUT -->
+                    <div class="m-tab-pane" id="pane-loadout" style="display: none;">
+                        <div class="modal-box"><strong>Stat Investment:</strong> <div id="modalStats" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;"></div></div>
+                        <div class="modal-box"><strong>Preferred Moveset:</strong> <div id="modalMoves" class="moveset-badges" style="margin-top: 6px;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const undoStack = [];
         const RANK_VALUES = { 'SS': 5, 'S': 4, 'A': 3, 'B': 2, 'C': 1, 'U': 0, 'TBD': 0 };
 
-        document.querySelectorAll('.desc-text').forEach(el => {
+        document.querySelectorAll('.desc-text, .name-text').forEach(el => {
             el.dataset.original = el.innerHTML;
         });
 
@@ -440,7 +588,7 @@ HTML = r"""
         }
 
         function onCardClick(event, cardElement) {
-            if (event.target.closest('details.base-kit')) return;
+            if (event.target.closest('.inspect-btn') || event.target.closest('details.base-kit')) return;
 
             const name = cardElement.dataset.rawname;
             const currentState = cardElement.dataset.unlocked === 'true';
@@ -456,6 +604,103 @@ HTML = r"""
                 setCardState(name, newState);
                 updateCount();
             });
+        }
+
+        function openFighterModal(event, btnElement) {
+            event.stopPropagation();
+            const card = btnElement.closest('.card');
+            const fighter = JSON.parse(card.dataset.fighter);
+            const baseKit = JSON.parse(card.dataset.base || '{}');
+
+            document.getElementById('modalFighterName').innerText = fighter.name;
+            document.getElementById('modalFighterSub').innerText = `${fighter.character} | ${fighter.tier} | ${fighter.element}`;
+
+            // Set Card Art Image in Modal
+            const imgEl = document.getElementById('modalCardImg');
+            if (fighter.image_url) {
+                imgEl.src = fighter.image_url;
+                imgEl.style.display = 'block';
+            } else {
+                imgEl.style.display = 'none';
+            }
+
+            // Set Stats under image in Modal
+            document.getElementById('modalAtkVal').innerText = fighter.atk_max ? fighter.atk_max.toLocaleString() : 'N/A';
+            document.getElementById('modalHpVal').innerText = fighter.hp_max ? fighter.hp_max.toLocaleString() : 'N/A';
+
+            // Info Pane (SA)
+            document.getElementById('modalSa1').innerText = fighter.sa1 || "N/A";
+            document.getElementById('modalSa2').innerText = fighter.sa2 || "N/A";
+
+            // Kit Pane (Prestige & Marquee)
+            const prestigeEl = document.getElementById('modalPrestige');
+            if (baseKit.prestige) {
+                prestigeEl.innerHTML = `<strong>${baseKit.prestige.name}:</strong> ${baseKit.prestige.description}`;
+            } else {
+                prestigeEl.innerText = "N/A";
+            }
+
+            const marqueeContainer = document.getElementById('modalMarquee');
+            marqueeContainer.innerHTML = '';
+            if (baseKit.marquee_options && baseKit.marquee_options.length > 0) {
+                baseKit.marquee_options.forEach(m => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `• <em>${m.name}</em>: ${m.description}`;
+                    marqueeContainer.appendChild(div);
+                });
+            } else {
+                marqueeContainer.innerText = "N/A";
+            }
+
+            // Loadout Pane (Stats & Moves)
+            const statsContainer = document.getElementById('modalStats');
+            statsContainer.innerHTML = '';
+            if (fighter.loadouts && fighter.loadouts.stat_investment && fighter.loadouts.stat_investment.length > 0) {
+                fighter.loadouts.stat_investment.forEach(stat => {
+                    const div = document.createElement('div');
+                    div.innerText = `• ${stat}`;
+                    statsContainer.appendChild(div);
+                });
+            } else {
+                statsContainer.innerText = "No specific stat investment notes.";
+            }
+
+            const movesContainer = document.getElementById('modalMoves');
+            movesContainer.innerHTML = '';
+            if (fighter.loadouts && fighter.loadouts.preferred_moveset && fighter.loadouts.preferred_moveset.length > 0) {
+                fighter.loadouts.preferred_moveset.forEach(move => {
+                    const span = document.createElement('span');
+                    span.className = 'move-badge';
+                    span.innerText = move;
+                    movesContainer.appendChild(span);
+                });
+            } else {
+                movesContainer.innerText = "No preferred moveset specified.";
+            }
+
+            document.getElementById('fighterModal').classList.add('show');
+        }
+
+        function closeFighterModal(e) {
+            if (e.target.id === 'fighterModal') closeFighterModalDirect();
+        }
+
+        function closeFighterModalDirect() {
+            document.getElementById('fighterModal').classList.remove('show');
+        }
+
+        function switchModalTab(event, tabName) {
+            document.querySelectorAll('.m-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.m-tab-pane').forEach(p => p.style.display = 'none');
+
+            event.target.classList.add('active');
+            if (tabName === 'info') {
+                document.getElementById('pane-info').style.display = 'flex';
+            } else if (tabName === 'kit') {
+                document.getElementById('pane-kit').style.display = 'flex';
+            } else if (tabName === 'loadout') {
+                document.getElementById('pane-loadout').style.display = 'flex';
+            }
         }
 
         function batchToggle(status) {
@@ -560,46 +805,59 @@ HTML = r"""
         }
 
         function applyHighlights(card, selectedEffects) {
-            const descElements = card.querySelectorAll('.desc-text');
+            const textElements = card.querySelectorAll('.desc-text, .name-text');
+            const searchQuery = document.getElementById('search').value.trim().toLowerCase();
+            const searchWords = searchQuery.length > 1 ? searchQuery.split(/\s+/).filter(w => w.length > 0) : [];
 
-            if (selectedEffects.length === 0) {
-                descElements.forEach(el => {
+            if (selectedEffects.length === 0 && searchWords.length === 0) {
+                textElements.forEach(el => {
                     el.innerHTML = el.dataset.original;
                 });
                 return;
             }
 
-            descElements.forEach(el => {
+            textElements.forEach(el => {
                 let html = el.dataset.original;
 
-                selectedEffects.forEach(effect => {
-                    let pattern;
-                    if (effect === 'armor') {
-                        pattern = /\b(armor)(?!\s+break)\b/gi;
-                    } else if (effect === 'armor break') {
-                        pattern = /\b(armor\s+breaks?)\b/gi;
-                    } else if (effect === 'regen') {
-                        pattern = /(?<!heavy\s+)\b(regens?)\b/gi;
-                    } else if (effect === 'heavy regen') {
-                        pattern = /\b(heavy\s+regens?)\b/gi;
-                    } else if (effect === 'bleed') {
-                        pattern = /(?<!heavy\s+)\b(bleeds?)\b/gi;
-                    } else if (effect === 'heavy bleed') {
-                        pattern = /\b(heavy\s+bleeds?)\b/gi;
-                    } else if (effect === 'auto-block' || effect === 'auto block') {
-                        pattern = /\b(auto[- ]?blocks?)\b/gi;
-                    } else if (effect === 'invincible') {
-                        pattern = /\b(invincib(?:le|ility))\b/gi;
-                    } else if (effect === 'disable blockbuster' || effect === 'disable blockbusters') {
-                        pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*)blockbusters?|blockbusters?(?:[^\.\n;]+)?\s+disabled)\b/gi;
-                    } else if (effect === 'disable special' || effect === 'disable specials') {
-                        pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:tag[\s-]ins?|blockbusters?),?\s*(?:and\s+)?)?)?specials?(?:\s+moves?)?|specials?(?:\s+moves?)?\s+disabled)\b/gi;
-                    } else if (effect === 'disable tag' || effect === 'disable tag ins') {
-                        pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:special\s+moves?|blockbusters?),?\s*(?:and\s+)?)?)?tag(?:[\s-]ins?)?|tag(?:[\s-]ins?)?\s+disabled)\b/gi;
-                    } else {
-                        pattern = new RegExp(`\\b(${effect}s?)\\b`, 'gi');
-                    }
-                    html = html.replace(pattern, '<mark class="effect-highlight">$1</mark>');
+                if (el.classList.contains('desc-text')) {
+                    selectedEffects.forEach(effect => {
+                        let pattern;
+                        if (effect === 'armor') {
+                            pattern = /\b(armor)(?!\s+break)\b/gi;
+                        } else if (effect === 'armor break') {
+                            pattern = /\b(armor\s+breaks?)\b/gi;
+                        } else if (effect === 'regen') {
+                            pattern = /(?<!heavy\s+)\b(regens?)\b/gi;
+                        } else if (effect === 'heavy regen') {
+                            pattern = /\b(heavy\s+regens?)\b/gi;
+                        } else if (effect === 'bleed') {
+                            pattern = /(?<!heavy\s+)\b(bleeds?)\b/gi;
+                        } else if (effect === 'heavy bleed') {
+                            pattern = /\b(heavy\s+bleeds?)\b/gi;
+                        } else if (effect === 'auto-block' || effect === 'auto block') {
+                            pattern = /\b(auto[- ]?blocks?)\b/gi;
+                        } else if (effect === 'invincible') {
+                            pattern = /\b(invincib(?:le|ility))\b/gi;
+                        } else if (effect === 'disable blockbuster' || effect === 'disable blockbusters') {
+                            pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*)blockbusters?|blockbusters?(?:[^\.\n;]+)?\s+disabled)\b/gi;
+                        } else if (effect === 'disable special' || effect === 'disable specials') {
+                            pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:tag[\s-]ins?|blockbusters?),?\s*(?:and\s+)?)?)?specials?(?:\s+moves?)?|specials?(?:\s+moves?)?\s+disabled)\b/gi;
+                        } else if (effect === 'disable tag' || effect === 'disable tag ins') {
+                            pattern = /\b(disable[sd]?(?:\s+(?:the\s+)?(?:opponent['’]?s?|their)?\s*(?:(?:special\s+moves?|blockbusters?),?\s*(?:and\s+)?)?)?tag(?:[\s-]ins?)?|tag(?:[\s-]ins?)?\s+disabled)\b/gi;
+                        } else {
+                            pattern = new RegExp(`\\b(${effect}s?)\\b`, 'gi');
+                        }
+                        html = html.replace(pattern, '<mark class="effect-highlight">$1</mark>');
+                    });
+                }
+
+                searchWords.forEach(word => {
+                    if (word.length < 2) return;
+                    const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const wordPattern = new RegExp(`(${safeWord})`, 'gi');
+                    html = html.replace(wordPattern, (match) => {
+                        return `<mark class="effect-highlight">${match}</mark>`;
+                    });
                 });
 
                 el.innerHTML = html;
@@ -622,7 +880,7 @@ HTML = r"""
             const cards = Array.from(document.querySelectorAll('.card'));
 
             cards.forEach(c => {
-                const matchName = c.dataset.name.includes(query);
+                const matchSearch = c.dataset.search.includes(query);
                 const matchChar = !char || c.dataset.char === char;
                 const matchElem = !elem || c.dataset.element === elem;
                 const matchTier = selectedTiers.length === 0 || selectedTiers.includes(c.dataset.tier);
@@ -654,7 +912,7 @@ HTML = r"""
                     }
                 }
 
-                const visible = isValidTier && matchName && matchChar && matchElem && matchTier && matchEffect && matchStatus && matchRank;
+                const visible = isValidTier && matchSearch && matchChar && matchElem && matchTier && matchEffect && matchStatus && matchRank;
                 c.style.display = visible ? 'flex' : 'none';
 
                 if (visible) {
