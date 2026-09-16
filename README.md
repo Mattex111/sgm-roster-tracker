@@ -18,6 +18,10 @@ Offline web tool to track collection progress, inspect base stats and abilities,
 - **Accident Prevention:** Bulk selection safeguards with one-click Undo (`Ctrl+Z`).
 - **100% Offline & Private:** No accounts, external servers, or tracking cookies.
 
+## Screenshots
+
+<img src="examples/1.png" width="300" alt="Stats"> <img src="examples/2.png" width="300" alt="Export Modal">
+
 ## Setup & Run
 
 ### For Windows Users
