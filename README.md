@@ -2,7 +2,7 @@
 
 Offline web tool to track collection progress, inspect base stats and abilities, filter by combat modifiers, and export custom rosters for Discord, Reddit, or team building.
 
-![Dashboard Preview](examples/1.png)
+<video src="examples/output.mp4" width="100%" autoplay loop muted playsinline></video>
 
 ## Features
 
@@ -15,10 +15,6 @@ Offline web tool to track collection progress, inspect base stats and abilities,
 - **Custom Clipboard Exporter:** Export selections in Full markdown, single-line Compact summaries, or comma-separated name lists.
 - **Accident Prevention:** Bulk selection safeguards with one-click Undo (`Ctrl+Z`).
 - **100% Offline & Private:** No accounts, external servers, or tracking cookies.
-
-## Screenshots
-
-<img src="examples/1.png" width="300" alt="Filters & Stats"> <img src="examples/2.png" width="300" alt="Card View"> <img src="examples/3.png" width="300" alt="Export Modal">
 
 ## Setup & Run
 
