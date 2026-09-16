@@ -6,7 +6,7 @@ Offline web tool to track collection progress, inspect base stats and abilities,
 
 ## Features
 
-- **Interactive Checklist:** Mark owned fighters in real time with persistent local storage (`my_roster.json`).
+- **Interactive Checklist:** Click anywhere on a fighter card to mark it as owned in real time with persistent local storage (`my_roster.json`).
 - **Base Stats (Max Lvl 60):** Card view displays official Max ATK and HP stats.
 - **Full Character Kit:** Expandable details showing character-specific Prestige Abilities and Marquee options (MA & PA).
 - **Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with keyword highlighting.
