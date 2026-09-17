@@ -2080,10 +2080,30 @@ mark.effect-highlight {
     }
 }
 
-/* Mobile Touch Landscape Optimization (Only for touch devices with coarse pointer) */
+/* Mobile Touch Landscape Optimization (Only for touch devices in landscape) */
 @media (pointer: coarse) and (orientation: landscape), (pointer: coarse) and (max-height: 600px) {
     body {
-        padding-bottom: 10px !important;
+        padding: 10px 14px 20px 14px !important;
+    }
+
+    /* Hide Mobile Bottom Nav Bar in Landscape to maximize vertical height */
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+
+    /* Show Top Navigation & Filters in Landscape */
+    .main-nav {
+        display: flex !important;
+    }
+
+    .mobile-top-bar {
+        display: none !important;
+    }
+
+    /* Multi-column grid in Landscape (3-4 cards across like PC) */
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+        gap: 12px !important;
     }
 
     .modal-overlay, .fighter-modal-overlay {
