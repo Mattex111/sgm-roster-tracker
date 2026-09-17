@@ -1398,9 +1398,22 @@ function executeExport() {
    Wishlist Modal Handlers
    ========================================= */
 function openWishlistModal() {
+    closeFighterModalDirect();
+    closeTeamEditorModal();
+    closeBackupModal();
+    closeExportModal();
+    closeExportTeamsModal();
+    closeMobileFilterDrawer();
+    const tfPicker = document.getElementById('teamFighterPicker');
+    if (tfPicker) tfPicker.style.display = 'none';
+
     document.getElementById('wishlistModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
     renderWishlistSlots();
+
+    document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
+    const mobTab = document.getElementById('mobTabWishlist');
+    if (mobTab) mobTab.classList.add('active');
 }
 
 function closeWishlistModal() {
@@ -1597,7 +1610,24 @@ document.addEventListener('click', (e) => {
 /* =========================================
    Main View Switcher & Mobile Drawer
    ========================================= */
+function closeAllModals() {
+    closeFighterModalDirect();
+    closeWishlistModal();
+    closeTeamEditorModal();
+    closeBackupModal();
+    closeExportModal();
+    closeExportTeamsModal();
+    closeMobileFilterDrawer();
+    
+    const tfPicker = document.getElementById('teamFighterPicker');
+    if (tfPicker) tfPicker.style.display = 'none';
+    const wlPicker = document.getElementById('wishlistPicker');
+    if (wlPicker) wlPicker.style.display = 'none';
+}
+
 function switchView(viewName) {
+    closeAllModals();
+
     document.querySelectorAll('.view-panel').forEach(el => {
         el.classList.remove('active');
         el.style.display = 'none';
