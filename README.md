@@ -6,32 +6,32 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ---
 
-## 🌟 Live Demo & Mobile PWA Installation
+## Live Demo & Mobile PWA Installation
 
-📱 **Play Online / Install on Smartphone (No PC Required):**
-👉 **[https://mattex111.github.io/sgm-roster-tracker/](https://mattex111.github.io/sgm-roster-tracker/)**
+**Play Online / Install on Smartphone (No PC Required):**  
+[https://mattex111.github.io/sgm-roster-tracker/](https://mattex111.github.io/sgm-roster-tracker/)
 
-### 📱 Installing to Home Screen (iOS & Android)
-- **Android (Chrome / Brave / Firefox):** Open the link ➔ Tap **⋮** (top right) ➔ Tap **"Add to Home screen"**.
-- **iOS (Safari):** Open the link ➔ Tap **Share** (square with up arrow) ➔ Tap **"Add to Home Screen"**.
+### Installing to Home Screen (iOS & Android)
+- **Android (Chrome / Brave / Firefox):** Open the link -> Tap **⋮** (top right) -> Select **Add to Home screen**.
+- **iOS (Safari):** Open the link -> Tap **Share** (square with up arrow) -> Select **Add to Home Screen**.
 
 ---
 
 ## What's New in v2.0.0
 
-- 📱 **100% Standalone Mobile PWA (Progressive Web App):** Runs directly on smartphones with **zero PC or Python backend required**.
-- ⚡ **Offline Cache Service Worker (`sw.js`):** Pre-caches app layout, styles, scripts, and variant datasets for instant loading even offline or in airplane mode.
-- 💾 **1-Click Backup & Restore (`sgm_tracker_backup.json`):** Download and import single `.json` backup files to transfer or restore your unlocked roster, relic wishlist, and custom teams between PC and phone in 1 second.
-- 🔄 **One-Tap Filter Reset Button:** Instantly clear search text, character/tier/modifier checkboxes, element, status, mode, and tier rank dropdowns with one click (`🔄 Reset Filters`).
-- ⬅️ **Inspector Navigation Stack (`← Back`):** Jump between fighter team chips inside the Inspector Modal and navigate backwards smoothly with a dynamic back button.
-- 🔗 **Reverse Team Synergy Search ("Featured In Teams"):** Scans all recommended teams across the database to display team compositions where the inspected character is cited as a synergy partner (e.g. *Red Velvet* in *Angel Maker*'s recommended team).
-- 🚀 **Automated GitHub Actions CI/CD:** Auto-compiles and deploys static PWA bundle to GitHub Pages on every `git push`.
+- **100% Standalone Mobile PWA:** Runs directly on smartphones with zero PC or Python backend required.
+- **Offline Cache Service Worker (`sw.js`):** Pre-caches app layout, styles, scripts, and variant datasets for instant loading offline or in airplane mode.
+- **1-Click Backup & Restore:** Export and import single combined `.json` backup files or legacy individual files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) to transfer or restore your unlocked roster, wishlist, and custom teams between PC and phone.
+- **One-Tap Filter Reset:** Instantly clear search text, character/tier/modifier checkboxes, element, status, mode, and tier rank dropdowns with one click (`Reset Filters`).
+- **Inspector Navigation Stack (`← Back`):** Jump between fighter team chips inside the Inspector Modal and navigate backwards smoothly.
+- **Reverse Team Synergy Search ("Featured In Teams"):** Scans all recommended teams across the database to display team compositions where the inspected character is cited as a synergy partner.
+- **Automated GitHub Actions CI/CD:** Auto-compiles and deploys static PWA bundle to GitHub Pages on every `git push`.
 
 ---
 
 ## Features
 
-- **Interactive Roster Checklist:** Tap anywhere on a fighter card to mark it as owned with local storage persistence (`localStorage` & `my_roster.json`).
+- **Interactive Roster Checklist:** Tap anywhere on a fighter card to mark it as owned with local storage persistence (`localStorage` in PWA & `my_roster.json` on local Python server). You can also import existing legacy JSON files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) directly into the web app.
 - **Team Builder & Synergy Analyzer:** Create, save, and manage custom 3-fighter loadouts tailored for specific game modes (*Prize Fight*, *Rift Offense*, *Rift Defense*, *Parallel Realms*). Previews combined Signature Abilities (SA1 & SA2) and support synergies.
 - **Wishlist Tracker:** Track target Gold and Diamond variants with interactive priority slots.
 - **Base Stats (Max Lvl 60):** Official Max ATK and HP stats for all 305+ variants.
@@ -55,6 +55,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ### Prerequisites
 1. **Python (3.8 or higher):** Download from [python.org](https://www.python.org/downloads/).
+   - *Windows Users:* Check the box **"Add python.exe to PATH"** during installation.
 2. **Git:** Download from [git-scm.com](https://git-scm.com/downloads).
 
 ### Installation
@@ -67,10 +68,49 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 python3 app.py
 ```
-Open [http://localhost:5000](http://localhost:5000) in your browser.
+Open `http://localhost:5000` in your browser.
+
+### Running the App Again (Subsequent Uses)
+
+Once initial setup is complete, you do not need to create `venv` or run `pip install` again. Open terminal in the project folder and run:
+
+- **Windows:**
+  ```cmd
+  venv\Scripts\activate
+  python app.py
+  ```
+- **Linux / macOS:**
+  ```bash
+  source venv/bin/activate
+  python3 app.py
+  ```
+
+---
+
+## Frequently Asked Questions (FAQ)
+
+### How do I update to the latest version? Will I lose my saved roster or teams?
+- **PWA / Web App:** Updates are deployed automatically to GitHub Pages. Whenever you refresh or re-open the app online, you receive the latest version.
+- **Local Python Setup:** Run `git pull` in your terminal.
+- **Data Safety:** Your collection, wishlist, and custom teams are saved in browser storage (`localStorage`) or local files (`my_roster.json`, `my_teams.json`). Updating the code will **never** overwrite or erase your progress.
+
+### How do I transfer or import my saved roster and teams between PC and phone?
+Use the **Backup & Restore** feature in the top navigation bar:
+1. **Importing Legacy Data:** Click **Select JSON File(s) to Import**. You can select your old legacy files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) or a combined backup file (`sgm_tracker_backup.json`). You can select multiple files at once.
+2. **Exporting Backup:** Click **Download Data Backup (.JSON)** to save a single combined backup file to transfer between devices.
+
+### Does the app require Python or an internet connection on mobile?
+No. The application is built as an offline-first Progressive Web App (PWA). Once installed on your smartphone's home screen or cached in your browser, it runs standalone without needing a Python backend or active internet connection.
+
+### Why do I need to activate `venv` when running locally with Python?
+`python -m venv venv` creates an isolated environment so dependencies (like Flask) do not conflict with system Python packages. Activating `venv` ensures your terminal loads those isolated packages before executing `python app.py`.
+
+### Where does the data (stats, movesets, tier ratings) come from?
+Fighter stats, Signature Abilities, Prestige, Marquee abilities, and recommended loadouts are scraped from the official [Skullgirls Mobile Fandom Wiki](https://skullgirlsmobile.fandom.com/). Tier list rankings are based on community competitive ratings across game modes.
 
 ---
 
 ## License
 
 Distributed under the MIT License. See `LICENSE` for details.
+

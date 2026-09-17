@@ -26,14 +26,11 @@
             <span class="mobile-counter" id="mobileUnlockCount">Unlocked: 0 / 0</span>
         </div>
         <div class="mobile-top-actions">
-            <button class="nav-tab btn-sm mob-top-nav-btn" id="mobTopRosterBtn" onclick="switchView('roster')" style="padding: 4px 8px; font-weight: 600;">Roster</button>
-            <button class="nav-tab btn-sm mob-top-nav-btn" id="mobTopTeamsBtn" onclick="switchView('teams')" style="padding: 4px 8px; font-weight: 600;">Teams</button>
             <button class="mobile-filter-btn" id="mobileFilterBtn" onclick="toggleMobileFilterDrawer()">
                 ⚡ Filters <span class="mobile-filter-badge" id="mobileFilterBadge" style="display:none;">0</span>
             </button>
             <button class="btn-secondary btn-sm" onclick="openBackupModal()" title="Backup & Restore Data">💾</button>
             <button class="btn-green btn-sm" onclick="triggerExport()" title="Export">📤</button>
-            <button class="btn-primary btn-sm" id="mobileWishlistBtn" onclick="openWishlistModal()" title="Manage Wishlist">⭐</button>
         </div>
     </div>
 
@@ -513,10 +510,10 @@
                 </div>
 
                 <div class="modal-box" style="background: rgba(33, 38, 45, 0.6); padding: 14px; border-radius: 8px;">
-                    <strong style="color: #58a6ff; display: block; margin-bottom: 4px;">📤 Import Backup File:</strong>
-                    <span style="font-size: 0.85rem; color: #8b949e; display: block; margin-bottom: 10px;">Restore data from a previously downloaded <code>.json</code> backup file.</span>
-                    <input type="file" id="backupFileInput" accept=".json" onchange="importFullBackup(event)" style="display: none;">
-                    <button class="btn-primary" onclick="document.getElementById('backupFileInput').click()" style="width: 100%;">Select Backup File to Import</button>
+                    <strong style="color: #58a6ff; display: block; margin-bottom: 4px;">📤 Import Data / Restore File:</strong>
+                    <span style="font-size: 0.85rem; color: #8b949e; display: block; margin-bottom: 10px;">Select a combined backup file (<code>sgm_tracker_backup.json</code>) or legacy individual files (<code>my_roster.json</code>, <code>my_teams.json</code>, <code>my_wishlist.json</code>). You can select multiple files at once.</span>
+                    <input type="file" id="backupFileInput" accept=".json" multiple onchange="importFullBackup(event)" style="display: none;">
+                    <button class="btn-primary" onclick="document.getElementById('backupFileInput').click()" style="width: 100%;">Select JSON File(s) to Import</button>
                 </div>
             </div>
             <div style="margin-top: 20px; display: flex; justify-content: flex-end;">

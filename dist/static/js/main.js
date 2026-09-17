@@ -1709,7 +1709,6 @@ function switchView(viewName) {
     document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
     
     const filterBtn = document.getElementById('mobileFilterBtn');
-    const wishBtn = document.getElementById('mobileWishlistBtn');
     const mobUnlockEl = document.getElementById('mobileUnlockCount');
 
     if (viewName === 'roster') {
@@ -1722,11 +1721,8 @@ function switchView(viewName) {
         if (tabRoster) tabRoster.classList.add('active');
         const mobTabRoster = document.getElementById('mobTabRoster');
         if (mobTabRoster) mobTabRoster.classList.add('active');
-        const mobTopRoster = document.getElementById('mobTopRosterBtn');
-        if (mobTopRoster) mobTopRoster.classList.add('active');
 
         if (filterBtn) filterBtn.style.display = 'flex';
-        if (wishBtn) wishBtn.style.display = 'inline-block';
         if (mobUnlockEl) mobUnlockEl.style.display = 'inline-block';
     } else if (viewName === 'teams') {
         const teams = document.getElementById('teamsView');
@@ -1738,11 +1734,8 @@ function switchView(viewName) {
         if (tabTeams) tabTeams.classList.add('active');
         const mobTabTeams = document.getElementById('mobTabTeams');
         if (mobTabTeams) mobTabTeams.classList.add('active');
-        const mobTopTeams = document.getElementById('mobTopTeamsBtn');
-        if (mobTopTeams) mobTopTeams.classList.add('active');
 
         if (filterBtn) filterBtn.style.display = 'none';
-        if (wishBtn) wishBtn.style.display = 'none';
         if (mobUnlockEl) mobUnlockEl.style.display = 'none';
         renderTeams();
     }
@@ -2291,62 +2284,122 @@ function exportFullBackup() {
 }
 
 /**
- * Import full user data from uploaded JSON backup file.
+ * Helper to restore roster unlocked state from array of variant names.
+ */
+function restoreRosterState(unlockedList) {
+    if (!Array.isArray(unlockedList)) return;
+    const unlockedSet = new Set(unlockedList);
+    document.querySelectorAll('.card').forEach(card => {
+        const name = card.dataset.rawname;
+        const isUnlocked = unlockedSet.has(name);
+        setCardState(name, isUnlocked);
+    });
+    syncRosterToLocalStorage();
+    updateCount();
+
+    fetch('/apply_states', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            states: Array.from(document.querySelectorAll('.card')).map(c => ({
+                name: c.dataset.rawname,
+                previousState: c.dataset.unlocked === 'true'
+            }))
+        })
+    }).catch(() => {});
+}
+
+/**
+ * Helper to restore wishlist state from object with golds and diamonds arrays.
+ */
+function restoreWishlistState(wishlistObj) {
+    if (!wishlistObj || typeof wishlistObj !== 'object') return;
+    wishlistGolds = Array.isArray(wishlistObj.golds) ? wishlistObj.golds : [];
+    wishlistDiamonds = Array.isArray(wishlistObj.diamonds) ? wishlistObj.diamonds : [];
+    saveWishlist();
+}
+
+/**
+ * Helper to restore custom teams state from array of team objects.
+ */
+function restoreTeamsState(teamsList) {
+    if (!Array.isArray(teamsList)) return;
+    teamsState = teamsList;
+    saveTeamsToServer();
+}
+
+/**
+ * Import user data from uploaded JSON file(s).
+ * Supports both combined backups (sgm_tracker_backup.json) and legacy individual files
+ * (my_roster.json, my_teams.json, my_wishlist.json).
  * @param {Event} event - File input change event.
  */
 function importFullBackup(event) {
-    const file = event.target.files[0];
-    if (!file) return;
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const data = JSON.parse(e.target.result);
-            
-            // 1. Restore Roster Unlocked State
-            if (Array.isArray(data.unlockedRoster)) {
-                const unlockedSet = new Set(data.unlockedRoster);
-                document.querySelectorAll('.card').forEach(card => {
-                    const name = card.dataset.rawname;
-                    const isUnlocked = unlockedSet.has(name);
-                    setCardState(name, isUnlocked);
-                });
-                syncRosterToLocalStorage();
-                updateCount();
+    let processedCount = 0;
+    const summaryList = [];
 
-                // Send to backend if connected
-                fetch('/apply_states', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        states: Array.from(document.querySelectorAll('.card')).map(c => ({
-                            name: c.dataset.rawname,
-                            previousState: c.dataset.unlocked === 'true'
-                        }))
-                    })
-                }).catch(() => {});
+    files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                const importedItems = [];
+
+                // 1. Combined Backup File format (sgm_tracker_backup.json)
+                if (data.unlockedRoster !== undefined || (data.wishlist && typeof data.wishlist === 'object') || (data.teams && !Array.isArray(data.teams))) {
+                    if (Array.isArray(data.unlockedRoster)) {
+                        restoreRosterState(data.unlockedRoster);
+                        importedItems.push(`Roster (${data.unlockedRoster.length} fighters)`);
+                    }
+                    if (data.wishlist) {
+                        restoreWishlistState(data.wishlist);
+                        importedItems.push(`Wishlist`);
+                    }
+                    if (Array.isArray(data.teams)) {
+                        restoreTeamsState(data.teams);
+                        importedItems.push(`Teams (${data.teams.length} loadouts)`);
+                    }
+                }
+                // 2. Legacy my_roster.json format (Array of string variant rawNames)
+                else if (Array.isArray(data) && (data.length === 0 || typeof data[0] === 'string')) {
+                    restoreRosterState(data);
+                    importedItems.push(`Roster (${data.length} unlocked fighters)`);
+                }
+                // 3. Legacy my_wishlist.json format (Object containing golds and/or diamonds arrays)
+                else if (data && typeof data === 'object' && !Array.isArray(data) && ('golds' in data || 'diamonds' in data)) {
+                    restoreWishlistState(data);
+                    importedItems.push(`Wishlist`);
+                }
+                // 4. Legacy my_teams.json format (Array of team objects with fighters array)
+                else if (Array.isArray(data) && (data.length === 0 || (typeof data[0] === 'object' && ('fighters' in data[0] || 'name' in data[0] || 'id' in data[0])))) {
+                    restoreTeamsState(data);
+                    importedItems.push(`Teams (${data.length} custom loadouts)`);
+                } else {
+                    alert(`Could not recognize structure of file: ${file.name}`);
+                }
+
+                if (importedItems.length) {
+                    summaryList.push(`${file.name}: ${importedItems.join(', ')}`);
+                }
+            } catch (err) {
+                alert(`Error parsing JSON file ${file.name}. Please ensure it is a valid JSON file.`);
             }
 
-            // 2. Restore Wishlist State
-            if (data.wishlist) {
-                wishlistGolds = Array.isArray(data.wishlist.golds) ? data.wishlist.golds : [];
-                wishlistDiamonds = Array.isArray(data.wishlist.diamonds) ? data.wishlist.diamonds : [];
-                saveWishlist();
+            processedCount++;
+            if (processedCount === files.length) {
+                if (summaryList.length) {
+                    alert('Successfully imported:\n• ' + summaryList.join('\n• '));
+                    closeBackupModal();
+                    filterAndSortCards();
+                }
             }
+        };
+        reader.readAsText(file);
+    });
 
-            // 3. Restore Teams State
-            if (Array.isArray(data.teams)) {
-                teamsState = data.teams;
-                saveTeamsToServer();
-            }
-
-            alert('Backup data successfully imported and restored!');
-            closeBackupModal();
-            filterAndSortCards();
-        } catch (err) {
-            alert('Error parsing backup file. Please ensure it is a valid JSON backup file.');
-        }
-    };
-    reader.readAsText(file);
     event.target.value = '';
 }
+
