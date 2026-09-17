@@ -9,7 +9,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.4.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.5.0">
 </head>
 <body>
     <!-- Main Top Navigation (Desktop) -->
@@ -43,7 +43,7 @@
         <div class="mobile-quick-actions">
             <button class="btn-secondary btn-sm" onclick="batchToggle(true)">Select Visible</button>
             <button class="btn-secondary btn-sm" onclick="batchToggle(false)">Deselect Visible</button>
-            <button class="btn-secondary btn-sm" id="gridDensityBtn" onclick="toggleGridDensity()" title="Toggle 1 or 2 columns layout">📱 2 Cols</button>
+            <button class="btn-secondary btn-sm" id="gridDensityBtn" onclick="toggleGridDensity()" title="Toggle 1 or 2 columns layout">2 Cols</button>
             <button class="btn-undo btn-sm" id="mobileUndoBtn" onclick="triggerUndo()" disabled title="Undo last action">Undo</button>
         </div>
 
@@ -242,28 +242,33 @@
                         </div>
                         {% endif %}
 
-                        <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
-                        <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
+                        <details class="abilities-accordion" onclick="event.stopPropagation()">
+                            <summary class="abilities-accordion-summary"><span>▶ Show Abilities & Kit</span></summary>
+                            <div class="abilities-accordion-content">
+                                <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
+                                <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
 
-                        {% if base %}
-                        <details class="base-kit" onclick="event.stopPropagation()">
-                            <summary>Character Kit (CA, MA & PA)</summary>
-                            <div class="base-kit-content">
-                                {% if base.character_ability %}
-                                <div class="ca-box" style="margin-bottom: 4px;"><strong>Character Ability ({{ base.character_ability.name }}):</strong> <span class="desc-text">{{ base.character_ability.description }}</span></div>
-                                {% endif %}
-                                {% if base.prestige %}
-                                <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
-                                {% endif %}
-                                {% if base.marquee_options %}
-                                <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
-                                {% for m in base.marquee_options %}
-                                <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
-                                {% endfor %}
+                                {% if base %}
+                                <details class="base-kit" onclick="event.stopPropagation()">
+                                    <summary>Character Kit (CA, MA & PA)</summary>
+                                    <div class="base-kit-content">
+                                        {% if base.character_ability %}
+                                        <div class="ca-box" style="margin-bottom: 4px;"><strong>Character Ability ({{ base.character_ability.name }}):</strong> <span class="desc-text">{{ base.character_ability.description }}</span></div>
+                                        {% endif %}
+                                        {% if base.prestige %}
+                                        <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
+                                        {% endif %}
+                                        {% if base.marquee_options %}
+                                        <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
+                                        {% for m in base.marquee_options %}
+                                        <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </details>
                                 {% endif %}
                             </div>
                         </details>
-                        {% endif %}
 
                         <div class="card-footer-action">
                             <button class="inspect-btn" onclick="openFighterModal(event, this)">Inspect 🔍</button>
@@ -622,6 +627,6 @@
         const INITIAL_WISHLIST = {{ wishlist | tojson }};
         const INITIAL_TEAMS = {{ teams | tojson }};
     </script>
-    <script src="{{ url_for('static', filename='js/main.js') }}?v=3.4.0"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=3.5.0"></script>
 </body>
 </html>

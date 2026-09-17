@@ -2219,32 +2219,117 @@ mark.effect-highlight {
     .grid.grid-2col .card {
         padding: 8px !important;
         gap: 6px !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .grid.grid-2col .card-body-row {
+        gap: 6px !important;
     }
 
     .grid.grid-2col .card-portrait {
         width: 36px !important;
-        height: 48px !important;
+        height: auto !important;
     }
 
-    .grid.grid-2col .variant-title {
+    .grid.grid-2col .name-text {
         font-size: 0.88rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+
+    .grid.grid-2col .badges {
+        flex-wrap: wrap !important;
+        gap: 2px !important;
+    }
+
+    .grid.grid-2col .badges .tag,
+    .grid.grid-2col .badges .char-tag,
+    .grid.grid-2col .badges .element-tag {
+        font-size: 0.65rem !important;
+        padding: 1px 4px !important;
     }
 
     .grid.grid-2col .stats-row {
-        font-size: 0.7rem !important;
+        font-size: 0.68rem !important;
         gap: 4px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .grid.grid-2col .ratings-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 3px !important;
+    }
+
+    .grid.grid-2col .rate-box {
+        font-size: 0.65rem !important;
+        padding: 2px 4px !important;
+        gap: 2px !important;
+    }
+
+    .grid.grid-2col .rate-box .rank-badge {
+        font-size: 0.68rem !important;
+        padding: 1px 4px !important;
+    }
+
+    /* Abilities Collapsible in 2-Column Mode */
+    .grid.grid-2col .abilities-accordion {
+        border: 1px solid #30363d !important;
+        border-radius: 6px !important;
+        background: #0d1117 !important;
+        margin-top: 2px !important;
+        overflow: hidden !important;
+    }
+
+    .grid.grid-2col .abilities-accordion > summary {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 5px 6px !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        color: #58a6ff !important;
+        cursor: pointer !important;
+        background: #161b22 !important;
+        user-select: none !important;
+    }
+
+    .grid.grid-2col .abilities-accordion[open] > summary {
+        border-bottom: 1px solid #30363d !important;
+    }
+
+    .grid.grid-2col .abilities-accordion-content {
+        padding: 6px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
     }
 
     .grid.grid-2col .sa-box {
-        font-size: 0.7rem !important;
+        font-size: 0.68rem !important;
         padding: 4px 6px !important;
         line-height: 1.25 !important;
     }
 
     .grid.grid-2col .inspect-btn {
-        padding: 4px 6px !important;
+        padding: 5px 6px !important;
         font-size: 0.75rem !important;
+        width: 100% !important;
     }
+}
+
+/* Abilities Accordion default state (1-column / desktop) */
+.abilities-accordion {
+    display: block;
+}
+.abilities-accordion > summary {
+    display: none !important;
+}
+.abilities-accordion > .abilities-accordion-content {
+    display: block !important;
 }
 
 /* Prevent body scroll when mobile drawer or modal is open */
