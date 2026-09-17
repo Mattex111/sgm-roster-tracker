@@ -31228,14 +31228,14 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
                     <div>
                         <label style="display: block; font-size: 0.78rem; font-weight: 600; color: #8b949e; margin-bottom: 6px; letter-spacing: 0.5px;">1. POOL SELECTION</label>
-                        <select id="randomPoolSelect" style="width: 100%; font-size: 0.9rem; padding: 7px 10px; background: #0d1117; color: white; border: 1px solid #30363d; border-radius: 6px;">
+                        <select id="randomPoolSelect" onchange="onRandomRuleChange()" style="width: 100%; font-size: 0.9rem; padding: 7px 10px; background: #0d1117; color: white; border: 1px solid #30363d; border-radius: 6px;">
                             <option value="owned" selected>🟢 Only Owned Roster</option>
                             <option value="all">🌐 Full Database (All Fighters)</option>
                         </select>
                     </div>
                     <div>
                         <label style="display: block; font-size: 0.78rem; font-weight: 600; color: #8b949e; margin-bottom: 6px; letter-spacing: 0.5px;">2. COMPOSITION RULE</label>
-                        <select id="randomRuleSelect" style="width: 100%; font-size: 0.9rem; padding: 7px 10px; background: #0d1117; color: white; border: 1px solid #30363d; border-radius: 6px;">
+                        <select id="randomRuleSelect" onchange="onRandomRuleChange()" style="width: 100%; font-size: 0.9rem; padding: 7px 10px; background: #0d1117; color: white; border: 1px solid #30363d; border-radius: 6px;">
                             <option value="chaos" selected>🎲 Pure Chaos (100% Random)</option>
                             <option value="mono_element">⚡ Mono-Element (Same Element)</option>
                             <option value="mono_char">🎭 Mono-Character (Same Fighter)</option>
@@ -31249,6 +31249,11 @@
                             <option value="Rift Offense">Rift Offense</option>
                             <option value="Rift Defense">Rift Defense</option>
                             <option value="Parallel Realms">Parallel Realms</option>
+                        </select>
+                    </div>
+                    <div id="randomSubFilterGroup" style="display: none;">
+                        <label id="randomSubFilterLabel" style="display: block; font-size: 0.78rem; font-weight: 600; color: #a371f7; margin-bottom: 6px; letter-spacing: 0.5px;">4. SELECT TARGET</label>
+                        <select id="randomSubFilterSelect" style="width: 100%; font-size: 0.9rem; padding: 7px 10px; background: #0d1117; color: #d2a8ff; border: 1px solid #a371f7; border-radius: 6px;">
                         </select>
                     </div>
                 </div>

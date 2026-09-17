@@ -2519,12 +2519,63 @@ function generateDynamicTeamName(fighters, ruleMode) {
 function openRandomTeamModal() {
     document.getElementById('randomTeamModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    onRandomRuleChange();
     rollSmartRandomTeam();
 }
 
 function closeRandomTeamModal() {
     document.getElementById('randomTeamModal').style.display = 'none';
     document.body.style.overflow = '';
+}
+
+function onRandomRuleChange() {
+    const ruleSelect = document.getElementById('randomRuleSelect');
+    if (!ruleSelect) return;
+    const rule = ruleSelect.value;
+
+    const subGroup = document.getElementById('randomSubFilterGroup');
+    const subLabel = document.getElementById('randomSubFilterLabel');
+    const subSelect = document.getElementById('randomSubFilterSelect');
+    if (!subGroup || !subSelect) return;
+
+    const pool = document.getElementById('randomPoolSelect') ? document.getElementById('randomPoolSelect').value : 'owned';
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    let candidateCards = allCards;
+    if (pool === 'owned') {
+        candidateCards = candidateCards.filter(c => c.dataset.unlocked === 'true');
+    }
+
+    if (rule === 'mono_element') {
+        subGroup.style.display = 'block';
+        subLabel.innerText = '4. SELECT ELEMENT';
+        subSelect.innerHTML = `
+            <option value="random" selected>🎲 Any / Random Element</option>
+            <option value="Fire">🔥 Fire</option>
+            <option value="Water">💧 Water</option>
+            <option value="Air">💨 Air</option>
+            <option value="Light">✨ Light</option>
+            <option value="Dark">🌙 Dark</option>
+        `;
+    } else if (rule === 'mono_char') {
+        subGroup.style.display = 'block';
+        subLabel.innerText = '4. SELECT FIGHTER BASE';
+
+        const charsSet = new Set();
+        candidateCards.forEach(c => {
+            const ch = c.dataset.char;
+            if (ch) charsSet.add(ch);
+        });
+        const sortedChars = Array.from(charsSet).sort();
+
+        let optionsHtml = `<option value="random" selected>🎲 Any / Random Fighter</option>`;
+        sortedChars.forEach(ch => {
+            optionsHtml += `<option value="${ch}">🎭 ${ch}</option>`;
+        });
+        subSelect.innerHTML = optionsHtml;
+    } else {
+        subGroup.style.display = 'none';
+        subSelect.innerHTML = '';
+    }
 }
 
 function rollSmartRandomTeam() {
@@ -2551,24 +2602,36 @@ function rollSmartRandomTeam() {
     let pickedNames = [];
 
     if (rule === 'mono_element') {
-        const elemCounts = {};
-        candidateCards.forEach(c => {
-            const el = c.dataset.element;
-            if (el) elemCounts[el] = (elemCounts[el] || 0) + 1;
-        });
-        const validElems = Object.keys(elemCounts).filter(el => elemCounts[el] >= 1);
-        const chosenElem = validElems.length ? validElems[Math.floor(Math.random() * validElems.length)] : null;
+        const subSelect = document.getElementById('randomSubFilterSelect');
+        const subVal = subSelect ? subSelect.value : 'random';
+        let chosenElem = (subVal && subVal !== 'random') ? subVal : null;
+
+        if (!chosenElem) {
+            const elemCounts = {};
+            candidateCards.forEach(c => {
+                const el = c.dataset.element;
+                if (el) elemCounts[el] = (elemCounts[el] || 0) + 1;
+            });
+            const validElems = Object.keys(elemCounts).filter(el => elemCounts[el] >= 1);
+            chosenElem = validElems.length ? validElems[Math.floor(Math.random() * validElems.length)] : null;
+        }
         
         let poolForElem = chosenElem ? candidateCards.filter(c => c.dataset.element === chosenElem) : candidateCards;
         pickedNames = pickRandomUnique(poolForElem, 3);
     } else if (rule === 'mono_char') {
-        const charCounts = {};
-        candidateCards.forEach(c => {
-            const ch = c.dataset.char;
-            if (ch) charCounts[ch] = (charCounts[ch] || 0) + 1;
-        });
-        const validChars = Object.keys(charCounts).filter(ch => charCounts[ch] >= 1);
-        const chosenChar = validChars.length ? validChars[Math.floor(Math.random() * validChars.length)] : null;
+        const subSelect = document.getElementById('randomSubFilterSelect');
+        const subVal = subSelect ? subSelect.value : 'random';
+        let chosenChar = (subVal && subVal !== 'random') ? subVal : null;
+
+        if (!chosenChar) {
+            const charCounts = {};
+            candidateCards.forEach(c => {
+                const ch = c.dataset.char;
+                if (ch) charCounts[ch] = (charCounts[ch] || 0) + 1;
+            });
+            const validChars = Object.keys(charCounts).filter(ch => charCounts[ch] >= 1);
+            chosenChar = validChars.length ? validChars[Math.floor(Math.random() * validChars.length)] : null;
+        }
 
         let poolForChar = chosenChar ? candidateCards.filter(c => c.dataset.char === chosenChar) : candidateCards;
         pickedNames = pickRandomUnique(poolForChar, 3);
