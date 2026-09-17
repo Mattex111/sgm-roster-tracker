@@ -1977,6 +1977,10 @@ mark.effect-highlight {
 
     /* Team Builder & Wishlist Popovers Mobile Adjustment for Soft Keyboard */
     #teamFighterPicker, #wishlistPicker {
+        display: none;
+    }
+    #teamFighterPicker.show, #wishlistPicker.show {
+        display: flex !important;
         position: fixed !important;
         top: 10px !important;
         left: 10px !important;
@@ -1986,7 +1990,6 @@ mark.effect-highlight {
         height: auto !important;
         bottom: auto !important;
         z-index: 10005 !important;
-        display: flex !important;
         flex-direction: column !important;
         background: #161b22 !important;
         border: 1px solid #388bfd !important;
@@ -2003,4 +2006,5 @@ mark.effect-highlight {
     }
 }
 }
+
 

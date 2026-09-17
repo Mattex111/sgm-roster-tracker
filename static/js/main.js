@@ -1405,7 +1405,10 @@ function openWishlistModal() {
     closeExportTeamsModal();
     closeMobileFilterDrawer();
     const tfPicker = document.getElementById('teamFighterPicker');
-    if (tfPicker) tfPicker.style.display = 'none';
+    if (tfPicker) {
+        tfPicker.classList.remove('show');
+        tfPicker.style.display = 'none';
+    }
 
     document.getElementById('wishlistModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -1418,7 +1421,11 @@ function openWishlistModal() {
 
 function closeWishlistModal() {
     document.getElementById('wishlistModal').style.display = 'none';
-    document.getElementById('wishlistPicker').style.display = 'none';
+    const wlPicker = document.getElementById('wishlistPicker');
+    if (wlPicker) {
+        wlPicker.classList.remove('show');
+        wlPicker.style.display = 'none';
+    }
     document.body.style.overflow = '';
 }
 
@@ -1476,6 +1483,7 @@ function openWishlistPicker(event, tier, index) {
 
     picker.style.top = `${top}px`;
     picker.style.left = `${left}px`;
+    picker.classList.add('show');
     picker.style.display = 'block';
     
     const searchInput = document.getElementById('wishlistSearch');
@@ -1574,7 +1582,11 @@ function filterWishlistPicker() {
             if (activePickerTier === 'Gold') wishlistGolds[activePickerIndex] = name;
             if (activePickerTier === 'Diamond') wishlistDiamonds[activePickerIndex] = name;
             
-            document.getElementById('wishlistPicker').style.display = 'none';
+            const picker = document.getElementById('wishlistPicker');
+            if (picker) {
+                picker.classList.remove('show');
+                picker.style.display = 'none';
+            }
             saveWishlist();
         };
         results.appendChild(div);
@@ -1592,18 +1604,27 @@ function removeFromWishlist(tier, index) {
 }
 
 function saveWishlist() {
+    localStorage.setItem('sgm_wishlist', JSON.stringify({ golds: wishlistGolds, diamonds: wishlistDiamonds }));
+    renderWishlistSlots();
+
     fetch('/update_wishlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ golds: wishlistGolds, diamonds: wishlistDiamonds })
-    }).then(() => renderWishlistSlots());
+    }).catch(() => {});
 }
 
 // Close picker when clicking outside
 document.addEventListener('click', (e) => {
-    const picker = document.getElementById('wishlistPicker');
-    if (picker && picker.style.display === 'block' && !e.target.closest('.wishlist-slot') && !e.target.closest('#wishlistPicker')) {
-        picker.style.display = 'none';
+    const wlPicker = document.getElementById('wishlistPicker');
+    if (wlPicker && (wlPicker.classList.contains('show') || wlPicker.style.display === 'block') && !e.target.closest('.wishlist-slot') && !e.target.closest('#wishlistPicker')) {
+        wlPicker.classList.remove('show');
+        wlPicker.style.display = 'none';
+    }
+    const tfPicker = document.getElementById('teamFighterPicker');
+    if (tfPicker && (tfPicker.classList.contains('show') || tfPicker.style.display === 'block') && !e.target.closest('.team-slot-builder') && !e.target.closest('#teamFighterPicker')) {
+        tfPicker.classList.remove('show');
+        tfPicker.style.display = 'none';
     }
 });
 
@@ -1620,9 +1641,15 @@ function closeAllModals() {
     closeMobileFilterDrawer();
     
     const tfPicker = document.getElementById('teamFighterPicker');
-    if (tfPicker) tfPicker.style.display = 'none';
+    if (tfPicker) {
+        tfPicker.classList.remove('show');
+        tfPicker.style.display = 'none';
+    }
     const wlPicker = document.getElementById('wishlistPicker');
-    if (wlPicker) wlPicker.style.display = 'none';
+    if (wlPicker) {
+        wlPicker.classList.remove('show');
+        wlPicker.style.display = 'none';
+    }
 }
 
 function switchView(viewName) {
@@ -1896,7 +1923,11 @@ function openEditTeamModal(teamId) {
 
 function closeTeamEditorModal() {
     document.getElementById('teamEditorModal').style.display = 'none';
-    document.getElementById('teamFighterPicker').style.display = 'none';
+    const tfPicker = document.getElementById('teamFighterPicker');
+    if (tfPicker) {
+        tfPicker.classList.remove('show');
+        tfPicker.style.display = 'none';
+    }
     document.body.style.overflow = '';
 }
 
@@ -1994,11 +2025,14 @@ function deleteTeam(teamId) {
 }
 
 function saveTeamsToServer() {
+    localStorage.setItem('sgm_custom_teams', JSON.stringify(teamsState));
+    renderTeams();
+
     fetch('/update_teams', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ teams: teamsState })
-    }).then(() => renderTeams());
+    }).catch(() => {});
 }
 
 function openTeamFighterPicker(slotIndex, event) {
@@ -2017,6 +2051,7 @@ function openTeamFighterPicker(slotIndex, event) {
 
     picker.style.top = `${top}px`;
     picker.style.left = `${left}px`;
+    picker.classList.add('show');
     picker.style.display = 'block';
     
     const searchInput = document.getElementById('teamFighterSearch');
@@ -2120,7 +2155,11 @@ function filterTeamFighterPicker() {
             e.stopPropagation();
             if (isAlreadyInTeam) return;
             draftTeamFighters[activeTeamPickerSlot] = name;
-            document.getElementById('teamFighterPicker').style.display = 'none';
+            const tfPicker = document.getElementById('teamFighterPicker');
+            if (tfPicker) {
+                tfPicker.classList.remove('show');
+                tfPicker.style.display = 'none';
+            }
             updateTeamSlotBuilders();
             updateSynergyPreview();
         };

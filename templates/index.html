@@ -577,6 +577,10 @@
 
     <!-- Team Fighter Picker Popover -->
     <div id="teamFighterPicker">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-weight: 600; font-size: 0.88rem; color: #58a6ff;">Select Fighter for Team</span>
+            <button onclick="const p=document.getElementById('teamFighterPicker'); if(p){p.classList.remove('show'); p.style.display='none';}" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.1rem; padding: 0 4px;">✕</button>
+        </div>
         <input type="text" id="teamFighterSearch" placeholder="Search fighter or character..." oninput="filterTeamFighterPicker()" style="width:100%; margin-bottom:8px; padding:6px 10px; background:#0d1117; color:white; border:1px solid #30363d; border-radius:6px; font-size: 0.88rem; box-sizing: border-box;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 0.8rem; color: #8b949e;">
             <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
