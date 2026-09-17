@@ -1,6 +1,6 @@
 # Skullgirls Mobile - Roster & Ability Tracker (v2.0.0 - Mobile PWA Edition)
 
-An advanced offline-first web application and Progressive Web App (PWA) designed for Skullgirls Mobile players to track their variant collection, build custom teams with live synergy analysis, manage wishlists, inspect fighter kits and official Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
+An advanced offline-first web application and Progressive Web App (PWA) designed for Skullgirls Mobile players to track their variant collection, build custom teams with live synergy analysis, manage wishlists, inspect fighter kits and Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
 
 ![Dashboard Preview](examples/1.png)
 
@@ -36,7 +36,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 - **Wishlist Tracker:** Track target Gold and Diamond variants with interactive priority slots.
 - **Base Stats (Max Lvl 60):** Official Max ATK and HP stats for all 305+ variants.
 - **Full Character Kit:** Expandable details showing Character Ability (CA), Prestige Abilities (PA), and Marquee options (MA).
-- **Official Wiki Loadouts:** Integrated Stat Investments, Role & Strategy, Rift notes, and Multi-Setup Movesets scraped directly from the official Skullgirls Mobile Fandom Wiki.
+- **Wiki Loadouts:** Integrated Stat Investments, Role & Strategy, Rift notes, and Multi-Setup Movesets scraped directly from the Skullgirls Mobile Fandom Wiki.
 - **Global Text & Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with keyword highlighting.
 - **Meta Tier Ratings:** Community tier ratings across 4 modes (PF Offense, Rift Offense, Rift Defense, Parallel Realms) sourced from the [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
 - **Custom Clipboard Exporter:** Export selections in Full markdown, single-line Compact summaries, or comma-separated name lists.
@@ -106,7 +106,7 @@ No. The application is built as an offline-first Progressive Web App (PWA). Once
 `python -m venv venv` creates an isolated environment so dependencies (like Flask) do not conflict with system Python packages. Activating `venv` ensures your terminal loads those isolated packages before executing `python app.py`.
 
 ### Where does the data (stats, movesets, tier ratings) come from?
-Fighter stats, Signature Abilities, Prestige, Marquee abilities, and recommended loadouts are scraped from the official [Skullgirls Mobile Fandom Wiki](https://skullgirlsmobile.fandom.com/). Tier list rankings are sourced directly from the official [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
+Fighter stats, Signature Abilities, Prestige, Marquee abilities, and recommended loadouts are scraped from the [Skullgirls Mobile Fandom Wiki](https://skullgirlsmobile.fandom.com/). Tier list rankings are sourced directly from the [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
 
 ---
 
