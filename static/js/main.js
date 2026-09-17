@@ -1792,9 +1792,11 @@ function applyGridDensity(density) {
     if (density === '2col') {
         grid.classList.add('grid-2col');
         if (btn) btn.innerHTML = '1 Col';
+        document.querySelectorAll('.abilities-accordion').forEach(el => el.removeAttribute('open'));
     } else {
         grid.classList.remove('grid-2col');
         if (btn) btn.innerHTML = '2 Cols';
+        document.querySelectorAll('.abilities-accordion').forEach(el => el.setAttribute('open', ''));
     }
 }
 

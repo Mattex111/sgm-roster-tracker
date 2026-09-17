@@ -2232,24 +2232,45 @@ mark.effect-highlight {
         height: auto !important;
     }
 
+    .grid.grid-2col .card-head {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 2px !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .grid.grid-2col .name-label {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
     .grid.grid-2col .name-text {
         font-size: 0.88rem !important;
+        font-weight: 700 !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 100% !important;
+        display: block !important;
+        width: 100% !important;
     }
 
     .grid.grid-2col .badges {
+        display: flex !important;
         flex-wrap: wrap !important;
         gap: 2px !important;
+        width: 100% !important;
     }
 
     .grid.grid-2col .badges .tag,
     .grid.grid-2col .badges .char-tag,
     .grid.grid-2col .badges .element-tag {
-        font-size: 0.65rem !important;
+        font-size: 0.6rem !important;
         padding: 1px 4px !important;
+        border-radius: 3px !important;
+        white-space: nowrap !important;
     }
 
     .grid.grid-2col .stats-row {
