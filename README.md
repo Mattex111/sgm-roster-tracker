@@ -19,8 +19,8 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ## What's New in v2.5.0
 
-- **Smart Random Team Generator (`Random Team`):** Instantly generate tailored 3-fighter squad compositions directly from the Team Builder view with customizable rules.
-- **Smart Randomization Rules:** Choose between **Pure Chaos** (100% random), **Mono-Element** (same elemental affinity), **Mono-Character** (same character base), and **Top Tier Only** (SS / S / A+ / A ranked meta variants).
+- **Smart Random Team Generator (`🎲 Random Team`):** Instantly generate fun, dynamic, and tailored 3-fighter squad compositions directly from the Team Builder view with customizable rules.
+- **Smart Randomization Rules:** Choose between **Pure Chaos** (100% random), **Mono-Element** (same elemental affinity), **Mono-Character** (same character base), and **Top Tier Only** (SS / S / A ranked meta variants).
 - **Pool Selection:** Toggle between sampling **Only Owned Roster** (unlocked collection) vs **Full Database** (all 305+ variants).
 - **Per-Slot Reroll (`Reroll`):** Lock two fighters in a squad and reroll single individual slots in both the Random Generator Modal and the main Team Builder editor.
 - **Dynamic Contextual Naming Engine:** Infinite, thematic squad titles generated dynamically based on element types, character bases, and meta tiers (e.g., *"Infernal Vanguards"*, *"Filia Trinity"*, *"Apex Predators #42"*).
