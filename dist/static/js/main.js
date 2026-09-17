@@ -54,6 +54,8 @@ function initLocalStorageSync() {
             teamsState = JSON.parse(localTeams);
         } catch(e) {}
     }
+
+    initGridDensity();
 }
 
 function syncRosterToLocalStorage() {
@@ -1753,7 +1755,7 @@ function toggleMobileFilterDrawer() {
         } else {
             container.classList.add('show');
             overlay.classList.add('show');
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('drawer-open');
         }
     }
 }
@@ -1764,7 +1766,35 @@ function closeMobileFilterDrawer() {
     if (container && overlay) {
         container.classList.remove('show');
         overlay.classList.remove('show');
-        document.body.style.overflow = '';
+        document.body.classList.remove('drawer-open');
+    }
+}
+
+/* Grid Density Layout Switcher (1 Col vs 2 Cols) */
+function initGridDensity() {
+    const savedDensity = localStorage.getItem('sgm_grid_density') || '1col';
+    applyGridDensity(savedDensity);
+}
+
+function toggleGridDensity() {
+    const grid = document.getElementById('cardGrid');
+    const currentDensity = grid && grid.classList.contains('grid-2col') ? '2col' : '1col';
+    const newDensity = currentDensity === '1col' ? '2col' : '1col';
+    applyGridDensity(newDensity);
+    localStorage.setItem('sgm_grid_density', newDensity);
+}
+
+function applyGridDensity(density) {
+    const grid = document.getElementById('cardGrid');
+    const btn = document.getElementById('gridDensityBtn');
+    if (!grid) return;
+    
+    if (density === '2col') {
+        grid.classList.add('grid-2col');
+        if (btn) btn.innerHTML = '📱 1 Col';
+    } else {
+        grid.classList.remove('grid-2col');
+        if (btn) btn.innerHTML = '📱 2 Cols';
     }
 }
 

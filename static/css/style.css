@@ -2209,6 +2209,48 @@ mark.effect-highlight {
         color: #8b949e !important;
         margin-top: -2px !important;
     }
+
+    /* 2-Column Mobile Grid Density Layout */
+    .grid.grid-2col {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .grid.grid-2col .card {
+        padding: 8px !important;
+        gap: 6px !important;
+    }
+
+    .grid.grid-2col .card-portrait {
+        width: 36px !important;
+        height: 48px !important;
+    }
+
+    .grid.grid-2col .variant-title {
+        font-size: 0.88rem !important;
+    }
+
+    .grid.grid-2col .stats-row {
+        font-size: 0.7rem !important;
+        gap: 4px !important;
+    }
+
+    .grid.grid-2col .sa-box {
+        font-size: 0.7rem !important;
+        padding: 4px 6px !important;
+        line-height: 1.25 !important;
+    }
+
+    .grid.grid-2col .inspect-btn {
+        padding: 4px 6px !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+/* Prevent body scroll when mobile drawer or modal is open */
+body.drawer-open {
+    overflow: hidden !important;
+    touch-action: none !important;
 }
 
 /* Mobile Touch Landscape Optimization (Only for touch devices in landscape) */
