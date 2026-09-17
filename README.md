@@ -85,5 +85,14 @@ python3 scrape.py
 * Sync base character kits (Prestige & Marquee):
 ```bash
 python3 scrape_base_abilities.py
-
 ```
+
+## Frequently Asked Questions (FAQ)
+
+### ❓ How do I update to the latest version? Will I lose my saved roster or teams?
+**Your saved data is completely safe!** 
+- **If using Git:** Open `cmd` in your project folder and run `git pull`.
+- **If using ZIP download:** Download the latest ZIP from GitHub and extract/overwrite the files in your folder. Your saved collection (`my_roster.json`) and custom teams (`my_teams.json`) are created locally on your PC and are not included in the GitHub repository, so updating will **never** erase your progress.
+
+### 📱 Is there a Mobile version available?
+The app runs locally on PC web browsers. Full mobile responsive UI optimization is currently in active development!
