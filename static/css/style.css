@@ -1842,12 +1842,7 @@ mark.effect-highlight {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 6px !important;
         width: 100% !important;
-        position: sticky !important;
-        top: 0 !important;
-        z-index: 20 !important;
-        background: #161b22 !important;
-        padding: 6px 0 !important;
-        border-bottom: 1px solid #30363d !important;
+        position: static !important;
     }
 
     .m-tab-btn {
@@ -1965,24 +1960,39 @@ mark.effect-highlight {
 
     /* Touch Bottom Sheet for Modals */
     .modal-overlay, .fighter-modal-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 58px !important;
+        height: auto !important;
         z-index: 10000 !important;
-        align-items: flex-end !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 12px 8px 30px 8px !important;
+        box-sizing: border-box !important;
     }
 
     .fighter-modal, .modal {
-        width: calc(100% - 16px) !important;
+        width: 100% !important;
         max-width: 100% !important;
-        margin: 0 8px !important;
-        border-radius: 16px 16px 16px 16px !important;
-        max-height: calc(100vh - 130px) !important;
-        position: fixed !important;
-        bottom: 58px !important;
-        left: 0 !important;
-        right: 0 !important;
-        overflow-y: auto !important;
+        margin: auto 0 0 0 !important;
+        border-radius: 16px !important;
+        max-height: none !important;
+        height: auto !important;
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        overflow: visible !important;
         z-index: 10001 !important;
         box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.85) !important;
         box-sizing: border-box !important;
+        padding-bottom: 28px !important;
     }
 
     /* Sticky Action Footer inside Modals on Mobile */
