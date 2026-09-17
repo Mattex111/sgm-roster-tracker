@@ -81,6 +81,23 @@ An advanced offline web tool designed for Skullgirls Mobile players to track the
     ```
     Open http://localhost:5000 in your browser.
 
+---
+
+### 🔄 Running the App Again (Subsequent Uses)
+
+Once the initial setup is complete, you **do not** need to create the virtual environment or run `pip install` again. Whenever you close your terminal or restart your PC, simply open `cmd` in the folder and run:
+
+- **Windows:**
+  ```cmd
+  venv\Scripts\activate
+  python app.py
+  ```
+- **Linux / macOS:**
+  ```bash
+  source venv/bin/activate
+  python3 app.py
+  ```
+
 ## Data Sync (Optional)
 
 The repository includes pre-scraped datasets (`sgm_database.json` and `base_abilities.json`). To pull official balance updates or newly released fighters from the wiki:
@@ -88,9 +105,7 @@ The repository includes pre-scraped datasets (`sgm_database.json` and `base_abil
 * Sync variant stats and tier ratings:
 ```bash
 python3 scrape.py
-
 ```
-
 
 *(Pass `--force` to re-download all pages from scratch).*
 * Sync base character kits (Prestige & Marquee):
@@ -104,6 +119,10 @@ python3 scrape_base_abilities.py
 **Your saved data is completely safe!** 
 - **If using Git:** Open `cmd` in your project folder and run `git pull`.
 - **If using ZIP download:** Download the latest ZIP from GitHub and extract/overwrite the files in your folder. Your saved collection (`my_roster.json`) and custom teams (`my_teams.json`) are created locally on your PC and are not included in the GitHub repository, so updating will **never** erase your progress.
+
+### ❓ Why do I need to activate `venv` every time I use the app?
+- **What `venv` does:** `python -m venv venv` creates a **Virtual Environment** (a self-contained sandbox folder named `venv`). This ensures the app's packages (like Flask) stay isolated and don't conflict with your main system Python.
+- **Why reactivate every time:** When you close your Command Prompt or terminal window, your system forgets the active sandbox session. Running `venv\Scripts\activate` (or `source venv/bin/activate`) tells your terminal: *"Hey, turn the sandbox back on!"* so Python can access its installed dependencies before launching `python app.py`.
 
 ### 📱 Is there a Mobile version available?
 The app runs locally on PC web browsers. Full mobile responsive UI optimization is currently in active development!
