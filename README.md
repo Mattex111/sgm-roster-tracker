@@ -47,7 +47,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ## Screenshots
 
-<img src="examples/1.png" width="280" alt="Roster Tracker"> <img src="examples/2.png" width="280" alt="Export Modal"> <img src="examples/3.png" width="280" alt="Team Builder"> <img src="examples/4.png" width="280" alt="Inspect Build"> <img src="examples/5.png" width="280" alt="Inspect Strategy"> <img src="examples/MobileView.png" width="280" alt="MobileView">
+<img src="examples/1.png" width="280" alt="Roster Tracker"> <img src="examples/2.png" width="280" alt="Export Modal"> <img src="examples/3.png" width="280" alt="Team Builder"> <img src="examples/4.png" width="280" alt="Inspect Build"> <img src="examples/5.png" width="280" alt="Inspect Strategy"> <img src="examples/6.png" width="280" alt="Team Building"> <img src="examples/MobileView.jpeg" width="280" alt="MobileView">
 
 ---
 
