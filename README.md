@@ -26,13 +26,24 @@ An advanced offline web tool designed for Skullgirls Mobile players to track the
 
 ## Setup & Run
 
+### Prerequisites
+
+1. **Python (3.8 or higher):** Download from [python.org](https://www.python.org/downloads/).
+   - ⚠️ **Windows Users:** During installation, check the box that says **"Add python.exe to PATH"** at the bottom of the installer!
+2. **Git (Optional):** Download from [git-scm.com](https://git-scm.com/downloads). *If you prefer not to install Git, you can simply click the green **Code** button at the top of this repository and select **Download ZIP**.*
+
+---
+
 ### For Windows Users
 
-1. **Clone the repository & enter the folder:**
-   ```cmd
-   git clone https://github.com/Mattex111/sgm-roster-tracker.git
-   cd sgm-roster-tracker
-   ```
+1. **Get the project & open the folder:**
+   - **Option A (Using Git):**
+     ```cmd
+     git clone https://github.com/Mattex111/sgm-roster-tracker.git
+     cd sgm-roster-tracker
+     ```
+   - **Option B (Without Git):** Extract the downloaded ZIP file, open the folder, click on the File Explorer address bar at the top, type `cmd`, and press **Enter**.
+
 2. **Create and activate the virtual environment:**
     ```cmd
     python -m venv venv
