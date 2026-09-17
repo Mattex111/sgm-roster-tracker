@@ -1834,6 +1834,7 @@ mark.effect-highlight {
 
     .modal-right-content {
         width: 100% !important;
+        overflow: visible !important;
     }
 
     .modal-tabs {
@@ -1841,6 +1842,12 @@ mark.effect-highlight {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 6px !important;
         width: 100% !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 20 !important;
+        background: #161b22 !important;
+        padding: 6px 0 !important;
+        border-bottom: 1px solid #30363d !important;
     }
 
     .m-tab-btn {
@@ -1849,6 +1856,22 @@ mark.effect-highlight {
         text-align: center !important;
         font-size: 0.78rem !important;
         padding: 8px 4px !important;
+    }
+
+    .m-tab-pane {
+        max-height: none !important;
+        overflow-y: visible !important;
+        padding-right: 0 !important;
+    }
+
+    .modal-ratings-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+    }
+
+    .modal-rate-item {
+        padding: 6px 8px !important;
     }
 
     .ratings-row {
