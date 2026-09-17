@@ -1,10 +1,10 @@
-const CACHE_NAME = 'sgm-tracker-v3.2';
+const CACHE_NAME = 'sgm-tracker-v3.3';
 const STATIC_ASSETS = [
   './',
-  'css/style.css?v=3.2.0',
-  'js/main.js?v=3.2.0',
-  'manifest.json',
-  'icons/icon.svg'
+  'static/css/style.css?v=3.2.0',
+  'static/js/main.js?v=3.2.0',
+  'static/manifest.json',
+  'static/icons/icon.svg'
 ];
 
 // Install Event: Pre-cache core static assets
