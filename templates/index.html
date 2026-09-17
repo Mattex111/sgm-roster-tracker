@@ -278,11 +278,11 @@
 
     <!-- Team Builder View Panel -->
     <div id="teamsView" class="view-panel">
-        <div class="header" style="justify-content: space-between;">
-            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-                <button class="btn-primary" onclick="openCreateTeamModal()">Create Team</button>
-                <button class="btn-green" onclick="openExportTeamsModal()">Export Teams</button>
-                <select id="teamModeFilter" onchange="renderTeams()">
+        <div class="teams-header-bar">
+            <div class="teams-controls-group">
+                <button class="btn-primary btn-create-team" onclick="openCreateTeamModal()">➕ Create Team</button>
+                <button class="btn-green btn-export-teams" onclick="openExportTeamsModal()">📥 Export Teams</button>
+                <select id="teamModeFilter" onchange="renderTeams()" class="teams-mode-select">
                     <option value="">All Modes</option>
                     <option value="Prize Fight">Prize Fight</option>
                     <option value="Rift Offense">Rift Offense</option>
@@ -290,7 +290,7 @@
                     <option value="Parallel Realms">Parallel Realms</option>
                 </select>
             </div>
-            <div class="counter">Total Teams: <span id="teamCount">0</span></div>
+            <div class="counter teams-counter">Total Teams: <span id="teamCount">0</span></div>
         </div>
 
         <div class="teams-container" id="teamsGrid">

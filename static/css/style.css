@@ -97,6 +97,36 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
+/* Teams View Header Controls Bar */
+.teams-header-bar {
+    position: sticky;
+    top: 0;
+    background: #161b22;
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    z-index: 100;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin-bottom: 16px;
+}
+
+.teams-controls-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.teams-counter {
+    white-space: nowrap;
+    font-weight: 600;
+}
+
 /* Form Inputs & Select Controls */
 input[type="text"] {
     padding: 8px 12px;
@@ -2137,6 +2167,47 @@ mark.effect-highlight {
         max-height: 45vh !important;
         overflow-y: auto !important;
         flex: 1 !important;
+    }
+
+    /* Teams View Header Controls Bar Mobile Responsive Layout */
+    .teams-header-bar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 10px 12px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .teams-controls-group {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+
+    .teams-controls-group .btn-create-team,
+    .teams-controls-group .btn-export-teams {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 9px 8px !important;
+        font-size: 0.85rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .teams-controls-group .teams-mode-select {
+        grid-column: span 2 !important;
+        width: 100% !important;
+        font-size: 0.88rem !important;
+        padding: 8px 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    .teams-counter {
+        text-align: right !important;
+        font-size: 0.82rem !important;
+        color: #8b949e !important;
+        margin-top: -2px !important;
     }
 }
 
