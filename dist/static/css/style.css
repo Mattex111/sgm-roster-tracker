@@ -1435,6 +1435,7 @@ mark.effect-highlight {
     z-index: 2100;
     width: 310px;
     display: none;
+    flex-direction: column;
     padding: 12px;
     box-sizing: border-box;
 }
@@ -1487,7 +1488,7 @@ mark.effect-highlight {
     display: none;
 }
 
-@media (max-width: 900px), (max-height: 600px) {
+@media (max-width: 768px), (pointer: coarse) and (max-width: 950px) {
     body {
         padding: 10px 10px calc(80px + env(safe-area-inset-bottom, 0px)) 10px !important;
         font-size: 14px;
@@ -2076,8 +2077,8 @@ mark.effect-highlight {
     }
 }
 
-/* Mobile Landscape Optimization (Short height viewports <= 600px) */
-@media (max-height: 600px) {
+/* Mobile Touch Landscape Optimization (Only for touch devices with coarse pointer) */
+@media (pointer: coarse) and (orientation: landscape), (pointer: coarse) and (max-height: 600px) {
     body {
         padding-bottom: 10px !important;
     }
