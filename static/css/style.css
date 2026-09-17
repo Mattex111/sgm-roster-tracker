@@ -53,6 +53,17 @@ body {
     border-color: #30363d;
 }
 
+.btn-backup-nav {
+    background: rgba(88, 166, 255, 0.1);
+    color: #58a6ff;
+    border: 1px solid rgba(88, 166, 255, 0.3);
+}
+.btn-backup-nav:hover {
+    background: rgba(88, 166, 255, 0.2);
+    border-color: #58a6ff;
+    color: #ffffff;
+}
+
 .view-panel {
     display: none;
 }
@@ -136,6 +147,30 @@ button {
 .btn-undo:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+}
+
+.btn-reset-filters {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #f85149;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-reset-filters:hover {
+    background: rgba(248, 81, 73, 0.15);
+    border-color: #f85149;
+    color: #ff7b72;
+}
+.btn-reset-filters.btn-sm {
+    padding: 4px 10px;
+    font-size: 0.8rem;
 }
 
 /* Toggles & Counter Header Widgets */
@@ -636,6 +671,46 @@ mark.effect-highlight {
 .modal-close-btn:hover {
     background: #30363d;
     color: #fff;
+}
+
+.modal-back-btn {
+    position: absolute;
+    top: 18px;
+    right: 60px;
+    background: #21262d;
+    border: 1px solid #388bfd;
+    color: #58a6ff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+.modal-back-btn:hover {
+    background: #1f6feb;
+    color: #ffffff;
+    border-color: #58a6ff;
+    box-shadow: 0 0 10px rgba(56, 139, 253, 0.4);
+}
+
+.featured-owner-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #a371f7;
+    background: rgba(163, 113, 247, 0.12);
+    border: 1px solid rgba(163, 113, 247, 0.3);
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-right: 6px;
+    white-space: nowrap;
 }
 
 .modal-body-layout {
@@ -1414,7 +1489,7 @@ mark.effect-highlight {
 
 @media (max-width: 768px) {
     body {
-        padding: 10px 10px 75px 10px;
+        padding: 10px 10px calc(80px + env(safe-area-inset-bottom, 0px)) 10px !important;
         font-size: 14px;
         -webkit-tap-highlight-color: transparent;
     }
@@ -1808,13 +1883,16 @@ mark.effect-highlight {
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        height: 56px !important;
-        background: #0d1117 !important;
+        height: 60px !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        background: rgba(13, 17, 23, 0.96) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
         border-top: 1px solid #30363d !important;
-        z-index: 9900 !important;
+        z-index: 99999 !important;
         justify-content: space-around !important;
         align-items: center !important;
-        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.7);
     }
 
     .mobile-nav-item {

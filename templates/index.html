@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#161b22">
     <title>SGM Roster Tracker</title>
+    <!-- PWA Web App Manifest & Apple Touch Icon -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -12,6 +16,7 @@
     <nav class="main-nav">
         <button class="nav-tab active" id="tabRoster" onclick="switchView('roster')">Roster Tracker</button>
         <button class="nav-tab" id="tabTeams" onclick="switchView('teams')">Team Builder</button>
+        <button class="nav-tab btn-backup-nav" onclick="openBackupModal()" style="margin-left: auto;">💾 Backup / Restore</button>
     </nav>
 
     <!-- Mobile Header Bar (Visible on mobile < 768px) -->
@@ -24,6 +29,7 @@
             <button class="mobile-filter-btn" id="mobileFilterBtn" onclick="toggleMobileFilterDrawer()">
                 ⚡ Filters <span class="mobile-filter-badge" id="mobileFilterBadge" style="display:none;">0</span>
             </button>
+            <button class="btn-secondary btn-sm" onclick="openBackupModal()" title="Backup & Restore Data">💾</button>
             <button class="btn-green btn-sm" onclick="triggerExport()" title="Export">📤</button>
             <button class="btn-primary btn-sm" id="mobileWishlistBtn" onclick="openWishlistModal()" title="Manage Wishlist">⭐</button>
         </div>
@@ -38,7 +44,10 @@
         <div class="header-container" id="headerContainer">
             <div class="mobile-drawer-header">
                 <span>⚡ Filters & Sorting</span>
-                <button class="mobile-drawer-close" onclick="closeMobileFilterDrawer()">✕</button>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button class="btn-reset-filters btn-sm" onclick="resetAllFilters()" title="Reset all filters">🔄 Reset</button>
+                    <button class="mobile-drawer-close" onclick="closeMobileFilterDrawer()">✕</button>
+                </div>
             </div>
             <div class="header">
                 <input type="text" id="search" placeholder="Search variant or text..." oninput="filterAndSortCards()">
@@ -134,6 +143,8 @@
                     <option value="2">B or better</option>
                     <option value="1">C or better</option>
                 </select>
+
+                <button class="btn-reset-filters" id="resetFiltersBtn" onclick="resetAllFilters()" title="Reset all search & filters">🔄 Reset Filters</button>
 
                 <div class="batch-actions-group">
                     <button class="btn-secondary" onclick="batchToggle(true)">Select Visible</button>
@@ -370,6 +381,7 @@
     <!-- Character Details Modal (In-Game Inspector Style) -->
     <div class="fighter-modal-overlay" id="fighterModal" onclick="closeFighterModal(event)">
         <div class="fighter-modal" id="fighterModalContent">
+            <button class="modal-back-btn" id="modalBackBtn" onclick="popFighterModalHistory()" style="display: none;" title="Back to previous character">← Back</button>
             <button class="modal-close-btn" onclick="closeFighterModalDirect()">✕</button>
 
             <div class="modal-header-info">
@@ -441,6 +453,10 @@
                             <strong>👥 Recommended Team Combinations:</strong>
                             <div id="modalTeamComps" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;"></div>
                         </div>
+                        <div class="modal-box" id="boxFeaturedTeamComps" style="display: none;">
+                            <strong>🔗 Featured In Teams (Synergy Partner):</strong>
+                            <div id="modalFeaturedTeamComps" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -470,6 +486,37 @@
             </div>
             <div class="wishlist-modal-actions" style="margin-top: 20px; display: flex; justify-content: flex-end;">
                 <button class="btn-green" onclick="closeWishlistModal()" style="min-width: 120px;">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup & Restore Data Modal -->
+    <div class="modal-overlay" id="backupModal" onclick="if(event.target === this) closeBackupModal()">
+        <div class="modal" style="max-width: 550px; position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #21262d; padding-bottom: 10px;">
+                <h3 style="margin: 0; color: #58a6ff;">💾 Backup & Restore Data</h3>
+                <button class="modal-close-btn" onclick="closeBackupModal()" style="position: static;">✕</button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">
+                    Easily backup or transfer your entire roster state (unlocked fighters, relic wishlist, and custom teams) between PC and smartphone.
+                </p>
+
+                <div class="modal-box" style="background: rgba(33, 38, 45, 0.6); padding: 14px; border-radius: 8px;">
+                    <strong style="color: #7ee787; display: block; margin-bottom: 4px;">📥 Export Backup File:</strong>
+                    <span style="font-size: 0.85rem; color: #8b949e; display: block; margin-bottom: 10px;">Download your current data as <code>sgm_tracker_backup.json</code>.</span>
+                    <button class="btn-green" onclick="exportFullBackup()" style="width: 100%;">Download Data Backup (.JSON)</button>
+                </div>
+
+                <div class="modal-box" style="background: rgba(33, 38, 45, 0.6); padding: 14px; border-radius: 8px;">
+                    <strong style="color: #58a6ff; display: block; margin-bottom: 4px;">📤 Import Backup File:</strong>
+                    <span style="font-size: 0.85rem; color: #8b949e; display: block; margin-bottom: 10px;">Restore data from a previously downloaded <code>.json</code> backup file.</span>
+                    <input type="file" id="backupFileInput" accept=".json" onchange="importFullBackup(event)" style="display: none;">
+                    <button class="btn-primary" onclick="document.getElementById('backupFileInput').click()" style="width: 100%;">Select Backup File to Import</button>
+                </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                <button class="btn-secondary" onclick="closeBackupModal()">Close</button>
             </div>
         </div>
     </div>

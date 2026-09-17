@@ -12,8 +12,61 @@ let wishlistGolds = (typeof INITIAL_WISHLIST !== 'undefined' && INITIAL_WISHLIST
 let wishlistDiamonds = (typeof INITIAL_WISHLIST !== 'undefined' && INITIAL_WISHLIST.diamonds) ? INITIAL_WISHLIST.diamonds : [];
 let teamsState = (typeof INITIAL_TEAMS !== 'undefined' && Array.isArray(INITIAL_TEAMS)) ? INITIAL_TEAMS : [];
 
+// Register Service Worker for PWA Offline Caching
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('SGM Service Worker Registered:', reg.scope))
+            .catch(err => console.log('Service Worker Registration Error:', err));
+    });
+}
+
+function initLocalStorageSync() {
+    const localRoster = localStorage.getItem('sgm_unlocked_roster');
+    if (localRoster) {
+        try {
+            const unlockedList = JSON.parse(localRoster);
+            const unlockedSet = new Set(unlockedList);
+            document.querySelectorAll('.card').forEach(card => {
+                const name = card.dataset.rawname;
+                const isUnlocked = unlockedSet.has(name);
+                card.dataset.unlocked = isUnlocked ? 'true' : 'false';
+                if (isUnlocked) card.classList.add('unlocked');
+                else card.classList.remove('unlocked');
+            });
+        } catch(e) {}
+    } else {
+        syncRosterToLocalStorage();
+    }
+
+    const localWishlist = localStorage.getItem('sgm_wishlist');
+    if (localWishlist) {
+        try {
+            const w = JSON.parse(localWishlist);
+            wishlistGolds = w.golds || wishlistGolds;
+            wishlistDiamonds = w.diamonds || wishlistDiamonds;
+        } catch(e) {}
+    }
+
+    const localTeams = localStorage.getItem('sgm_custom_teams');
+    if (localTeams) {
+        try {
+            teamsState = JSON.parse(localTeams);
+        } catch(e) {}
+    }
+}
+
+function syncRosterToLocalStorage() {
+    const unlocked = [];
+    document.querySelectorAll('.card[data-unlocked="true"]').forEach(c => {
+        if (c.dataset.rawname) unlocked.push(c.dataset.rawname);
+    });
+    localStorage.setItem('sgm_unlocked_roster', JSON.stringify(unlocked));
+}
+
 // Cache initial text for highlighting restore
 document.addEventListener('DOMContentLoaded', () => {
+    initLocalStorageSync();
     document.querySelectorAll('.desc-text, .name-text, .char-tag').forEach(el => {
         el.dataset.original = el.innerHTML;
     });
@@ -161,14 +214,15 @@ function onCardClick(event, cardElement) {
 
     saveSnapshot([{ name: name, previousState: currentState }]);
 
+    setCardState(name, newState);
+    updateCount();
+    syncRosterToLocalStorage();
+
     fetch('/toggle', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, unlocked: newState })
-    }).then(() => {
-        setCardState(name, newState);
-        updateCount();
-    });
+    }).catch(() => {});
 }
 
 /**
@@ -254,6 +308,54 @@ function createTeamFighterChip(fName) {
     return chip;
 }
 
+let modalHistoryStack = [];
+let currentInspectedRawName = null;
+
+/**
+ * Reverse lookup to find all recommended team combinations from other fighters
+ * where targetRawName is included as a team synergy partner.
+ * @param {string} targetRawName - Raw variant name.
+ * @returns {Array<Object>} List of objects containing { ownerName, teamGroup }.
+ */
+function getFeaturedInTeams(targetRawName) {
+    if (!targetRawName) return [];
+    const results = [];
+    const targetClean = targetRawName.trim().toLowerCase();
+
+    document.querySelectorAll('.card').forEach(card => {
+        const ownerRawName = card.dataset.rawname;
+        if (!ownerRawName || ownerRawName.trim().toLowerCase() === targetClean) return;
+
+        let fighter = {};
+        try { fighter = JSON.parse(card.dataset.fighter || '{}'); } catch(e) {}
+        const loadouts = fighter.loadouts || {};
+        const teamComps = loadouts.team_combinations || [];
+
+        teamComps.forEach(teamGroup => {
+            if (!Array.isArray(teamGroup)) return;
+
+            let isFeatured = false;
+            teamGroup.forEach(slotItem => {
+                const choices = Array.isArray(slotItem) ? slotItem : [slotItem];
+                choices.forEach(choice => {
+                    if (typeof choice === 'string' && choice.trim().toLowerCase() === targetClean) {
+                        isFeatured = true;
+                    }
+                });
+            });
+
+            if (isFeatured) {
+                results.push({
+                    ownerName: ownerRawName,
+                    teamGroup: teamGroup
+                });
+            }
+        });
+    });
+
+    return results;
+}
+
 /**
  * Open full In-Game Inspector Modal by raw fighter name.
  * @param {string} rawName - Raw variant name.
@@ -284,8 +386,9 @@ function openFighterModal(event, btnElement) {
 /**
  * Populate and display Inspector Modal from a card element.
  * @param {HTMLElement} card - Card DOM element.
+ * @param {boolean} [isBackNavigation=false] - Whether this call is popping from history stack.
  */
-function openFighterModalFromCard(card) {
+function openFighterModalFromCard(card, isBackNavigation = false) {
     let fighter = {};
     let baseKit = {};
     try {
@@ -294,6 +397,30 @@ function openFighterModalFromCard(card) {
     try {
         baseKit = JSON.parse(card.dataset.base || '{}');
     } catch(e) {}
+
+    const targetRawName = card.dataset.rawname || fighter.name || 'Fighter';
+    const modalEl = document.getElementById('fighterModal');
+    const isModalOpen = modalEl && modalEl.classList.contains('show');
+
+    if (isModalOpen && !isBackNavigation && currentInspectedRawName && currentInspectedRawName !== targetRawName) {
+        modalHistoryStack.push(currentInspectedRawName);
+    } else if (!isModalOpen && !isBackNavigation) {
+        modalHistoryStack = [];
+    }
+    currentInspectedRawName = targetRawName;
+
+    // Update Back Button state
+    const backBtn = document.getElementById('modalBackBtn');
+    if (backBtn) {
+        if (modalHistoryStack.length > 0) {
+            const prevName = modalHistoryStack[modalHistoryStack.length - 1];
+            backBtn.style.display = 'flex';
+            backBtn.innerHTML = `← Back (${prevName})`;
+            backBtn.title = `Back to ${prevName}`;
+        } else {
+            backBtn.style.display = 'none';
+        }
+    }
 
     document.getElementById('modalFighterName').innerText = fighter.name || card.dataset.rawname || 'Fighter';
     document.getElementById('modalFighterSub').innerText = `${fighter.character || card.dataset.char || ''} | ${fighter.tier || card.dataset.tier || ''} | ${fighter.element || card.dataset.element || ''}`;
@@ -504,7 +631,7 @@ function openFighterModalFromCard(card) {
         movesetsContainer.innerHTML = '<div style="color:#8b949e; font-size:0.88rem;">No preferred moveset specified.</div>';
     }
 
-    // Team Combinations section (dynamic show/hide with clickable chips)
+    // Team Combinations section (direct)
     const teamBox = document.getElementById('boxTeamComps');
     const teamContainer = document.getElementById('modalTeamComps');
     const teamList = loadouts.team_combinations || [];
@@ -517,7 +644,6 @@ function openFighterModalFromCard(card) {
             const teamRow = document.createElement('div');
             teamRow.className = 'modal-team-combo-row';
 
-            // Normalize: ensure each slot item is an array of fighter choices
             const slots = teamGroup.map(item => Array.isArray(item) ? item : [item]);
 
             slots.forEach((slotFighters, slotIdx) => {
@@ -552,6 +678,60 @@ function openFighterModalFromCard(card) {
         if (teamBox) teamBox.style.display = 'none';
     }
 
+    // Featured In Teams section (Synergy / Reverse lookup)
+    const featuredBox = document.getElementById('boxFeaturedTeamComps');
+    const featuredContainer = document.getElementById('modalFeaturedTeamComps');
+    const featuredList = getFeaturedInTeams(targetRawName);
+
+    if (featuredContainer) featuredContainer.innerHTML = '';
+    if (featuredList.length > 0) {
+        if (featuredBox) featuredBox.style.display = 'block';
+        featuredList.forEach(item => {
+            const teamRow = document.createElement('div');
+            teamRow.className = 'modal-team-combo-row';
+
+            const ownerBadge = document.createElement('span');
+            ownerBadge.className = 'featured-owner-label';
+            ownerBadge.innerHTML = `⭐ <strong>${item.ownerName}</strong>'s Team:`;
+            teamRow.appendChild(ownerBadge);
+
+            const slots = item.teamGroup.map(slot => Array.isArray(slot) ? slot : [slot]);
+            slots.forEach((slotFighters, slotIdx) => {
+                const slotBox = document.createElement('div');
+                slotBox.className = 'team-slot-box';
+
+                slotFighters.forEach((fName, fIdx) => {
+                    const chip = createTeamFighterChip(fName);
+                    if (fName.trim().toLowerCase() === targetRawName.trim().toLowerCase()) {
+                        chip.style.borderColor = '#a371f7';
+                        chip.style.boxShadow = '0 0 6px rgba(163, 113, 247, 0.4)';
+                    }
+                    slotBox.appendChild(chip);
+
+                    if (fIdx < slotFighters.length - 1) {
+                        const orSpan = document.createElement('span');
+                        orSpan.className = 'team-chip-or';
+                        orSpan.innerText = 'or';
+                        slotBox.appendChild(orSpan);
+                    }
+                });
+
+                teamRow.appendChild(slotBox);
+
+                if (slotIdx < slots.length - 1) {
+                    const plus = document.createElement('span');
+                    plus.className = 'team-chip-plus';
+                    plus.innerText = '+';
+                    teamRow.appendChild(plus);
+                }
+            });
+
+            if (featuredContainer) featuredContainer.appendChild(teamRow);
+        });
+    } else {
+        if (featuredBox) featuredBox.style.display = 'none';
+    }
+
     // Reset active tab to Overview ('info')
     const firstTabBtn = document.querySelector('.modal-tabs .m-tab-btn');
     if (firstTabBtn) {
@@ -575,6 +755,22 @@ function closeFighterModal(e) {
 function closeFighterModalDirect() {
     document.getElementById('fighterModal').classList.remove('show');
     document.body.style.overflow = '';
+    modalHistoryStack = [];
+    currentInspectedRawName = null;
+    const backBtn = document.getElementById('modalBackBtn');
+    if (backBtn) backBtn.style.display = 'none';
+}
+
+/**
+ * Pop previous fighter from navigation history stack and re-inspect it.
+ */
+function popFighterModalHistory() {
+    if (modalHistoryStack.length === 0) return;
+    const prevRawName = modalHistoryStack.pop();
+    const card = document.querySelector(`.card[data-rawname="${CSS.escape ? CSS.escape(prevRawName) : prevRawName}"]`) || document.querySelector(`.card[data-rawname="${prevRawName}"]`);
+    if (card) {
+        openFighterModalFromCard(card, true);
+    }
 }
 
 /**
@@ -624,14 +820,15 @@ function batchToggle(status) {
     saveSnapshot(snapshot);
 
     const names = targetCards.map(c => c.dataset.rawname);
+    names.forEach(name => setCardState(name, status));
+    updateCount();
+    syncRosterToLocalStorage();
+
     fetch('/toggle_batch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ names: names, unlocked: status })
-    }).then(() => {
-        names.forEach(name => setCardState(name, status));
-        updateCount();
-    });
+    }).catch(() => {});
 }
 
 /**
@@ -642,14 +839,15 @@ function triggerUndo() {
     const lastAction = undoStack.pop();
     updateUndoButton();
 
+    lastAction.forEach(item => setCardState(item.name, item.previousState));
+    updateCount();
+    syncRosterToLocalStorage();
+
     fetch('/apply_states', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ states: lastAction })
-    }).then(() => {
-        lastAction.forEach(item => setCardState(item.name, item.previousState));
-        updateCount();
-    });
+    }).catch(() => {});
 }
 
 // Global keydown handler for Undo shortcut (Ctrl+Z / Cmd+Z)
@@ -785,6 +983,43 @@ function applyHighlights(card, selectedEffects) {
 
         el.innerHTML = html;
     });
+}
+
+/**
+ * Reset all search inputs, dropdown filters, multi-selects, and sort options to default.
+ */
+function resetAllFilters() {
+    const searchInput = document.getElementById('search');
+    if (searchInput) searchInput.value = '';
+
+    const sortSelect = document.getElementById('sortBy');
+    if (sortSelect) sortSelect.value = 'name_asc';
+
+    document.querySelectorAll('#charDropdown input[type="checkbox"]').forEach(cb => cb.checked = false);
+    const charLabel = document.getElementById('charLabel');
+    if (charLabel) charLabel.innerText = 'All Fighters';
+
+    const elementSelect = document.getElementById('elementFilter');
+    if (elementSelect) elementSelect.value = '';
+
+    document.querySelectorAll('#tierDropdown input[type="checkbox"]').forEach(cb => cb.checked = false);
+    const tierLabel = document.getElementById('tierLabel');
+    if (tierLabel) tierLabel.innerText = 'All Tiers';
+
+    document.querySelectorAll('#modifierDropdown input[type="checkbox"]').forEach(cb => cb.checked = false);
+    const modifierLabel = document.getElementById('modifierLabel');
+    if (modifierLabel) modifierLabel.innerText = 'Modifiers (0)';
+
+    const statusSelect = document.getElementById('statusFilter');
+    if (statusSelect) statusSelect.value = '';
+
+    const modeSelect = document.getElementById('modeFilter');
+    if (modeSelect) modeSelect.value = 'any';
+
+    const rankSelect = document.getElementById('rankFilter');
+    if (rankSelect) rankSelect.value = '0';
+
+    filterAndSortCards();
 }
 
 /**
@@ -1870,3 +2105,109 @@ document.addEventListener('click', (e) => {
         picker.style.display = 'none';
     }
 });
+
+/**
+ * Open Backup & Restore Modal.
+ */
+function openBackupModal() {
+    const modal = document.getElementById('backupModal');
+    if (modal) modal.classList.add('show');
+}
+
+/**
+ * Close Backup & Restore Modal.
+ */
+function closeBackupModal() {
+    const modal = document.getElementById('backupModal');
+    if (modal) modal.classList.remove('show');
+}
+
+/**
+ * Export full user data (Roster, Wishlist, Custom Teams) as downloadable JSON backup.
+ */
+function exportFullBackup() {
+    const unlocked = [];
+    document.querySelectorAll('.card[data-unlocked="true"]').forEach(c => {
+        if (c.dataset.rawname) unlocked.push(c.dataset.rawname);
+    });
+
+    const backupData = {
+        version: "4.0",
+        exportDate: new Date().toISOString(),
+        unlockedRoster: unlocked,
+        wishlist: {
+            golds: wishlistGolds,
+            diamonds: wishlistDiamonds
+        },
+        teams: teamsState
+    };
+
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `sgm_tracker_backup_${new Date().toISOString().slice(0,10)}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+}
+
+/**
+ * Import full user data from uploaded JSON backup file.
+ * @param {Event} event - File input change event.
+ */
+function importFullBackup(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            
+            // 1. Restore Roster Unlocked State
+            if (Array.isArray(data.unlockedRoster)) {
+                const unlockedSet = new Set(data.unlockedRoster);
+                document.querySelectorAll('.card').forEach(card => {
+                    const name = card.dataset.rawname;
+                    const isUnlocked = unlockedSet.has(name);
+                    setCardState(name, isUnlocked);
+                });
+                syncRosterToLocalStorage();
+                updateCount();
+
+                // Send to backend if connected
+                fetch('/apply_states', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        states: Array.from(document.querySelectorAll('.card')).map(c => ({
+                            name: c.dataset.rawname,
+                            previousState: c.dataset.unlocked === 'true'
+                        }))
+                    })
+                }).catch(() => {});
+            }
+
+            // 2. Restore Wishlist State
+            if (data.wishlist) {
+                wishlistGolds = Array.isArray(data.wishlist.golds) ? data.wishlist.golds : [];
+                wishlistDiamonds = Array.isArray(data.wishlist.diamonds) ? data.wishlist.diamonds : [];
+                saveWishlist();
+            }
+
+            // 3. Restore Teams State
+            if (Array.isArray(data.teams)) {
+                teamsState = data.teams;
+                saveTeamsToServer();
+            }
+
+            alert('Backup data successfully imported and restored!');
+            closeBackupModal();
+            filterAndSortCards();
+        } catch (err) {
+            alert('Error parsing backup file. Please ensure it is a valid JSON backup file.');
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
