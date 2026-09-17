@@ -2576,7 +2576,7 @@ function rollSmartRandomTeam() {
         const modeAttr = getModeAttrKey(mode);
         const topPool = candidateCards.filter(c => {
             const rank = (c.dataset[modeAttr] || 'U').trim();
-            return ['S', 'A+', 'A'].includes(rank);
+            return ['SS', 'S', 'A+', 'A'].includes(rank) || (RANK_VALUES[rank] && RANK_VALUES[rank] >= 3);
         });
         const finalPool = topPool.length >= 3 ? topPool : candidateCards;
         pickedNames = pickRandomUnique(finalPool, 3);
