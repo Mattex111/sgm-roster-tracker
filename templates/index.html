@@ -9,7 +9,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.2.0">
 </head>
 <body>
     <!-- Main Top Navigation (Desktop) -->
@@ -524,7 +524,7 @@
     <div id="wishlistPicker">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
             <span style="font-weight: 600; font-size: 0.88rem; color: #58a6ff;">Select Fighter for Wishlist</span>
-            <button onclick="document.getElementById('wishlistPicker').style.display='none'" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.1rem; padding: 0 4px;">✕</button>
+            <button type="button" onclick="closeWishlistPicker(); event.stopPropagation();" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.2rem; padding: 2px 8px;">✕</button>
         </div>
         <input type="text" id="wishlistSearch" placeholder="Search variant or character..." oninput="filterWishlistPicker()" style="width:100%; margin-bottom:8px; padding:6px 10px; background:#0d1117; color:white; border:1px solid #30363d; border-radius:6px; font-size: 0.88rem; box-sizing: border-box;">
         <div id="wishlistPickerResults"></div>
@@ -579,7 +579,7 @@
     <div id="teamFighterPicker">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
             <span style="font-weight: 600; font-size: 0.88rem; color: #58a6ff;">Select Fighter for Team</span>
-            <button onclick="const p=document.getElementById('teamFighterPicker'); if(p){p.classList.remove('show'); p.style.display='none';}" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.1rem; padding: 0 4px;">✕</button>
+            <button type="button" onclick="closeTeamFighterPicker(); event.stopPropagation();" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.2rem; padding: 2px 8px;">✕</button>
         </div>
         <input type="text" id="teamFighterSearch" placeholder="Search fighter or character..." oninput="filterTeamFighterPicker()" style="width:100%; margin-bottom:8px; padding:6px 10px; background:#0d1117; color:white; border:1px solid #30363d; border-radius:6px; font-size: 0.88rem; box-sizing: border-box;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 0.8rem; color: #8b949e;">

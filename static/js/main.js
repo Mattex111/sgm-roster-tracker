@@ -1421,12 +1421,26 @@ function openWishlistModal() {
 
 function closeWishlistModal() {
     document.getElementById('wishlistModal').style.display = 'none';
-    const wlPicker = document.getElementById('wishlistPicker');
-    if (wlPicker) {
-        wlPicker.classList.remove('show');
-        wlPicker.style.display = 'none';
-    }
+    closeWishlistPicker();
     document.body.style.overflow = '';
+}
+
+function closeWishlistPicker() {
+    const picker = document.getElementById('wishlistPicker');
+    if (picker) {
+        picker.classList.remove('show');
+        picker.style.display = 'none';
+    }
+    if (document.activeElement) document.activeElement.blur();
+}
+
+function closeTeamFighterPicker() {
+    const picker = document.getElementById('teamFighterPicker');
+    if (picker) {
+        picker.classList.remove('show');
+        picker.style.display = 'none';
+    }
+    if (document.activeElement) document.activeElement.blur();
 }
 
 function renderWishlistSlots() {
@@ -1574,6 +1588,7 @@ function filterWishlistPicker() {
                     <span class="rank-badge rank-${realms}" title="Parallel Realms: ${realms}">Realms: ${realms}</span>
                 </div>
             </div>
+            <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="background: rgba(88, 166, 255, 0.1); border: 1px solid #388bfd44; color: #58a6ff; border-radius: 4px; font-size: 0.75rem; padding: 3px 6px; cursor: pointer;" title="Inspect Fighter Details">🔍</button>
             ${statusBadge}
         `;
 
@@ -1948,7 +1963,7 @@ function updateTeamSlotBuilders() {
             
             slotEl.className = 'slot-content filled';
             slotEl.innerHTML = `
-                ${img ? `<img src="${img}" style="${isUnlocked ? '' : 'filter: grayscale(35%);'}">` : ''}
+                ${img ? `<img src="${img}" style="${isUnlocked ? '' : 'filter: grayscale(35%);'} cursor: pointer;" onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" title="Click to inspect fighter">` : ''}
                 <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 2px;">
                     <div style="display: flex; align-items: center; gap: 6px; width: 100%; min-width: 0;">
                         <span style="font-weight: 600; font-size: 0.9rem; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</span>
@@ -1956,7 +1971,8 @@ function updateTeamSlotBuilders() {
                     </div>
                     ${isUnlocked ? '<span style="font-size: 0.7rem; color: #7ee787;">Unlocked</span>' : '<span style="font-size: 0.7rem; color: #8b949e;">🔒 Locked</span>'}
                 </div>
-                <button onclick="clearTeamSlot(${i}, event)" style="margin-left: auto; background: none; border: none; color: #ff7b72; font-size: 1.2rem; cursor: pointer; padding: 2px 4px; flex-shrink: 0;" title="Remove Fighter">✕</button>
+                <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="margin-left: auto; margin-right: 6px; background: rgba(88, 166, 255, 0.15); border: 1px solid #388bfd66; color: #58a6ff; font-size: 0.75rem; border-radius: 4px; padding: 3px 7px; cursor: pointer; flex-shrink: 0;" title="Inspect Fighter Kit & Stats">Inspect 🔍</button>
+                <button onclick="clearTeamSlot(${i}, event)" style="background: none; border: none; color: #ff7b72; font-size: 1.2rem; cursor: pointer; padding: 2px 4px; flex-shrink: 0;" title="Remove Fighter">✕</button>
             `;
         } else {
             slotEl.className = 'slot-content empty';
@@ -2148,6 +2164,7 @@ function filterTeamFighterPicker() {
                 </div>
             </div>
             <span class="rank-badge rank-${rank}" title="${modeLabel} Rank: ${rank}">${rank}</span>
+            <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="background: rgba(88, 166, 255, 0.1); border: 1px solid #388bfd44; color: #58a6ff; border-radius: 4px; font-size: 0.75rem; padding: 3px 6px; cursor: pointer;" title="Inspect Fighter Details">🔍</button>
             ${statusBadge}
         `;
         
