@@ -2083,25 +2083,33 @@ function openTeamFighterPicker(slotIndex, event) {
     if (event) event.stopPropagation();
     activeTeamPickerSlot = slotIndex;
     const picker = document.getElementById('teamFighterPicker');
-    const rect = event.currentTarget.getBoundingClientRect();
     
-    let top = rect.bottom + 8;
-    let left = rect.left;
-    
-    if (left + 310 > window.innerWidth) left = window.innerWidth - 320;
-    if (left < 10) left = 10;
-    if (top + 320 > window.innerHeight) top = rect.top - 320;
-    if (top < 10) top = 10;
+    if (window.innerWidth <= 900 || window.innerHeight <= 600) {
+        picker.style.top = '';
+        picker.style.left = '';
+    } else {
+        const rect = event.currentTarget.getBoundingClientRect();
+        let top = rect.bottom + 8;
+        let left = rect.left;
+        
+        if (left + 310 > window.innerWidth) left = window.innerWidth - 320;
+        if (left < 10) left = 10;
+        if (top + 320 > window.innerHeight) top = rect.top - 320;
+        if (top < 10) top = 10;
 
-    picker.style.top = `${top}px`;
-    picker.style.left = `${left}px`;
+        picker.style.top = `${top}px`;
+        picker.style.left = `${left}px`;
+    }
+
     picker.classList.add('show');
-    picker.style.display = 'block';
+    picker.style.display = 'flex';
     
     const searchInput = document.getElementById('teamFighterSearch');
-    searchInput.value = '';
-    filterTeamFighterPicker();
-    setTimeout(() => searchInput.focus(), 50);
+    if (searchInput) {
+        searchInput.value = '';
+        filterTeamFighterPicker();
+        setTimeout(() => searchInput.focus(), 80);
+    }
 }
 
 function filterTeamFighterPicker() {
