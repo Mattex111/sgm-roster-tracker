@@ -1400,8 +1400,8 @@ mark.effect-highlight {
     border: 1px solid #21262d;
     border-radius: 8px;
     padding: 12px;
-    max-height: 180px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -1853,7 +1853,7 @@ mark.effect-highlight {
         padding: 8px 4px !important;
     }
 
-    .m-tab-pane {
+    .m-tab-pane, .synergy-preview-box {
         max-height: none !important;
         overflow-y: visible !important;
         padding-right: 0 !important;

@@ -1572,6 +1572,17 @@ function filterWishlistPicker() {
             statusBadge = '<span class="picker-badge-locked">🔒 Locked</span>';
         }
 
+        const inspectBtn = document.createElement('button');
+        inspectBtn.type = 'button';
+        inspectBtn.title = 'Inspect Fighter Details';
+        inspectBtn.innerHTML = '🔍';
+        inspectBtn.style.cssText = 'background: rgba(88, 166, 255, 0.18); border: 1px solid #388bfd88; color: #58a6ff; border-radius: 6px; font-size: 0.85rem; padding: 4px 8px; cursor: pointer; flex-shrink: 0; margin: 0 4px; z-index: 5;';
+        inspectBtn.onclick = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            openFighterModalByName(name, e);
+        };
+
         const div = document.createElement('div');
         div.className = `picker-item ${!isUnlocked ? 'locked-item' : ''}`;
         div.innerHTML = `
@@ -1588,20 +1599,19 @@ function filterWishlistPicker() {
                     <span class="rank-badge rank-${realms}" title="Parallel Realms: ${realms}">Realms: ${realms}</span>
                 </div>
             </div>
-            <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="background: rgba(88, 166, 255, 0.1); border: 1px solid #388bfd44; color: #58a6ff; border-radius: 4px; font-size: 0.75rem; padding: 3px 6px; cursor: pointer;" title="Inspect Fighter Details">🔍</button>
-            ${statusBadge}
         `;
+        div.appendChild(inspectBtn);
+        const statusSpan = document.createElement('span');
+        statusSpan.innerHTML = statusBadge;
+        if (statusSpan.firstChild) div.appendChild(statusSpan.firstChild);
 
         div.onclick = (e) => {
+            if (e.target.closest('button')) return;
             e.stopPropagation();
             if (activePickerTier === 'Gold') wishlistGolds[activePickerIndex] = name;
             if (activePickerTier === 'Diamond') wishlistDiamonds[activePickerIndex] = name;
             
-            const picker = document.getElementById('wishlistPicker');
-            if (picker) {
-                picker.classList.remove('show');
-                picker.style.display = 'none';
-            }
+            closeWishlistPicker();
             saveWishlist();
         };
         results.appendChild(div);
@@ -2155,6 +2165,17 @@ function filterTeamFighterPicker() {
             statusBadge = '<span class="picker-badge-locked">🔒 Locked</span>';
         }
         
+        const inspectBtn = document.createElement('button');
+        inspectBtn.type = 'button';
+        inspectBtn.title = 'Inspect Fighter Details';
+        inspectBtn.innerHTML = '🔍 Inspect';
+        inspectBtn.style.cssText = 'background: rgba(88, 166, 255, 0.18); border: 1px solid #388bfd88; color: #58a6ff; border-radius: 6px; font-size: 0.78rem; font-weight: 600; padding: 4px 8px; cursor: pointer; flex-shrink: 0; margin: 0 4px; z-index: 5;';
+        inspectBtn.onclick = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            openFighterModalByName(name, e);
+        };
+
         div.innerHTML = `
             ${img ? `<img src="${img}" style="${!isUnlocked || isAlreadyInTeam ? 'filter: grayscale(40%);' : ''}">` : ''} 
             <div style="flex:1; display:flex; flex-direction:column; gap:1px; overflow:hidden;">
@@ -2164,19 +2185,18 @@ function filterTeamFighterPicker() {
                 </div>
             </div>
             <span class="rank-badge rank-${rank}" title="${modeLabel} Rank: ${rank}">${rank}</span>
-            <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="background: rgba(88, 166, 255, 0.1); border: 1px solid #388bfd44; color: #58a6ff; border-radius: 4px; font-size: 0.75rem; padding: 3px 6px; cursor: pointer;" title="Inspect Fighter Details">🔍</button>
-            ${statusBadge}
         `;
+        div.appendChild(inspectBtn);
+        const statusSpan = document.createElement('span');
+        statusSpan.innerHTML = statusBadge;
+        if (statusSpan.firstChild) div.appendChild(statusSpan.firstChild);
         
         div.onclick = (e) => {
+            if (e.target.closest('button')) return;
             e.stopPropagation();
             if (isAlreadyInTeam) return;
             draftTeamFighters[activeTeamPickerSlot] = name;
-            const tfPicker = document.getElementById('teamFighterPicker');
-            if (tfPicker) {
-                tfPicker.classList.remove('show');
-                tfPicker.style.display = 'none';
-            }
+            closeTeamFighterPicker();
             updateTeamSlotBuilders();
             updateSynergyPreview();
         };
