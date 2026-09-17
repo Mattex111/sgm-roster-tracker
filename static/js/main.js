@@ -1077,7 +1077,10 @@ function filterAndSortCards() {
     const cards = Array.from(document.querySelectorAll('.card'));
 
     cards.forEach(c => {
-        const matchSearch = c.dataset.search.includes(query);
+        const targetSearch = includeBaseKit
+            ? (c.dataset.search || '')
+            : (c.dataset.sasearch || (c.dataset.name + ' ' + c.dataset.char + ' ' + c.dataset.sakit).toLowerCase());
+        const matchSearch = targetSearch.includes(query);
         const matchChar = selectedChars.length === 0 || selectedChars.includes(c.dataset.char);
         const matchElem = !elem || c.dataset.element === elem;
         const matchTier = selectedTiers.length === 0 || selectedTiers.includes(c.dataset.tier);

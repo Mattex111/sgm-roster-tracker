@@ -9,7 +9,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.7.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.8.0">
 </head>
 <body>
     <!-- Main Top Navigation (Desktop) -->
@@ -158,9 +158,9 @@
                         Show Tier Ratings
                     </label>
 
-                    <label class="toggle-label" title="Include MA & PA when filtering by Buff/Debuff">
+                    <label class="toggle-label" title="Include Character Kit (CA, MA & PA) when searching or filtering by modifiers">
                         <input type="checkbox" id="includeBaseKitFilterToggle" onchange="filterAndSortCards()" checked>
-                        Include MA & PA in filter
+                        Include Kit (CA, MA, PA) in search
                     </label>
                 </div>
 
@@ -178,10 +178,12 @@
             {% set base_text = (base.character_ability.description if base.character_ability else '') + ' ' + (base.prestige.description if base.prestige else '') + ' ' + (base.marquee_options | map(attribute='description') | join(' ') if base.marquee_options else '') %}
             {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
             {% set full_kit = sa_only + ' ' + base_text %}
-            {% set searchable_content = (v.name + ' ' + v.character + ' ' + full_kit).lower() %}
+            {% set sa_searchable = (v.name + ' ' + v.character + ' ' + sa_only).lower() %}
+            {% set full_searchable = (v.name + ' ' + v.character + ' ' + full_kit).lower() %}
             <div class="card {% if v.unlocked %}unlocked{% endif %}"
                  onclick="onCardClick(event, this)"
-                 data-search="{{ searchable_content }}"
+                 data-search="{{ full_searchable }}"
+                 data-sasearch="{{ sa_searchable }}"
                  data-name="{{ v.name.lower() }}"
                  data-rawname="{{ v.name }}"
                  data-char="{{ v.character }}"
@@ -613,6 +615,6 @@
         const INITIAL_WISHLIST = {{ wishlist | tojson }};
         const INITIAL_TEAMS = {{ teams | tojson }};
     </script>
-    <script src="{{ url_for('static', filename='js/main.js') }}?v=2.7.0"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=2.8.0"></script>
 </body>
 </html>
