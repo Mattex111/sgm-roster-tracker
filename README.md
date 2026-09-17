@@ -8,7 +8,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ## Live Demo & Mobile PWA Installation
 
-**Play Online / Install on Smartphone (No PC Required):**  
+**Open Web App in Browser:**  
 [https://mattex111.github.io/sgm-roster-tracker/](https://mattex111.github.io/sgm-roster-tracker/)
 
 ### Installing to Home Screen (iOS & Android)
@@ -31,7 +31,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ## Features
 
-- **Interactive Roster Checklist:** Tap anywhere on a fighter card to mark it as owned with local storage persistence (`localStorage` in PWA & `my_roster.json` on local Python server). You can also import existing legacy JSON files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) directly into the web app.
+- **Interactive Roster Checklist:** Tap anywhere on a fighter card to mark it as owned with local storage persistence (`localStorage` in PWA & `my_roster.json` on local Python server). If you previously used the local PC desktop version, you can import your existing JSON files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) directly into the web app.
 - **Team Builder & Synergy Analyzer:** Create, save, and manage custom 3-fighter loadouts tailored for specific game modes (*Prize Fight*, *Rift Offense*, *Rift Defense*, *Parallel Realms*). Previews combined Signature Abilities (SA1 & SA2) and support synergies.
 - **Wishlist Tracker:** Track target Gold and Diamond variants with interactive priority slots.
 - **Base Stats (Max Lvl 60):** Official Max ATK and HP stats for all 305+ variants.
@@ -96,7 +96,7 @@ Once initial setup is complete, you do not need to create `venv` or run `pip ins
 
 ### How do I transfer or import my saved roster and teams between PC and phone?
 Use the **Backup & Restore** feature in the top navigation bar:
-1. **Importing Legacy Data:** Click **Select JSON File(s) to Import**. You can select your old legacy files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) or a combined backup file (`sgm_tracker_backup.json`). You can select multiple files at once.
+1. **Importing PC Desktop / Legacy Data:** Click **Select JSON File(s) to Import**. You can select your old JSON files from the PC desktop version (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) or a combined backup file (`sgm_tracker_backup.json`). You can select multiple files at once.
 2. **Exporting Backup:** Click **Download Data Backup (.JSON)** to save a single combined backup file to transfer between devices.
 
 ### Does the app require Python or an internet connection on mobile?
@@ -106,7 +106,7 @@ No. The application is built as an offline-first Progressive Web App (PWA). Once
 `python -m venv venv` creates an isolated environment so dependencies (like Flask) do not conflict with system Python packages. Activating `venv` ensures your terminal loads those isolated packages before executing `python app.py`.
 
 ### Where does the data (stats, movesets, tier ratings) come from?
-Fighter stats, Signature Abilities, Prestige, Marquee abilities, and recommended loadouts are scraped from the official [Skullgirls Mobile Fandom Wiki](https://skullgirlsmobile.fandom.com/). Tier list rankings are based on community competitive ratings across game modes.
+Fighter stats, Signature Abilities, Prestige, Marquee abilities, and recommended loadouts are scraped from the official [Skullgirls Mobile Fandom Wiki](https://skullgirlsmobile.fandom.com/). Tier list rankings are sourced directly from the official [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
 
 ---
 
