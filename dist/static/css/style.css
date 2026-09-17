@@ -2032,17 +2032,17 @@ mark.effect-highlight {
         padding-bottom: 28px !important;
     }
 
-    /* Sticky Action Footer inside Modals on Mobile */
+    /* Action Footer inside Modals on Mobile (Natural bottom flow) */
     .modal-actions {
-        position: sticky !important;
-        bottom: 0 !important;
-        background: #161b22 !important;
-        padding: 12px 0 4px 0 !important;
+        position: static !important;
+        margin-top: 18px !important;
+        padding: 12px 0 6px 0 !important;
         border-top: 1px solid #21262d !important;
-        margin-top: 16px !important;
-        z-index: 100 !important;
+        background: transparent !important;
         display: flex !important;
         gap: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     /* Team Builder & Wishlist Popovers Mobile Adjustment for Soft Keyboard */
@@ -2075,6 +2075,86 @@ mark.effect-highlight {
         flex: 1 !important;
     }
 }
+
+/* Mobile Landscape Optimization (Short height viewports <= 550px) */
+@media (max-height: 550px) {
+    body {
+        padding-bottom: 10px !important;
+    }
+
+    .modal-overlay, .fighter-modal-overlay {
+        top: 0 !important;
+        bottom: 0 !important;
+        height: 100vh !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding: 6px !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .modal, .fighter-modal {
+        margin: 0 auto !important;
+        max-width: 96vw !important;
+        width: 96vw !important;
+        border-radius: 12px !important;
+        padding: 10px 14px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Side-by-side layout in landscape inspect modal to avoid vertical cutoffs */
+    .modal-body-layout {
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+    .modal-card-img-container {
+        width: 120px !important;
+        flex-shrink: 0 !important;
+        margin: 0 !important;
+    }
+
+    .modal-right-content {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .modal-tabs {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+
+    .m-tab-btn {
+        padding: 4px 8px !important;
+        font-size: 0.72rem !important;
+    }
+
+    /* Wishlist in Landscape */
+    .wishlist-slots {
+        gap: 8px !important;
+    }
+    .wishlist-slot {
+        width: 75px !important;
+        height: 105px !important;
+    }
+
+    /* Floating Pickers in Landscape & Soft Keyboard */
+    #teamFighterPicker.show, #wishlistPicker.show {
+        top: 4px !important;
+        left: 4px !important;
+        right: 4px !important;
+        width: calc(100vw - 8px) !important;
+        max-height: calc(100vh - 8px) !important;
+        padding: 8px 10px !important;
+        position: fixed !important;
+    }
+
+    #teamFighterPickerResults, #wishlistPickerResults {
+        max-height: 38vh !important;
+        overflow-y: auto !important;
+    }
 }
 
 
