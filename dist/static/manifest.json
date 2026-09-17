@@ -1,0 +1,19 @@
+{
+  "name": "Skullgirls Mobile Roster Tracker",
+  "short_name": "SGM Tracker",
+  "description": "Mobile roster tracker, tier ratings, strategy guides, and team builder for Skullgirls Mobile.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d1117",
+  "theme_color": "#161b22",
+  "categories": ["utilities", "games"],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "512x512 192x192 128x128 64x64",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
