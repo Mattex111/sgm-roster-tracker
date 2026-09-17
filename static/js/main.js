@@ -2574,12 +2574,19 @@ function rollSmartRandomTeam() {
         pickedNames = pickRandomUnique(poolForChar, 3);
     } else if (rule === 'top_tier') {
         const modeAttr = getModeAttrKey(mode);
-        const topPool = candidateCards.filter(c => {
-            const rank = (c.dataset[modeAttr] || 'U').trim();
-            return ['SS', 'S', 'A'].includes(rank);
-        });
-        const finalPool = topPool.length >= 3 ? topPool : candidateCards;
-        pickedNames = pickRandomUnique(finalPool, 3);
+        const ssPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() === 'SS');
+        const sPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() === 'S');
+        const aPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() === 'A');
+
+        let combinedTop = [...ssPool, ...sPool, ...aPool];
+        if (ssPool.length > 0) {
+            const guaranteedSS = ssPool[Math.floor(Math.random() * ssPool.length)];
+            const remainingPool = combinedTop.filter(c => c.dataset.rawname !== guaranteedSS.dataset.rawname);
+            const others = pickRandomUnique(remainingPool, 2);
+            pickedNames = [guaranteedSS.dataset.rawname, ...others].sort(() => Math.random() - 0.5);
+        } else {
+            pickedNames = pickRandomUnique(combinedTop.length >= 3 ? combinedTop : candidateCards, 3);
+        }
     } else {
         pickedNames = pickRandomUnique(candidateCards, 3);
     }
@@ -2660,6 +2667,41 @@ function rerollRandomModalSlot(slotIndex) {
     if (randomTeamDraft.pool === 'owned') {
         candidateCards = candidateCards.filter(c => c.dataset.unlocked === 'true');
     }
+
+    if (randomTeamDraft.rule === 'top_tier') {
+        const modeAttr = getModeAttrKey(randomTeamDraft.mode);
+        const ssPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() === 'SS');
+        const sPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() === 'S');
+        const aPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() === 'A');
+
+        if (ssPool.length > 0 && Math.random() < 0.4) {
+            candidateCards = ssPool;
+        } else {
+            const topPool = [...ssPool, ...sPool, ...aPool];
+            if (topPool.length > 0) candidateCards = topPool;
+        }
+    } else if (randomTeamDraft.rule === 'mono_element') {
+        const otherCards = randomTeamDraft.fighters
+            .filter((f, idx) => idx !== slotIndex && f)
+            .map(n => allCards.find(c => c.dataset.rawname === n))
+            .filter(Boolean);
+        if (otherCards.length > 0 && otherCards[0].dataset.element) {
+            const elem = otherCards[0].dataset.element;
+            const elemPool = candidateCards.filter(c => c.dataset.element === elem);
+            if (elemPool.length > 0) candidateCards = elemPool;
+        }
+    } else if (randomTeamDraft.rule === 'mono_char') {
+        const otherCards = randomTeamDraft.fighters
+            .filter((f, idx) => idx !== slotIndex && f)
+            .map(n => allCards.find(c => c.dataset.rawname === n))
+            .filter(Boolean);
+        if (otherCards.length > 0 && otherCards[0].dataset.char) {
+            const charName = otherCards[0].dataset.char;
+            const charPool = candidateCards.filter(c => c.dataset.char === charName);
+            if (charPool.length > 0) candidateCards = charPool;
+        }
+    }
+
     const currentFighters = randomTeamDraft.fighters.filter((f, idx) => idx !== slotIndex && f);
     candidateCards = candidateCards.filter(c => !currentFighters.includes(c.dataset.rawname));
 
@@ -2679,34 +2721,16 @@ function updateRandomSynergyPreview() {
 
     const allCards = Array.from(document.querySelectorAll('.card'));
     const fighterCards = randomTeamDraft.fighters
-        .filter(n => n)
+        .filter(Boolean)
         .map(n => allCards.find(c => c.dataset.rawname === n))
-        .filter(c => c);
+        .filter(Boolean);
 
     if (fighterCards.length === 0) {
         container.innerHTML = `<p style="color: #8b949e; text-align: center; margin: 0; font-size: 0.9rem;">Roll a squad to preview combined Signature Abilities and Support effects.</p>`;
         return;
     }
 
-    let html = '';
-    fighterCards.forEach(c => {
-        let f = {};
-        try { f = JSON.parse(c.dataset.fighter || '{}'); } catch(e) {}
-        const rawName = c.dataset.rawname || f.name || 'Fighter';
-        const sa1Title = f.sa1_title || 'SA1';
-        const sa1Desc = f.sa1_desc || '';
-        const sa2Title = f.sa2_title || 'SA2';
-        const sa2Desc = f.sa2_desc || '';
-
-        html += `
-            <div style="background: rgba(13, 17, 23, 0.6); border: 1px solid #30363d; border-radius: 6px; padding: 10px; margin-bottom: 8px;">
-                <div style="font-weight: 600; color: #58a6ff; font-size: 0.88rem; margin-bottom: 4px;">${rawName}</div>
-                ${sa1Desc ? `<div style="font-size: 0.8rem; color: #c9d1d9; margin-bottom: 3px;"><strong>${sa1Title}:</strong> ${sa1Desc}</div>` : ''}
-                ${sa2Desc ? `<div style="font-size: 0.8rem; color: #c9d1d9;"><strong>${sa2Title}:</strong> ${sa2Desc}</div>` : ''}
-            </div>
-        `;
-    });
-    container.innerHTML = html;
+    container.innerHTML = generateSynergyHtml(fighterCards, randomTeamDraft.mode);
 }
 
 function saveRandomTeamDirectly() {
