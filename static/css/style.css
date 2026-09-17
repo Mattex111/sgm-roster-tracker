@@ -1433,7 +1433,7 @@ mark.effect-highlight {
     border-radius: 10px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95);
     z-index: 2100;
-    width: 310px;
+    width: 440px;
     display: none;
     flex-direction: column;
     padding: 12px;

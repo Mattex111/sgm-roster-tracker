@@ -2095,7 +2095,7 @@ function openTeamFighterPicker(slotIndex, event) {
         let top = rect.bottom + 8;
         let left = rect.left;
         
-        if (left + 310 > window.innerWidth) left = window.innerWidth - 320;
+        if (left + 440 > window.innerWidth) left = window.innerWidth - 450;
         if (left < 10) left = 10;
         if (top + 320 > window.innerHeight) top = rect.top - 320;
         if (top < 10) top = 10;
