@@ -2030,7 +2030,8 @@ function updateTeamSlotBuilders() {
                     </div>
                     ${isUnlocked ? '<span style="font-size: 0.7rem; color: #7ee787;">Unlocked</span>' : '<span style="font-size: 0.7rem; color: #8b949e;">🔒 Locked</span>'}
                 </div>
-                <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="margin-left: auto; margin-right: 6px; background: rgba(88, 166, 255, 0.15); border: 1px solid #388bfd66; color: #58a6ff; font-size: 0.75rem; border-radius: 4px; padding: 3px 7px; cursor: pointer; flex-shrink: 0;" title="Inspect Fighter Kit & Stats">Inspect 🔍</button>
+                <button onclick="rerollSingleEditorSlot(${i}, event)" class="slot-reroll-btn" style="margin-left: auto; margin-right: 6px;" title="Reroll this single fighter">🎲 Reroll</button>
+                <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="margin-right: 6px; background: rgba(88, 166, 255, 0.15); border: 1px solid #388bfd66; color: #58a6ff; font-size: 0.75rem; border-radius: 4px; padding: 3px 7px; cursor: pointer; flex-shrink: 0;" title="Inspect Fighter Kit & Stats">Inspect 🔍</button>
                 <button onclick="clearTeamSlot(${i}, event)" style="background: none; border: none; color: #ff7b72; font-size: 1.2rem; cursor: pointer; padding: 2px 4px; flex-shrink: 0;" title="Remove Fighter">✕</button>
             `;
         } else {
@@ -2432,5 +2433,365 @@ function importFullBackup(event) {
     });
 
     event.target.value = '';
+}
+
+// ==========================================
+// SMART RANDOM TEAM GENERATOR (v2.5.0)
+// ==========================================
+
+let randomTeamDraft = {
+    fighters: [null, null, null],
+    name: '',
+    mode: 'Prize Fight',
+    pool: 'owned',
+    rule: 'chaos'
+};
+
+const RANDOM_ADJECTIVES = [
+    'Shadow', 'Crimson', 'Arcane', 'Phantom', 'Obsidian', 'Apex', 'Celestial',
+    'Mythic', 'Cosmic', 'Savage', 'Titanium', 'Astral', 'Infernal', 'Glacial',
+    'Tempest', 'Eclipse', 'Solar', 'Vanguard', 'Velocity', 'Quantum', 'Nebula',
+    'Radiant', 'Starlight', 'Thunder', 'Iron', 'Golden', 'Silver', 'Prismatic',
+    'Abyssal', 'Hyperion', 'Nexus', 'Vortex'
+];
+
+const RANDOM_NOUNS = [
+    'Vanguards', 'Strikers', 'Battalion', 'Trio', 'Armada', 'Syndicate', 'Force',
+    'Alliance', 'Brigade', 'Dynasty', 'Outlaws', 'Elite', 'Squadron', 'Legion',
+    'Overlords', 'Guardians', 'Seekers', 'Titans', 'Commanders', 'Executioners',
+    'Phantoms', 'Crusaders', 'Predators', 'Knights', 'Raiders'
+];
+
+const ELEMENT_THEMES = {
+    'Fire': ['Infernal', 'Pyro', 'Volcanic', 'Ignite', 'Blazing', 'Magma', 'Crimson Flare'],
+    'Water': ['Glacial', 'Aqua', 'Torrential', 'Tidal', 'Abyssal', 'Frozen', 'Oceanic'],
+    'Air': ['Tempest', 'Zephyr', 'Gale', 'Cyclone', 'Skyward', 'Vortex', 'Stormborn'],
+    'Light': ['Solar', 'Radiant', 'Celestial', 'Luminous', 'Sunforge', 'Aureole', 'Divine'],
+    'Dark': ['Eclipse', 'Shadow', 'Obsidian', 'Void', 'Nocturnal', 'Dusk', 'Umbral']
+};
+
+function generateDynamicTeamName(fighters, ruleMode) {
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    const fighterObjs = (fighters || [])
+        .filter(n => n)
+        .map(n => {
+            const c = allCards.find(card => card.dataset.rawname === n);
+            return {
+                name: n,
+                char: c ? (c.dataset.char || '') : '',
+                element: c ? (c.dataset.element || '') : '',
+                tier: c ? (c.dataset.tier || '') : ''
+            };
+        });
+
+    if (fighterObjs.length === 0) return 'Random Squad #' + Math.floor(Math.random() * 90 + 10);
+
+    // Rule 1: Mono-Character
+    if (ruleMode === 'mono_char' && fighterObjs[0] && fighterObjs[0].char) {
+        const charName = fighterObjs[0].char;
+        const charTitles = ['Trinity', 'Triad', 'Army', 'Squad', 'Overdrive', 'Syndicate', 'Special Forces'];
+        const title = charTitles[Math.floor(Math.random() * charTitles.length)];
+        return `${charName} ${title}`;
+    }
+
+    // Rule 2: Mono-Element
+    if (ruleMode === 'mono_element' && fighterObjs[0] && fighterObjs[0].element && ELEMENT_THEMES[fighterObjs[0].element]) {
+        const elem = fighterObjs[0].element;
+        const themeList = ELEMENT_THEMES[elem];
+        const theme = themeList[Math.floor(Math.random() * themeList.length)];
+        const noun = RANDOM_NOUNS[Math.floor(Math.random() * RANDOM_NOUNS.length)];
+        return `${theme} ${noun}`;
+    }
+
+    // Rule 3: Top Tier
+    if (ruleMode === 'top_tier') {
+        const topTitles = ['Apex Predators', 'Meta Overlords', 'Diamond Syndicate', 'Prime Vanguard', 'S-Rank Elite'];
+        return topTitles[Math.floor(Math.random() * topTitles.length)] + ' #' + Math.floor(Math.random() * 90 + 10);
+    }
+
+    // Rule 4: Pure Chaos / General Combination
+    const adj = RANDOM_ADJECTIVES[Math.floor(Math.random() * RANDOM_ADJECTIVES.length)];
+    const noun = RANDOM_NOUNS[Math.floor(Math.random() * RANDOM_NOUNS.length)];
+    const num = Math.floor(Math.random() * 90 + 10);
+    return `${adj} ${noun} #${num}`;
+}
+
+function openRandomTeamModal() {
+    document.getElementById('randomTeamModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    rollSmartRandomTeam();
+}
+
+function closeRandomTeamModal() {
+    document.getElementById('randomTeamModal').style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+function rollSmartRandomTeam() {
+    const pool = document.getElementById('randomPoolSelect').value;
+    const rule = document.getElementById('randomRuleSelect').value;
+    const mode = document.getElementById('randomModeSelect').value;
+    
+    randomTeamDraft.pool = pool;
+    randomTeamDraft.rule = rule;
+    randomTeamDraft.mode = mode;
+
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    let candidateCards = allCards;
+
+    if (pool === 'owned') {
+        candidateCards = candidateCards.filter(c => c.dataset.unlocked === 'true');
+    }
+
+    if (candidateCards.length === 0) {
+        alert('No unlocked fighters found in your roster! Switch to "Full Database" pool or unlock fighters first.');
+        return;
+    }
+
+    let pickedNames = [];
+
+    if (rule === 'mono_element') {
+        const elemCounts = {};
+        candidateCards.forEach(c => {
+            const el = c.dataset.element;
+            if (el) elemCounts[el] = (elemCounts[el] || 0) + 1;
+        });
+        const validElems = Object.keys(elemCounts).filter(el => elemCounts[el] >= 1);
+        const chosenElem = validElems.length ? validElems[Math.floor(Math.random() * validElems.length)] : null;
+        
+        let poolForElem = chosenElem ? candidateCards.filter(c => c.dataset.element === chosenElem) : candidateCards;
+        pickedNames = pickRandomUnique(poolForElem, 3);
+    } else if (rule === 'mono_char') {
+        const charCounts = {};
+        candidateCards.forEach(c => {
+            const ch = c.dataset.char;
+            if (ch) charCounts[ch] = (charCounts[ch] || 0) + 1;
+        });
+        const validChars = Object.keys(charCounts).filter(ch => charCounts[ch] >= 1);
+        const chosenChar = validChars.length ? validChars[Math.floor(Math.random() * validChars.length)] : null;
+
+        let poolForChar = chosenChar ? candidateCards.filter(c => c.dataset.char === chosenChar) : candidateCards;
+        pickedNames = pickRandomUnique(poolForChar, 3);
+    } else if (rule === 'top_tier') {
+        const modeAttr = getModeAttrKey(mode);
+        const topPool = candidateCards.filter(c => {
+            const rank = (c.dataset[modeAttr] || 'U').trim();
+            return ['S', 'A+', 'A'].includes(rank);
+        });
+        const finalPool = topPool.length >= 3 ? topPool : candidateCards;
+        pickedNames = pickRandomUnique(finalPool, 3);
+    } else {
+        pickedNames = pickRandomUnique(candidateCards, 3);
+    }
+
+    randomTeamDraft.fighters = pickedNames;
+    randomTeamDraft.name = generateDynamicTeamName(pickedNames, rule);
+
+    document.getElementById('randomTeamNameInput').value = randomTeamDraft.name;
+    document.getElementById('randomTeamTag').innerText = `Rule: ${rule.replace('_', ' ').toUpperCase()}`;
+
+    renderRandomTeamSlotsPreview();
+    updateRandomSynergyPreview();
+    document.getElementById('randomTeamResultSection').style.display = 'block';
+}
+
+function pickRandomUnique(cardList, count) {
+    const list = [...cardList];
+    const picked = [];
+    while (picked.length < count && list.length > 0) {
+        const idx = Math.floor(Math.random() * list.length);
+        const card = list.splice(idx, 1)[0];
+        if (card && card.dataset.rawname) {
+            picked.push(card.dataset.rawname);
+        }
+    }
+    while (picked.length < count) {
+        picked.push(null);
+    }
+    return picked;
+}
+
+function renderRandomTeamSlotsPreview() {
+    const container = document.getElementById('randomTeamSlotsPreview');
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    const modeAttr = getModeAttrKey(randomTeamDraft.mode);
+
+    let html = '';
+    for (let i = 0; i < 3; i++) {
+        const name = randomTeamDraft.fighters[i];
+        if (name) {
+            const cardEl = allCards.find(c => c.dataset.rawname === name);
+            const imgEl = cardEl ? cardEl.querySelector('img') : null;
+            const img = imgEl ? imgEl.src : '';
+            const isUnlocked = cardEl ? cardEl.dataset.unlocked === 'true' : true;
+            const rank = cardEl ? (cardEl.dataset[modeAttr] || 'U').trim() : 'U';
+
+            html += `
+                <div class="team-slot-builder">
+                    <span class="slot-label">Fighter ${i+1}</span>
+                    <div class="slot-content filled">
+                        ${img ? `<img src="${img}" style="${isUnlocked ? '' : 'filter: grayscale(35%);'} cursor: pointer;" onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)">` : ''}
+                        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 2px;">
+                            <div style="display: flex; align-items: center; gap: 6px; width: 100%; min-width: 0;">
+                                <span style="font-weight: 600; font-size: 0.9rem; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</span>
+                                <span class="rank-badge rank-${rank}" style="flex-shrink: 0;">${rank}</span>
+                            </div>
+                            ${isUnlocked ? '<span style="font-size: 0.7rem; color: #7ee787;">Unlocked</span>' : '<span style="font-size: 0.7rem; color: #8b949e;">🔒 Locked</span>'}
+                        </div>
+                        <button onclick="rerollRandomModalSlot(${i})" class="slot-reroll-btn" style="margin-right: 4px;" title="Reroll this single fighter">🎲 Reroll</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="team-slot-builder">
+                    <span class="slot-label">Fighter ${i+1}</span>
+                    <div class="slot-content empty" onclick="rerollRandomModalSlot(${i})">+ Roll Fighter</div>
+                </div>
+            `;
+        }
+    }
+    container.innerHTML = html;
+}
+
+function rerollRandomModalSlot(slotIndex) {
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    let candidateCards = allCards;
+    if (randomTeamDraft.pool === 'owned') {
+        candidateCards = candidateCards.filter(c => c.dataset.unlocked === 'true');
+    }
+    const currentFighters = randomTeamDraft.fighters.filter((f, idx) => idx !== slotIndex && f);
+    candidateCards = candidateCards.filter(c => !currentFighters.includes(c.dataset.rawname));
+
+    if (candidateCards.length === 0) return;
+
+    const newCard = candidateCards[Math.floor(Math.random() * candidateCards.length)];
+    if (newCard && newCard.dataset.rawname) {
+        randomTeamDraft.fighters[slotIndex] = newCard.dataset.rawname;
+        renderRandomTeamSlotsPreview();
+        updateRandomSynergyPreview();
+    }
+}
+
+function updateRandomSynergyPreview() {
+    const container = document.getElementById('randomSynergyPreview');
+    if (!container) return;
+
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    const fighterCards = randomTeamDraft.fighters
+        .filter(n => n)
+        .map(n => allCards.find(c => c.dataset.rawname === n))
+        .filter(c => c);
+
+    if (fighterCards.length === 0) {
+        container.innerHTML = `<p style="color: #8b949e; text-align: center; margin: 0; font-size: 0.9rem;">Roll a squad to preview combined Signature Abilities and Support effects.</p>`;
+        return;
+    }
+
+    let html = '';
+    fighterCards.forEach(c => {
+        let f = {};
+        try { f = JSON.parse(c.dataset.fighter || '{}'); } catch(e) {}
+        const rawName = c.dataset.rawname || f.name || 'Fighter';
+        const sa1Title = f.sa1_title || 'SA1';
+        const sa1Desc = f.sa1_desc || '';
+        const sa2Title = f.sa2_title || 'SA2';
+        const sa2Desc = f.sa2_desc || '';
+
+        html += `
+            <div style="background: rgba(13, 17, 23, 0.6); border: 1px solid #30363d; border-radius: 6px; padding: 10px; margin-bottom: 8px;">
+                <div style="font-weight: 600; color: #58a6ff; font-size: 0.88rem; margin-bottom: 4px;">${rawName}</div>
+                ${sa1Desc ? `<div style="font-size: 0.8rem; color: #c9d1d9; margin-bottom: 3px;"><strong>${sa1Title}:</strong> ${sa1Desc}</div>` : ''}
+                ${sa2Desc ? `<div style="font-size: 0.8rem; color: #c9d1d9;"><strong>${sa2Title}:</strong> ${sa2Desc}</div>` : ''}
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+function saveRandomTeamDirectly() {
+    const nameInput = document.getElementById('randomTeamNameInput');
+    const finalName = nameInput ? nameInput.value.trim() : randomTeamDraft.name;
+    if (!finalName) {
+        alert('Please enter a team name before saving.');
+        return;
+    }
+
+    const newTeam = {
+        id: 'team_' + Date.now(),
+        name: finalName,
+        mode: randomTeamDraft.mode || 'Prize Fight',
+        fighters: [...randomTeamDraft.fighters]
+    };
+
+    teamsState.push(newTeam);
+    saveTeamsToStorage();
+    renderTeams();
+    closeRandomTeamModal();
+    alert(`Team "${finalName}" successfully created and saved!`);
+}
+
+function openRandomTeamInEditor() {
+    const nameInput = document.getElementById('randomTeamNameInput');
+    const finalName = nameInput ? nameInput.value.trim() : randomTeamDraft.name;
+
+    editingTeamId = null;
+    draftTeamFighters = [...randomTeamDraft.fighters];
+    document.getElementById('teamEditorTitle').innerText = 'Create New Team (Random)';
+    document.getElementById('teamNameInput').value = finalName;
+    document.getElementById('teamModeSelect').value = randomTeamDraft.mode || 'Prize Fight';
+    updateTeamSlotBuilders();
+    updateSynergyPreview();
+    
+    closeRandomTeamModal();
+    document.getElementById('teamEditorModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function rerollSingleEditorSlot(slotIndex, event) {
+    if (event) event.stopPropagation();
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    let candidateCards = allCards.filter(c => c.dataset.unlocked === 'true');
+    const currentFighters = draftTeamFighters.filter((f, idx) => idx !== slotIndex && f);
+    candidateCards = candidateCards.filter(c => !currentFighters.includes(c.dataset.rawname));
+
+    if (candidateCards.length === 0) {
+        candidateCards = allCards.filter(c => !currentFighters.includes(c.dataset.rawname));
+    }
+
+    if (candidateCards.length === 0) return;
+
+    const newCard = candidateCards[Math.floor(Math.random() * candidateCards.length)];
+    if (newCard && newCard.dataset.rawname) {
+        draftTeamFighters[slotIndex] = newCard.dataset.rawname;
+        updateTeamSlotBuilders();
+        updateSynergyPreview();
+    }
+}
+
+function autoFillTeamEditor() {
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    let candidateCards = allCards.filter(c => c.dataset.unlocked === 'true');
+    if (candidateCards.length === 0) candidateCards = allCards;
+
+    const currentFighters = draftTeamFighters.filter(f => f);
+    let available = candidateCards.filter(c => !currentFighters.includes(c.dataset.rawname));
+
+    for (let i = 0; i < 3; i++) {
+        if (!draftTeamFighters[i] && available.length > 0) {
+            const idx = Math.floor(Math.random() * available.length);
+            const card = available.splice(idx, 1)[0];
+            if (card && card.dataset.rawname) {
+                draftTeamFighters[i] = card.dataset.rawname;
+            }
+        }
+    }
+
+    if (!document.getElementById('teamNameInput').value.trim()) {
+        document.getElementById('teamNameInput').value = generateDynamicTeamName(draftTeamFighters, 'chaos');
+    }
+
+    updateTeamSlotBuilders();
+    updateSynergyPreview();
 }
 

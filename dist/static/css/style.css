@@ -189,6 +189,18 @@ button {
     cursor: not-allowed;
 }
 
+.btn-purple {
+    background: #8957e5;
+    color: #ffffff;
+    border: 1px solid #a371f7;
+    transition: all 0.2s ease;
+}
+.btn-purple:hover {
+    background: #9e6af3;
+    border-color: #bc8cff;
+    box-shadow: 0 4px 12px rgba(163, 113, 247, 0.3);
+}
+
 .btn-reset-filters {
     background: #21262d;
     border: 1px solid #30363d;
@@ -211,6 +223,25 @@ button {
 .btn-reset-filters.btn-sm {
     padding: 4px 10px;
     font-size: 0.8rem;
+}
+
+/* Slot Reroll Action Button */
+.slot-reroll-btn {
+    background: rgba(137, 87, 229, 0.15);
+    border: 1px solid rgba(163, 113, 247, 0.4);
+    color: #d2a8ff;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    padding: 3px 7px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+}
+.slot-reroll-btn:hover {
+    background: rgba(137, 87, 229, 0.35);
+    border-color: #a371f7;
+    color: #ffffff;
+    transform: scale(1.05);
 }
 
 /* Toggles & Counter Header Widgets */

@@ -1,4 +1,4 @@
-# Skullgirls Mobile - SGM Roster Tracker & Team Builder (v2.0.0 - Mobile PWA Edition)
+# Skullgirls Mobile - SGM Roster Tracker & Team Builder (v2.5.0 - Smart Random Team Generator Update)
 
 An advanced offline-first web application and Progressive Web App (PWA) designed for Skullgirls Mobile players to track their variant collection, build custom teams with live synergy analysis, manage wishlists, inspect fighter kits and Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
 
@@ -17,15 +17,15 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ---
 
-## What's New in v2.0.0
+## What's New in v2.5.0
 
-- **100% Standalone Mobile PWA:** Runs directly on smartphones with zero PC or Python backend required.
-- **Offline Cache Service Worker (`sw.js`):** Pre-caches app layout, styles, scripts, and variant datasets for instant loading offline or in airplane mode.
-- **1-Click Backup & Restore:** Export and import single combined `.json` backup files or legacy individual files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) to transfer or restore your unlocked roster, wishlist, and custom teams between PC and phone.
-- **One-Tap Filter Reset:** Instantly clear search text, character/tier/modifier checkboxes, element, status, mode, and tier rank dropdowns with one click (`Reset Filters`).
-- **Inspector Navigation Stack (`← Back`):** Jump between fighter team chips inside the Inspector Modal and navigate backwards smoothly.
-- **Reverse Team Synergy Search ("Featured In Teams"):** Scans all recommended teams across the database to display team compositions where the inspected character is cited as a synergy partner.
-- **Automated GitHub Actions CI/CD:** Auto-compiles and deploys static PWA bundle to GitHub Pages on every `git push`.
+- **Smart Random Team Generator (`Random Team`):** Instantly generate tailored 3-fighter squad compositions directly from the Team Builder view with customizable rules.
+- **Smart Randomization Rules:** Choose between **Pure Chaos** (100% random), **Mono-Element** (same elemental affinity), **Mono-Character** (same character base), and **Top Tier Only** (S / A+ / A ranked meta variants).
+- **Pool Selection:** Toggle between sampling **Only Owned Roster** (unlocked collection) vs **Full Database** (all 305+ variants).
+- **Per-Slot Reroll (`Reroll`):** Lock two fighters in a squad and reroll single individual slots in both the Random Generator Modal and the main Team Builder editor.
+- **Dynamic Contextual Naming Engine:** Infinite, thematic squad titles generated dynamically based on element types, character bases, and meta tiers (e.g., *"Infernal Vanguards"*, *"Filia Trinity"*, *"Apex Predators #42"*).
+- **In-Editor Auto-Fill (`Auto-Fill Squad`):** Fill empty slots in existing draft teams with one tap while preserving already selected fighters.
+- **Instant Synergy & Ability Preview:** Previews combined Signature Abilities (SA1 & SA2) and support synergies in real time for generated teams.
 
 ---
 
