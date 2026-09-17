@@ -161,8 +161,9 @@ function onModifierChange() {
  * Update the state of the Undo button based on history stack length.
  */
 function updateUndoButton() {
-    const btn = document.getElementById('undoBtn');
-    btn.disabled = undoStack.length === 0;
+    document.querySelectorAll('.btn-undo').forEach(btn => {
+        btn.disabled = undoStack.length === 0;
+    });
 }
 
 /**

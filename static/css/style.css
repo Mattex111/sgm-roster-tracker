@@ -767,7 +767,7 @@ mark.effect-highlight {
 .modal-tabs {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
+    gap: 4px;
     border-bottom: 1px solid #30363d;
     padding-bottom: 10px;
 }
@@ -776,8 +776,8 @@ mark.effect-highlight {
     background: #21262d;
     color: #8b949e;
     border: 1px solid #30363d;
-    padding: 8px 6px;
-    font-size: 0.8rem;
+    padding: 7px 3px;
+    font-size: 0.76rem;
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
@@ -785,6 +785,7 @@ mark.effect-highlight {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: -0.15px;
 }
 .m-tab-btn.active {
     background: #238636;
@@ -1495,6 +1496,7 @@ mark.effect-highlight {
 
 /* Hidden by default on Desktop */
 .mobile-top-bar,
+.mobile-quick-actions,
 .mobile-drawer-header,
 .mobile-bottom-nav,
 .mobile-drawer-overlay {
@@ -1538,6 +1540,30 @@ mark.effect-highlight {
         max-width: 100% !important;
         box-sizing: border-box !important;
         overflow: hidden;
+    }
+
+    /* Mobile Quick Actions Bar (Select Visible / Deselect Visible / Undo) */
+    .mobile-quick-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .mobile-quick-actions .btn-sm {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border-radius: 8px;
+        min-height: 38px;
+        text-align: center;
+        white-space: nowrap;
     }
 
     .mobile-brand {

@@ -39,6 +39,13 @@
 
     <!-- Roster Tracker View Panel -->
     <div id="rosterView" class="view-panel active">
+        <!-- Quick Batch Actions for Mobile (Visible directly below top bar on vertical screen) -->
+        <div class="mobile-quick-actions">
+            <button class="btn-secondary btn-sm" onclick="batchToggle(true)">Select Visible</button>
+            <button class="btn-secondary btn-sm" onclick="batchToggle(false)">Deselect Visible</button>
+            <button class="btn-undo btn-sm" id="mobileUndoBtn" onclick="triggerUndo()" disabled title="Undo last action">Undo</button>
+        </div>
+
         <!-- Header Control Panel & Filters Container -->
         <div class="header-container" id="headerContainer">
             <div class="mobile-drawer-header">
@@ -403,8 +410,8 @@
                     <div class="modal-tabs">
                         <button class="m-tab-btn active" onclick="switchModalTab(event, 'info')">ℹ️ OVERVIEW</button>
                         <button class="m-tab-btn" onclick="switchModalTab(event, 'ratings')">🏆 RATINGS</button>
-                        <button class="m-tab-btn" onclick="switchModalTab(event, 'strategy')">🎯 STRATEGY & RIFT</button>
-                        <button class="m-tab-btn" onclick="switchModalTab(event, 'build')">⚔️ BUILD & TEAMS</button>
+                        <button class="m-tab-btn" onclick="switchModalTab(event, 'strategy')">🎯 STRATEGY</button>
+                        <button class="m-tab-btn" onclick="switchModalTab(event, 'build')">⚔️ BUILDS & TEAMS</button>
                     </div>
 
                     <!-- Tab: OVERVIEW (SA & KIT) -->
