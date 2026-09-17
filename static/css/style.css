@@ -2358,44 +2358,9 @@ mark.effect-highlight {
         padding: 1px 4px !important;
     }
 
-    /* Abilities Collapsible in 2-Column Mode */
+    /* Abilities Collapsible in 2-Column Mode: Hidden to keep mini-cards compact and uniform */
     .grid.grid-2col .abilities-accordion {
-        border: 1px solid #30363d !important;
-        border-radius: 6px !important;
-        background: #0d1117 !important;
-        margin-top: 2px !important;
-        overflow: hidden !important;
-        width: 100% !important;
-    }
-
-    .grid.grid-2col .abilities-accordion > summary {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: 5px 6px !important;
-        font-size: 0.72rem !important;
-        font-weight: 600 !important;
-        color: #58a6ff !important;
-        cursor: pointer !important;
-        background: #161b22 !important;
-        user-select: none !important;
-    }
-
-    .grid.grid-2col .abilities-accordion[open] > summary {
-        border-bottom: 1px solid #30363d !important;
-    }
-
-    .grid.grid-2col .abilities-accordion-content {
-        padding: 6px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 6px !important;
-    }
-
-    .grid.grid-2col .sa-box {
-        font-size: 0.68rem !important;
-        padding: 4px 6px !important;
-        line-height: 1.25 !important;
+        display: none !important;
     }
 
     .grid.grid-2col .inspect-btn {
