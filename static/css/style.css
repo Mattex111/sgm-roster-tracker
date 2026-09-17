@@ -662,6 +662,9 @@ mark.effect-highlight {
     z-index: 500;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
+    padding: 20px 10px;
+    box-sizing: border-box;
 }
 .modal-overlay.show {
     display: flex;
@@ -674,6 +677,8 @@ mark.effect-highlight {
     padding: 22px;
     width: 440px;
     max-width: 90vw;
+    max-height: 88vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -1513,13 +1518,14 @@ mark.effect-highlight {
 }
 
 /* Modal Height Containment & Scrolling */
-#teamEditorModal .modal {
+#teamEditorModal .modal,
+#randomTeamModal .modal {
     width: min(48.75rem, 94vw);
     max-width: 780px;
     max-height: 85vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 #teamEditorModal .team-editor-form {
