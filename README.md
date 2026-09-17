@@ -12,7 +12,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 👉 **[https://mattex111.github.io/sgm-roster-tracker/](https://mattex111.github.io/sgm-roster-tracker/)**
 
 ### 📱 Installing to Home Screen (iOS & Android)
-- **Android (Chrome / Edge / Firefox):** Open the link ➔ Tap **⋮** (top right) ➔ Tap **"Add to Home screen"**.
+- **Android (Chrome / Brave / Firefox):** Open the link ➔ Tap **⋮** (top right) ➔ Tap **"Add to Home screen"**.
 - **iOS (Safari):** Open the link ➔ Tap **Share** (square with up arrow) ➔ Tap **"Add to Home Screen"**.
 
 ---
