@@ -1128,8 +1128,10 @@ mark.effect-highlight {
     border-radius: 10px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95);
     z-index: 10005;
-    width: 330px;
+    width: min(26rem, 92vw);
+    max-width: 416px;
     display: none;
+    flex-direction: column;
     padding: 12px;
     box-sizing: border-box;
 }
@@ -1409,8 +1411,8 @@ mark.effect-highlight {
 
 /* Modal Height Containment & Scrolling */
 #teamEditorModal .modal {
-    width: 780px;
-    max-width: 94vw;
+    width: min(48.75rem, 94vw);
+    max-width: 780px;
     max-height: 85vh;
     display: flex;
     flex-direction: column;
@@ -1433,7 +1435,8 @@ mark.effect-highlight {
     border-radius: 10px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95);
     z-index: 2100;
-    width: 440px;
+    width: min(27.5rem, 92vw);
+    max-width: 440px;
     display: none;
     flex-direction: column;
     padding: 12px;
