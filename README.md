@@ -30,7 +30,7 @@ An advanced offline web tool designed for Skullgirls Mobile players to track the
 
 1. **Python (3.8 or higher):** Download from [python.org](https://www.python.org/downloads/).
    - ⚠️ **Windows Users:** During installation, check the box that says **"Add python.exe to PATH"** at the bottom of the installer!
-2. **Git (Optional):** Download from [git-scm.com](https://git-scm.com/downloads). *If you prefer not to install Git, you can simply click the green **Code** button at the top of this repository and select **Download ZIP**.*
+2. **Git (Optional but Recommended):** Download from [git-scm.com](https://git-scm.com/downloads). *While you can simply click the green **Code** button and download the ZIP, installing Git is highly recommended because it makes future updates as easy as running a single `git pull` command!*
 
 ---
 
