@@ -1853,9 +1853,10 @@ mark.effect-highlight {
         padding: 8px 4px !important;
     }
 
-    .m-tab-pane, .synergy-preview-box {
+    .m-tab-pane, .synergy-preview-box, #teamEditorModal .team-editor-form {
         max-height: none !important;
         overflow-y: visible !important;
+        overflow: visible !important;
         padding-right: 0 !important;
     }
 

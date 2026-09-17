@@ -1656,13 +1656,16 @@ function saveWishlist() {
 
 // Close picker when clicking outside
 document.addEventListener('click', (e) => {
+    if (e.target.closest('#fighterModal') || e.target.closest('.fighter-modal-overlay')) {
+        return;
+    }
     const wlPicker = document.getElementById('wishlistPicker');
-    if (wlPicker && (wlPicker.classList.contains('show') || wlPicker.style.display === 'block') && !e.target.closest('.wishlist-slot') && !e.target.closest('#wishlistPicker')) {
+    if (wlPicker && (wlPicker.classList.contains('show') || wlPicker.style.display === 'block' || wlPicker.style.display === 'flex') && !e.target.closest('.wishlist-slot') && !e.target.closest('#wishlistPicker')) {
         wlPicker.classList.remove('show');
         wlPicker.style.display = 'none';
     }
     const tfPicker = document.getElementById('teamFighterPicker');
-    if (tfPicker && (tfPicker.classList.contains('show') || tfPicker.style.display === 'block') && !e.target.closest('.team-slot-builder') && !e.target.closest('#teamFighterPicker')) {
+    if (tfPicker && (tfPicker.classList.contains('show') || tfPicker.style.display === 'block' || tfPicker.style.display === 'flex') && !e.target.closest('.team-slot-builder') && !e.target.closest('#teamFighterPicker')) {
         tfPicker.classList.remove('show');
         tfPicker.style.display = 'none';
     }
@@ -2225,13 +2228,7 @@ function filterTeamFighterPicker() {
     });
 }
 
-// Close team picker when clicking outside
-document.addEventListener('click', (e) => {
-    const picker = document.getElementById('teamFighterPicker');
-    if (picker && picker.style.display === 'block' && !e.target.closest('.team-slot-builder') && !e.target.closest('#teamFighterPicker')) {
-        picker.style.display = 'none';
-    }
-});
+
 
 /**
  * Open Backup & Restore Modal.
