@@ -1,5 +1,9 @@
 {
   "Annie": {
+    "character_ability": {
+      "name": "STAR POWER",
+      "description": "Annie now builds up STAR POWER meter over time, and can activate STAR POWER when above 50% meter. During STAR POWER MODE, Annie's basic attacks produce STARS that deal full damage on BLOCKED HITS, and many of Annie's SPECIAL MOVES have additional properties."
+    },
     "marquee_group_name": "EVENT HORIZON",
     "marquee_options": [
       {
@@ -17,6 +21,10 @@
     }
   },
   "Beowulf": {
+    "character_ability": {
+      "name": "HYPE MODE",
+      "description": "Get 1 Hype Charge with every THROW and every 30 seconds. 3 Hype Charges lets you trigger HYPE MODE! During HYPE MODE, THROWS cannot be broken, and many attacks feature surprising upgrades."
+    },
     "marquee_group_name": "TITLE FIGHT",
     "marquee_options": [
       {
@@ -34,6 +42,10 @@
     }
   },
   "Big Band": {
+    "character_ability": {
+      "name": "CAN'T STOP THE BEAT",
+      "description": "While dashing, Big Band can absorb ONE hit without being interrupted (but will take damage normally)."
+    },
     "marquee_group_name": "MAESTRO",
     "marquee_options": [
       {
@@ -51,6 +63,10 @@
     }
   },
   "Black Dahlia": {
+    "character_ability": {
+      "name": "SHARPSHOOTER",
+      "description": "Tap the SHARPSHOOTER button to fire SHOTS! Tap the RELOAD button to load 6 new SHOTS. When reloading, the third shot type is determined by Black Dahlia's ELEMENT and the sixth is random."
+    },
     "marquee_group_name": "CLOCKWORK ORIGINS",
     "marquee_options": [
       {
@@ -68,6 +84,10 @@
     }
   },
   "Cerebella": {
+    "character_ability": {
+      "name": "BALANCING ACT",
+      "description": "THROW BREAKS cause enemies to be STAGGERED."
+    },
     "marquee_group_name": "CENTER STAGE",
     "marquee_options": [
       {
@@ -85,6 +105,10 @@
     }
   },
   "Double": {
+    "character_ability": {
+      "name": "TRANSMUTATION",
+      "description": "After BLOCKING without being hit for 1 second, Double will switch to a new random element (except Neutral).When at an ELEMENTAL ADVANTAGE, Double's damage increases by 10%.When at an ELEMENTAL DISADVANTAGE, opponent damage decreases by 10%."
+    },
     "marquee_group_name": "ENTROPY",
     "marquee_options": [
       {
@@ -102,6 +126,10 @@
     }
   },
   "Eliza": {
+    "character_ability": {
+      "name": "WARRIOR GODDESS",
+      "description": "BLOCKBUSTERS involving Sekhmet now leave Eliza in Sekhmet Mode for a short duration. All damage taken while in Sekhmet Mode is recoverable."
+    },
     "marquee_group_name": "BLOODLINE",
     "marquee_options": [
       {
@@ -119,6 +147,10 @@
     }
   },
   "Filia": {
+    "character_ability": {
+      "name": "FLASH BACK",
+      "description": "Back-dashing just before being HIT will allow Filia to EVADE the opponent's attack, avoiding all damage."
+    },
     "marquee_group_name": "BLOODLETTING",
     "marquee_options": [
       {
@@ -136,6 +168,10 @@
     }
   },
   "Fukua": {
+    "character_ability": {
+      "name": "SANGUINE SHADOW",
+      "description": "All of the damage Fukua receives is inflicted as non-permanent SCRATCH DAMAGE."
+    },
     "marquee_group_name": "UNTETHERED ENTITY",
     "marquee_options": [
       {
@@ -153,6 +189,10 @@
     }
   },
   "Marie": {
+    "character_ability": {
+      "name": "REST AND RESURRECTION",
+      "description": "Hold down the REST AND RESURRECTION button to build a MORTUARY CHARGE. When charged, tap the button to REVIVE nearby defeated allies and INCINERATE nearby opponent corpses!"
+    },
     "marquee_group_name": "CORPSE ARTISAN",
     "marquee_options": [
       {
@@ -170,6 +210,10 @@
     }
   },
   "Ms. Fortune": {
+    "character_ability": {
+      "name": "HEAD GAMES",
+      "description": "Tap the HEAD GAMES button to enter HEADLESS MODE. Ms. Fortune's head can attack independent of her body. But be careful: Ms. Fortune will also suffer any additional damage inflicted to her head!"
+    },
     "marquee_group_name": "I CAN HAS BUFF?",
     "marquee_options": [
       {
@@ -187,6 +231,10 @@
     }
   },
   "Painwheel": {
+    "character_ability": {
+      "name": "FLIGHT RISK",
+      "description": "Tap the FLIGHT RISK button to hover in the air! Tap the button again to land. While flying, gain access to new actions by swiping and tapping."
+    },
     "marquee_group_name": "TORTURED SOUL",
     "marquee_options": [
       {
@@ -204,6 +252,10 @@
     }
   },
   "Parasoul": {
+    "character_ability": {
+      "name": "TEARFUL",
+      "description": "Certain attacks will now spawn a TEAR. Using a CHARGE ATTACK will detonate all active TEARS, damaging opponents caught in the blast."
+    },
     "marquee_group_name": "HYPER-CRITICAL",
     "marquee_options": [
       {
@@ -221,6 +273,10 @@
     }
   },
   "Peacock": {
+    "character_ability": {
+      "name": "THE HOLE IDEA",
+      "description": "Tap THE HOLE IDEA button to vanish into a hole, avoiding some attacks. Tap elsewhere to emerge with a wallop! Otherwise, tap the button again or wait 2 seconds to exit without attacking."
+    },
     "marquee_group_name": "TOON TIME",
     "marquee_options": [
       {
@@ -238,6 +294,10 @@
     }
   },
   "Robo-Fortune": {
+    "character_ability": {
+      "name": "HEADRONE HARDWARE",
+      "description": "Tap the LAUNCH button to launch HEADRONES. Use HEADRONES to ram enemies, set proximity mines, and fire a barrage of missiles!"
+    },
     "marquee_group_name": "NETWORK PROTOCOL",
     "marquee_options": [
       {
@@ -255,6 +315,10 @@
     }
   },
   "Squigly": {
+    "character_ability": {
+      "name": "WYRM'S TAIL",
+      "description": "Holding down the WYRM'S TAIL button will store up to 2 DRAGON CHARGES. DRAGON CHARGES are consumed to make certain attacks more powerful!"
+    },
     "marquee_group_name": "FRIGHT NIGHT",
     "marquee_options": [
       {
@@ -272,6 +336,10 @@
     }
   },
   "Umbrella": {
+    "character_ability": {
+      "name": "HUNGERN'S HUNGER",
+      "description": "THROWS fill the meter and BUBBLE-based moves (including tapping the meter button) empty it. Basic attacks deal more damage while OVERSTUFFED and are faster while RAVENOUS. Certain moves are empowered by Hungern's state!"
+    },
     "marquee_group_name": "JAWS OF DEFEAT",
     "marquee_options": [
       {
@@ -289,6 +357,10 @@
     }
   },
   "Valentine": {
+    "character_ability": {
+      "name": "SIPHON",
+      "description": "More of the damage Valentine receives is inflicted as non-permanent SCRATCH DAMAGE. 75% of the damage Valentine deals is regained as HEALTH, but only up to her current SCRATCH DAMAGE threshold."
+    },
     "marquee_group_name": "COMBAT CLINIC",
     "marquee_options": [
       {

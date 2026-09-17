@@ -2,132 +2,282 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SGM Roster Tracker</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <!-- Main Top Navigation -->
+    <!-- Main Top Navigation (Desktop) -->
     <nav class="main-nav">
         <button class="nav-tab active" id="tabRoster" onclick="switchView('roster')">Roster Tracker</button>
         <button class="nav-tab" id="tabTeams" onclick="switchView('teams')">Team Builder</button>
     </nav>
 
+    <!-- Mobile Header Bar (Visible on mobile < 768px) -->
+    <div class="mobile-top-bar">
+        <div class="mobile-brand">
+            <span class="brand-title">SGM Roster</span>
+            <span class="mobile-counter" id="mobileUnlockCount">Unlocked: 0 / 0</span>
+        </div>
+        <div class="mobile-top-actions">
+            <button class="mobile-filter-btn" id="mobileFilterBtn" onclick="toggleMobileFilterDrawer()">
+                ⚡ Filters <span class="mobile-filter-badge" id="mobileFilterBadge" style="display:none;">0</span>
+            </button>
+            <button class="btn-green btn-sm" onclick="triggerExport()" title="Export">📤</button>
+            <button class="btn-primary btn-sm" id="mobileWishlistBtn" onclick="openWishlistModal()" title="Manage Wishlist">⭐</button>
+        </div>
+    </div>
+
+    <!-- Mobile Filter Drawer Overlay -->
+    <div class="mobile-drawer-overlay" id="mobileFilterOverlay" onclick="closeMobileFilterDrawer()"></div>
+
     <!-- Roster Tracker View Panel -->
     <div id="rosterView" class="view-panel active">
-        <!-- Header Control Panel & Filters -->
-        <div class="header">
-        <input type="text" id="search" placeholder="Search variant or text..." oninput="filterAndSortCards()">
+        <!-- Header Control Panel & Filters Container -->
+        <div class="header-container" id="headerContainer">
+            <div class="mobile-drawer-header">
+                <span>⚡ Filters & Sorting</span>
+                <button class="mobile-drawer-close" onclick="closeMobileFilterDrawer()">✕</button>
+            </div>
+            <div class="header">
+                <input type="text" id="search" placeholder="Search variant or text..." oninput="filterAndSortCards()">
 
-        <select id="charFilter" onchange="filterAndSortCards()">
-            <option value="">All Fighters</option>
-            {% for c in characters %}
-            <option value="{{ c }}">{{ c }}</option>
+                <select id="sortBy" onchange="filterAndSortCards()">
+                    <option value="name_asc">Sort: Name (A-Z)</option>
+                    <option value="name_desc">Sort: Name (Z-A)</option>
+                    <option value="atk_desc">Sort: ATK (High → Low)</option>
+                    <option value="atk_asc">Sort: ATK (Low → High)</option>
+                    <option value="hp_desc">Sort: HP (High → Low)</option>
+                    <option value="hp_asc">Sort: HP (Low → High)</option>
+                </select>
+
+                <div class="multiselect-container" id="charMultiSelect">
+                    <div class="multiselect-btn" onclick="toggleDropdown('charDropdown')">
+                        <span id="charLabel">All Fighters</span>
+                        <span>▾</span>
+                    </div>
+                    <div class="multiselect-dropdown" id="charDropdown" style="width: 180px;">
+                        {% for c in characters %}
+                        <label class="multiselect-item"><input type="checkbox" value="{{ c }}" onchange="onCharChange()"> {{ c }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <select id="elementFilter" onchange="filterAndSortCards()">
+                    <option value="">All Elements</option>
+                    <option value="Air">Air</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Light">Light</option>
+                    <option value="Water">Water</option>
+                    <option value="Neutral">Neutral</option>
+                </select>
+
+                <div class="multiselect-container" id="tierMultiSelect">
+                    <div class="multiselect-btn" onclick="toggleDropdown('tierDropdown')">
+                        <span id="tierLabel">All Tiers</span>
+                        <span>▾</span>
+                    </div>
+                    <div class="multiselect-dropdown" id="tierDropdown" style="width: 160px;">
+                        <label class="multiselect-item"><input type="checkbox" value="Diamond" onchange="onTierChange()"> Diamond</label>
+                        <label class="multiselect-item"><input type="checkbox" value="Gold" onchange="onTierChange()"> Gold</label>
+                        <label class="multiselect-item"><input type="checkbox" value="Silver" onchange="onTierChange()"> Silver</label>
+                        <label class="multiselect-item"><input type="checkbox" value="Bronze" onchange="onTierChange()"> Bronze</label>
+                    </div>
+                </div>
+
+                <div class="multiselect-container" id="modifierMultiSelect">
+                    <div class="multiselect-btn" onclick="toggleDropdown('modifierDropdown')">
+                        <span id="modifierLabel">Modifiers (0)</span>
+                        <span>▾</span>
+                    </div>
+                    <div class="multiselect-dropdown" id="modifierDropdown">
+                        <div class="multiselect-group-title">Buffs</div>
+                        {% for b in ["armor", "auto-block", "barrier", "blessing", "deadeye", "enrage", "evasion", "final stand", "haste", "heavy regen", "immunity", "invincible", "miasma", "precision", "regen", "thorns", "unflinching"] %}
+                        <label class="multiselect-item">
+                            <input type="checkbox" value="{{ b }}" onchange="onModifierChange()">
+                            {{ b.title() }}
+                        </label>
+                        {% endfor %}
+
+                        <div class="multiselect-group-title">Debuffs</div>
+                        {% for d in ["armor break", "bleed", "heavy bleed", "cripple", "curse", "death mark", "disable blockbuster", "disable special", "disable tag", "doom", "fatigue", "guard break", "heal block", "hex", "immobilize", "inverse polarity", "power surge", "quietus", "slime", "slow", "stun", "wither"] %}
+                        <label class="multiselect-item">
+                            <input type="checkbox" value="{{ d }}" onchange="onModifierChange()">
+                            {{ d.title() }}
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <select id="statusFilter" onchange="filterAndSortCards()">
+                    <option value="">All Statuses</option>
+                    <option value="unlocked">Unlocked Only</option>
+                    <option value="locked">Locked Only</option>
+                    <option value="wishlist">Wishlist Only</option>
+                </select>
+
+                <select id="modeFilter" onchange="filterAndSortCards()">
+                    <option value="any">Any Mode</option>
+                    <option value="pf_off">PF Offense</option>
+                    <option value="rift_off">Rift Offense</option>
+                    <option value="rift_def">Rift Defense</option>
+                    <option value="realms">Parallel Realms</option>
+                </select>
+
+                <select id="rankFilter" onchange="filterAndSortCards()">
+                    <option value="0">All Ranks</option>
+                    <option value="5">SS Only</option>
+                    <option value="4">S or better</option>
+                    <option value="3">A or better</option>
+                    <option value="2">B or better</option>
+                    <option value="1">C or better</option>
+                </select>
+
+                <div class="batch-actions-group">
+                    <button class="btn-secondary" onclick="batchToggle(true)">Select Visible</button>
+                    <button class="btn-secondary" onclick="batchToggle(false)">Deselect Visible</button>
+                    <button class="btn-undo" id="undoBtn" onclick="triggerUndo()" disabled title="Shortcut: Ctrl+Z">Undo</button>
+                </div>
+
+                <div class="filter-toggles-group">
+                    <label class="toggle-label" title="Toggle tier list badges in card view">
+                        <input type="checkbox" id="showRatingsToggle" onchange="toggleRatingsVisibility(this.checked)" checked>
+                        Show Tier Ratings
+                    </label>
+
+                    <label class="toggle-label" title="Include MA & PA when filtering by Buff/Debuff">
+                        <input type="checkbox" id="includeBaseKitFilterToggle" onchange="filterAndSortCards()" checked>
+                        Include MA & PA in filter
+                    </label>
+                </div>
+
+                <button class="btn-green" onclick="openExportModal()">Export Roster</button>
+                <button class="btn-primary" onclick="openWishlistModal()">⭐ Manage Wishlist</button>
+
+                <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
+            </div>
+        </div>
+
+        <!-- Fighter Cards Grid -->
+        <div class="grid" id="cardGrid">
+            {% for key, v in variants.items() %}
+            {% set base = base_abilities.get(v.character, {}) %}
+            {% set base_text = (base.character_ability.description if base.character_ability else '') + ' ' + (base.prestige.description if base.prestige else '') + ' ' + (base.marquee_options | map(attribute='description') | join(' ') if base.marquee_options else '') %}
+            {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
+            {% set full_kit = sa_only + ' ' + base_text %}
+            {% set searchable_content = (v.name + ' ' + v.character + ' ' + full_kit).lower() %}
+            <div class="card {% if v.unlocked %}unlocked{% endif %}"
+                 onclick="onCardClick(event, this)"
+                 data-search="{{ searchable_content }}"
+                 data-name="{{ v.name.lower() }}"
+                 data-rawname="{{ v.name }}"
+                 data-char="{{ v.character }}"
+                 data-element="{{ v.element }}"
+                 data-tier="{{ v.tier }}"
+                 data-atk="{{ v.atk_max if v.atk_max else 0 }}"
+                 data-hp="{{ v.hp_max if v.hp_max else 0 }}"
+                 data-sakit="{{ sa_only.lower() }}"
+                 data-fullkit="{{ full_kit.lower() }}"
+                 data-unlocked="{{ 'true' if v.unlocked else 'false' }}"
+                 data-pfoff="{{ v.ratings.pf_off if v.ratings else 'U' }}"
+                 data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
+                 data-riftdef="{{ v.ratings.rift_def if v.ratings else 'U' }}"
+                 data-realms="{{ v.ratings.realms if v.ratings else 'U' }}"
+                 data-fighter='{{ v | tojson | safe }}'
+                 data-base='{{ base | tojson | safe }}'>
+                <span class="wishlist-star">⭐</span>
+
+                <div class="card-body-row" style="display: flex; gap: 10px; align-items: flex-start;">
+                    {% if v.image_url %}
+                    <img src="{{ v.image_url }}" alt="{{ v.name }}" class="card-portrait" style="width: 55px; height: auto; border-radius: 4px; border: 1px solid #30363d; flex-shrink: 0;" loading="lazy">
+                    {% endif %}
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+
+                        <div class="card-head">
+                            <div class="name-label">
+                                <span class="name-text" data-original="{{ v.name }}">{{ v.name }}</span>
+                            </div>
+                            <div class="badges">
+                                <span class="char-tag">{{ v.character }}</span>
+                                <span class="tag {{ v.tier }}">{{ v.tier }}</span>
+                                <span class="element-tag">{{ v.element }}</span>
+                            </div>
+                        </div>
+
+                        {% if v.atk_max or v.hp_max %}
+                        <div class="stats-row">
+                            <span class="stat-item stat-atk">⚔️ ATK: {{ "{:,}".format(v.atk_max) if v.atk_max else "N/A" }}</span>
+                            <span class="stat-item stat-hp">❤️ HP: {{ "{:,}".format(v.hp_max) if v.hp_max else "N/A" }}</span>
+                        </div>
+                        {% endif %}
+
+                        {% if v.ratings %}
+                        <div class="ratings-row">
+                            <div class="rate-box"><span>PF Off</span><span class="rank-badge rank-{{ v.ratings.pf_off.strip() }}">{{ v.ratings.pf_off }}</span></div>
+                            <div class="rate-box"><span>Rift Off</span><span class="rank-badge rank-{{ v.ratings.rift_off.strip() }}">{{ v.ratings.rift_off }}</span></div>
+                            <div class="rate-box"><span>Rift Def</span><span class="rank-badge rank-{{ v.ratings.rift_def.strip() }}">{{ v.ratings.rift_def }}</span></div>
+                            <div class="rate-box"><span>Realms</span><span class="rank-badge rank-{{ v.ratings.realms.strip() }}">{{ v.ratings.realms }}</span></div>
+                        </div>
+                        {% endif %}
+
+                        <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
+                        <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
+
+                        {% if base %}
+                        <details class="base-kit" onclick="event.stopPropagation()">
+                            <summary>Character Kit (CA, MA & PA)</summary>
+                            <div class="base-kit-content">
+                                {% if base.character_ability %}
+                                <div class="ca-box" style="margin-bottom: 4px;"><strong>Character Ability ({{ base.character_ability.name }}):</strong> <span class="desc-text">{{ base.character_ability.description }}</span></div>
+                                {% endif %}
+                                {% if base.prestige %}
+                                <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
+                                {% endif %}
+                                {% if base.marquee_options %}
+                                <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
+                                {% for m in base.marquee_options %}
+                                <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </details>
+                        {% endif %}
+
+                        <div class="card-footer-action">
+                            <button class="inspect-btn" onclick="openFighterModal(event, this)">Inspect 🔍</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
             {% endfor %}
-        </select>
+        </div>
+    </div> <!-- End #rosterView -->
 
-        <select id="elementFilter" onchange="filterAndSortCards()">
-            <option value="">All Elements</option>
-            <option value="Air">Air</option>
-            <option value="Dark">Dark</option>
-            <option value="Fire">Fire</option>
-            <option value="Light">Light</option>
-            <option value="Water">Water</option>
-            <option value="Neutral">Neutral</option>
-        </select>
-
-        <div class="multiselect-container" id="tierMultiSelect">
-            <div class="multiselect-btn" onclick="toggleDropdown('tierDropdown')">
-                <span id="tierLabel">All Tiers</span>
-                <span>▾</span>
+    <!-- Team Builder View Panel -->
+    <div id="teamsView" class="view-panel">
+        <div class="header" style="justify-content: space-between;">
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <button class="btn-primary" onclick="openCreateTeamModal()">Create Team</button>
+                <button class="btn-green" onclick="openExportTeamsModal()">Export Teams</button>
+                <select id="teamModeFilter" onchange="renderTeams()">
+                    <option value="">All Modes</option>
+                    <option value="Prize Fight">Prize Fight</option>
+                    <option value="Rift Offense">Rift Offense</option>
+                    <option value="Rift Defense">Rift Defense</option>
+                    <option value="Parallel Realms">Parallel Realms</option>
+                </select>
             </div>
-            <div class="multiselect-dropdown" id="tierDropdown" style="width: 160px;">
-                <label class="multiselect-item"><input type="checkbox" value="Diamond" onchange="onTierChange()"> Diamond</label>
-                <label class="multiselect-item"><input type="checkbox" value="Gold" onchange="onTierChange()"> Gold</label>
-                <label class="multiselect-item"><input type="checkbox" value="Silver" onchange="onTierChange()"> Silver</label>
-                <label class="multiselect-item"><input type="checkbox" value="Bronze" onchange="onTierChange()"> Bronze</label>
-            </div>
+            <div class="counter">Total Teams: <span id="teamCount">0</span></div>
         </div>
 
-        <div class="multiselect-container" id="modifierMultiSelect">
-            <div class="multiselect-btn" onclick="toggleDropdown('modifierDropdown')">
-                <span id="modifierLabel">Modifiers (0)</span>
-                <span>▾</span>
-            </div>
-            <div class="multiselect-dropdown" id="modifierDropdown">
-                <div class="multiselect-group-title">Buffs</div>
-                {% for b in ["armor", "auto-block", "barrier", "blessing", "deadeye", "enrage", "evasion", "final stand", "haste", "heavy regen", "immunity", "invincible", "miasma", "precision", "regen", "thorns", "unflinching"] %}
-                <label class="multiselect-item">
-                    <input type="checkbox" value="{{ b }}" onchange="onModifierChange()">
-                    {{ b.title() }}
-                </label>
-                {% endfor %}
-
-                <div class="multiselect-group-title">Debuffs</div>
-                {% for d in ["armor break", "bleed", "heavy bleed", "cripple", "curse", "death mark", "disable blockbuster", "disable special", "disable tag", "doom", "fatigue", "guard break", "heal block", "hex", "immobilize", "inverse polarity", "power surge", "quietus", "slime", "slow", "stun", "wither"] %}
-                <label class="multiselect-item">
-                    <input type="checkbox" value="{{ d }}" onchange="onModifierChange()">
-                    {{ d.title() }}
-                </label>
-                {% endfor %}
-            </div>
+        <div class="teams-container" id="teamsGrid">
+            <!-- Rendered by JS -->
         </div>
-
-        <select id="statusFilter" onchange="filterAndSortCards()">
-            <option value="">All Statuses</option>
-            <option value="unlocked">Unlocked Only</option>
-            <option value="locked">Locked Only</option>
-            <option value="wishlist">Wishlist Only</option>
-        </select>
-
-        <select id="modeFilter" onchange="filterAndSortCards()">
-            <option value="any">Any Mode</option>
-            <option value="pf_off">PF Offense</option>
-            <option value="rift_off">Rift Offense</option>
-            <option value="rift_def">Rift Defense</option>
-            <option value="realms">Parallel Realms</option>
-        </select>
-
-        <select id="rankFilter" onchange="filterAndSortCards()">
-            <option value="0">All Ranks</option>
-            <option value="5">SS Only</option>
-            <option value="4">S or better</option>
-            <option value="3">A or better</option>
-            <option value="2">B or better</option>
-            <option value="1">C or better</option>
-        </select>
-
-        <select id="sortBy" onchange="filterAndSortCards()">
-            <option value="name_asc">Sort: Name (A-Z)</option>
-            <option value="name_desc">Sort: Name (Z-A)</option>
-            <option value="atk_desc">Sort: ATK (High → Low)</option>
-            <option value="atk_asc">Sort: ATK (Low → High)</option>
-            <option value="hp_desc">Sort: HP (High → Low)</option>
-            <option value="hp_asc">Sort: HP (Low → High)</option>
-        </select>
-
-        <button class="btn-secondary" onclick="batchToggle(true)">Select Visible</button>
-        <button class="btn-secondary" onclick="batchToggle(false)">Deselect Visible</button>
-        <button class="btn-undo" id="undoBtn" onclick="triggerUndo()" disabled title="Shortcut: Ctrl+Z">Undo</button>
-
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <label class="toggle-label" title="Toggle tier list badges in card view">
-                <input type="checkbox" id="showRatingsToggle" onchange="toggleRatingsVisibility(this.checked)" checked>
-                Show Tier Ratings
-            </label>
-
-            <label class="toggle-label" title="Include MA & PA when filtering by Buff/Debuff">
-                <input type="checkbox" id="includeBaseKitFilterToggle" onchange="filterAndSortCards()" checked>
-                Include MA & PA in filter
-            </label>
-        </div>
-
-        <button class="btn-green" onclick="openExportModal()">Export Roster</button>
-        <button class="btn-primary" onclick="openWishlistModal()">⭐ Manage Wishlist</button>
-
-        <div class="counter">Unlocked: <span id="unlockCount">0</span></div>
-    </div>
+    </div> <!-- End #teamsView -->
 
     <!-- Export Options Modal -->
     <div class="modal-overlay" id="exportModal">
@@ -177,118 +327,43 @@
         </div>
     </div>
 
-    <!-- Fighter Cards Grid -->
-    <div class="grid" id="cardGrid">
-        {% for key, v in variants.items() %}
-        {% set base = base_abilities.get(v.character, {}) %}
-        {% set base_text = (base.prestige.description if base.prestige else '') + ' ' + (base.marquee_options | map(attribute='description') | join(' ') if base.marquee_options else '') %}
-        {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
-        {% set full_kit = sa_only + ' ' + base_text %}
-        {% set searchable_content = (v.name + ' ' + v.character + ' ' + full_kit).lower() %}
-        <div class="card {% if v.unlocked %}unlocked{% endif %}"
-             onclick="onCardClick(event, this)"
-             data-search="{{ searchable_content }}"
-             data-name="{{ v.name.lower() }}"
-             data-rawname="{{ v.name }}"
-             data-char="{{ v.character }}"
-             data-element="{{ v.element }}"
-             data-tier="{{ v.tier }}"
-             data-atk="{{ v.atk_max if v.atk_max else 0 }}"
-             data-hp="{{ v.hp_max if v.hp_max else 0 }}"
-             data-sakit="{{ sa_only.lower() }}"
-             data-fullkit="{{ full_kit.lower() }}"
-             data-unlocked="{{ 'true' if v.unlocked else 'false' }}"
-             data-pfoff="{{ v.ratings.pf_off if v.ratings else 'U' }}"
-             data-riftoff="{{ v.ratings.rift_off if v.ratings else 'U' }}"
-             data-riftdef="{{ v.ratings.rift_def if v.ratings else 'U' }}"
-             data-realms="{{ v.ratings.realms if v.ratings else 'U' }}"
-             data-fighter='{{ v | tojson | safe }}'
-             data-base='{{ base | tojson | safe }}'>
-            <span class="wishlist-star">⭐</span>
+    <!-- Export Teams Modal -->
+    <div class="modal-overlay" id="exportTeamsModal">
+        <div class="modal">
+            <h3>Export Custom Teams to Clipboard</h3>
 
-            <div class="card-body-row" style="display: flex; gap: 10px; align-items: flex-start;">
-                {% if v.image_url %}
-                <img src="{{ v.image_url }}" alt="{{ v.name }}" class="card-portrait" style="width: 55px; height: auto; border-radius: 4px; border: 1px solid #30363d; flex-shrink: 0;" loading="lazy">
-                {% endif %}
-                <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
-
-                    <div class="card-head">
-                        <div class="name-label">
-                            <span class="name-text" data-original="{{ v.name }}">{{ v.name }}</span>
-                        </div>
-                        <div class="badges">
-                            <span class="char-tag">{{ v.character }}</span>
-                            <span class="tag {{ v.tier }}">{{ v.tier }}</span>
-                            <span class="element-tag">{{ v.element }}</span>
-                        </div>
-                    </div>
-
-                    {% if v.atk_max or v.hp_max %}
-                    <div class="stats-row">
-                        <span class="stat-item stat-atk">⚔️ ATK: {{ "{:,}".format(v.atk_max) if v.atk_max else "N/A" }}</span>
-                        <span class="stat-item stat-hp">❤️ HP: {{ "{:,}".format(v.hp_max) if v.hp_max else "N/A" }}</span>
-                    </div>
-                    {% endif %}
-
-                    {% if v.ratings %}
-                    <div class="ratings-row">
-                        <div class="rate-box"><span>PF Off</span><span class="rank-badge rank-{{ v.ratings.pf_off.strip() }}">{{ v.ratings.pf_off }}</span></div>
-                        <div class="rate-box"><span>Rift Off</span><span class="rank-badge rank-{{ v.ratings.rift_off.strip() }}">{{ v.ratings.rift_off }}</span></div>
-                        <div class="rate-box"><span>Rift Def</span><span class="rank-badge rank-{{ v.ratings.rift_def.strip() }}">{{ v.ratings.rift_def }}</span></div>
-                        <div class="rate-box"><span>Realms</span><span class="rank-badge rank-{{ v.ratings.realms.strip() }}">{{ v.ratings.realms }}</span></div>
-                    </div>
-                    {% endif %}
-
-                    <div class="sa-box sa1-box"><strong>SA1:</strong> <span class="desc-text">{{ v.sa1 if v.sa1 else "N/A" }}</span></div>
-                    <div class="sa-box sa2-box"><strong>SA2:</strong> <span class="desc-text">{{ v.sa2 if v.sa2 else "N/A" }}</span></div>
-
-                    {% if base %}
-                    <details class="base-kit" onclick="event.stopPropagation()">
-                        <summary>Character Kit (MA & PA)</summary>
-                        <div class="base-kit-content">
-                            {% if base.prestige %}
-                            <div class="prestige-box"><strong>Prestige ({{ base.prestige.name }}):</strong> <span class="desc-text">{{ base.prestige.description }}</span></div>
-                            {% endif %}
-                            {% if base.marquee_options %}
-                            <div><strong>Marquee ({{ base.marquee_group_name }}):</strong></div>
-                            {% for m in base.marquee_options %}
-                            <div class="marquee-box" style="padding-left: 6px;">• <em>{{ m.name }}:</em> <span class="desc-text">{{ m.description }}</span></div>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                    </details>
-                    {% endif %}
-
-                    <div class="card-footer-action">
-                        <button class="inspect-btn" onclick="openFighterModal(event, this)">Inspect 🔍</button>
-                    </div>
-
-                </div>
+            <div class="modal-section">
+                <div class="modal-section-title">Scope</div>
+                <label class="modal-radio">
+                    <input type="radio" name="exportTeamsScope" value="visible_teams" checked>
+                    Currently Filtered Teams (Mode Filter)
+                </label>
+                <label class="modal-radio">
+                    <input type="radio" name="exportTeamsScope" value="all_teams">
+                    All Saved Teams (Ignores Mode Filter)
+                </label>
             </div>
 
-        </div>
-        {% endfor %}
-    </div>
-    </div> <!-- End #rosterView -->
-
-    <!-- Team Builder View Panel -->
-    <div id="teamsView" class="view-panel">
-        <div class="header" style="justify-content: space-between;">
-            <div style="display: flex; gap: 12px; align-items: center;">
-                <button class="btn-primary" onclick="openCreateTeamModal()">Create Team</button>
-                <select id="teamModeFilter" onchange="renderTeams()">
-                    <option value="">All Modes</option>
-                    <option value="Prize Fight">Prize Fight</option>
-                    <option value="Rift Offense">Rift Offense</option>
-                    <option value="Rift Defense">Rift Defense</option>
-                    <option value="Parallel Realms">Parallel Realms</option>
-                </select>
+            <div class="modal-section">
+                <div class="modal-section-title">Format Level</div>
+                <label class="modal-radio">
+                    <input type="radio" name="exportTeamsFormat" value="full" checked>
+                    <strong>Full Details:</strong> Team Name, Mode & Combined Synergies
+                </label>
+                <label class="modal-radio">
+                    <input type="radio" name="exportTeamsFormat" value="compact">
+                    <strong>Compact:</strong> Single-line team summaries
+                </label>
+                <label class="modal-radio">
+                    <input type="radio" name="exportTeamsFormat" value="names">
+                    <strong>Fighters List:</strong> Plain comma-separated list of team fighters
+                </label>
             </div>
-            <div class="counter">Total Teams: <span id="teamCount">0</span></div>
-        </div>
 
-        <div class="teams-container" id="teamsGrid">
-            <!-- Rendered by JS -->
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeExportTeamsModal()">Cancel</button>
+                <button class="btn-green" onclick="executeTeamExport()">Copy Teams to Clipboard</button>
+            </div>
         </div>
     </div>
 
@@ -313,27 +388,59 @@
 
                 <div class="modal-right-content">
                     <div class="modal-tabs">
-                        <button class="m-tab-btn active" onclick="switchModalTab(event, 'info')">INFO (SA)</button>
-                        <button class="m-tab-btn" onclick="switchModalTab(event, 'kit')">KIT (MA & PA)</button>
-                        <button class="m-tab-btn" onclick="switchModalTab(event, 'loadout')">LOADOUT & STATS</button>
+                        <button class="m-tab-btn active" onclick="switchModalTab(event, 'info')">ℹ️ OVERVIEW</button>
+                        <button class="m-tab-btn" onclick="switchModalTab(event, 'ratings')">🏆 RATINGS</button>
+                        <button class="m-tab-btn" onclick="switchModalTab(event, 'strategy')">🎯 STRATEGY & RIFT</button>
+                        <button class="m-tab-btn" onclick="switchModalTab(event, 'build')">⚔️ BUILD & TEAMS</button>
                     </div>
 
-                    <!-- Tab: INFO -->
+                    <!-- Tab: OVERVIEW (SA & KIT) -->
                     <div class="m-tab-pane" id="pane-info">
                         <div class="modal-box"><strong>Signature Ability 1:</strong> <span id="modalSa1"></span></div>
                         <div class="modal-box"><strong>Signature Ability 2:</strong> <span id="modalSa2"></span></div>
-                    </div>
-
-                    <!-- Tab: KIT -->
-                    <div class="m-tab-pane" id="pane-kit" style="display: none;">
+                        <div class="modal-box"><strong>Character Ability:</strong> <span id="modalCharAbility"></span></div>
                         <div class="modal-box"><strong>Prestige Ability:</strong> <span id="modalPrestige"></span></div>
                         <div class="modal-box"><strong>Marquee Options:</strong> <div id="modalMarquee" style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;"></div></div>
                     </div>
 
-                    <!-- Tab: LOADOUT -->
-                    <div class="m-tab-pane" id="pane-loadout" style="display: none;">
-                        <div class="modal-box"><strong>Stat Investment:</strong> <div id="modalStats" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;"></div></div>
-                        <div class="modal-box"><strong>Preferred Moveset:</strong> <div id="modalMoves" class="moveset-badges" style="margin-top: 6px;"></div></div>
+                    <!-- Tab: RATINGS -->
+                    <div class="m-tab-pane" id="pane-ratings" style="display: none;">
+                        <div class="modal-box">
+                            <strong>Tier List Ratings:</strong>
+                            <div id="modalRatingsGrid" class="modal-ratings-grid" style="margin-top: 8px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: STRATEGY & RIFT -->
+                    <div class="m-tab-pane" id="pane-strategy" style="display: none;">
+                        <div class="modal-box" id="boxRoleStrategy">
+                            <strong>🎯 Role & Gameplay Strategy:</strong>
+                            <div id="modalRoleStrategy" class="bullet-list-box" style="margin-top: 6px;"></div>
+                        </div>
+                        <div class="modal-box" id="boxRiftBattles" style="display: none;">
+                            <strong>🏰 Rift Battles & Catalysts:</strong>
+                            <div id="modalRiftBattles" class="bullet-list-box" style="margin-top: 6px;"></div>
+                        </div>
+                        <div class="modal-box" id="boxPlayingAgainst" style="display: none;">
+                            <strong>🛡️ How to Counter / Play Against:</strong>
+                            <div id="modalPlayingAgainst" class="bullet-list-box" style="margin-top: 6px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: BUILD & TEAMS -->
+                    <div class="m-tab-pane" id="pane-build" style="display: none;">
+                        <div class="modal-box" id="boxStatInvestment">
+                            <strong>📊 Stat Investment Priority:</strong>
+                            <div id="modalStats" class="bullet-list-box" style="margin-top: 6px;"></div>
+                        </div>
+                        <div class="modal-box" id="boxMovesets">
+                            <strong>⚔️ Recommended Movesets:</strong>
+                            <div id="modalMovesetsContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 6px;"></div>
+                        </div>
+                        <div class="modal-box" id="boxTeamComps" style="display: none;">
+                            <strong>👥 Recommended Team Combinations:</strong>
+                            <div id="modalTeamComps" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,8 +449,11 @@
 
     <!-- Wishlist Modal -->
     <div class="modal-overlay" id="wishlistModal" onclick="if(event.target === this) closeWishlistModal()">
-        <div class="modal" style="max-width: 650px;">
-            <h3>⭐ Relic Wishlist</h3>
+        <div class="modal" style="max-width: 650px; position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #21262d; padding-bottom: 10px;">
+                <h3 style="margin: 0;">⭐ Relic Wishlist</h3>
+                <button class="modal-close-btn" onclick="closeWishlistModal()" style="position: static;">✕</button>
+            </div>
             <div class="wishlist-modal-body">
                 <div class="wishlist-section">
                     <h4 style="color: #00ffff;">Diamond Priority</h4>
@@ -358,14 +468,18 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-actions" style="margin-top: 20px;">
-                <button class="btn-green" onclick="closeWishlistModal()">Done</button>
+            <div class="wishlist-modal-actions" style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                <button class="btn-green" onclick="closeWishlistModal()" style="min-width: 120px;">Done</button>
             </div>
         </div>
     </div>
 
     <div id="wishlistPicker">
-        <input type="text" id="wishlistSearch" placeholder="Search..." oninput="filterWishlistPicker()" style="width:100%; margin-bottom:10px; padding:5px; background:var(--bg-card); color:white; border:1px solid var(--border-color); border-radius:4px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-weight: 600; font-size: 0.88rem; color: #58a6ff;">Select Fighter for Wishlist</span>
+            <button onclick="document.getElementById('wishlistPicker').style.display='none'" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.1rem; padding: 0 4px;">✕</button>
+        </div>
+        <input type="text" id="wishlistSearch" placeholder="Search variant or character..." oninput="filterWishlistPicker()" style="width:100%; margin-bottom:8px; padding:6px 10px; background:#0d1117; color:white; border:1px solid #30363d; border-radius:6px; font-size: 0.88rem; box-sizing: border-box;">
         <div id="wishlistPickerResults"></div>
     </div>
 
@@ -426,6 +540,22 @@
         </div>
         <div id="teamFighterPickerResults"></div>
     </div>
+
+    <!-- Mobile Bottom Navigation Bar (Visible on mobile < 768px) -->
+    <nav class="mobile-bottom-nav">
+        <button class="mobile-nav-item active" id="mobTabRoster" onclick="switchView('roster')">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Roster</span>
+        </button>
+        <button class="mobile-nav-item" id="mobTabTeams" onclick="switchView('teams')">
+            <span class="nav-icon">🛡️</span>
+            <span class="nav-label">Teams</span>
+        </button>
+        <button class="mobile-nav-item" id="mobTabWishlist" onclick="openWishlistModal()">
+            <span class="nav-icon">⭐</span>
+            <span class="nav-label">Wishlist</span>
+        </button>
+    </nav>
 
     <!-- Main Client Script -->
     <script>

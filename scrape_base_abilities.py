@@ -36,17 +36,35 @@ def scrape_character_abilities(character_name):
     soup = BeautifulSoup(html_content, "html.parser")
 
     result = {
+        "character_ability": None,
         "marquee_group_name": "",
         "marquee_options": [],
         "prestige": None
     }
 
-    # Trova tutti i div che definiscono Marquee e Prestige
+    # Trova tutti i div che definiscono Character Ability, Marquee e Prestige
     for div in soup.find_all("div", style=lambda s: s and "font-size:large" in s):
         text = div.get_text(strip=True)
 
+        # 0. Parsing Character Ability
+        if "Character Ability" in text:
+            curr = div.find_next_sibling()
+            while curr:
+                if curr.name == "table":
+                    th = curr.find("th")
+                    td = curr.find("td")
+                    if th and td:
+                        ca_name = clean_text(th.get_text())
+                        ca_desc = clean_text(td.get_text())
+                        result["character_ability"] = {
+                            "name": ca_name,
+                            "description": ca_desc
+                        }
+                    break
+                curr = curr.find_next_sibling()
+
         # 1. Parsing Marquee Ability
-        if "Marquee Ability" in text:
+        elif "Marquee Ability" in text:
             match = re.search(r"Marquee Ability:\s*(.*)", text, re.IGNORECASE)
             if match:
                 result["marquee_group_name"] = match.group(1).strip()

@@ -139,6 +139,19 @@ button {
 }
 
 /* Toggles & Counter Header Widgets */
+.batch-actions-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.filter-toggles-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 .toggle-label {
     font-size: 0.85rem;
     color: #8b949e;
@@ -668,7 +681,7 @@ mark.effect-highlight {
 
 .modal-tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 6px;
     border-bottom: 1px solid #30363d;
     padding-bottom: 10px;
@@ -678,12 +691,15 @@ mark.effect-highlight {
     background: #21262d;
     color: #8b949e;
     border: 1px solid #30363d;
-    padding: 10px;
-    font-size: 0.85rem;
+    padding: 8px 6px;
+    font-size: 0.8rem;
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .m-tab-btn.active {
     background: #238636;
@@ -713,6 +729,201 @@ mark.effect-highlight {
     color: #58a6ff;
     display: block;
     margin-bottom: 4px;
+}
+
+/* Tactical Inspector Extensions */
+.modal-ratings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.modal-rate-item {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bullet-list-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.bullet-item {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: #e6edf3;
+    background: rgba(22, 27, 34, 0.6);
+    border: 1px solid #21262d;
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.moveset-cat-wrapper {
+    background: rgba(22, 27, 34, 0.7);
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 8px 10px;
+}
+.moveset-cat-title {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #58a6ff;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-team-combo-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: rgba(13, 17, 23, 0.7);
+    border: 1px solid #30363d;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+.team-slot-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    background: rgba(33, 38, 45, 0.5);
+    border: 1px dashed rgba(88, 166, 255, 0.35);
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+.modal-team-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 3px 8px 3px 4px;
+    border-radius: 16px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+}
+.modal-team-chip.clickable {
+    cursor: pointer;
+}
+
+/* Tier-specific Borders & Glows */
+.modal-team-chip.tier-diamond {
+    border-color: #58a6ff;
+    background: rgba(31, 111, 235, 0.18);
+}
+.modal-team-chip.tier-gold {
+    border-color: #e3b341;
+    background: rgba(227, 179, 65, 0.15);
+}
+.modal-team-chip.tier-silver {
+    border-color: #8b949e;
+    background: rgba(139, 148, 158, 0.15);
+}
+.modal-team-chip.tier-bronze {
+    border-color: #d29922;
+    background: rgba(210, 153, 34, 0.15);
+}
+
+/* Locked vs Unlocked Status Overlay */
+.modal-team-chip.is-locked {
+    opacity: 0.72;
+    filter: grayscale(0.2);
+}
+.modal-team-chip.is-locked:hover {
+    opacity: 1;
+    filter: none;
+}
+.modal-team-chip.is-unlocked {
+    box-shadow: 0 0 6px rgba(46, 160, 67, 0.2);
+}
+
+/* Hover State */
+.modal-team-chip.clickable:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+.modal-team-chip.tier-diamond:hover {
+    background: rgba(31, 111, 235, 0.4);
+    border-color: #79c0ff;
+}
+.modal-team-chip.tier-gold:hover {
+    background: rgba(227, 179, 65, 0.4);
+    border-color: #f2cc60;
+}
+.modal-team-chip.tier-silver:hover {
+    background: rgba(139, 148, 158, 0.4);
+    border-color: #c9d1d9;
+}
+.modal-team-chip.tier-bronze:hover {
+    background: rgba(210, 153, 34, 0.4);
+    border-color: #e3b341;
+}
+
+/* Avatar Image */
+.team-chip-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #0d1117;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
+}
+
+/* Name */
+.team-chip-name {
+    color: #f0f6fc;
+    font-weight: 600;
+}
+
+/* Status Badges */
+.team-chip-badge {
+    font-size: 0.72rem;
+    padding: 1px 4px;
+    border-radius: 8px;
+    font-weight: 800;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.team-chip-badge.unlocked {
+    background: rgba(46, 160, 67, 0.25);
+    color: #7ee787;
+    border: 1px solid #2ea043;
+}
+.team-chip-badge.locked {
+    background: rgba(248, 81, 73, 0.2);
+    color: #ff7b72;
+    border: 1px solid #f85149;
+    font-size: 0.68rem;
+}
+
+.team-chip-or {
+    color: #8b949e;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: lowercase;
+    padding: 0 2px;
+    user-select: none;
+}
+.team-chip-plus {
+    color: #58a6ff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 0 2px;
+    user-select: none;
 }
 
 /* =========================================
@@ -841,8 +1052,8 @@ mark.effect-highlight {
     border: 1px solid #30363d;
     border-radius: 10px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95);
-    z-index: 2000;
-    width: 270px;
+    z-index: 10005;
+    width: 330px;
     display: none;
     padding: 12px;
     box-sizing: border-box;
@@ -963,6 +1174,16 @@ mark.effect-highlight {
     display: flex;
     align-items: center;
     gap: 12px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.team-fighter-slot.clickable {
+    cursor: pointer;
+}
+
+.team-fighter-slot.clickable:hover {
+    border-color: #58a6ff;
+    background: #161b22;
 }
 
 .team-fighter-slot img {
@@ -1177,5 +1398,495 @@ mark.effect-highlight {
     border-radius: 3px;
     padding: 1px 4px;
     margin-left: auto;
+}
+
+/* ==========================================================================
+   Mobile Responsive & Touch Optimization Styles
+   ========================================================================== */
+
+/* Hidden by default on Desktop */
+.mobile-top-bar,
+.mobile-drawer-header,
+.mobile-bottom-nav,
+.mobile-drawer-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px 10px 75px 10px;
+        font-size: 14px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Hide Desktop Top Nav on Mobile */
+    .main-nav {
+        display: none !important;
+    }
+
+    /* Mobile Top Header Bar */
+    .mobile-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        background: rgba(22, 27, 34, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        margin-bottom: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .mobile-brand .brand-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #58a6ff;
+        letter-spacing: 0.3px;
+    }
+
+    .mobile-top-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mobile-filter-btn {
+        background: #21262d;
+        color: #c9d1d9;
+        border: 1px solid #30363d;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 36px;
+    }
+
+    .mobile-filter-badge {
+        background: #238636;
+        color: #fff;
+        font-size: 0.75rem;
+        padding: 1px 6px;
+        border-radius: 10px;
+        font-weight: 700;
+    }
+
+    .btn-sm {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        min-height: 36px;
+    }
+
+    /* Mobile Filter Drawer Overlay */
+    .mobile-drawer-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 10000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+    }
+
+    .mobile-drawer-overlay.show {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .header-container {
+        position: fixed;
+        bottom: 58px !important;
+        left: 8px !important;
+        right: 8px !important;
+        width: calc(100% - 16px) !important;
+        max-width: calc(100% - 16px) !important;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 16px;
+        z-index: 10001;
+        transform: translateY(120%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        max-height: calc(100vh - 130px) !important;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.85);
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    .header-container.show {
+        transform: translateY(0) !important;
+    }
+
+    .mobile-drawer-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 14px 18px !important;
+        border-bottom: 1px solid #21262d !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
+        color: #58a6ff !important;
+        background: #161b22 !important;
+        flex-shrink: 0 !important;
+    }
+
+    .mobile-drawer-close {
+        background: transparent !important;
+        border: none !important;
+        color: #8b949e !important;
+        font-size: 1.3rem !important;
+        padding: 4px 8px !important;
+        cursor: pointer !important;
+    }
+
+    .header {
+        position: relative;
+        top: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        max-height: calc(100vh - 190px);
+        padding: 14px !important;
+        padding-bottom: 25px !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        align-items: center !important;
+    }
+
+    .header::-webkit-scrollbar {
+        width: 4px;
+    }
+    .header::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .header::-webkit-scrollbar-thumb {
+        background: #30363d;
+        border-radius: 4px;
+    }
+
+    .header > * {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Span 2 columns for Search, Batch Actions, and Filter Toggles */
+    .header input[type="text"]#search,
+    .header .batch-actions-group,
+    .header .filter-toggles-group {
+        grid-column: span 2 !important;
+    }
+
+    /* Hide redundant desktop buttons & counter inside mobile filter drawer */
+    .header-container .header > .btn-green,
+    .header-container .header > .btn-primary,
+    .header-container .header > .counter {
+        display: none !important;
+    }
+
+    .header input[type="text"],
+    .header select {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        font-size: 0.95rem !important;
+        min-height: 42px !important;
+        margin: 0 !important;
+        border: 1px solid #30363d !important;
+        background-color: #0d1117 !important;
+        color: #fff !important;
+        border-radius: 6px !important;
+        padding: 8px 36px 8px 12px !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8.825L1.175 4 2.238 2.938 6 6.7 9.763 2.938 10.825 4z'/%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 14px center !important;
+    }
+
+    .header .multiselect-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    .header .multiselect-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-height: 42px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .header .multiselect-dropdown {
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin-top: 6px !important;
+    }
+
+    .batch-actions-group {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 6px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .batch-actions-group > button {
+        flex: 1 !important;
+        min-width: 0 !important;
+        padding: 8px 4px !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        overflow: hidden !important;
+        justify-content: center !important;
+        min-height: 38px !important;
+    }
+
+    .filter-toggles-group {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-top: 4px !important;
+    }
+
+    .filter-toggles-group .toggle-label {
+        font-size: 0.85rem !important;
+    }
+
+    /* Card Grid Responsive on Mobile: 2 Columns on phones, 1 column on ultra-narrow */
+    .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    @media (max-width: 360px) {
+        .grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* Mobile Cards Layout Optimization */
+    .card {
+        padding: 8px !important;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .card-body-row {
+        gap: 6px !important;
+    }
+
+    .card-portrait {
+        width: 42px !important;
+        height: auto !important;
+    }
+
+    .card-head {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 3px !important;
+    }
+
+    .name-text {
+        font-size: 0.85rem !important;
+        line-height: 1.2;
+    }
+
+    .badges {
+        flex-wrap: wrap !important;
+        gap: 2px !important;
+    }
+
+    .tag, .char-tag, .element-tag {
+        font-size: 0.65rem !important;
+        padding: 1px 4px !important;
+    }
+
+    .stats-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .stat-item {
+        white-space: nowrap;
+    }
+
+    .modal-tabs {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+    }
+
+    .m-tab-btn {
+        font-size: 0.75rem !important;
+        padding: 6px 4px !important;
+    }
+
+    .ratings-row {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 4px !important;
+    }
+
+    .rate-box {
+        font-size: 0.68rem !important;
+        padding: 3px 2px !important;
+        white-space: nowrap !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .rate-box span:first-child {
+        font-size: 0.65rem;
+        color: #8b949e;
+    }
+
+    .rank-badge {
+        font-size: 0.7rem !important;
+        padding: 1px 4px !important;
+    }
+
+    .sa-box {
+        font-size: 0.75rem !important;
+        line-height: 1.3 !important;
+        padding: 5px 6px !important;
+    }
+
+    .base-kit summary {
+        font-size: 0.75rem !important;
+        padding: 4px 6px !important;
+    }
+
+    .inspect-btn {
+        width: 100%;
+        padding: 6px 0;
+        font-size: 0.78rem;
+    }
+
+    /* Mobile Bottom Navigation Bar (Always Fixed at Bottom) */
+    .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 56px !important;
+        background: #0d1117 !important;
+        border-top: 1px solid #30363d !important;
+        z-index: 9900 !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        background: transparent;
+        border: none;
+        color: #8b949e;
+        padding: 4px 0;
+        cursor: pointer;
+    }
+
+    .mobile-nav-item .nav-icon {
+        font-size: 1.1rem;
+    }
+
+    .mobile-nav-item .nav-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+
+    .mobile-nav-item.active {
+        color: #58a6ff;
+    }
+
+    /* Touch Bottom Sheet for Modals */
+    .modal-overlay, .fighter-modal-overlay {
+        z-index: 10000 !important;
+        align-items: flex-end !important;
+    }
+
+    .fighter-modal, .modal {
+        width: calc(100% - 16px) !important;
+        max-width: 100% !important;
+        margin: 0 8px !important;
+        border-radius: 16px 16px 16px 16px !important;
+        max-height: calc(100vh - 130px) !important;
+        position: fixed !important;
+        bottom: 58px !important;
+        left: 0 !important;
+        right: 0 !important;
+        overflow-y: auto !important;
+        z-index: 10001 !important;
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.85) !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Sticky Action Footer inside Modals on Mobile */
+    .modal-actions {
+        position: sticky !important;
+        bottom: 0 !important;
+        background: #161b22 !important;
+        padding: 12px 0 4px 0 !important;
+        border-top: 1px solid #21262d !important;
+        margin-top: 16px !important;
+        z-index: 100 !important;
+        display: flex !important;
+        gap: 10px !important;
+    }
+
+    /* Team Builder & Wishlist Popovers Mobile Adjustment */
+    #teamFighterPicker, #wishlistPicker {
+        width: calc(100vw - 20px) !important;
+        left: 10px !important;
+        right: 10px !important;
+        bottom: 70px !important;
+        top: auto !important;
+        z-index: 10005 !important;
+    }
 }
 

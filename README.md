@@ -1,8 +1,17 @@
-# Skullgirls Mobile - Roster Tracker
+# Skullgirls Mobile - Roster Tracker (v1.2.0)
 
 An advanced offline web tool designed for Skullgirls Mobile players to track their collection, build custom teams with synergy analysis, manage wishlists, inspect fighter kits and official Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
 
-![Dashboard Preview](examples/1.gif)
+![Dashboard Preview](examples/1.png)
+
+## What's New in v1.2.0
+
+- 🎯 **Multi-Select Character Filter:** Select multiple characters at once (e.g. view all *Painwheel* + *Marie* variants together).
+- 🔍 **Interactive Inspector Modal in Team Builder:** Click any fighter card inside Team Builder Mode (Desktop & Mobile) to open full kit & strategy breakdown.
+- 🧬 **Character Ability (CA) Support:** Added base Character Abilities for all 18 base fighters across cards and modal overviews.
+- ⚔️ **Tactical Wiki Loadouts & Multi-Setup Movesets:** Detailed 4-tab Inspector Modal rendering *Role & Strategy*, *Stat Investment Priority*, *Rift Battles & Catalysts*, *Playing Against & Counters*, and *Multi-Setup Movesets* (Rift Offense, Defense, Preferred).
+- 👥 **Slot-Based Team Combinations & Live Roster Badges:** Recommended team combinations formatted into slot boxes with `or` / `+` separators. Teammates feature mini avatar portraits, tier-colored glows, and live **🟢 Unlocked** / **🔒 Locked** status badges matching your collection.
+- 📱 **Mobile UI Optimization:** Full glassmorphism mobile view with 2-column tab grid, active filter badges, and touch-friendly controls.
 
 ## Features
 
@@ -10,11 +19,11 @@ An advanced offline web tool designed for Skullgirls Mobile players to track the
 - **Team Builder & Synergy Analyzer:** Create, save, and manage custom 3-fighter loadouts tailored for specific game modes (*Prize Fight*, *Rift Offense*, *Rift Defense*, *Parallel Realms*). Automatically previews combined Signature Abilities (SA1 & SA2) and support synergies, with duplicate protection and tier rank sorting.
 - **Wishlist Tracker:** Track target Gold and Diamond variants you are hunting for with interactive priority slots.
 - **Base Stats (Max Lvl 60):** Card view displays official Max ATK and HP stats.
-- **Full Character Kit:** Expandable details showing character-specific Prestige Abilities (PA) and Marquee options (MA).
-- **Official Wiki Loadouts:** Integrated Stat Investments and Preferred Movesets scraped directly from the official Skullgirls Mobile Fandom Wiki.
+- **Full Character Kit:** Expandable details showing Character Ability (CA), Prestige Abilities (PA), and Marquee options (MA).
+- **Official Wiki Loadouts:** Integrated Stat Investments, Role & Strategy, Rift notes, and Multi-Setup Movesets scraped directly from the official Skullgirls Mobile Fandom Wiki.
 - **Global Text Search & Highlight:** Search freely across variant names, descriptions, and kits with real-time keyword highlighting.
 - **Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with keyword highlighting.
-- **Tier Multi-Select:** Choose single or combined rarity pools (*Diamond*, *Gold*, *Silver*, *Bronze*).
+- **Character & Tier Multi-Select:** Choose single or combined character pools (*Painwheel*, *Marie*, etc.) and rarity tiers (*Diamond*, *Gold*, *Silver*, *Bronze*).
 - **Meta Grades:** Community tier ratings across 4 modes (PF Offense, Rift Offense, Rift Defense, Parallel Realms) sourced from the [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
 - **Custom Clipboard Exporter:** Export selections in Full markdown, single-line Compact summaries, or comma-separated name lists.
 - **Accident Prevention:** Bulk selection safeguards with one-click Undo (`Ctrl+Z`).
@@ -22,7 +31,7 @@ An advanced offline web tool designed for Skullgirls Mobile players to track the
 
 ## Screenshots
 
-<img src="examples/1.png" width="280" alt="Roster Tracker"> <img src="examples/2.png" width="280" alt="Export Modal"> <img src="examples/3.png" width="280" alt="Team Builder">
+<img src="examples/1.png" width="280" alt="Roster Tracker"> <img src="examples/2.png" width="280" alt="Export Modal"> <img src="examples/3.png" width="280" alt="Team Builder"> <img src="examples/4.png" width="280" alt="Inspect Build"> <img src="examples/5.png" width="280" alt="Inspect Strategy"> <img src="examples/MobileView.png" width="280" alt="MobileView">
 
 ## Setup & Run
 
@@ -104,11 +113,10 @@ The repository includes pre-scraped datasets (`sgm_database.json` and `base_abil
 
 * Sync variant stats and tier ratings:
 ```bash
-python3 scrape.py
+python3 scrape.py --force
 ```
 
-*(Pass `--force` to re-download all pages from scratch).*
-* Sync base character kits (Prestige & Marquee):
+* Sync base character kits (Character Ability, Prestige & Marquee):
 ```bash
 python3 scrape_base_abilities.py
 ```
@@ -125,4 +133,5 @@ python3 scrape_base_abilities.py
 - **Why reactivate every time:** When you close your Command Prompt or terminal window, your system forgets the active sandbox session. Running `venv\Scripts\activate` (or `source venv/bin/activate`) tells your terminal: *"Hey, turn the sandbox back on!"* so Python can access its installed dependencies before launching `python app.py`.
 
 ### 📱 Is there a Mobile version available?
-The app runs locally on PC web browsers. Full mobile responsive UI optimization is currently in active development!
+Yes! The web app features full mobile responsive layout optimization, glassmorphism modals, touch-friendly tab navigation, active filter badges, and mobile-friendly team builder controls!
+

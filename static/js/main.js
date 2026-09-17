@@ -40,6 +40,30 @@ window.addEventListener('click', (e) => {
 });
 
 /**
+ * Get selected fighter characters.
+ * @returns {Array<string>} Array of character names.
+ */
+function getSelectedCharacters() {
+    return Array.from(document.querySelectorAll('#charDropdown input:checked')).map(cb => cb.value);
+}
+
+/**
+ * Handle character dropdown checkbox updates.
+ */
+function onCharChange() {
+    const selected = getSelectedCharacters();
+    const label = document.getElementById('charLabel');
+    if (selected.length === 0) {
+        label.innerText = "All Fighters";
+    } else if (selected.length <= 2) {
+        label.innerText = selected.join(', ');
+    } else {
+        label.innerText = `Fighters (${selected.length})`;
+    }
+    filterAndSortCards();
+}
+
+/**
  * Get selected fighter rarity tiers.
  * @returns {Array<string>} Array of selected tier names (e.g. ['Diamond', 'Gold']).
  */
@@ -102,7 +126,11 @@ function saveSnapshot(entries) {
  */
 function updateCount() {
     const count = document.querySelectorAll('.card.unlocked').length;
-    document.getElementById('unlockCount').innerText = count;
+    const total = document.querySelectorAll('.card').length;
+    const unlockEl = document.getElementById('unlockCount');
+    if (unlockEl) unlockEl.innerText = count;
+    const mobUnlockEl = document.getElementById('mobileUnlockCount');
+    if (mobUnlockEl) mobUnlockEl.innerText = `Unlocked: ${count} / ${total}`;
 }
 
 /**
@@ -144,18 +172,131 @@ function onCardClick(event, cardElement) {
 }
 
 /**
- * Open full In-Game Inspector Modal for a selected fighter card.
+ * Look up detailed card info (character, tier, element, image, unlocked status) by variant name.
+ * @param {string} rawName - Raw variant name.
+ * @returns {Object|null} Info object or null if card not found in DOM.
+ */
+function getFighterCardInfo(rawName) {
+    if (!rawName) return null;
+    const cleanName = rawName.trim();
+    const card = document.querySelector(`.card[data-rawname="${CSS.escape ? CSS.escape(cleanName) : cleanName}"]`) || document.querySelector(`.card[data-rawname="${cleanName}"]`);
+    if (!card) return null;
+
+    let fighter = {};
+    try { fighter = JSON.parse(card.dataset.fighter || '{}'); } catch(e) {}
+
+    const cardImg = card.querySelector('.card-image-wrapper img') || card.querySelector('img');
+    const image_url = fighter.image_url || (cardImg ? cardImg.src : '');
+    const isUnlocked = card.dataset.unlocked === 'true';
+    const tier = card.dataset.tier || fighter.tier || '';
+    const element = card.dataset.element || fighter.element || '';
+    const character = card.dataset.char || fighter.character || '';
+
+    return {
+        name: cleanName,
+        character: character,
+        tier: tier,
+        element: element,
+        image_url: image_url,
+        isUnlocked: isUnlocked
+    };
+}
+
+/**
+ * Helper to build a rich fighter chip with avatar thumbnail, tier border, and lock/unlock status badge.
+ * @param {string} fName - Fighter variant name.
+ * @returns {HTMLElement} The created chip DOM element.
+ */
+function createTeamFighterChip(fName) {
+    const chip = document.createElement('span');
+    chip.className = 'modal-team-chip clickable';
+    chip.onclick = (e) => openFighterModalByName(fName, e);
+
+    const info = getFighterCardInfo(fName);
+
+    if (info) {
+        if (info.tier) chip.classList.add(`tier-${info.tier.toLowerCase()}`);
+        if (!info.isUnlocked) chip.classList.add('is-locked');
+        else chip.classList.add('is-unlocked');
+
+        // Avatar Image
+        if (info.image_url) {
+            const img = document.createElement('img');
+            img.className = 'team-chip-avatar';
+            img.src = info.image_url;
+            img.alt = fName;
+            img.onerror = () => { img.style.display = 'none'; };
+            chip.appendChild(img);
+        }
+
+        // Name
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'team-chip-name';
+        nameSpan.innerText = fName;
+        chip.appendChild(nameSpan);
+
+        // Status Badge (Lock / Checkmark)
+        const statusBadge = document.createElement('span');
+        statusBadge.className = info.isUnlocked ? 'team-chip-badge unlocked' : 'team-chip-badge locked';
+        statusBadge.innerHTML = info.isUnlocked ? '✓' : '🔒';
+        statusBadge.title = info.isUnlocked ? `${fName} is Unlocked in your roster` : `${fName} is Locked (Not owned yet)`;
+        chip.appendChild(statusBadge);
+
+        chip.title = `Click to inspect ${fName} (${info.isUnlocked ? 'Unlocked' : 'Locked'})`;
+    } else {
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'team-chip-name';
+        nameSpan.innerText = fName;
+        chip.appendChild(nameSpan);
+        chip.title = `Click to inspect ${fName}`;
+    }
+
+    return chip;
+}
+
+/**
+ * Open full In-Game Inspector Modal by raw fighter name.
+ * @param {string} rawName - Raw variant name.
+ * @param {Event} [event] - Optional pointer event.
+ */
+function openFighterModalByName(rawName, event) {
+    if (event) event.stopPropagation();
+    if (!rawName) return;
+    const card = document.querySelector(`.card[data-rawname="${CSS.escape ? CSS.escape(rawName) : rawName}"]`) || document.querySelector(`.card[data-rawname="${rawName}"]`);
+    if (card) {
+        openFighterModalFromCard(card);
+    }
+}
+
+/**
+ * Open full In-Game Inspector Modal for a selected fighter card element.
  * @param {Event} event - Pointer click event.
  * @param {HTMLElement} btnElement - Inspect button DOM node inside card.
  */
 function openFighterModal(event, btnElement) {
-    event.stopPropagation();
+    if (event) event.stopPropagation();
     const card = btnElement.closest('.card');
-    const fighter = JSON.parse(card.dataset.fighter);
-    const baseKit = JSON.parse(card.dataset.base || '{}');
+    if (card) {
+        openFighterModalFromCard(card);
+    }
+}
 
-    document.getElementById('modalFighterName').innerText = fighter.name;
-    document.getElementById('modalFighterSub').innerText = `${fighter.character} | ${fighter.tier} | ${fighter.element}`;
+/**
+ * Populate and display Inspector Modal from a card element.
+ * @param {HTMLElement} card - Card DOM element.
+ */
+function openFighterModalFromCard(card) {
+    let fighter = {};
+    let baseKit = {};
+    try {
+        fighter = JSON.parse(card.dataset.fighter || '{}');
+    } catch(e) {}
+    try {
+        baseKit = JSON.parse(card.dataset.base || '{}');
+    } catch(e) {}
+
+    document.getElementById('modalFighterName').innerText = fighter.name || card.dataset.rawname || 'Fighter';
+    document.getElementById('modalFighterSub').innerText = `${fighter.character || card.dataset.char || ''} | ${fighter.tier || card.dataset.tier || ''} | ${fighter.element || card.dataset.element || ''}`;
 
     // Set Card Art Image in Modal
     const imgEl = document.getElementById('modalCardImg');
@@ -163,18 +304,32 @@ function openFighterModal(event, btnElement) {
         imgEl.src = fighter.image_url;
         imgEl.style.display = 'block';
     } else {
-        imgEl.style.display = 'none';
+        const cardImg = card.querySelector('img');
+        if (cardImg) {
+            imgEl.src = cardImg.src;
+            imgEl.style.display = 'block';
+        } else {
+            imgEl.style.display = 'none';
+        }
     }
 
     // Set Max Stats in Modal Header Card
-    document.getElementById('modalAtkVal').innerText = fighter.atk_max ? fighter.atk_max.toLocaleString() : 'N/A';
-    document.getElementById('modalHpVal').innerText = fighter.hp_max ? fighter.hp_max.toLocaleString() : 'N/A';
+    document.getElementById('modalAtkVal').innerText = fighter.atk_max ? fighter.atk_max.toLocaleString() : (card.dataset.atk ? parseInt(card.dataset.atk).toLocaleString() : 'N/A');
+    document.getElementById('modalHpVal').innerText = fighter.hp_max ? fighter.hp_max.toLocaleString() : (card.dataset.hp ? parseInt(card.dataset.hp).toLocaleString() : 'N/A');
 
-    // Info Tab (Signature Abilities)
+    // Tab 1: OVERVIEW (Signature & Kit)
     document.getElementById('modalSa1').innerText = fighter.sa1 || "N/A";
     document.getElementById('modalSa2').innerText = fighter.sa2 || "N/A";
 
-    // Kit Tab (Prestige & Marquee Abilities)
+    const charAbilityEl = document.getElementById('modalCharAbility');
+    if (charAbilityEl) {
+        if (baseKit.character_ability) {
+            charAbilityEl.innerHTML = `<strong>${baseKit.character_ability.name}:</strong> ${baseKit.character_ability.description}`;
+        } else {
+            charAbilityEl.innerText = "N/A";
+        }
+    }
+
     const prestigeEl = document.getElementById('modalPrestige');
     if (baseKit.prestige) {
         prestigeEl.innerHTML = `<strong>${baseKit.prestige.name}:</strong> ${baseKit.prestige.description}`;
@@ -194,30 +349,213 @@ function openFighterModal(event, btnElement) {
         marqueeContainer.innerText = "N/A";
     }
 
-    // Loadout Tab (Stat Investments & Recommended Moves)
+    // Tab 2: RATINGS
+    const ratingsGrid = document.getElementById('modalRatingsGrid');
+    if (ratingsGrid) {
+        ratingsGrid.innerHTML = '';
+        const r = fighter.ratings || {
+            pf_off: card.dataset.pfoff || 'U',
+            rift_off: card.dataset.riftoff || 'U',
+            rift_def: card.dataset.riftdef || 'U',
+            realms: card.dataset.realms || 'U'
+        };
+        const ratingsData = [
+            { label: 'PF Offense', rank: (r.pf_off || 'U').trim() },
+            { label: 'Rift Offense', rank: (r.rift_off || 'U').trim() },
+            { label: 'Rift Defense', rank: (r.rift_def || 'U').trim() },
+            { label: 'Parallel Realms', rank: (r.realms || 'U').trim() }
+        ];
+        ratingsData.forEach(item => {
+            const box = document.createElement('div');
+            box.className = 'modal-rate-item';
+            box.innerHTML = `
+                <span style="color:#8b949e; font-size:0.85rem;">${item.label}</span>
+                <span class="rank-badge rank-${item.rank}" style="font-size:1rem; padding:4px 10px;">${item.rank}</span>
+            `;
+            ratingsGrid.appendChild(box);
+        });
+    }
+
+    // Loadouts object fallback
+    const loadouts = fighter.loadouts || {};
+
+    // Tab 3: STRATEGY & RIFT
+    const roleContainer = document.getElementById('modalRoleStrategy');
+    roleContainer.innerHTML = '';
+    const roleList = loadouts.role_strategy || [];
+    if (roleList.length > 0) {
+        document.getElementById('boxRoleStrategy').style.display = 'block';
+        roleList.forEach(bullet => {
+            const div = document.createElement('div');
+            div.className = 'bullet-item';
+            div.innerText = `• ${bullet}`;
+            roleContainer.appendChild(div);
+        });
+    } else {
+        document.getElementById('boxRoleStrategy').style.display = 'block';
+        roleContainer.innerHTML = '<div style="color:#8b949e; font-size:0.88rem;">No role & strategy guide specified for this variant yet.</div>';
+    }
+
+    // Rift Battles section (dynamic show/hide)
+    const riftBox = document.getElementById('boxRiftBattles');
+    const riftContainer = document.getElementById('modalRiftBattles');
+    const riftList = loadouts.rift_battles || [];
+    if (riftContainer) riftContainer.innerHTML = '';
+    if (riftList.length > 0) {
+        if (riftBox) riftBox.style.display = 'block';
+        riftList.forEach(bullet => {
+            const div = document.createElement('div');
+            div.className = 'bullet-item';
+            div.innerText = `• ${bullet}`;
+            if (riftContainer) riftContainer.appendChild(div);
+        });
+    } else {
+        if (riftBox) riftBox.style.display = 'none';
+    }
+
+    // Playing Against section (dynamic show/hide)
+    const counterBox = document.getElementById('boxPlayingAgainst');
+    const counterContainer = document.getElementById('modalPlayingAgainst');
+    const counterList = loadouts.playing_against || [];
+    if (counterContainer) counterContainer.innerHTML = '';
+    if (counterList.length > 0) {
+        if (counterBox) counterBox.style.display = 'block';
+        counterList.forEach(bullet => {
+            const div = document.createElement('div');
+            div.className = 'bullet-item';
+            div.innerText = `• ${bullet}`;
+            if (counterContainer) counterContainer.appendChild(div);
+        });
+    } else {
+        if (counterBox) counterBox.style.display = 'none';
+    }
+
+    // Tab 4: BUILD & TEAMS
+    const statBox = document.getElementById('boxStatInvestment');
     const statsContainer = document.getElementById('modalStats');
     statsContainer.innerHTML = '';
-    if (fighter.loadouts && fighter.loadouts.stat_investment && fighter.loadouts.stat_investment.length > 0) {
-        fighter.loadouts.stat_investment.forEach(stat => {
+    const statList = loadouts.stat_investment || [];
+    if (statList.length > 0) {
+        if (statBox) statBox.style.display = 'block';
+        statList.forEach(stat => {
             const div = document.createElement('div');
+            div.className = 'bullet-item';
             div.innerText = `• ${stat}`;
             statsContainer.appendChild(div);
         });
     } else {
-        statsContainer.innerText = "No specific stat investment notes.";
+        if (statBox) statBox.style.display = 'block';
+        statsContainer.innerHTML = '<div style="color:#8b949e; font-size:0.88rem;">No specific stat investment notes specified.</div>';
     }
 
-    const movesContainer = document.getElementById('modalMoves');
-    movesContainer.innerHTML = '';
-    if (fighter.loadouts && fighter.loadouts.preferred_moveset && fighter.loadouts.preferred_moveset.length > 0) {
-        fighter.loadouts.preferred_moveset.forEach(move => {
+    // Moveset categories container
+    const movesetsContainer = document.getElementById('modalMovesetsContainer');
+    movesetsContainer.innerHTML = '';
+    const movesetsMap = loadouts.movesets || {};
+
+    if (Object.keys(movesetsMap).length > 0) {
+        for (const [catName, item] of Object.entries(movesetsMap)) {
+            if (!item || item.length === 0) continue;
+            
+            let setups = [];
+            if (Array.isArray(item[0])) {
+                setups = item;
+            } else {
+                setups = [item];
+            }
+
+            setups.forEach((setupMoves, idx) => {
+                const catWrapper = document.createElement('div');
+                catWrapper.className = 'moveset-cat-wrapper';
+                
+                const catTitle = document.createElement('div');
+                catTitle.className = 'moveset-cat-title';
+                const label = setups.length > 1 ? `${catName} (Setup ${idx + 1})` : catName;
+                catTitle.innerText = label;
+                
+                const badgesDiv = document.createElement('div');
+                badgesDiv.className = 'moveset-badges';
+                setupMoves.forEach(m => {
+                    const span = document.createElement('span');
+                    span.className = 'move-badge';
+                    span.innerText = m;
+                    badgesDiv.appendChild(span);
+                });
+                
+                catWrapper.appendChild(catTitle);
+                catWrapper.appendChild(badgesDiv);
+                movesetsContainer.appendChild(catWrapper);
+            });
+        }
+    } else if (loadouts.preferred_moveset && loadouts.preferred_moveset.length > 0) {
+        const catWrapper = document.createElement('div');
+        catWrapper.className = 'moveset-cat-wrapper';
+        const badgesDiv = document.createElement('div');
+        badgesDiv.className = 'moveset-badges';
+        loadouts.preferred_moveset.forEach(m => {
             const span = document.createElement('span');
             span.className = 'move-badge';
-            span.innerText = move;
-            movesContainer.appendChild(span);
+            span.innerText = m;
+            badgesDiv.appendChild(span);
+        });
+        catWrapper.appendChild(badgesDiv);
+        movesetsContainer.appendChild(catWrapper);
+    } else {
+        movesetsContainer.innerHTML = '<div style="color:#8b949e; font-size:0.88rem;">No preferred moveset specified.</div>';
+    }
+
+    // Team Combinations section (dynamic show/hide with clickable chips)
+    const teamBox = document.getElementById('boxTeamComps');
+    const teamContainer = document.getElementById('modalTeamComps');
+    const teamList = loadouts.team_combinations || [];
+    if (teamContainer) teamContainer.innerHTML = '';
+    if (teamList.length > 0) {
+        if (teamBox) teamBox.style.display = 'block';
+        teamList.forEach(teamGroup => {
+            if (!Array.isArray(teamGroup) || teamGroup.length === 0) return;
+
+            const teamRow = document.createElement('div');
+            teamRow.className = 'modal-team-combo-row';
+
+            // Normalize: ensure each slot item is an array of fighter choices
+            const slots = teamGroup.map(item => Array.isArray(item) ? item : [item]);
+
+            slots.forEach((slotFighters, slotIdx) => {
+                const slotBox = document.createElement('div');
+                slotBox.className = 'team-slot-box';
+
+                slotFighters.forEach((fName, fIdx) => {
+                    const chip = createTeamFighterChip(fName);
+                    slotBox.appendChild(chip);
+
+                    if (fIdx < slotFighters.length - 1) {
+                        const orSpan = document.createElement('span');
+                        orSpan.className = 'team-chip-or';
+                        orSpan.innerText = 'or';
+                        slotBox.appendChild(orSpan);
+                    }
+                });
+
+                teamRow.appendChild(slotBox);
+
+                if (slotIdx < slots.length - 1) {
+                    const plus = document.createElement('span');
+                    plus.className = 'team-chip-plus';
+                    plus.innerText = '+';
+                    teamRow.appendChild(plus);
+                }
+            });
+
+            if (teamContainer) teamContainer.appendChild(teamRow);
         });
     } else {
-        movesContainer.innerText = "No preferred moveset specified.";
+        if (teamBox) teamBox.style.display = 'none';
+    }
+
+    // Reset active tab to Overview ('info')
+    const firstTabBtn = document.querySelector('.modal-tabs .m-tab-btn');
+    if (firstTabBtn) {
+        switchModalTab({ currentTarget: firstTabBtn }, 'info');
     }
 
     document.getElementById('fighterModal').classList.add('show');
@@ -242,19 +580,26 @@ function closeFighterModalDirect() {
 /**
  * Switch tabs inside Fighter Inspector Modal.
  * @param {Event} event - Tab button click event.
- * @param {string} tabName - Name of pane to activate ('info', 'kit', 'loadout').
+ * @param {string} tabName - Name of pane to activate ('info', 'ratings', 'strategy', 'build').
  */
 function switchModalTab(event, tabName) {
     document.querySelectorAll('.m-tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.m-tab-pane').forEach(p => p.style.display = 'none');
 
-    event.target.classList.add('active');
-    if (tabName === 'info') {
-        document.getElementById('pane-info').style.display = 'flex';
-    } else if (tabName === 'kit') {
-        document.getElementById('pane-kit').style.display = 'flex';
-    } else if (tabName === 'loadout') {
-        document.getElementById('pane-loadout').style.display = 'flex';
+    const btn = event.currentTarget || event.target;
+    if (btn) btn.classList.add('active');
+    
+    const paneMap = {
+        'info': 'pane-info',
+        'ratings': 'pane-ratings',
+        'strategy': 'pane-strategy',
+        'build': 'pane-build'
+    };
+    
+    const targetPaneId = paneMap[tabName] || 'pane-info';
+    const targetPane = document.getElementById(targetPaneId);
+    if (targetPane) {
+        targetPane.style.display = 'flex';
     }
 }
 
@@ -447,7 +792,7 @@ function applyHighlights(card, selectedEffects) {
  */
 function filterAndSortCards() {
     const query = document.getElementById('search').value.toLowerCase();
-    const char = document.getElementById('charFilter').value;
+    const selectedChars = getSelectedCharacters();
     const elem = document.getElementById('elementFilter').value;
     const selectedTiers = getSelectedTiers();
     const selectedEffects = getSelectedModifiers();
@@ -457,12 +802,33 @@ function filterAndSortCards() {
     const minRank = parseInt(document.getElementById('rankFilter').value, 10);
     const sortBy = document.getElementById('sortBy').value;
 
+    // Update active filter badge for mobile view
+    let activeCount = 0;
+    if (query) activeCount++;
+    if (selectedChars.length > 0) activeCount++;
+    if (elem) activeCount++;
+    if (selectedTiers.length > 0) activeCount++;
+    if (selectedEffects.length > 0) activeCount++;
+    if (status) activeCount++;
+    if (mode !== 'any') activeCount++;
+    if (minRank > 0) activeCount++;
+
+    const badge = document.getElementById('mobileFilterBadge');
+    if (badge) {
+        if (activeCount > 0) {
+            badge.innerText = activeCount;
+            badge.style.display = 'inline-block';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
     const grid = document.getElementById('cardGrid');
     const cards = Array.from(document.querySelectorAll('.card'));
 
     cards.forEach(c => {
         const matchSearch = c.dataset.search.includes(query);
-        const matchChar = !char || c.dataset.char === char;
+        const matchChar = selectedChars.length === 0 || selectedChars.includes(c.dataset.char);
         const matchElem = !elem || c.dataset.element === elem;
         const matchTier = selectedTiers.length === 0 || selectedTiers.includes(c.dataset.tier);
 
@@ -565,6 +931,15 @@ function filterAndSortCards() {
     cards.forEach(c => grid.appendChild(c));
 }
 
+function triggerExport() {
+    const teamsView = document.getElementById('teamsView');
+    if (teamsView && teamsView.classList.contains('active')) {
+        openExportTeamsModal();
+    } else {
+        openExportModal();
+    }
+}
+
 /**
  * Open Roster Export Options Modal.
  */
@@ -581,13 +956,133 @@ function closeExportModal() {
     document.body.style.overflow = '';
 }
 
-// Close export modal when clicking backdrop
+/**
+ * Open Team Export Options Modal.
+ */
+function openExportTeamsModal() {
+    const modal = document.getElementById('exportTeamsModal');
+    if (modal) {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+/**
+ * Close Team Export Options Modal.
+ */
+function closeExportTeamsModal() {
+    const modal = document.getElementById('exportTeamsModal');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close export modals when clicking backdrop
 window.addEventListener('click', (e) => {
-    const overlay = document.getElementById('exportModal');
-    if (e.target === overlay) {
+    const rosterOverlay = document.getElementById('exportModal');
+    if (e.target === rosterOverlay) {
         closeExportModal();
     }
+    const teamsOverlay = document.getElementById('exportTeamsModal');
+    if (e.target === teamsOverlay) {
+        closeExportTeamsModal();
+    }
 });
+
+function getFighterDetails(rawName) {
+    if (!rawName) return null;
+    const card = document.querySelector(`.card[data-rawname="${CSS.escape ? CSS.escape(rawName) : rawName}"]`) || document.querySelector(`.card[data-rawname="${rawName}"]`);
+    if (card) {
+        let fData = {};
+        try {
+            fData = JSON.parse(card.dataset.fighter || '{}');
+        } catch(e) {}
+        return {
+            name: card.dataset.rawname || rawName,
+            character: card.dataset.char || 'Fighter',
+            tier: card.dataset.tier || '',
+            element: card.dataset.element || '',
+            unlocked: card.dataset.unlocked === 'true',
+            sa1: fData.sa1 || '',
+            sa2: fData.sa2 || '',
+            pfoff: card.dataset.pfoff || 'U',
+            riftoff: card.dataset.riftoff || 'U',
+            riftdef: card.dataset.riftdef || 'U',
+            realms: card.dataset.realms || 'U'
+        };
+    }
+    return { name: rawName, character: 'Fighter', tier: '', element: '', unlocked: true, sa1: '', sa2: '', pfoff: 'U', riftoff: 'U', riftdef: 'U', realms: 'U' };
+}
+
+/**
+ * Format and copy selected teams data to system clipboard.
+ */
+function executeTeamExport() {
+    const scope = document.querySelector('input[name="exportTeamsScope"]:checked').value;
+    const format = document.querySelector('input[name="exportTeamsFormat"]:checked').value;
+    const selectedMode = document.getElementById('teamModeFilter').value;
+
+    let targetTeams = [...teamsState];
+    if (scope === 'visible_teams' && selectedMode) {
+        targetTeams = targetTeams.filter(t => t.mode === selectedMode);
+    }
+
+    if (targetTeams.length === 0) {
+        alert("No saved teams found matching the selected export scope.");
+        return;
+    }
+
+    let resultText = "";
+
+    if (format === 'full') {
+        const lines = ["# 🛡️ Custom Teams Loadouts\n"];
+        targetTeams.forEach((t, i) => {
+            lines.push(`## ${i + 1}. ${t.name} (${t.mode.toUpperCase()})`);
+            const modeKey = getModeAttrKey(t.mode);
+            t.fighters.forEach((fName, idx) => {
+                if (fName) {
+                    const info = getFighterDetails(fName);
+                    const rank = (info[modeKey] || 'U').trim();
+                    lines.push(`• Fighter ${idx + 1}: ${info.name} (${info.character} - ${info.tier} - ${info.element}) [Rank: ${rank}]${info.unlocked ? '' : ' (🔒 Locked)'}`);
+                    if (info.sa1) lines.push(`  - SA1: ${info.sa1}`);
+                    if (info.sa2) lines.push(`  - SA2: ${info.sa2}`);
+                } else {
+                    lines.push(`• Fighter ${idx + 1}: [Empty Slot]`);
+                }
+            });
+            lines.push("");
+        });
+        resultText = lines.join("\n");
+    } else if (format === 'compact') {
+        const lines = ["# 🛡️ Custom Teams Summary\n"];
+        targetTeams.forEach((t, i) => {
+            const fighterDetails = t.fighters.filter(Boolean).map(fName => {
+                const info = getFighterDetails(fName);
+                return `${info.name} (${info.character} - ${info.tier} - ${info.element})`;
+            }).join(", ");
+            lines.push(`• ${t.name} (${t.mode}): ${fighterDetails || "Empty"}`);
+        });
+        resultText = lines.join("\n");
+    } else if (format === 'names') {
+        const lines = ["# 🛡️ Custom Teams - Fighters List\n"];
+        targetTeams.forEach(t => {
+            const namesList = t.fighters.filter(Boolean).map(fName => {
+                const info = getFighterDetails(fName);
+                return info.name;
+            }).join(", ");
+            lines.push(`• ${t.name} (${t.mode}): ${namesList || "Empty"}`);
+        });
+        resultText = lines.join("\n");
+    }
+
+    navigator.clipboard.writeText(resultText).then(() => {
+        alert(`Successfully copied ${targetTeams.length} team(s) to clipboard!`);
+        closeExportTeamsModal();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
 
 /**
  * Format and copy selected roster data to system clipboard.
@@ -726,9 +1221,9 @@ function openWishlistPicker(event, tier, index) {
     let top = rect.bottom + 8;
     let left = rect.left - 40;
     
-    if (left + 270 > window.innerWidth) left = window.innerWidth - 280;
+    if (left + 330 > window.innerWidth) left = window.innerWidth - 340;
     if (left < 10) left = 10;
-    if (top + 320 > window.innerHeight) top = rect.top - 310;
+    if (top + 340 > window.innerHeight) top = rect.top - 330;
     if (top < 10) top = 10;
 
     picker.style.top = `${top}px`;
@@ -736,9 +1231,11 @@ function openWishlistPicker(event, tier, index) {
     picker.style.display = 'block';
     
     const searchInput = document.getElementById('wishlistSearch');
-    searchInput.value = '';
+    if (searchInput) {
+        searchInput.value = '';
+        setTimeout(() => searchInput.focus(), 50);
+    }
     filterWishlistPicker();
-    setTimeout(() => searchInput.focus(), 50);
 }
 
 function filterWishlistPicker() {
@@ -746,8 +1243,10 @@ function filterWishlistPicker() {
     const results = document.getElementById('wishlistPickerResults');
     results.innerHTML = '';
     
+    if (!activePickerTier) return;
+
     const cards = Array.from(document.querySelectorAll('.card'));
-    const matches = cards.filter(c => {
+    let matches = cards.filter(c => {
         const t = (c.dataset.tier || '').toLowerCase();
         const searchTxt = (c.dataset.search || '').toLowerCase();
         const rawName = (c.dataset.rawname || '').toLowerCase();
@@ -757,18 +1256,71 @@ function filterWishlistPicker() {
         return tierMatch && searchMatch;
     });
     
+    // Sort matches: highest tier list ranks first, then alphabetical
+    matches.sort((a, b) => {
+        const pfoffA = RANK_VALUES[(a.dataset.pfoff || 'U').trim()] || 0;
+        const pfoffB = RANK_VALUES[(b.dataset.pfoff || 'U').trim()] || 0;
+        const riftoffA = RANK_VALUES[(a.dataset.riftoff || 'U').trim()] || 0;
+        const riftoffB = RANK_VALUES[(b.dataset.riftoff || 'U').trim()] || 0;
+        
+        const scoreA = Math.max(pfoffA, riftoffA);
+        const scoreB = Math.max(pfoffB, riftoffB);
+        if (scoreA !== scoreB) return scoreB - scoreA;
+        
+        const nameA = a.dataset.rawname || '';
+        const nameB = b.dataset.rawname || '';
+        return nameA.localeCompare(nameB);
+    });
+
     if (matches.length === 0) {
         results.innerHTML = '<div style="color: #8b949e; text-align: center; padding: 12px; font-size: 0.85rem;">No matching fighters found</div>';
         return;
     }
 
+    const currentList = activePickerTier === 'Gold' ? wishlistGolds : wishlistDiamonds;
+
     matches.forEach(c => {
         const name = c.dataset.rawname;
+        const charName = c.dataset.char || 'Fighter';
+        const isUnlocked = c.dataset.unlocked === 'true';
         const imgEl = c.querySelector('img');
         const img = imgEl ? imgEl.src : '';
+        
+        const pf = (c.dataset.pfoff || 'U').trim();
+        const roff = (c.dataset.riftoff || 'U').trim();
+        const rdef = (c.dataset.riftdef || 'U').trim();
+        const realms = (c.dataset.realms || 'U').trim();
+
+        const isAlreadyInWishlist = currentList.includes(name);
+
+        let statusBadge = '';
+        if (isAlreadyInWishlist) {
+            statusBadge = '<span class="picker-badge-locked" style="color: #ffd700; border-color: #ffd700aa; background: #ffd70015;">⭐ In Wishlist</span>';
+        } else if (isUnlocked) {
+            statusBadge = '<span class="picker-badge-unlocked">Unlocked</span>';
+        } else {
+            statusBadge = '<span class="picker-badge-locked">🔒 Locked</span>';
+        }
+
         const div = document.createElement('div');
-        div.className = 'picker-item';
-        div.innerHTML = `${img ? `<img src="${img}">` : ''} <span>${name}</span>`;
+        div.className = `picker-item ${!isUnlocked ? 'locked-item' : ''}`;
+        div.innerHTML = `
+            ${img ? `<img src="${img}" style="${!isUnlocked ? 'filter: grayscale(35%);' : ''}">` : ''} 
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 2px; overflow: hidden; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap;">
+                    <span style="font-weight: 600; text-overflow: ellipsis; overflow: hidden; color: #fff;">${name}</span>
+                    <span style="font-size: 0.75rem; color: #8b949e;">(${charName})</span>
+                </div>
+                <div style="display: flex; gap: 3px; align-items: center; flex-wrap: wrap; margin-top: 1px;">
+                    <span class="rank-badge rank-${pf}" title="PF Offense: ${pf}">PF: ${pf}</span>
+                    <span class="rank-badge rank-${roff}" title="Rift Offense: ${roff}">R-Off: ${roff}</span>
+                    <span class="rank-badge rank-${rdef}" title="Rift Defense: ${rdef}">R-Def: ${rdef}</span>
+                    <span class="rank-badge rank-${realms}" title="Parallel Realms: ${realms}">Realms: ${realms}</span>
+                </div>
+            </div>
+            ${statusBadge}
+        `;
+
         div.onclick = (e) => {
             e.stopPropagation();
             if (activePickerTier === 'Gold') wishlistGolds[activePickerIndex] = name;
@@ -808,7 +1360,7 @@ document.addEventListener('click', (e) => {
 });
 
 /* =========================================
-   Main View Switcher
+   Main View Switcher & Mobile Drawer
    ========================================= */
 function switchView(viewName) {
     document.querySelectorAll('.view-panel').forEach(el => {
@@ -816,7 +1368,12 @@ function switchView(viewName) {
         el.style.display = 'none';
     });
     document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
     
+    const filterBtn = document.getElementById('mobileFilterBtn');
+    const wishBtn = document.getElementById('mobileWishlistBtn');
+    const mobUnlockEl = document.getElementById('mobileUnlockCount');
+
     if (viewName === 'roster') {
         const roster = document.getElementById('rosterView');
         if (roster) {
@@ -825,6 +1382,12 @@ function switchView(viewName) {
         }
         const tabRoster = document.getElementById('tabRoster');
         if (tabRoster) tabRoster.classList.add('active');
+        const mobTabRoster = document.getElementById('mobTabRoster');
+        if (mobTabRoster) mobTabRoster.classList.add('active');
+
+        if (filterBtn) filterBtn.style.display = 'flex';
+        if (wishBtn) wishBtn.style.display = 'inline-block';
+        if (mobUnlockEl) mobUnlockEl.style.display = 'inline-block';
     } else if (viewName === 'teams') {
         const teams = document.getElementById('teamsView');
         if (teams) {
@@ -833,7 +1396,39 @@ function switchView(viewName) {
         }
         const tabTeams = document.getElementById('tabTeams');
         if (tabTeams) tabTeams.classList.add('active');
+        const mobTabTeams = document.getElementById('mobTabTeams');
+        if (mobTabTeams) mobTabTeams.classList.add('active');
+
+        if (filterBtn) filterBtn.style.display = 'none';
+        if (wishBtn) wishBtn.style.display = 'none';
+        if (mobUnlockEl) mobUnlockEl.style.display = 'none';
         renderTeams();
+    }
+    closeMobileFilterDrawer();
+}
+
+function toggleMobileFilterDrawer() {
+    const container = document.getElementById('headerContainer');
+    const overlay = document.getElementById('mobileFilterOverlay');
+    if (container && overlay) {
+        const isShown = container.classList.contains('show');
+        if (isShown) {
+            closeMobileFilterDrawer();
+        } else {
+            container.classList.add('show');
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+}
+
+function closeMobileFilterDrawer() {
+    const container = document.getElementById('headerContainer');
+    const overlay = document.getElementById('mobileFilterOverlay');
+    if (container && overlay) {
+        container.classList.remove('show');
+        overlay.classList.remove('show');
+        document.body.style.overflow = '';
     }
 }
 
@@ -905,7 +1500,7 @@ function renderTeams() {
                     const rank = (cardEl.dataset[modeAttr] || 'U').trim();
                     
                     fightersHtml += `
-                        <div class="team-fighter-slot" style="${isUnlocked ? '' : 'opacity: 0.75;'}">
+                        <div class="team-fighter-slot clickable" onclick="openFighterModalByName('${fighterName.replace(/'/g, "\\'")}', event)" title="Click to inspect fighter kit & stats" style="cursor: pointer; ${isUnlocked ? '' : 'opacity: 0.85;'}">
                             ${img ? `<img src="${img}" style="${isUnlocked ? '' : 'filter: grayscale(35%);'}">` : ''}
                             <div class="team-fighter-info" style="flex: 1;">
                                 <div class="team-fighter-name" style="display:flex; align-items:center; gap:6px;">
@@ -913,15 +1508,21 @@ function renderTeams() {
                                     <span class="rank-badge rank-${rank}" title="${teamMode} Rank">${rank}</span>
                                     ${isUnlocked ? '' : '<span style="font-size:0.75rem; color:#8b949e; border:1px solid #30363d; border-radius:3px; padding:0 3px;">🔒 Locked</span>'}
                                 </div>
-                                <div class="team-fighter-meta">${char} • ${tier} • ${elem}</div>
+                                <div class="team-fighter-meta" style="display:flex; align-items:center; justify-content:space-between;">
+                                    <span>${char} • ${tier} • ${elem}</span>
+                                    <span style="font-size: 0.75rem; color: #58a6ff; font-weight: 500; margin-left: auto;">Inspect 🔍</span>
+                                </div>
                             </div>
                         </div>
                     `;
                 } else {
                     fightersHtml += `
-                        <div class="team-fighter-slot">
-                            <div class="team-fighter-info">
-                                <div class="team-fighter-name">${fighterName}</div>
+                        <div class="team-fighter-slot clickable" onclick="openFighterModalByName('${fighterName.replace(/'/g, "\\'")}', event)" title="Click to inspect fighter" style="cursor: pointer;">
+                            <div class="team-fighter-info" style="flex:1;">
+                                <div class="team-fighter-name" style="display:flex; align-items:center; justify-content:space-between;">
+                                    <span>${fighterName}</span>
+                                    <span style="font-size: 0.75rem; color: #58a6ff; font-weight: 500;">Inspect 🔍</span>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -987,7 +1588,7 @@ function generateSynergyHtml(fighterCardElements, teamMode) {
             html += `
                 <div class="synergy-item">
                     <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-                        <strong style="color: #7ee787;">${name}</strong>
+                        <strong style="color: #7ee787; cursor: pointer;" onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" title="Click to inspect fighter">${name} 🔍</strong>
                         <span class="rank-badge rank-${rank}" title="Rank: ${rank}">${rank}</span>
                         ${isUnlocked ? '' : '<span style="color:#8b949e; font-size:0.75rem; border:1px solid #30363d; border-radius:3px; padding:0 3px;">🔒 Locked</span>'}
                     </div>
