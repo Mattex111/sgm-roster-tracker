@@ -1722,6 +1722,8 @@ function switchView(viewName) {
         if (tabRoster) tabRoster.classList.add('active');
         const mobTabRoster = document.getElementById('mobTabRoster');
         if (mobTabRoster) mobTabRoster.classList.add('active');
+        const mobTopRoster = document.getElementById('mobTopRosterBtn');
+        if (mobTopRoster) mobTopRoster.classList.add('active');
 
         if (filterBtn) filterBtn.style.display = 'flex';
         if (wishBtn) wishBtn.style.display = 'inline-block';
@@ -1736,6 +1738,8 @@ function switchView(viewName) {
         if (tabTeams) tabTeams.classList.add('active');
         const mobTabTeams = document.getElementById('mobTabTeams');
         if (mobTabTeams) mobTabTeams.classList.add('active');
+        const mobTopTeams = document.getElementById('mobTopTeamsBtn');
+        if (mobTopTeams) mobTopTeams.classList.add('active');
 
         if (filterBtn) filterBtn.style.display = 'none';
         if (wishBtn) wishBtn.style.display = 'none';

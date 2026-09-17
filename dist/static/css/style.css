@@ -2083,7 +2083,7 @@ mark.effect-highlight {
 /* Mobile Touch Landscape Optimization (Only for touch devices in landscape) */
 @media (pointer: coarse) and (orientation: landscape), (pointer: coarse) and (max-height: 600px) {
     body {
-        padding: 10px 14px 20px 14px !important;
+        padding: 6px 12px 20px 12px !important;
     }
 
     /* Hide Mobile Bottom Nav Bar in Landscape to maximize vertical height */
@@ -2091,18 +2091,43 @@ mark.effect-highlight {
         display: none !important;
     }
 
-    /* Show Top Navigation & Filters in Landscape */
+    /* Hide Desktop header on mobile touch landscape and use mobile-top-bar instead */
     .main-nav {
-        display: flex !important;
-    }
-
-    .mobile-top-bar {
         display: none !important;
     }
 
-    /* Multi-column grid in Landscape (3-4 cards across like PC) */
+    .mobile-top-bar {
+        display: flex !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        background: #161b22 !important;
+        border-bottom: 1px solid #30363d !important;
+        margin: -6px -12px 10px -12px !important;
+        padding: 6px 12px !important;
+    }
+
+    /* Filter Drawer Formatting in Mobile Landscape */
+    .header-container {
+        position: fixed !important;
+        top: 8px !important;
+        bottom: 8px !important;
+        left: 8px !important;
+        right: 8px !important;
+        width: calc(100% - 16px) !important;
+        max-width: calc(100% - 16px) !important;
+        max-height: calc(100vh - 16px) !important;
+        z-index: 10001 !important;
+        overflow-y: auto !important;
+    }
+
+    .header-container .header {
+        max-height: calc(100vh - 70px) !important;
+    }
+
+    /* 2-column grid in Landscape (minmax 280px) so cards fit with full stats & no clipping */
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
         gap: 12px !important;
     }
 

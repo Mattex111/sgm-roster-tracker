@@ -22,10 +22,12 @@
     <!-- Mobile Header Bar (Visible on mobile < 768px) -->
     <div class="mobile-top-bar">
         <div class="mobile-brand">
-            <span class="brand-title">SGM Roster</span>
+            <span class="brand-title" onclick="switchView('roster')" style="cursor:pointer;">SGM Roster</span>
             <span class="mobile-counter" id="mobileUnlockCount">Unlocked: 0 / 0</span>
         </div>
         <div class="mobile-top-actions">
+            <button class="nav-tab btn-sm" id="mobTopRosterBtn" onclick="switchView('roster')" style="padding: 4px 8px; font-weight: 600;">Roster</button>
+            <button class="nav-tab btn-sm" id="mobTopTeamsBtn" onclick="switchView('teams')" style="padding: 4px 8px; font-weight: 600;">Teams</button>
             <button class="mobile-filter-btn" id="mobileFilterBtn" onclick="toggleMobileFilterDrawer()">
                 ⚡ Filters <span class="mobile-filter-badge" id="mobileFilterBadge" style="display:none;">0</span>
             </button>
