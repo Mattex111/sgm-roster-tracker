@@ -11,7 +11,7 @@ An advanced offline web tool designed for Skullgirls Mobile players to track the
 - 🧬 **Character Ability (CA) Support:** Added base Character Abilities for all 18 base fighters across cards and modal overviews.
 - ⚔️ **Tactical Wiki Loadouts & Multi-Setup Movesets:** Detailed 4-tab Inspector Modal rendering *Role & Strategy*, *Stat Investment Priority*, *Rift Battles & Catalysts*, *Playing Against & Counters*, and *Multi-Setup Movesets* (Rift Offense, Defense, Preferred).
 - 👥 **Slot-Based Team Combinations & Live Roster Badges:** Recommended team combinations formatted into slot boxes with `or` / `+` separators. Teammates feature mini avatar portraits, tier-colored glows, and live **🟢 Unlocked** / **🔒 Locked** status badges matching your collection.
-- 📱 **Mobile UI Optimization:** Full glassmorphism mobile view with 2-column tab grid, active filter badges, and touch-friendly controls.
+- 📱 **Mobile Responsive Layout (PC Browser Emulation):** Optimized CSS & glassmorphism UI for responsive mobile screens (tested and verified via PC browser responsive view / window resizing).
 
 ## Features
 
@@ -133,5 +133,5 @@ python3 scrape_base_abilities.py
 - **Why reactivate every time:** When you close your Command Prompt or terminal window, your system forgets the active sandbox session. Running `venv\Scripts\activate` (or `source venv/bin/activate`) tells your terminal: *"Hey, turn the sandbox back on!"* so Python can access its installed dependencies before launching `python app.py`.
 
 ### 📱 Is there a Mobile version available?
-Yes! The web app features full mobile responsive layout optimization, glassmorphism modals, touch-friendly tab navigation, active filter badges, and mobile-friendly team builder controls!
+The app runs locally on a PC web server (`python app.py`). It includes a **responsive Mobile UI layout** optimized for narrow screens (tested and verified on PC by resizing the browser window / using Developer Tools mobile emulation). Native smartphone hosting / direct phone browser access is still a work-in-progress!
 
