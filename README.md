@@ -1,4 +1,4 @@
-# Skullgirls Mobile - SGM Roster Tracker & Team Builder (v2.5.0 - Smart Random Team Generator Update)
+# Skullgirls Mobile - SGM Roster Tracker & Team Builder
 
 An advanced offline-first web application and Progressive Web App (PWA) designed for Skullgirls Mobile players to track their variant collection, build custom teams with live synergy analysis, manage wishlists, inspect fighter kits and Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
 
