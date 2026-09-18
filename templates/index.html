@@ -231,7 +231,7 @@
 
                 <div class="card-body-row">
                     {% if v.image_url %}
-                    <img src="{{ v.image_url }}" alt="{{ v.name }}" class="card-portrait" loading="lazy">
+                    <img src="{{ v.image_url }}" alt="{{ v.name }}" class="card-portrait" loading="lazy" referrerpolicy="no-referrer">
                     {% endif %}
                     <div class="card-main-info">
 
@@ -434,7 +434,7 @@
 
             <div class="modal-body-layout">
                 <div class="modal-card-img-container">
-                    <img id="modalCardImg" src="" alt="Fighter Art">
+                    <img id="modalCardImg" src="" alt="Fighter Art" referrerpolicy="no-referrer">
                     <div class="modal-stats-card">
                         <span class="stat-item stat-atk">⚔️ <span id="modalAtkVal" style="color:#ff7b72;">N/A</span></span>
                         <span class="stat-item stat-hp">❤️ <span id="modalHpVal" style="color:#7ee787;">N/A</span></span>
