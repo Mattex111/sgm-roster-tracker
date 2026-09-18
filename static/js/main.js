@@ -3391,8 +3391,7 @@ function saveRandomTeamDirectly() {
     };
 
     teamsState.push(newTeam);
-    saveTeamsToStorage();
-    renderTeams();
+    saveTeamsToServer();
     closeRandomTeamModal();
     alert(`Team "${finalName}" successfully created and saved!`);
 }
