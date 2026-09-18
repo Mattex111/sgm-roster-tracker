@@ -22,6 +22,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 - **Advanced Relic Wishlist & Fighter Picker:** Search and add target variants using full filter controls (Element, Character, Role & Utility, Unlocked Status).
 - **Rarity Locking:** Wishlist selection strictly enforces Gold and Diamond tiers according to slot type to prevent invalid variant selection.
 - **Wishlist Undo System:** Dedicated undo stack (`Undo`) pinned in the Wishlist header with `Ctrl+Z` / `Cmd+Z` shortcut support to quickly revert accidental variant swaps or removals.
+- **Role & Combat Utility Tags:** Visual badges on fighter cards and kit inspect overlays indicating combat roles (*Regen*, *Support*, *Bleed Attacker*, *Debuff Cleanser*, *Buff Controller*, *Immunity*, etc.) for fast tactical evaluation.
 - **Dynamic Roster Exporter:** Markdown and compact exports dynamically adapt section headers based on selected scope (`MY SKULLGIRLS MOBILE WISHLIST`, `MY SKULLGIRLS MOBILE ROSTER (Filtered & Unlocked)`, etc.).
 - **Smart Random Team Generator:** Generate tailored 3-fighter squad compositions directly from Team Builder with customizable rules (*Pure Chaos*, *Mono-Element*, *Mono-Character*, *Top Tier Only*, *Wiki Synergy*).
 - **Per-Slot Reroll & Auto-Fill:** Lock favorite fighters and reroll individual squad slots or auto-fill empty team slots in real time.
@@ -35,6 +36,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 - **Interactive Roster Checklist:** Tap anywhere on a fighter card to mark it as owned with local storage persistence (`localStorage` in PWA & `my_roster.json` on local Python server). If you previously used the local PC desktop version, you can import your existing JSON files (`my_roster.json`, `my_teams.json`, `my_wishlist.json`) directly into the web app.
 - **Team Builder & Synergy Analyzer:** Create, save, and manage custom 3-fighter loadouts tailored for specific game modes (*Prize Fight*, *Rift Offense*, *Rift Defense*, *Parallel Realms*). Previews combined Signature Abilities (SA1 & SA2) and support synergies.
 - **Wishlist Tracker:** Track target Gold and Diamond variants with interactive priority slots.
+- **Role & Combat Utility Badges:** Color-coded badges for combat abilities (*Regen*, *Support*, *Bleed Attacker*, *Debuff Cleanser*, *Buff Controller*, *Immunity*, etc.) integrated into card inspect views and wishlist filters.
 - **Base Stats (Max Lvl 60):** Official Max ATK and HP stats for all 305+ variants.
 - **Full Character Kit:** Expandable details showing Character Ability (CA), Prestige Abilities (PA), and Marquee options (MA).
 - **Wiki Loadouts:** Integrated Stat Investments, Role & Strategy, Rift notes, and Multi-Setup Movesets scraped directly from the Skullgirls Mobile Fandom Wiki.
