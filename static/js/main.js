@@ -81,8 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleRatingsVisibility(show);
     }
 
+    const savedTags = localStorage.getItem('sgm_show_tags');
+    if (savedTags !== null) {
+        const show = savedTags === 'true';
+        const toggle = document.getElementById('showTagsToggle');
+        if (toggle) toggle.checked = show;
+        toggleTagsVisibility(show);
+    }
+
     updateCount();
     renderTeams();
+    updateMobileToggleState();
 });
 
 /**
@@ -379,6 +388,7 @@ function openFighterModalByName(rawName, event) {
         if (event.preventDefault) event.preventDefault();
     }
     if (!rawName) return;
+    const cleanName = rawName.trim().toLowerCase();
     let card = null;
     try {
         if (window.CSS && CSS.escape) {
@@ -387,7 +397,7 @@ function openFighterModalByName(rawName, event) {
     } catch(e) {}
     if (!card) {
         const allCards = Array.from(document.querySelectorAll('.card'));
-        card = allCards.find(c => c.dataset.rawname === rawName);
+        card = allCards.find(c => (c.dataset.rawname || '').trim().toLowerCase() === cleanName);
     }
     if (card) {
         openFighterModalFromCard(card);
@@ -426,12 +436,19 @@ function openFighterModalFromCard(card, isBackNavigation = false) {
     const modalEl = document.getElementById('fighterModal');
     const isModalOpen = modalEl && modalEl.classList.contains('show');
 
-    if (isModalOpen && !isBackNavigation && currentInspectedRawName && currentInspectedRawName !== targetRawName) {
-        modalHistoryStack.push(currentInspectedRawName);
-    } else if (!isModalOpen && !isBackNavigation) {
-        modalHistoryStack = [];
+    if (!isBackNavigation) {
+        if (isModalOpen && currentInspectedRawName && currentInspectedRawName !== targetRawName) {
+            modalHistoryStack.push(currentInspectedRawName);
+        } else if (!isModalOpen) {
+            modalHistoryStack = [];
+        }
     }
     currentInspectedRawName = targetRawName;
+
+    // Remove any trailing self-references from history stack
+    while (modalHistoryStack.length > 0 && modalHistoryStack[modalHistoryStack.length - 1] === targetRawName) {
+        modalHistoryStack.pop();
+    }
 
     // Update Back Button state
     const backBtn = document.getElementById('modalBackBtn');
@@ -762,7 +779,11 @@ function openFighterModalFromCard(card, isBackNavigation = false) {
         switchModalTab({ currentTarget: firstTabBtn }, 'info');
     }
 
-    document.getElementById('fighterModal').classList.add('show');
+    const fighterModalEl = document.getElementById('fighterModal');
+    if (fighterModalEl) {
+        fighterModalEl.style.display = 'flex';
+        fighterModalEl.classList.add('show');
+    }
     document.body.style.overflow = 'hidden';
 }
 
@@ -777,7 +798,11 @@ function closeFighterModal(e) {
  * Close Inspector Modal directly.
  */
 function closeFighterModalDirect() {
-    document.getElementById('fighterModal').classList.remove('show');
+    const modalEl = document.getElementById('fighterModal');
+    if (modalEl) {
+        modalEl.classList.remove('show');
+        modalEl.style.display = 'none';
+    }
     const remainingModal = document.querySelector('.modal-overlay.show, .fighter-modal-overlay.show, #teamFighterPicker.show, #wishlistPicker.show');
     if (!remainingModal) {
         document.body.style.overflow = '';
@@ -882,7 +907,12 @@ document.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
         if (document.activeElement.tagName !== 'INPUT') {
             e.preventDefault();
-            triggerUndo();
+            const wlModal = document.getElementById('wishlistModal');
+            if (wlModal && (wlModal.classList.contains('show') || wlModal.style.display === 'flex')) {
+                undoWishlistChange();
+            } else {
+                triggerUndo();
+            }
         }
     }
 });
@@ -907,6 +937,113 @@ function toggleRatingsVisibility(show) {
             el.style.setProperty('display', 'none', 'important');
         }
     });
+    updateMobileToggleState();
+}
+
+/**
+ * Toggle visibility of character role & utility badges in card view.
+ * @param {boolean} show - True to display tags, false to hide.
+ */
+function toggleTagsVisibility(show) {
+    try {
+        localStorage.setItem('sgm_show_tags', show ? 'true' : 'false');
+    } catch (e) {
+        console.warn('Unable to save tags visibility setting to localStorage', e);
+    }
+
+    document.querySelectorAll('.role-tags-row').forEach(el => {
+        if (show) {
+            el.classList.remove('hidden');
+            el.style.removeProperty('display');
+        } else {
+            el.classList.add('hidden');
+            el.style.setProperty('display', 'none', 'important');
+        }
+    });
+    updateMobileToggleState();
+}
+
+function updateMobileToggleState() {
+    const ratingsBtn = document.getElementById('mobileRatingsBtn');
+    const rolesBtn = document.getElementById('mobileRolesBtn');
+    const desktopRatingsToggle = document.getElementById('showRatingsToggle');
+    const desktopRolesToggle = document.getElementById('showTagsToggle');
+
+    const isRatingsOn = desktopRatingsToggle ? desktopRatingsToggle.checked : true;
+    const isRolesOn = desktopRolesToggle ? desktopRolesToggle.checked : true;
+
+    if (ratingsBtn) ratingsBtn.classList.toggle('active', isRatingsOn);
+    if (rolesBtn) rolesBtn.classList.toggle('active', isRolesOn);
+}
+
+function toggleMobileRatings() {
+    const desktopToggle = document.getElementById('showRatingsToggle');
+    const currentShow = desktopToggle ? desktopToggle.checked : true;
+    const newShow = !currentShow;
+    if (desktopToggle) desktopToggle.checked = newShow;
+    toggleRatingsVisibility(newShow);
+}
+
+function toggleMobileRoles() {
+    const desktopToggle = document.getElementById('showTagsToggle');
+    const currentShow = desktopToggle ? desktopToggle.checked : true;
+    const newShow = !currentShow;
+    if (desktopToggle) desktopToggle.checked = newShow;
+    toggleTagsVisibility(newShow);
+}
+
+let activeTagFilter = '';
+
+/**
+ * Filter roster by clicking on any role or utility badge.
+ * @param {string} tag - Target tag label.
+ */
+function filterByTag(tag) {
+    if (!tag) return;
+    const normalizedTag = tag.toLowerCase().trim();
+    const searchInput = document.getElementById('search');
+
+    if (activeTagFilter === normalizedTag) {
+        activeTagFilter = '';
+        if (searchInput && searchInput.value.toLowerCase().trim() === normalizedTag) {
+            searchInput.value = '';
+        }
+    } else {
+        activeTagFilter = normalizedTag;
+        if (searchInput) {
+            searchInput.value = tag;
+        }
+    }
+
+    const mobSearch = document.getElementById('mobileSearch');
+    if (mobSearch) {
+        mobSearch.value = activeTagFilter ? tag : '';
+    }
+    const mobClear = document.querySelector('.mobile-search-clear');
+    if (mobClear) {
+        mobClear.style.display = activeTagFilter ? 'block' : 'none';
+    }
+
+    filterAndSortCards();
+    if (searchInput) searchInput.focus();
+}
+
+function syncMobileSearch(val) {
+    const desktopSearch = document.getElementById('search');
+    if (desktopSearch) {
+        desktopSearch.value = val;
+    }
+    const mobClear = document.querySelector('.mobile-search-clear');
+    if (mobClear) {
+        mobClear.style.display = val.trim() ? 'block' : 'none';
+    }
+    filterAndSortCards();
+}
+
+function clearMobileSearch() {
+    const mobSearch = document.getElementById('mobileSearch');
+    if (mobSearch) mobSearch.value = '';
+    syncMobileSearch('');
 }
 
 /**
@@ -1031,6 +1168,12 @@ function resetAllFilters() {
     const searchInput = document.getElementById('search');
     if (searchInput) searchInput.value = '';
 
+    const mobSearch = document.getElementById('mobileSearch');
+    if (mobSearch) mobSearch.value = '';
+
+    const mobClear = document.querySelector('.mobile-search-clear');
+    if (mobClear) mobClear.style.display = 'none';
+
     const sortSelect = document.getElementById('sortBy');
     if (sortSelect) sortSelect.value = 'name_asc';
 
@@ -1058,10 +1201,18 @@ function resetAllFilters() {
     const rankSelect = document.getElementById('rankFilter');
     if (rankSelect) rankSelect.value = '0';
 
+    activeTagFilter = '';
+
     const ratingsToggle = document.getElementById('showRatingsToggle');
     if (ratingsToggle) {
         ratingsToggle.checked = true;
         toggleRatingsVisibility(true);
+    }
+
+    const tagsToggle = document.getElementById('showTagsToggle');
+    if (tagsToggle) {
+        tagsToggle.checked = true;
+        toggleTagsVisibility(true);
     }
 
     filterAndSortCards();
@@ -1082,9 +1233,8 @@ function filterAndSortCards() {
     const minRank = parseInt(document.getElementById('rankFilter').value, 10);
     const sortBy = document.getElementById('sortBy').value;
 
-    // Update active filter badge for mobile view
+    // Update active filter badge for mobile view (counts drawer filters)
     let activeCount = 0;
-    if (query) activeCount++;
     if (selectedChars.length > 0) activeCount++;
     if (elem) activeCount++;
     if (selectedTiers.length > 0) activeCount++;
@@ -1105,12 +1255,20 @@ function filterAndSortCards() {
 
     const grid = document.getElementById('cardGrid');
     const cards = Array.from(document.querySelectorAll('.card'));
+    const knownTags = ['attacker', 'support', 'defender', 'bleed', 'regen', 'cleanser', 'hex', 'curse', 'precision', 'tank', 'control'];
+    const currentTagQuery = activeTagFilter || (knownTags.includes(query) ? query : '');
+
+    document.querySelectorAll('.role-badge').forEach(badge => {
+        const badgeLabel = badge.innerText.toLowerCase().trim();
+        badge.classList.toggle('active', currentTagQuery.length > 0 && badgeLabel === currentTagQuery);
+    });
 
     cards.forEach(c => {
         const targetSearch = includeBaseKit
             ? (c.dataset.search || '')
             : (c.dataset.sasearch || (c.dataset.name + ' ' + c.dataset.char + ' ' + c.dataset.sakit).toLowerCase());
-        const matchSearch = targetSearch.includes(query);
+
+        const matchSearch = query ? targetSearch.includes(query) : true;
         const matchChar = selectedChars.length === 0 || selectedChars.includes(c.dataset.char);
         const matchElem = !elem || c.dataset.element === elem;
         const matchTier = selectedTiers.length === 0 || selectedTiers.includes(c.dataset.tier);
@@ -1168,14 +1326,23 @@ function filterAndSortCards() {
             const getScore = (card) => {
                 const name = (card.dataset.name || '').toLowerCase();
                 const char = (card.dataset.char || '').toLowerCase();
+                const cardTags = (card.dataset.tags || '').toLowerCase().split(/\s+/);
                 
                 if (name === query) return 100;
-                if (name.startsWith(query)) return 80;
-                if (name.includes(query)) return 60;
+                if (name.startsWith(query)) return 85;
+                if (name.includes(query)) return 75;
+
+                // Priority for Tag Badge matches
+                if (query.length >= 2) {
+                    if (cardTags.includes(query)) return 70;
+                    if (cardTags.some(t => t.startsWith(query))) return 65;
+                }
+
                 if (char === query) return 50;
                 if (char.startsWith(query)) return 40;
                 if (char.includes(query)) return 30;
-                return 0; // Matched in abilities/description only
+
+                return 0; // Matched in description text only (Placed at bottom)
             };
             
             scoreA = getScore(a);
@@ -1227,16 +1394,24 @@ function triggerExport() {
  * Open Roster Export Options Modal.
  */
 function openExportModal() {
-    document.getElementById('exportModal').classList.add('show');
-    document.body.style.overflow = 'hidden';
+    const modal = document.getElementById('exportModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 /**
  * Close Roster Export Options Modal.
  */
 function closeExportModal() {
-    document.getElementById('exportModal').classList.remove('show');
-    document.body.style.overflow = '';
+    const modal = document.getElementById('exportModal');
+    if (modal) {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 }
 
 /**
@@ -1245,6 +1420,7 @@ function closeExportModal() {
 function openExportTeamsModal() {
     const modal = document.getElementById('exportTeamsModal');
     if (modal) {
+        modal.style.display = 'flex';
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
     }
@@ -1257,6 +1433,7 @@ function closeExportTeamsModal() {
     const modal = document.getElementById('exportTeamsModal');
     if (modal) {
         modal.classList.remove('show');
+        modal.style.display = 'none';
         document.body.style.overflow = '';
     }
 }
@@ -1371,75 +1548,130 @@ function executeTeamExport() {
  * Format and copy selected roster data to system clipboard.
  */
 function executeExport() {
-    const scope = document.querySelector('input[name="exportScope"]:checked').value;
-    const format = document.querySelector('input[name="exportFormat"]:checked').value;
+    const scopeEl = document.querySelector('input[name="exportScope"]:checked');
+    const formatEl = document.querySelector('input[name="exportFormat"]:checked');
+    const scope = scopeEl ? scopeEl.value : 'visible_unlocked';
+    const format = formatEl ? formatEl.value : 'full';
 
-    fetch('/export_all')
-        .then(r => r.json())
-        .then(res => {
-            const allFighters = res.fighters || {};
-            const baseKits = res.base_abilities || {};
+    const allCards = Array.from(document.querySelectorAll('.card'));
+    let selectedCards = [];
 
-            let targets = [];
-            const allCards = Array.from(document.querySelectorAll('.card'));
+    if (scope === 'visible_unlocked') {
+        selectedCards = allCards.filter(c => c.style.display !== 'none' && c.dataset.unlocked === 'true');
+    } else if (scope === 'visible_all') {
+        selectedCards = allCards.filter(c => c.style.display !== 'none');
+    } else if (scope === 'all_unlocked') {
+        selectedCards = allCards.filter(c => c.dataset.unlocked === 'true');
+    } else if (scope === 'wishlist_only') {
+        selectedCards = allCards.filter(c => {
+            const rawName = c.dataset.rawname;
+            return wishlistGolds.includes(rawName) || wishlistDiamonds.includes(rawName);
+        });
+    }
 
-            if (scope === 'visible_unlocked') {
-                const visibleCards = allCards.filter(c => c.style.display !== 'none' && c.dataset.unlocked === 'true');
-                targets = visibleCards.map(c => allFighters[c.dataset.rawname]).filter(Boolean);
-            } else if (scope === 'visible_all') {
-                const visibleCards = allCards.filter(c => c.style.display !== 'none');
-                targets = visibleCards.map(c => allFighters[c.dataset.rawname]).filter(Boolean);
-            } else if (scope === 'all_unlocked') {
-                targets = Object.values(allFighters).filter(f => f.unlocked);
-            } else if (scope === 'wishlist_only') {
-                targets = Object.values(allFighters).filter(f => wishlistGolds.includes(f.name) || wishlistDiamonds.includes(f.name));
+    if (selectedCards.length === 0) {
+        alert("No fighters matched your chosen export settings!");
+        return;
+    }
+
+    const targets = selectedCards.map(c => {
+        let fObj = {};
+        let bObj = {};
+        try { fObj = JSON.parse(c.dataset.fighter || '{}'); } catch(e) {}
+        try { bObj = JSON.parse(c.dataset.base || '{}'); } catch(e) {}
+
+        return {
+            name: c.dataset.rawname || fObj.name || 'Fighter',
+            character: c.dataset.char || fObj.character || '',
+            tier: c.dataset.tier || fObj.tier || '',
+            element: c.dataset.element || fObj.element || '',
+            atk_max: fObj.atk_max || (c.dataset.atk ? parseInt(c.dataset.atk) : null),
+            hp_max: fObj.hp_max || (c.dataset.hp ? parseInt(c.dataset.hp) : null),
+            ratings: {
+                pf_off: c.dataset.pfoff || 'U',
+                rift_off: c.dataset.riftoff || 'U',
+                rift_def: c.dataset.riftdef || 'U',
+                realms: c.dataset.realms || 'U'
+            },
+            sa1: fObj.sa1 || '',
+            sa2: fObj.sa2 || '',
+            baseKit: bObj
+        };
+    });
+
+    let headerTitle = "MY SKULLGIRLS MOBILE ROSTER";
+    if (scope === 'wishlist_only') {
+        headerTitle = "MY SKULLGIRLS MOBILE WISHLIST";
+    } else if (scope === 'visible_unlocked') {
+        headerTitle = "MY SKULLGIRLS MOBILE ROSTER (Filtered & Unlocked)";
+    } else if (scope === 'all_unlocked') {
+        headerTitle = "MY SKULLGIRLS MOBILE ROSTER (All Unlocked)";
+    } else if (scope === 'visible_all') {
+        headerTitle = "SKULLGIRLS MOBILE FIGHTERS (Filtered List)";
+    }
+
+    const header = `### ${headerTitle}\n\n`;
+
+    if (format === 'names') {
+        outputText = targets.map(t => t.name).join(', ');
+    } else if (format === 'compact') {
+        outputText = header + targets.map(x => {
+            const r = x.ratings || {};
+            const atk = x.atk_max ? (x.atk_max / 1000).toFixed(1) + 'k' : 'N/A';
+            const hp = x.hp_max ? (x.hp_max / 1000).toFixed(1) + 'k' : 'N/A';
+            return `- [${x.character} | ${x.tier} - ${x.element}] ${x.name} (ATK: ${atk} | HP: ${hp} | PF: ${r.pf_off || 'U'} | R-Off: ${r.rift_off || 'U'} | R-Def: ${r.rift_def || 'U'} | Realms: ${r.realms || 'U'})`;
+        }).join('\n');
+    } else if (format === 'full') {
+        const body = targets.map(x => {
+            let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\n`;
+            if (x.atk_max || x.hp_max) {
+                line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\n`;
             }
-
-            if (targets.length === 0) {
-                alert("No fighters matched your chosen export settings!");
-                return;
+            if (x.ratings) {
+                line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\n`;
             }
+            if (x.sa1) line += `  SA1: ${x.sa1}\n`;
+            if (x.sa2) line += `  SA2: ${x.sa2}\n`;
 
-            let outputText = "";
-
-            if (format === 'names') {
-                outputText = targets.map(t => t.name).join(', ');
-            } else if (format === 'compact') {
-                outputText = targets.map(x => {
-                    const r = x.ratings || {};
-                    const atk = x.atk_max ? (x.atk_max / 1000).toFixed(1) + 'k' : 'N/A';
-                    const hp = x.hp_max ? (x.hp_max / 1000).toFixed(1) + 'k' : 'N/A';
-                    return `- [${x.character} | ${x.tier} - ${x.element}] ${x.name} (ATK: ${atk} | HP: ${hp} | PF: ${r.pf_off || 'U'} | R-Off: ${r.rift_off || 'U'} | R-Def: ${r.rift_def || 'U'} | Realms: ${r.realms || 'U'})`;
-                }).join('\n');
-            } else if (format === 'full') {
-                const header = "### MY SKULLGIRLS MOBILE ROSTER\n";
-                const body = targets.map(x => {
-                    let line = `- [${x.character} | ${x.tier} - ${x.element}] ${x.name}:\n`;
-                    if (x.atk_max || x.hp_max) {
-                        line += `  Base Stats: Max ATK: ${x.atk_max ? x.atk_max.toLocaleString() : 'N/A'}, Max HP: ${x.hp_max ? x.hp_max.toLocaleString() : 'N/A'}\n`;
-                    }
-                    if (x.ratings) {
-                        line += `  Ratings: PF Offense: ${x.ratings.pf_off}, Rift Offense: ${x.ratings.rift_off}, Rift Defense: ${x.ratings.rift_def}, Parallel Realms: ${x.ratings.realms}\n`;
-                    }
-                    line += `  SA1: ${x.sa1}\n  SA2: ${x.sa2}`;
-
-                    if (baseKits[x.character]) {
-                        const b = baseKits[x.character];
-                        const paName = b.prestige ? b.prestige.name : 'None';
-                        const maNames = (b.marquee_options || []).map(m => m.name).join(' / ');
-                        line += `\n  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}`;
-                    }
-                    return line;
-                }).join('\n');
-                outputText = header + body;
+            if (x.baseKit && (x.baseKit.prestige || x.baseKit.marquee_options)) {
+                const b = x.baseKit;
+                const paName = b.prestige ? b.prestige.name : 'None';
+                const maNames = (b.marquee_options || []).map(m => m.name).join(' / ');
+                line += `  Base Character Kit: Prestige: ${paName} | Marquee Options: ${maNames}\n`;
             }
+            return line;
+        }).join('\n');
+        outputText = header + body;
+    }
 
-            navigator.clipboard.writeText(outputText).then(() => {
-                closeExportModal();
-                alert(`Successfully copied ${targets.length} fighter(s) to clipboard!`);
-            });
-        })
-        .catch(e => console.error("Export error:", e));
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(outputText).then(() => {
+            closeExportModal();
+            alert(`Successfully copied ${targets.length} fighter(s) to clipboard!`);
+        }).catch(() => {
+            fallbackCopyTextToClipboard(outputText, targets.length);
+        });
+    } else {
+        fallbackCopyTextToClipboard(outputText, targets.length);
+    }
+}
+
+function fallbackCopyTextToClipboard(text, count) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        closeExportModal();
+        alert(`Successfully copied ${count} fighter(s) to clipboard!`);
+    } catch (err) {
+        alert("Failed to copy roster to clipboard.");
+    }
+    document.body.removeChild(textArea);
 }
 
 /* =========================================
@@ -1447,47 +1679,90 @@ function executeExport() {
    ========================================= */
 function openWishlistModal() {
     closeFighterModalDirect();
+    closeTeamFighterPicker();
     closeTeamEditorModal();
+    closeRandomTeamModal();
     closeBackupModal();
     closeExportModal();
     closeExportTeamsModal();
     closeMobileFilterDrawer();
-    const tfPicker = document.getElementById('teamFighterPicker');
-    if (tfPicker) {
-        tfPicker.classList.remove('show');
-        tfPicker.style.display = 'none';
+
+    const teamOverlay = document.getElementById('teamPickerOverlay');
+    if (teamOverlay) {
+        teamOverlay.classList.remove('show');
+        teamOverlay.style.display = 'none';
+    }
+    const wlPickerOverlay = document.getElementById('wishlistPickerOverlay');
+    if (wlPickerOverlay) {
+        wlPickerOverlay.classList.remove('show');
+        wlPickerOverlay.style.display = 'none';
     }
 
-    document.getElementById('wishlistModal').style.display = 'flex';
+    const wlModal = document.getElementById('wishlistModal');
+    if (wlModal) {
+        wlModal.style.display = 'flex';
+        wlModal.classList.add('show');
+    }
     document.body.style.overflow = 'hidden';
     renderWishlistSlots();
+    updateWishlistUndoBtn();
 
     document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
     const mobTab = document.getElementById('mobTabWishlist');
     if (mobTab) mobTab.classList.add('active');
 }
 
+function updateMobileNavTabState() {
+    document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
+    const activePanel = document.querySelector('.view-panel.active');
+    if (activePanel) {
+        if (activePanel.id === 'rosterView') {
+            const tab = document.getElementById('mobTabRoster');
+            if (tab) tab.classList.add('active');
+        } else if (activePanel.id === 'teamsView') {
+            const tab = document.getElementById('mobTabTeams');
+            if (tab) tab.classList.add('active');
+        }
+    }
+}
+
 function closeWishlistModal() {
-    document.getElementById('wishlistModal').style.display = 'none';
+    const wlModal = document.getElementById('wishlistModal');
+    if (wlModal) {
+        wlModal.classList.remove('show');
+        wlModal.style.display = 'none';
+    }
     closeWishlistPicker();
     document.body.style.overflow = '';
+    updateMobileNavTabState();
 }
 
 function closeWishlistPicker() {
     const picker = document.getElementById('wishlistPicker');
+    const overlay = document.getElementById('wishlistPickerOverlay');
     if (picker) {
         picker.classList.remove('show');
         picker.style.display = 'none';
+    }
+    if (overlay) {
+        overlay.classList.remove('show');
+        overlay.style.display = 'none';
     }
     if (document.activeElement) document.activeElement.blur();
 }
 
 function closeTeamFighterPicker() {
     const picker = document.getElementById('teamFighterPicker');
+    const overlay = document.getElementById('teamPickerOverlay');
     if (picker) {
         picker.classList.remove('show');
         picker.style.display = 'none';
     }
+    if (overlay) {
+        overlay.classList.remove('show');
+        overlay.style.display = 'none';
+    }
+    document.body.style.overflow = '';
     if (document.activeElement) document.activeElement.blur();
 }
 
@@ -1533,21 +1808,40 @@ function openWishlistPicker(event, tier, index) {
     activePickerTier = tier;
     activePickerIndex = index;
     const picker = document.getElementById('wishlistPicker');
-    const rect = event.currentTarget.getBoundingClientRect();
+    const overlay = document.getElementById('wishlistPickerOverlay');
     
-    let top = rect.bottom + 8;
-    let left = rect.left - 40;
-    
-    if (left + 330 > window.innerWidth) left = window.innerWidth - 340;
-    if (left < 10) left = 10;
-    if (top + 340 > window.innerHeight) top = rect.top - 330;
-    if (top < 10) top = 10;
+    if (window.innerWidth >= 768) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        let top = rect.bottom + 8;
+        let left = rect.left - 40;
+        
+        if (left + 540 > window.innerWidth) left = window.innerWidth - 550;
+        if (left < 10) left = 10;
+        if (top + 450 > window.innerHeight) top = rect.top - 440;
+        if (top < 10) top = 10;
 
-    picker.style.top = `${top}px`;
-    picker.style.left = `${left}px`;
+        picker.style.top = `${top}px`;
+        picker.style.left = `${left}px`;
+    } else {
+        picker.style.top = '';
+        picker.style.left = '';
+    }
+
+    if (overlay && window.innerWidth < 768) {
+        overlay.classList.add('show');
+        overlay.style.display = 'block';
+    }
+
     picker.classList.add('show');
-    picker.style.display = 'block';
+    picker.style.display = 'flex';
     
+    const tierEl = document.getElementById('wishlistTierFilter');
+    if (tierEl) {
+        tierEl.innerHTML = `<option value="${tier}">${tier} Only</option>`;
+        tierEl.value = tier || '';
+        tierEl.disabled = true;
+    }
+
     const searchInput = document.getElementById('wishlistSearch');
     if (searchInput) {
         searchInput.value = '';
@@ -1556,26 +1850,71 @@ function openWishlistPicker(event, tier, index) {
     filterWishlistPicker();
 }
 
+function resetWishlistPickerFilters() {
+    const searchEl = document.getElementById('wishlistSearch');
+    const tierEl = document.getElementById('wishlistTierFilter');
+    const elemEl = document.getElementById('wishlistElementFilter');
+    const charEl = document.getElementById('wishlistCharFilter');
+    const roleEl = document.getElementById('wishlistRoleFilter');
+    const unlockedEl = document.getElementById('wishlistUnlockedOnly');
+
+    if (searchEl) searchEl.value = '';
+    if (tierEl) {
+        tierEl.innerHTML = `<option value="${activePickerTier}">${activePickerTier} Only</option>`;
+        tierEl.value = activePickerTier || '';
+        tierEl.disabled = true;
+    }
+    if (elemEl) elemEl.value = '';
+    if (charEl) charEl.value = '';
+    if (roleEl) roleEl.value = '';
+    if (unlockedEl) unlockedEl.checked = false;
+
+    filterWishlistPicker();
+}
+
 function filterWishlistPicker() {
-    const query = document.getElementById('wishlistSearch').value.toLowerCase().trim();
+    const query = document.getElementById('wishlistSearch') ? document.getElementById('wishlistSearch').value.toLowerCase().trim() : '';
+    const targetTier = activePickerTier ? activePickerTier.toLowerCase() : '';
+    const targetElem = document.getElementById('wishlistElementFilter') ? document.getElementById('wishlistElementFilter').value : '';
+    const targetChar = document.getElementById('wishlistCharFilter') ? document.getElementById('wishlistCharFilter').value : '';
+    const targetRole = document.getElementById('wishlistRoleFilter') ? document.getElementById('wishlistRoleFilter').value.toLowerCase().trim() : '';
+    const unlockedOnly = document.getElementById('wishlistUnlockedOnly') ? document.getElementById('wishlistUnlockedOnly').checked : false;
+
     const results = document.getElementById('wishlistPickerResults');
+    if (!results) return;
     results.innerHTML = '';
     
-    if (!activePickerTier) return;
-
     const cards = Array.from(document.querySelectorAll('.card'));
     let matches = cards.filter(c => {
         const t = (c.dataset.tier || '').toLowerCase();
+        const elem = c.dataset.element || '';
+        const charName = c.dataset.char || '';
+        const cardTags = (c.dataset.tags || '').toLowerCase().split(/\s+/);
         const searchTxt = (c.dataset.search || '').toLowerCase();
         const rawName = (c.dataset.rawname || '').toLowerCase();
+        const isUnlocked = c.dataset.unlocked === 'true';
         
-        const tierMatch = t === activePickerTier.toLowerCase();
-        const searchMatch = !query || searchTxt.includes(query) || rawName.includes(query);
-        return tierMatch && searchMatch;
+        if (targetTier && t !== targetTier) return false;
+        
+        if (unlockedOnly && !isUnlocked) return false;
+        if (targetTier && t !== targetTier) return false;
+        if (targetElem && elem !== targetElem) return false;
+        if (targetChar && charName !== targetChar) return false;
+        if (targetRole && !cardTags.includes(targetRole)) return false;
+
+        return !query || searchTxt.includes(query) || rawName.includes(query);
     });
     
     // Sort matches: highest tier list ranks first, then alphabetical
     matches.sort((a, b) => {
+        if (query.length >= 2) {
+            const tagsA = (a.dataset.tags || '').toLowerCase().split(/\s+/);
+            const tagsB = (b.dataset.tags || '').toLowerCase().split(/\s+/);
+            const matchTagA = tagsA.includes(query) ? 1 : 0;
+            const matchTagB = tagsB.includes(query) ? 1 : 0;
+            if (matchTagA !== matchTagB) return matchTagB - matchTagA;
+        }
+
         const pfoffA = RANK_VALUES[(a.dataset.pfoff || 'U').trim()] || 0;
         const pfoffB = RANK_VALUES[(b.dataset.pfoff || 'U').trim()] || 0;
         const riftoffA = RANK_VALUES[(a.dataset.riftoff || 'U').trim()] || 0;
@@ -1635,9 +1974,9 @@ function filterWishlistPicker() {
         div.className = `picker-item ${!isUnlocked ? 'locked-item' : ''}`;
         div.innerHTML = `
             ${img ? `<img src="${img}" style="${!isUnlocked ? 'filter: grayscale(35%);' : ''}">` : ''} 
-            <div style="flex: 1; display: flex; flex-direction: column; gap: 2px; overflow: hidden; min-width: 0;">
-                <div style="display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap;">
-                    <span style="font-weight: 600; text-overflow: ellipsis; overflow: hidden; color: #fff;">${name}</span>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                    <span style="font-weight: 600; font-size: 0.88rem; color: #fff; word-break: break-word;">${name}</span>
                     <span style="font-size: 0.75rem; color: #8b949e;">(${charName})</span>
                 </div>
                 <div style="display: flex; gap: 3px; align-items: center; flex-wrap: wrap; margin-top: 1px;">
@@ -1656,6 +1995,7 @@ function filterWishlistPicker() {
         div.onclick = (e) => {
             if (e.target.closest('button')) return;
             e.stopPropagation();
+            pushWishlistHistory();
             if (activePickerTier === 'Gold') wishlistGolds[activePickerIndex] = name;
             if (activePickerTier === 'Diamond') wishlistDiamonds[activePickerIndex] = name;
             
@@ -1666,7 +2006,36 @@ function filterWishlistPicker() {
     });
 }
 
+let wishlistHistoryStack = [];
+
+function pushWishlistHistory() {
+    wishlistHistoryStack.push({
+        golds: [...wishlistGolds],
+        diamonds: [...wishlistDiamonds]
+    });
+    if (wishlistHistoryStack.length > 25) {
+        wishlistHistoryStack.shift();
+    }
+    updateWishlistUndoBtn();
+}
+
+function undoWishlistChange() {
+    if (wishlistHistoryStack.length === 0) return;
+    const lastState = wishlistHistoryStack.pop();
+    wishlistGolds = [...lastState.golds];
+    wishlistDiamonds = [...lastState.diamonds];
+    saveWishlist();
+    updateWishlistUndoBtn();
+}
+
+function updateWishlistUndoBtn() {
+    document.querySelectorAll('.wishlist-undo-btn, #wishlistUndoBtn').forEach(btn => {
+        btn.disabled = wishlistHistoryStack.length === 0;
+    });
+}
+
 function removeFromWishlist(tier, index) {
+    pushWishlistHistory();
     if (tier === 'Gold') wishlistGolds[index] = null;
     if (tier === 'Diamond') wishlistDiamonds[index] = null;
     
@@ -1679,6 +2048,7 @@ function removeFromWishlist(tier, index) {
 function saveWishlist() {
     localStorage.setItem('sgm_wishlist', JSON.stringify({ golds: wishlistGolds, diamonds: wishlistDiamonds }));
     renderWishlistSlots();
+    updateWishlistUndoBtn();
 
     fetch('/update_wishlist', {
         method: 'POST',
@@ -1710,12 +2080,20 @@ document.addEventListener('click', (e) => {
 function closeAllModals() {
     closeFighterModalDirect();
     closeWishlistModal();
+    closeWishlistPicker();
+    closeTeamFighterPicker();
     closeTeamEditorModal();
     closeBackupModal();
     closeExportModal();
     closeExportTeamsModal();
+    closeRandomTeamModal();
     closeMobileFilterDrawer();
     
+    document.querySelectorAll('.modal-overlay, .fighter-modal-overlay').forEach(el => {
+        el.classList.remove('show');
+        el.style.display = 'none';
+    });
+
     const tfPicker = document.getElementById('teamFighterPicker');
     if (tfPicker) {
         tfPicker.classList.remove('show');
@@ -1726,6 +2104,7 @@ function closeAllModals() {
         wlPicker.classList.remove('show');
         wlPicker.style.display = 'none';
     }
+    document.body.style.overflow = '';
 }
 
 function switchView(viewName) {
@@ -1958,6 +2337,21 @@ function renderTeams() {
     });
 }
 
+function highlightSAKeywords(text) {
+    if (!text) return '';
+    const skipWords = new Set([
+        'SA1', 'SA2', 'ON', 'OR', 'AND', 'FOR', 'OF', 'IN', 'TO', 'BY', 'VS', 'WHEN', 
+        'WITH', 'EACH', 'FROM', 'THE', 'A', 'AN', 'IF', 'IS', 'ARE', 'BE', 'HAS', 
+        'HAVE', 'AS', 'AT', 'IT', 'ITS', 'ALL', 'ANY', 'NOT', 'NO', 'BUT', 'PER'
+    ]);
+    return text.replace(/\b([A-Z\-]{2,}(?:\s+[A-Z\-]{2,})*)\b/g, (match) => {
+        if (skipWords.has(match.trim())) {
+            return match;
+        }
+        return `<span class="sa-key-highlight">${match}</span>`;
+    });
+}
+
 function generateSynergyHtml(fighterCardElements, teamMode) {
     if (!fighterCardElements || fighterCardElements.length === 0) {
         return `<p style="color: #8b949e; font-size: 0.85rem; margin: 0;">No fighters selected for this team.</p>`;
@@ -1985,8 +2379,8 @@ function generateSynergyHtml(fighterCardElements, teamMode) {
                         <span class="rank-badge rank-${rank}" title="Rank: ${rank}">${rank}</span>
                         ${isUnlocked ? '' : '<span style="color:#8b949e; font-size:0.75rem; border:1px solid #30363d; border-radius:3px; padding:0 3px;">🔒 Locked</span>'}
                     </div>
-                    ${sa1 ? `<div style="margin-top:2px;">• <em>SA1:</em> ${sa1}</div>` : ''}
-                    ${sa2 ? `<div style="margin-top:2px;">• <em>SA2:</em> ${sa2}</div>` : ''}
+                    ${sa1 ? `<div style="margin-top:3px; line-height: 1.35;">• <em style="color:#8b949e;">SA1:</em> ${highlightSAKeywords(sa1)}</div>` : ''}
+                    ${sa2 ? `<div style="margin-top:3px; line-height: 1.35;">• <em style="color:#8b949e;">SA2:</em> ${highlightSAKeywords(sa2)}</div>` : ''}
                 </div>
             `;
         }
@@ -2052,14 +2446,16 @@ function updateTeamSlotBuilders() {
                 ${img ? `<img src="${img}" style="${isUnlocked ? '' : 'filter: grayscale(35%);'} cursor: pointer;" onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" title="Click to inspect fighter">` : ''}
                 <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 2px;">
                     <div style="display: flex; align-items: center; gap: 6px; width: 100%; min-width: 0;">
-                        <span style="font-weight: 600; font-size: 0.9rem; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</span>
+                        <span style="font-weight: 600; font-size: 0.88rem; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</span>
                         <span class="rank-badge rank-${rank}" style="flex-shrink: 0;">${rank}</span>
                     </div>
                     ${isUnlocked ? '<span style="font-size: 0.7rem; color: #7ee787;">Unlocked</span>' : '<span style="font-size: 0.7rem; color: #8b949e;">🔒 Locked</span>'}
                 </div>
-                <button onclick="rerollSingleEditorSlot(${i}, event)" class="slot-reroll-btn" style="margin-left: auto; margin-right: 6px;" title="Reroll this single fighter">🎲 Reroll</button>
-                <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="margin-right: 6px; background: rgba(88, 166, 255, 0.15); border: 1px solid #388bfd66; color: #58a6ff; font-size: 0.75rem; border-radius: 4px; padding: 3px 7px; cursor: pointer; flex-shrink: 0;" title="Inspect Fighter Kit & Stats">Inspect 🔍</button>
-                <button onclick="clearTeamSlot(${i}, event)" style="background: none; border: none; color: #ff7b72; font-size: 1.2rem; cursor: pointer; padding: 2px 4px; flex-shrink: 0;" title="Remove Fighter">✕</button>
+                <div style="display: flex; align-items: center; gap: 4px; margin-left: auto; flex-shrink: 0;">
+                    <button onclick="rerollSingleEditorSlot(${i}, event)" class="slot-reroll-btn" title="Reroll this single fighter randomly">🎲 Reroll</button>
+                    <button onclick="openFighterModalByName('${name.replace(/'/g, "\\'")}', event)" style="background: rgba(88, 166, 255, 0.15); border: 1px solid #388bfd66; color: #58a6ff; font-size: 0.75rem; border-radius: 4px; padding: 3px 7px; cursor: pointer; flex-shrink: 0;" title="Inspect Fighter Kit & Stats">Inspect 🔍</button>
+                    <button onclick="clearTeamSlot(${i}, event)" style="background: none; border: none; color: #ff7b72; font-size: 1.2rem; cursor: pointer; padding: 2px 4px; flex-shrink: 0;" title="Remove Fighter">✕</button>
+                </div>
             `;
         } else {
             slotEl.className = 'slot-content empty';
@@ -2142,40 +2538,89 @@ function openTeamFighterPicker(slotIndex, event) {
     if (event) event.stopPropagation();
     activeTeamPickerSlot = slotIndex;
     const picker = document.getElementById('teamFighterPicker');
+    const overlay = document.getElementById('teamPickerOverlay');
     
-    if (window.innerWidth <= 900 || window.innerHeight <= 600) {
-        picker.style.top = '';
-        picker.style.left = '';
-    } else {
-        const rect = event.currentTarget.getBoundingClientRect();
-        let top = rect.bottom + 8;
-        let left = rect.left;
-        
-        if (left + 440 > window.innerWidth) left = window.innerWidth - 450;
-        if (left < 10) left = 10;
-        if (top + 320 > window.innerHeight) top = rect.top - 320;
-        if (top < 10) top = 10;
-
-        picker.style.top = `${top}px`;
-        picker.style.left = `${left}px`;
+    if (overlay) {
+        overlay.classList.add('show');
+        overlay.style.display = 'block';
     }
 
     picker.classList.add('show');
     picker.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
     
     const searchInput = document.getElementById('teamFighterSearch');
     if (searchInput) {
-        searchInput.value = '';
         filterTeamFighterPicker();
         setTimeout(() => searchInput.focus(), 80);
     }
 }
 
+function resetPickerFilters() {
+    const searchInput = document.getElementById('teamFighterSearch');
+    if (searchInput) searchInput.value = '';
+
+    const tierSelect = document.getElementById('pickerTierFilter');
+    if (tierSelect) tierSelect.value = '';
+
+    const elemSelect = document.getElementById('pickerElementFilter');
+    if (elemSelect) elemSelect.value = '';
+
+    const charSelect = document.getElementById('pickerCharFilter');
+    if (charSelect) charSelect.value = '';
+
+    const roleSelect = document.getElementById('pickerRoleFilter');
+    if (roleSelect) roleSelect.value = '';
+
+    const unlockedCb = document.getElementById('pickerUnlockedOnly');
+    if (unlockedCb) unlockedCb.checked = false;
+
+    filterTeamFighterPicker();
+}
+
+function rollFilteredFighter() {
+    const results = document.getElementById('teamFighterPickerResults');
+    if (!results) return;
+
+    // Pick from any visible item in the filtered results that is not already in the draft team
+    const validItems = Array.from(results.querySelectorAll('.picker-item')).filter(item => {
+        const isNotAllowed = item.style.cursor === 'not-allowed' || item.style.opacity === '0.45';
+        return !isNotAllowed;
+    });
+
+    if (validItems.length === 0) {
+        alert('No fighters match your active filters! Please adjust your filters.');
+        return;
+    }
+
+    const pickedItem = validItems[Math.floor(Math.random() * validItems.length)];
+    const nameEl = pickedItem.querySelector('.picker-variant-name');
+    if (!nameEl) return;
+
+    const name = nameEl.innerText.trim();
+    draftTeamFighters[activeTeamPickerSlot] = name;
+    closeTeamFighterPicker();
+    updateTeamSlotBuilders();
+    updateSynergyPreview();
+}
+
+function setPickerRoleFilter(roleLabel) {
+    const roleSelect = document.getElementById('pickerRoleFilter');
+    if (roleSelect) {
+        roleSelect.value = roleLabel.toLowerCase().trim();
+        filterTeamFighterPicker();
+    }
+}
+
 function filterTeamFighterPicker() {
     const query = document.getElementById('teamFighterSearch').value.toLowerCase().trim();
+    const targetTier = document.getElementById('pickerTierFilter') ? document.getElementById('pickerTierFilter').value : '';
+    const targetElem = document.getElementById('pickerElementFilter') ? document.getElementById('pickerElementFilter').value : '';
+    const targetChar = document.getElementById('pickerCharFilter') ? document.getElementById('pickerCharFilter').value : '';
+    const targetRole = document.getElementById('pickerRoleFilter') ? document.getElementById('pickerRoleFilter').value.toLowerCase().trim() : '';
     const unlockedOnly = document.getElementById('pickerUnlockedOnly') ? document.getElementById('pickerUnlockedOnly').checked : false;
-    const modalMode = document.getElementById('teamModeSelect') ? document.getElementById('teamModeSelect').value : 'Prize Fight';
     
+    const modalMode = document.getElementById('teamModeSelect') ? document.getElementById('teamModeSelect').value : 'Prize Fight';
     const modeAttr = getModeAttrKey(modalMode);
     const modeLabel = getModeShortLabel(modalMode);
     
@@ -2189,27 +2634,47 @@ function filterTeamFighterPicker() {
     let matches = cards.filter(c => {
         const searchTxt = (c.dataset.search || '').toLowerCase();
         const rawName = (c.dataset.rawname || '').toLowerCase();
+        const tier = c.dataset.tier || '';
+        const elem = c.dataset.element || '';
+        const charName = c.dataset.char || '';
+        const cardTags = (c.dataset.tags || '').toLowerCase().split(/\s+/);
         const isUnlocked = c.dataset.unlocked === 'true';
         
         if (unlockedOnly && !isUnlocked) return false;
+        if (targetTier && tier !== targetTier) return false;
+        if (targetElem && elem !== targetElem) return false;
+        if (targetChar && charName !== targetChar) return false;
+        if (targetRole && !cardTags.includes(targetRole)) return false;
+
         return !query || searchTxt.includes(query) || rawName.includes(query);
     });
     
-    // Sort matches by tier list rank for the selected mode (SS -> S -> A -> B -> C -> U)
+    // Sort matches:
+    // 1. Put already selected fighters at end
+    // 2. Tag badge match priority if searching query
+    // 3. Mode rank (SS -> S -> A -> B -> C -> U)
+    // 4. Unlocked status
+    // 5. Alphabetical by name
     matches.sort((a, b) => {
         const nameA = a.dataset.rawname;
         const nameB = b.dataset.rawname;
         
-        // Put already selected fighters at the end
         const isSelA = draftTeamFighters.some((f, idx) => f === nameA && idx !== activeTeamPickerSlot);
         const isSelB = draftTeamFighters.some((f, idx) => f === nameB && idx !== activeTeamPickerSlot);
         if (isSelA !== isSelB) return isSelA ? 1 : -1;
-        
+
+        if (query.length >= 2) {
+            const tagsA = (a.dataset.tags || '').toLowerCase().split(/\s+/);
+            const tagsB = (b.dataset.tags || '').toLowerCase().split(/\s+/);
+            const matchTagA = tagsA.includes(query) ? 1 : 0;
+            const matchTagB = tagsB.includes(query) ? 1 : 0;
+            if (matchTagA !== matchTagB) return matchTagB - matchTagA;
+        }
+
         const rankA = (a.dataset[modeAttr] || 'U').trim();
         const rankB = (b.dataset[modeAttr] || 'U').trim();
         const valA = RANK_VALUES[rankA] || 0;
         const valB = RANK_VALUES[rankB] || 0;
-        
         if (valA !== valB) return valB - valA;
         
         const unA = a.dataset.unlocked === 'true' ? 1 : 0;
@@ -2220,7 +2685,7 @@ function filterTeamFighterPicker() {
     });
     
     if (matches.length === 0) {
-        results.innerHTML = '<div style="color: #8b949e; text-align: center; padding: 12px; font-size: 0.85rem;">No matching fighters found</div>';
+        results.innerHTML = '<div style="color: #8b949e; text-align: center; padding: 20px; font-size: 0.88rem;">No matching fighters found</div>';
         return;
     }
 
@@ -2228,19 +2693,28 @@ function filterTeamFighterPicker() {
         const name = c.dataset.rawname;
         const imgEl = c.querySelector('img');
         const img = imgEl ? imgEl.src : '';
+        const charName = c.dataset.char || '';
         const tier = c.dataset.tier || '';
+        const elem = c.dataset.element || '';
         const isUnlocked = c.dataset.unlocked === 'true';
         const rank = (c.dataset[modeAttr] || 'U').trim();
-        
         const isAlreadyInTeam = draftTeamFighters.some((f, idx) => f === name && idx !== activeTeamPickerSlot);
         
+        // Extract role badges HTML from card
+        const roleBadges = Array.from(c.querySelectorAll('.role-tags-row .role-badge'));
+        const roleBadgesHTML = roleBadges.map(b => {
+            const label = b.innerText.trim();
+            const cat = Array.from(b.classList).find(cls => cls.startsWith('badge-')) || '';
+            return `<span class="role-badge ${cat}" onclick="event.stopPropagation(); setPickerRoleFilter('${label}')">${label}</span>`;
+        }).join('');
+
         const div = document.createElement('div');
         div.className = `picker-item ${isAlreadyInTeam || !isUnlocked ? 'locked-item' : ''}`;
         if (isAlreadyInTeam) {
             div.style.cursor = 'not-allowed';
             div.style.opacity = '0.45';
         }
-        
+
         let statusBadge = '';
         if (isAlreadyInTeam) {
             statusBadge = '<span class="picker-badge-locked" style="color: #ff7b72; border-color: #ff7b7266;">In Team</span>';
@@ -2255,12 +2729,6 @@ function filterTeamFighterPicker() {
         inspectBtn.title = 'Inspect Fighter Details';
         inspectBtn.innerHTML = '🔍 Inspect';
         inspectBtn.style.cssText = 'background: rgba(88, 166, 255, 0.18); border: 1px solid #388bfd88; color: #58a6ff; border-radius: 6px; font-size: 0.78rem; font-weight: 600; padding: 4px 8px; cursor: pointer; flex-shrink: 0; margin: 0 4px; z-index: 5;';
-        inspectBtn.ontouchstart = (e) => {
-            e.stopPropagation();
-        };
-        inspectBtn.ontouchend = (e) => {
-            e.stopPropagation();
-        };
         inspectBtn.onclick = (e) => {
             e.stopPropagation();
             e.preventDefault();
@@ -2268,19 +2736,23 @@ function filterTeamFighterPicker() {
         };
 
         div.innerHTML = `
-            ${img ? `<img src="${img}" style="${!isUnlocked || isAlreadyInTeam ? 'filter: grayscale(40%);' : ''}">` : ''} 
-            <div style="flex:1; display:flex; flex-direction:column; gap:1px; overflow:hidden;">
-                <div style="font-weight:600; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; display:flex; align-items:center; gap:6px;">
-                    <span>${name}</span>
-                    <span style="font-size:0.75rem; color:#8b949e; font-weight:400;">(${tier})</span>
+            <div class="picker-item-left">
+                ${img ? `<img src="${img}" class="picker-portrait" style="${!isUnlocked || isAlreadyInTeam ? 'filter: grayscale(40%);' : ''}">` : ''} 
+                <div class="picker-info">
+                    <div class="picker-name-row">
+                        <span class="picker-variant-name">${name}</span>
+                        <span class="picker-char-name">(${charName} • ${tier} • ${elem})</span>
+                    </div>
+                    ${roleBadgesHTML ? `<div class="picker-role-tags">${roleBadgesHTML}</div>` : ''}
                 </div>
             </div>
-            <span class="rank-badge rank-${rank}" title="${modeLabel} Rank: ${rank}">${rank}</span>
+            <div class="picker-item-right">
+                <span class="rank-badge rank-${rank}" title="${modeLabel} Rank: ${rank}">${rank}</span>
+                ${statusBadge}
+            </div>
         `;
-        div.appendChild(inspectBtn);
-        const statusSpan = document.createElement('span');
-        statusSpan.innerHTML = statusBadge;
-        if (statusSpan.firstChild) div.appendChild(statusSpan.firstChild);
+
+        div.querySelector('.picker-item-right').insertBefore(inspectBtn, div.querySelector('.picker-item-right').lastChild);
         
         div.onclick = (e) => {
             if (e.target.closest('button')) return;
@@ -2302,7 +2774,11 @@ function filterTeamFighterPicker() {
  */
 function openBackupModal() {
     const modal = document.getElementById('backupModal');
-    if (modal) modal.classList.add('show');
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 /**
@@ -2310,7 +2786,11 @@ function openBackupModal() {
  */
 function closeBackupModal() {
     const modal = document.getElementById('backupModal');
-    if (modal) modal.classList.remove('show');
+    if (modal) {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 }
 
 /**
@@ -2536,6 +3016,12 @@ function generateDynamicTeamName(fighters, ruleMode) {
         return topTitles[Math.floor(Math.random() * topTitles.length)] + ' #' + Math.floor(Math.random() * 90 + 10);
     }
 
+    // Rule 4: Wiki Synergy
+    if (ruleMode === 'wiki_synergy') {
+        const metaTitles = ['Wiki Meta Synergy', 'Community Synergy Squad', 'Meta Partner Team', 'Synergy Vanguard', 'Wiki Recommended Squad'];
+        return metaTitles[Math.floor(Math.random() * metaTitles.length)] + ' #' + Math.floor(Math.random() * 90 + 10);
+    }
+
     // Rule 4: Pure Chaos / General Combination
     const adj = RANDOM_ADJECTIVES[Math.floor(Math.random() * RANDOM_ADJECTIVES.length)];
     const noun = RANDOM_NOUNS[Math.floor(Math.random() * RANDOM_NOUNS.length)];
@@ -2662,6 +3148,68 @@ function rollSmartRandomTeam() {
 
         let poolForChar = chosenChar ? candidateCards.filter(c => c.dataset.char === chosenChar) : candidateCards;
         pickedNames = pickRandomUnique(poolForChar, 3);
+    } else if (rule === 'wiki_synergy') {
+        const candidateNames = candidateCards.map(c => c.dataset.rawname);
+        const modeAttr = getModeAttrKey(mode);
+        const validCombos = [];
+
+        candidateCards.forEach(c => {
+            let fighter = {};
+            try { fighter = JSON.parse(c.dataset.fighter || '{}'); } catch(e) {}
+            const teamComps = (fighter.loadouts || {}).team_combinations || [];
+
+            teamComps.forEach(tc => {
+                if (!Array.isArray(tc)) return;
+                let pickedTeam = [];
+                let isValid = true;
+
+                tc.forEach(slotChoice => {
+                    const choices = Array.isArray(slotChoice) ? slotChoice : [slotChoice];
+                    // STRICT: Only allow choices that are in candidates, not in team, AND have rank !== 'U' for target mode
+                    const validChoices = choices.filter(ch => {
+                        if (!candidateNames.includes(ch) || pickedTeam.includes(ch)) return false;
+                        const card = candidateCards.find(cardEl => cardEl.dataset.rawname === ch);
+                        return card && (card.dataset[modeAttr] || 'U').trim() !== 'U';
+                    });
+
+                    if (validChoices.length > 0) {
+                        const chosen = validChoices[Math.floor(Math.random() * validChoices.length)];
+                        pickedTeam.push(chosen);
+                    } else {
+                        isValid = false;
+                    }
+                });
+
+                if (isValid && pickedTeam.length >= 2) {
+                    // Double check ALL fighters in pickedTeam have rank !== 'U' for target mode
+                    const allRanked = pickedTeam.every(ch => {
+                        const card = candidateCards.find(cardEl => cardEl.dataset.rawname === ch);
+                        return card && (card.dataset[modeAttr] || 'U').trim() !== 'U';
+                    });
+
+                    if (allRanked) {
+                        validCombos.push(pickedTeam);
+                    }
+                }
+            });
+        });
+
+        if (validCombos.length > 0) {
+            pickedNames = validCombos[Math.floor(Math.random() * validCombos.length)];
+            if (pickedNames.length < 3) {
+                const remaining = candidateCards.filter(c => {
+                    const r = (c.dataset[modeAttr] || 'U').trim();
+                    return !pickedNames.includes(c.dataset.rawname) && r !== 'U';
+                });
+                const needed = 3 - pickedNames.length;
+                const extra = pickRandomUnique(remaining, needed);
+                pickedNames = [...pickedNames, ...extra];
+            }
+        } else {
+            // Strict Fallback: pick random unique candidates with valid rank for target mode
+            const rankedCandidates = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() !== 'U');
+            pickedNames = pickRandomUnique(rankedCandidates.length >= 3 ? rankedCandidates : candidateCards, 3);
+        }
     } else if (rule === 'top_tier') {
         const modeAttr = getModeAttrKey(mode);
         const ssPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() === 'SS');
@@ -2790,6 +3338,10 @@ function rerollRandomModalSlot(slotIndex) {
             const charPool = candidateCards.filter(c => c.dataset.char === charName);
             if (charPool.length > 0) candidateCards = charPool;
         }
+    } else if (randomTeamDraft.rule === 'wiki_synergy') {
+        const modeAttr = getModeAttrKey(randomTeamDraft.mode);
+        const nonUPool = candidateCards.filter(c => (c.dataset[modeAttr] || 'U').trim() !== 'U');
+        if (nonUPool.length > 0) candidateCards = nonUPool;
     }
 
     const currentFighters = randomTeamDraft.fighters.filter((f, idx) => idx !== slotIndex && f);

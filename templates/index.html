@@ -30,7 +30,7 @@
                 ⚡ Filters <span class="mobile-filter-badge" id="mobileFilterBadge" style="display:none;">0</span>
             </button>
             <button class="btn-secondary btn-sm" onclick="openBackupModal()" title="Backup & Restore Data">💾</button>
-            <button class="btn-green btn-sm" onclick="triggerExport()" title="Export">📤</button>
+            <button class="btn-secondary btn-sm" onclick="triggerExport()" title="Export Data">📤</button>
         </div>
     </div>
 
@@ -39,6 +39,18 @@
 
     <!-- Roster Tracker View Panel -->
     <div id="rosterView" class="view-panel active">
+        <!-- Standalone Mobile Search & View Toggles Bar -->
+        <div class="mobile-search-container">
+            <div class="mobile-search-input-wrapper">
+                <input type="text" id="mobileSearch" class="mobile-search-input" placeholder="🔍 Search..." oninput="syncMobileSearch(this.value)">
+                <button type="button" class="mobile-search-clear" onclick="clearMobileSearch()" title="Clear search">✕</button>
+            </div>
+            <div class="mobile-quick-toggles">
+                <button type="button" id="mobileRatingsBtn" class="mobile-toggle-btn active" onclick="toggleMobileRatings()" title="Toggle Tier Ratings">⭐ Ratings</button>
+                <button type="button" id="mobileRolesBtn" class="mobile-toggle-btn active" onclick="toggleMobileRoles()" title="Toggle Role Badges">🏷️ Roles</button>
+            </div>
+        </div>
+
         <!-- Quick Batch Actions for Mobile (Visible directly below top bar on vertical screen) -->
         <div class="mobile-quick-actions">
             <button class="btn-secondary btn-sm" onclick="batchToggle(true)">Select Visible</button>
@@ -160,9 +172,14 @@
                 </div>
 
                 <div class="filter-toggles-group">
-                    <label class="toggle-label" title="Toggle tier list badges in card view">
+                    <label class="toggle-label toggle-label-ratings" title="Toggle tier list badges in card view">
                         <input type="checkbox" id="showRatingsToggle" onchange="toggleRatingsVisibility(this.checked)" checked>
                         Show Tier Ratings
+                    </label>
+
+                    <label class="toggle-label toggle-label-roles" title="Toggle role and combat utility badges in card view">
+                        <input type="checkbox" id="showTagsToggle" onchange="toggleTagsVisibility(this.checked)" checked>
+                        Show Role & Utility Badges
                     </label>
 
                     <label class="toggle-label" title="Include Character Kit (CA, MA & PA) when searching or filtering by modifiers">
@@ -185,12 +202,15 @@
             {% set base_text = (base.character_ability.description if base.character_ability else '') + ' ' + (base.prestige.description if base.prestige else '') + ' ' + (base.marquee_options | map(attribute='description') | join(' ') if base.marquee_options else '') %}
             {% set sa_only = (v.sa1 or '') + ' ' + (v.sa2 or '') %}
             {% set full_kit = sa_only + ' ' + base_text %}
-            {% set sa_searchable = (v.name + ' ' + v.character + ' ' + sa_only).lower() %}
-            {% set full_searchable = (v.name + ' ' + v.character + ' ' + full_kit).lower() %}
+            {% set tag_list = (v.tags | map(attribute='label') | join(' ')) if v.tags else '' %}
+            {% set tag_text = tag_list.lower() %}
+            {% set sa_searchable = (v.name + ' ' + v.character + ' ' + sa_only + ' ' + tag_text).lower() %}
+            {% set full_searchable = (v.name + ' ' + v.character + ' ' + full_kit + ' ' + tag_text).lower() %}
             <div class="card {% if v.unlocked %}unlocked{% endif %}"
                  onclick="onCardClick(event, this)"
                  data-search="{{ full_searchable }}"
                  data-sasearch="{{ sa_searchable }}"
+                 data-tags="{{ tag_text }}"
                  data-name="{{ v.name.lower() }}"
                  data-rawname="{{ v.name }}"
                  data-char="{{ v.character }}"
@@ -239,6 +259,14 @@
                             <div class="rate-box"><span class="rate-label-full">Rift Off</span><span class="rate-label-short">Rift</span><span class="rank-badge rank-{{ v.ratings.rift_off.strip() }}">{{ v.ratings.rift_off }}</span></div>
                             <div class="rate-box"><span class="rate-label-full">Rift Def</span><span class="rate-label-short">Def</span><span class="rank-badge rank-{{ v.ratings.rift_def.strip() }}">{{ v.ratings.rift_def }}</span></div>
                             <div class="rate-box"><span class="rate-label-full">Realms</span><span class="rate-label-short">Realms</span><span class="rank-badge rank-{{ v.ratings.realms.strip() }}">{{ v.ratings.realms }}</span></div>
+                        </div>
+                        {% endif %}
+
+                        {% if v.tags %}
+                        <div class="role-tags-row">
+                            {% for tag in v.tags %}
+                            <span class="role-badge badge-{{ tag.category }}" onclick="event.stopPropagation(); filterByTag('{{ tag.label }}')" title="Filter roster by {{ tag.label }}">{{ tag.label }}</span>
+                            {% endfor %}
                         </div>
                         {% endif %}
 
@@ -482,7 +510,10 @@
     <div class="modal-overlay" id="wishlistModal" onclick="if(event.target === this) closeWishlistModal()">
         <div class="modal" style="max-width: 650px; position: relative;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #21262d; padding-bottom: 10px;">
-                <h3 style="margin: 0;">⭐ Relic Wishlist</h3>
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <h3 style="margin: 0;">⭐ Relic Wishlist</h3>
+                    <button class="btn-undo btn-sm wishlist-undo-btn" id="wishlistUndoBtn" onclick="undoWishlistChange()" disabled title="Undo last wishlist modification (Shortcut: Ctrl+Z)" style="padding: 4px 10px; font-size: 0.8rem;">↩️ Undo</button>
+                </div>
                 <button class="modal-close-btn" onclick="closeWishlistModal()" style="position: static;">✕</button>
             </div>
             <div class="wishlist-modal-body">
@@ -499,7 +530,8 @@
                     </div>
                 </div>
             </div>
-            <div class="wishlist-modal-actions" style="margin-top: 20px; display: flex; justify-content: flex-end;">
+            <div class="wishlist-modal-actions" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn-undo btn-sm wishlist-undo-btn" onclick="undoWishlistChange()" disabled title="Undo last wishlist modification (Shortcut: Ctrl+Z)">↩️ Undo Change</button>
                 <button class="btn-green" onclick="closeWishlistModal()" style="min-width: 120px;">Done</button>
             </div>
         </div>
@@ -536,12 +568,73 @@
         </div>
     </div>
 
+    <div id="wishlistPickerOverlay" class="modal-overlay" onclick="closeWishlistPicker()"></div>
     <div id="wishlistPicker">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-weight: 600; font-size: 0.88rem; color: #58a6ff;">Select Fighter for Wishlist</span>
-            <button type="button" onclick="closeWishlistPicker(); event.stopPropagation();" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.2rem; padding: 2px 8px;">✕</button>
+        <div class="picker-header">
+            <div class="picker-title-group">
+                <span class="picker-title">⭐ Select Fighter for Wishlist</span>
+            </div>
+            <button type="button" class="modal-close-btn" onclick="closeWishlistPicker(); event.stopPropagation();">✕</button>
         </div>
-        <input type="text" id="wishlistSearch" placeholder="Search variant or character..." oninput="filterWishlistPicker()" style="width:100%; margin-bottom:8px; padding:6px 10px; background:#0d1117; color:white; border:1px solid #30363d; border-radius:6px; font-size: 0.88rem; box-sizing: border-box;">
+
+        <div class="picker-filter-bar">
+            <div class="picker-search-row">
+                <input type="text" id="wishlistSearch" placeholder="Search name, character, kit or role..." oninput="filterWishlistPicker()">
+            </div>
+
+            <div class="picker-dropdowns-row">
+                <select id="wishlistTierFilter" onchange="filterWishlistPicker()">
+                    <option value="">All Tiers</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Bronze">Bronze</option>
+                </select>
+
+                <select id="wishlistElementFilter" onchange="filterWishlistPicker()">
+                    <option value="">All Elements</option>
+                    <option value="Air">Air</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Light">Light</option>
+                    <option value="Water">Water</option>
+                    <option value="Neutral">Neutral</option>
+                </select>
+
+                <select id="wishlistCharFilter" onchange="filterWishlistPicker()">
+                    <option value="">All Fighters</option>
+                    {% for c in characters %}
+                    <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+
+                <select id="wishlistRoleFilter" onchange="filterWishlistPicker()">
+                    <option value="">All Roles / Utilities</option>
+                    <option value="attacker">Attacker</option>
+                    <option value="support">Support</option>
+                    <option value="defender">Defender</option>
+                    <option value="bleed">Bleed</option>
+                    <option value="regen">Regen</option>
+                    <option value="cleanser">Cleanser</option>
+                    <option value="hex">Hex</option>
+                    <option value="curse">Curse</option>
+                    <option value="precision">Precision</option>
+                    <option value="tank">Tank</option>
+                    <option value="control">Control</option>
+                </select>
+            </div>
+
+            <div class="picker-actions-row">
+                <label class="picker-checkbox-label">
+                    <input type="checkbox" id="wishlistUnlockedOnly" onchange="filterWishlistPicker()">
+                    <span>Unlocked Only</span>
+                </label>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <button type="button" class="btn-reset-filters btn-sm" onclick="resetWishlistPickerFilters()">🔄 Reset</button>
+                </div>
+            </div>
+        </div>
+
         <div id="wishlistPickerResults"></div>
     </div>
 
@@ -616,6 +709,7 @@
                         <label style="display: block; font-size: 0.78rem; font-weight: 600; color: #8b949e; margin-bottom: 6px; letter-spacing: 0.5px;">2. COMPOSITION RULE</label>
                         <select id="randomRuleSelect" onchange="onRandomRuleChange()" style="width: 100%; font-size: 0.9rem; padding: 7px 10px; background: #0d1117; color: white; border: 1px solid #30363d; border-radius: 6px;">
                             <option value="chaos" selected>🎲 Pure Chaos (100% Random)</option>
+                            <option value="wiki_synergy">🔗 Wiki Synergy Teams (Community Meta)</option>
                             <option value="mono_element">⚡ Mono-Element (Same Element)</option>
                             <option value="mono_char">🎭 Mono-Character (Same Fighter)</option>
                             <option value="top_tier">🏆 Top Tier Only (SS / S / A Ranks)</option>
@@ -673,20 +767,76 @@
         </div>
     </div>
 
-    <!-- Team Fighter Picker Popover -->
+    <!-- Team Fighter Picker Modal Popover -->
+    <div id="teamPickerOverlay" class="modal-overlay" onclick="closeTeamFighterPicker()"></div>
     <div id="teamFighterPicker">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-weight: 600; font-size: 0.88rem; color: #58a6ff;">Select Fighter for Team</span>
-            <button type="button" onclick="closeTeamFighterPicker(); event.stopPropagation();" style="background:none; border:none; color:#8b949e; cursor:pointer; font-size:1.2rem; padding: 2px 8px;">✕</button>
+        <div class="picker-header">
+            <div class="picker-title-group">
+                <span class="picker-title">⚡ Select Fighter for Team</span>
+                <span id="pickerSortLabel" class="picker-sort-tag">Sorted by Mode Rank</span>
+            </div>
+            <button type="button" class="modal-close-btn" onclick="closeTeamFighterPicker(); event.stopPropagation();">✕</button>
         </div>
-        <input type="text" id="teamFighterSearch" placeholder="Search fighter or character..." oninput="filterTeamFighterPicker()" style="width:100%; margin-bottom:8px; padding:6px 10px; background:#0d1117; color:white; border:1px solid #30363d; border-radius:6px; font-size: 0.88rem; box-sizing: border-box;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 0.8rem; color: #8b949e;">
-            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-                <input type="checkbox" id="pickerUnlockedOnly" onchange="filterTeamFighterPicker()">
-                <span>Unlocked Only</span>
-            </label>
-            <span id="pickerSortLabel" style="font-size: 0.75rem; color: #58a6ff;">Sorted by Mode Rank</span>
+
+        <div class="picker-filter-bar">
+            <div class="picker-search-row">
+                <input type="text" id="teamFighterSearch" placeholder="Search name, character, kit or role..." oninput="filterTeamFighterPicker()">
+            </div>
+
+            <div class="picker-dropdowns-row">
+                <select id="pickerTierFilter" onchange="filterTeamFighterPicker()">
+                    <option value="">All Tiers</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Bronze">Bronze</option>
+                </select>
+
+                <select id="pickerElementFilter" onchange="filterTeamFighterPicker()">
+                    <option value="">All Elements</option>
+                    <option value="Air">Air</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Light">Light</option>
+                    <option value="Water">Water</option>
+                    <option value="Neutral">Neutral</option>
+                </select>
+
+                <select id="pickerCharFilter" onchange="filterTeamFighterPicker()">
+                    <option value="">All Fighters</option>
+                    {% for c in characters %}
+                    <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+
+                <select id="pickerRoleFilter" onchange="filterTeamFighterPicker()">
+                    <option value="">All Roles / Utilities</option>
+                    <option value="attacker">Attacker</option>
+                    <option value="support">Support</option>
+                    <option value="defender">Defender</option>
+                    <option value="bleed">Bleed</option>
+                    <option value="regen">Regen</option>
+                    <option value="cleanser">Cleanser</option>
+                    <option value="hex">Hex</option>
+                    <option value="curse">Curse</option>
+                    <option value="precision">Precision</option>
+                    <option value="tank">Tank</option>
+                    <option value="control">Control</option>
+                </select>
+            </div>
+
+            <div class="picker-actions-row">
+                <label class="picker-checkbox-label">
+                    <input type="checkbox" id="pickerUnlockedOnly" onchange="filterTeamFighterPicker()">
+                    <span>Unlocked Only</span>
+                </label>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <button type="button" class="btn-secondary btn-sm" onclick="rollFilteredFighter()" style="background: #21262d; border: 1px solid #7928ca88; color: #d2a8ff; font-weight: 600;" title="Roll a random fighter matching active filters">🎲 Roll Filtered</button>
+                    <button type="button" class="btn-reset-filters btn-sm" onclick="resetPickerFilters()">🔄 Reset</button>
+                </div>
+            </div>
         </div>
+
         <div id="teamFighterPickerResults"></div>
     </div>
 

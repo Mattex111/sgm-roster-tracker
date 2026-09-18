@@ -1,4 +1,4 @@
-# Skullgirls Mobile - SGM Roster Tracker & Team Builder
+# Skullgirls Mobile - SGM Roster Tracker & Team Builder (v3.0.0 - Advanced Wishlist, Dynamic Export & Mobile UX Update)
 
 An advanced offline-first web application and Progressive Web App (PWA) designed for Skullgirls Mobile players to track their variant collection, build custom teams with live synergy analysis, manage wishlists, inspect fighter kits and Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
 
@@ -17,15 +17,16 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 
 ---
 
-## What's New in v2.5.0
+## What's New in v3.0.0
 
-- **Smart Random Team Generator (`🎲 Random Team`):** Instantly generate fun, dynamic, and tailored 3-fighter squad compositions directly from the Team Builder view with customizable rules.
-- **Smart Randomization Rules:** Choose between **Pure Chaos** (100% random), **Mono-Element** (same elemental affinity), **Mono-Character** (same character base), and **Top Tier Only** (SS / S / A ranked meta variants).
-- **Pool Selection:** Toggle between sampling **Only Owned Roster** (unlocked collection) vs **Full Database** (all 305+ variants).
-- **Per-Slot Reroll (`Reroll`):** Lock two fighters in a squad and reroll single individual slots in both the Random Generator Modal and the main Team Builder editor.
-- **Dynamic Contextual Naming Engine:** Infinite, thematic squad titles generated dynamically based on element types, character bases, and meta tiers (e.g., *"Infernal Vanguards"*, *"Filia Trinity"*, *"Apex Predators #42"*).
-- **In-Editor Auto-Fill (`Auto-Fill Squad`):** Fill empty slots in existing draft teams with one tap while preserving already selected fighters.
-- **Instant Synergy & Ability Preview:** Previews combined Signature Abilities (SA1 & SA2) and support synergies in real time for generated teams.
+- **Advanced Relic Wishlist & Fighter Picker:** Search and add target variants using full filter controls (Element, Character, Role & Utility, Unlocked Status).
+- **Rarity Locking:** Wishlist selection strictly enforces Gold and Diamond tiers according to slot type to prevent invalid variant selection.
+- **Wishlist Undo System:** Dedicated undo stack (`Undo`) pinned in the Wishlist header with `Ctrl+Z` / `Cmd+Z` shortcut support to quickly revert accidental variant swaps or removals.
+- **Dynamic Roster Exporter:** Markdown and compact exports dynamically adapt section headers based on selected scope (`MY SKULLGIRLS MOBILE WISHLIST`, `MY SKULLGIRLS MOBILE ROSTER (Filtered & Unlocked)`, etc.).
+- **Smart Random Team Generator:** Generate tailored 3-fighter squad compositions directly from Team Builder with customizable rules (*Pure Chaos*, *Mono-Element*, *Mono-Character*, *Top Tier Only*, *Wiki Synergy*).
+- **Per-Slot Reroll & Auto-Fill:** Lock favorite fighters and reroll individual squad slots or auto-fill empty team slots in real time.
+- **Mobile & Landscape Layout Optimization:** Responsive popover sizing and single-row filter bars on mobile/landscape screens, maximizing vertical height to display 5-6 fighter cards simultaneously.
+- **Enhanced Modal Layering & Nav Sync:** Clean modal stacking (`z-index` hierarchy) ensuring full kit inspection overlays always display in front of pickers with automatic active tab indicator synchronization.
 
 ---
 
@@ -39,7 +40,7 @@ An advanced offline-first web application and Progressive Web App (PWA) designed
 - **Wiki Loadouts:** Integrated Stat Investments, Role & Strategy, Rift notes, and Multi-Setup Movesets scraped directly from the Skullgirls Mobile Fandom Wiki.
 - **Global Text & Modifier Multi-Search:** Filter fighters by specific Buffs and Debuffs (e.g. *Hex*, *Curse*, *Armor*, *Thorns*) with keyword highlighting.
 - **Meta Tier Ratings:** Community tier ratings across 4 modes (PF Offense, Rift Offense, Rift Defense, Parallel Realms) sourced from the [Fandom Community Tier List](https://skullgirlsmobile.fandom.com/wiki/Tier_List).
-- **Custom Clipboard Exporter:** Export selections in Full markdown, single-line Compact summaries, or comma-separated name lists.
+- **Custom Clipboard Exporter:** Export selections in Full markdown, single-line Compact summaries, or comma-separated name lists with dynamic title headers.
 - **Accident Prevention:** Bulk selection safeguards with one-click Undo (`Ctrl+Z`).
 - **100% Offline & Private:** No accounts, external servers, or tracking cookies.
 
@@ -113,4 +114,3 @@ Fighter stats, Signature Abilities, Prestige, Marquee abilities, and recommended
 ## License
 
 Distributed under the MIT License. See `LICENSE` for details.
-

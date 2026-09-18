@@ -32,6 +32,75 @@ def load_base_abilities():
     return {}
 
 
+import re
+
+
+def extract_fighter_tags(variant):
+    """
+    Dynamically derive minimal, color-coded role and combat utility tags for a variant.
+
+    Args:
+        variant (dict): Fighter variant dictionary.
+
+    Returns:
+        list: Collection of tag dicts with 'label' and 'category'.
+    """
+    tags = []
+    sa1 = variant.get("sa1", "") or ""
+    sa2 = variant.get("sa2", "") or ""
+    sa_text = f"{sa1} {sa2}".lower()
+
+    role_strat = ""
+    loadouts = variant.get("loadouts") or {}
+    if isinstance(loadouts, dict):
+        role_list = loadouts.get("role_strategy") or []
+        if isinstance(role_list, list):
+            role_strat = " ".join(role_list).lower()
+
+    full_text = f"{sa_text} {role_strat}".lower()
+    ratings = variant.get("ratings") or {}
+
+    # 1. Primary Roles
+    is_support = bool(re.search(r'\b(allies|teammates?|bench|benched|tagged out|support)\b', full_text))
+    if is_support:
+        tags.append({"label": "Support", "category": "support"})
+
+    is_attacker = ratings.get("pf_off") in ["SS", "S"] or ratings.get("rift_off") in ["SS", "S"] or bool(re.search(r'\b(offensive|attacker|damage output)\b', role_strat))
+    if is_attacker and len(tags) < 4:
+        tags.append({"label": "Attacker", "category": "attacker"})
+
+    is_defender = ratings.get("rift_def") in ["SS", "S"] or bool(re.search(r'\b(defensive|defense team)\b', role_strat))
+    if is_defender and len(tags) < 4:
+        tags.append({"label": "Defender", "category": "defender"})
+
+    # 2. Key Combat Utilities
+    if re.search(r'\b(bleeds?|heavy bleed)\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Bleed", "category": "bleed"})
+
+    if re.search(r'\b(regens?|heavy regen|health recovery)\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Regen", "category": "regen"})
+
+    if re.search(r'\b(immunity|cleanses?|removes? (?:all )?(?:opponent )?debuffs?|cleansing)\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Cleanser", "category": "cleanser"})
+
+    if re.search(r'\bhex\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Hex", "category": "hex"})
+
+    if re.search(r'\bcurse\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Curse", "category": "curse"})
+
+    if re.search(r'\bprecision\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Precision", "category": "precision"})
+
+    if re.search(r'\b(auto-block|final stand|barrier|invincib(?:le|ility)|unflinching)\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Tank", "category": "tank"})
+
+    if re.search(r'\b(stuns?|immobilize|disable|freeze|wither)\b', sa_text) and len(tags) < 4:
+        tags.append({"label": "Control", "category": "control"})
+
+    return tags[:4]
+
+
 def load_data():
     """
     Load all fighter variants from sgm_database.json and cross-reference
@@ -50,6 +119,7 @@ def load_data():
 
     for name in db:
         db[name]["unlocked"] = name in unlocked_set
+        db[name]["tags"] = extract_fighter_tags(db[name])
     return db
 
 
