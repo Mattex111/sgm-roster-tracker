@@ -72,6 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.desc-text, .name-text, .char-tag').forEach(el => {
         el.dataset.original = el.innerHTML;
     });
+
+    const savedRatings = localStorage.getItem('sgm_show_ratings');
+    if (savedRatings !== null) {
+        const show = savedRatings === 'true';
+        const toggle = document.getElementById('showRatingsToggle');
+        if (toggle) toggle.checked = show;
+        toggleRatingsVisibility(show);
+    }
+
     updateCount();
     renderTeams();
 });
@@ -883,8 +892,20 @@ document.addEventListener('keydown', (e) => {
  * @param {boolean} show - True to display ratings, false to hide.
  */
 function toggleRatingsVisibility(show) {
+    try {
+        localStorage.setItem('sgm_show_ratings', show ? 'true' : 'false');
+    } catch (e) {
+        console.warn('Unable to save tier ratings visibility setting to localStorage', e);
+    }
+
     document.querySelectorAll('.ratings-row').forEach(el => {
-        el.style.display = show ? 'grid' : 'none';
+        if (show) {
+            el.classList.remove('hidden');
+            el.style.removeProperty('display');
+        } else {
+            el.classList.add('hidden');
+            el.style.setProperty('display', 'none', 'important');
+        }
     });
 }
 
@@ -1036,6 +1057,12 @@ function resetAllFilters() {
 
     const rankSelect = document.getElementById('rankFilter');
     if (rankSelect) rankSelect.value = '0';
+
+    const ratingsToggle = document.getElementById('showRatingsToggle');
+    if (ratingsToggle) {
+        ratingsToggle.checked = true;
+        toggleRatingsVisibility(true);
+    }
 
     filterAndSortCards();
 }
