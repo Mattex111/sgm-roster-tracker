@@ -9,7 +9,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.8.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.9.0">
 </head>
 <body>
     <!-- Main Top Navigation (Desktop) -->
@@ -861,6 +861,6 @@
         const INITIAL_WISHLIST = {{ wishlist | tojson }};
         const INITIAL_TEAMS = {{ teams | tojson }};
     </script>
-    <script src="{{ url_for('static', filename='js/main.js') }}?v=3.8.0"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=3.9.0"></script>
 </body>
 </html>

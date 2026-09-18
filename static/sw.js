@@ -1,8 +1,8 @@
-const CACHE_NAME = 'sgm-tracker-v3.8';
+const CACHE_NAME = 'sgm-tracker-v3.9';
 const STATIC_ASSETS = [
   './',
-  'static/css/style.css?v=3.8.0',
-  'static/js/main.js?v=3.8.0',
+  'static/css/style.css?v=3.9.0',
+  'static/js/main.js?v=3.9.0',
   'static/manifest.json',
   'static/icons/icon.svg'
 ];

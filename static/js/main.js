@@ -12,11 +12,24 @@ let wishlistGolds = (typeof INITIAL_WISHLIST !== 'undefined' && INITIAL_WISHLIST
 let wishlistDiamonds = (typeof INITIAL_WISHLIST !== 'undefined' && INITIAL_WISHLIST.diamonds) ? INITIAL_WISHLIST.diamonds : [];
 let teamsState = (typeof INITIAL_TEAMS !== 'undefined' && Array.isArray(INITIAL_TEAMS)) ? INITIAL_TEAMS : [];
 
-// Register Service Worker for PWA Offline Caching
+// Register Service Worker for PWA Offline Caching & Auto-Update
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('SGM Service Worker Registered:', reg.scope))
+            .then(reg => {
+                console.log('SGM Service Worker Registered:', reg.scope);
+                reg.onupdatefound = () => {
+                    const installingWorker = reg.installing;
+                    if (installingWorker) {
+                        installingWorker.onstatechange = () => {
+                            if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('[PWA] New version available, reloading...');
+                                window.location.reload();
+                            }
+                        };
+                    }
+                };
+            })
             .catch(err => console.log('Service Worker Registration Error:', err));
     });
 }
