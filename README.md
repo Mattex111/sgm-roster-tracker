@@ -1,4 +1,4 @@
-# Skullgirls Mobile - SGM Roster Tracker & Team Builder (v3.0.0 - Advanced Wishlist, Dynamic Export & Mobile UX Update)
+# Skullgirls Mobile - SGM Roster Tracker & Team Builder (v3.0.0)
 
 An advanced offline-first web application and Progressive Web App (PWA) designed for Skullgirls Mobile players to track their variant collection, build custom teams with live synergy analysis, manage wishlists, inspect fighter kits and Fandom Wiki loadouts, filter by combat modifiers, and export custom rosters.
 
