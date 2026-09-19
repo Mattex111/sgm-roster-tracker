@@ -18,7 +18,7 @@ def clean_text(text):
     return " ".join(text.split())
 
 def scrape_character_abilities(character_name):
-    # La wiki usa l'underscore e gestisce "Ms._Fortune"
+    # The wiki uses underscores and handles "Ms._Fortune"
     page_title = character_name.replace(" ", "_")
     params = {
         "action": "parse",
@@ -42,7 +42,7 @@ def scrape_character_abilities(character_name):
         "prestige": None
     }
 
-    # Trova tutti i div che definiscono Character Ability, Marquee e Prestige
+    # Find all divs defining Character Ability, Marquee, and Prestige
     for div in soup.find_all("div", style=lambda s: s and "font-size:large" in s):
         text = div.get_text(strip=True)
 
@@ -69,7 +69,7 @@ def scrape_character_abilities(character_name):
             if match:
                 result["marquee_group_name"] = match.group(1).strip()
 
-            # Prendi le due tabelle successive che contengono le opzioni
+            # Get the next two tables containing the options
             curr = div.find_next_sibling()
             count = 0
             while curr and count < 2:
