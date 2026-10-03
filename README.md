@@ -90,11 +90,55 @@ Once initial setup is complete, you do not need to create `venv` or run `pip ins
 
 ---
 
+## Updating & Scraping Data (Wiki Database Builder)
+
+If new Skullgirls Mobile variants are released or community tier ratings are updated on the [Skullgirls Mobile Fandom Wiki](https://skullgirlsmobile.fandom.com/), you can re-run the web scraper to sync the latest data.
+
+### 1. Activate Virtual Environment
+Ensure your Python virtual environment is activated before running scraper scripts:
+- **Windows:** `venv\Scripts\activate`
+- **Linux / macOS:** `source venv/bin/activate`
+
+### 2. Scraping Commands
+
+- **Incremental Update (Recommended):**  
+  Scrapes newly added variants missing from `sgm_database.json` and updates all tier list rankings:
+  ```bash
+  python scrape.py
+  ```
+
+- **Force Full Re-Scrape:**  
+  Forces a fresh re-fetch of all variants, base stats, Signature Abilities, and Wiki strategy loadouts:
+  ```bash
+  python scrape.py --force
+  ```
+
+- **Tier Ratings Only:**  
+  Fast update to refresh community tier list ratings without re-parsing variant wiki pages:
+  ```bash
+  python scrape.py --ratings-only
+  ```
+
+- **Base Character Abilities (Marquee & Prestige):**  
+  Scrapes Character Abilities, Marquee Abilities, and Prestige Abilities for all 18 base fighters into `base_abilities.json`:
+  ```bash
+  python scrape_base_abilities.py
+  ```
+
+### 3. Rebuilding the Static PWA (dist/)
+After running a scrape, rebuild the static PWA distribution in `dist/` so the web version (e.g. GitHub Pages) displays the new data:
+```bash
+python build_static.py
+```
+
+---
+
 ## Frequently Asked Questions (FAQ)
 
 ### How do I update to the latest version? Will I lose my saved roster or teams?
 - **PWA / Web App:** Updates are deployed automatically to GitHub Pages. Whenever you refresh or re-open the app online, you receive the latest version.
 - **Local Python Setup:** Run `git pull` in your terminal.
+- **Scraping New Data:** To fetch new variants or tier updates directly from the Wiki, see [Updating & Scraping Data](#updating--scraping-data-wiki-database-builder).
 - **Data Safety:** Your collection, wishlist, and custom teams are saved in browser storage (`localStorage`) or local files (`my_roster.json`, `my_teams.json`). Updating the code will **never** overwrite or erase your progress.
 
 ### How do I transfer or import my saved roster and teams between PC and phone?

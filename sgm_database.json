@@ -550,7 +550,7 @@
     "unlocked": false,
     "ratings": {
       "pf_off": "SS",
-      "rift_off": "S",
+      "rift_off": "A",
       "rift_def": "C",
       "realms": "SS"
     }
@@ -983,10 +983,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "A",
-      "rift_off": "A",
-      "rift_def": "U",
-      "realms": "B"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Bloody Valentine": {
@@ -1998,10 +1998,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "B",
-      "rift_off": "U",
-      "rift_def": "C",
-      "realms": "B"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Crimson Cyclone": {
@@ -3601,7 +3601,7 @@
     "unlocked": false,
     "ratings": {
       "pf_off": "SS",
-      "rift_off": "B",
+      "rift_off": "A",
       "rift_def": "U",
       "realms": "SS"
     }
@@ -4903,10 +4903,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "A",
-      "rift_off": "B",
-      "rift_def": "C",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Harlequin": {
@@ -5086,10 +5086,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "A",
-      "rift_off": "C",
-      "rift_def": "U",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Heartless": {
@@ -8055,10 +8055,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "S",
-      "rift_off": "C",
-      "rift_def": "U",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Ms. Trial": {
@@ -8422,10 +8422,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "S",
-      "rift_off": "C",
-      "rift_def": "B",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Nightshade": {
@@ -8741,10 +8741,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "B",
-      "rift_off": "U",
-      "rift_def": "U",
-      "realms": "B"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Number One": {
@@ -10993,10 +10993,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "SS",
-      "rift_off": "SS",
-      "rift_def": "U",
-      "realms": "S"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Risky Ginger": {
@@ -11463,10 +11463,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "SS",
-      "rift_off": "S",
-      "rift_def": "A",
-      "realms": "SS"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Scare Giver": {
@@ -11894,10 +11894,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "B",
-      "rift_off": "A",
-      "rift_def": "U",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Shadow Puppet": {
@@ -12548,10 +12548,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "B",
-      "rift_off": "U",
-      "rift_def": "C",
-      "realms": "B"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Spell-Bent": {
@@ -13128,10 +13128,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "A",
-      "rift_off": "U",
-      "rift_def": "U",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Stone Sentinel": {
@@ -13985,10 +13985,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "A",
-      "rift_off": "B",
-      "rift_def": "U",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Très Chic": {
@@ -14022,10 +14022,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "SS",
-      "rift_off": "C",
-      "rift_def": "C",
-      "realms": "A"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Twisted Mettle": {
@@ -15076,10 +15076,10 @@
     },
     "unlocked": false,
     "ratings": {
-      "pf_off": "B",
-      "rift_off": "U",
-      "rift_def": "C",
-      "realms": "B"
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   },
   "Yellow One": {
@@ -15123,6 +15123,131 @@
       "rift_off": "C",
       "rift_def": "C",
       "realms": "A"
+    }
+  },
+  "Dream Girl": {
+    "name": "Dream Girl",
+    "character": "Parasoul",
+    "tier": "Diamond",
+    "element": "Air",
+    "atk_base": 613,
+    "atk_max": 11770,
+    "hp_base": 3704,
+    "hp_max": 71117,
+    "sa1": "When Parasoul starts the match, TAGS IN, or TAGS OUT, the stage becomes FOGGY for 12 seconds. While the stage is FOGGY, inflict an unpreventable permanent FATIGUE and prevent any BUFFS or DEBUFFS applied to the opponent to DRAIN 5/7/10% (Max 25/35/50% per FOG).",
+    "sa2": "While the opponent is FATIGUED, the active Fighter DRAINS 1/1.5/2% MAX HEALTH when either Fighter is about to gain a BUFF or suffer a DEBUFF (Max 20/30/40% per FOG).",
+    "image_url": "https://static.wikia.nocookie.net/skullgirlsmobile/images/6/6e/Dream_Girl.png/revision/latest",
+    "loadouts": {
+      "role_strategy": [
+        "Dream Girl is an offensive and supportive Parasoul, using TAG-INS and TAG-OUTS to deny the enemy from gaining BUFFS and DEBUFFS, alongside dealing extra damage and gaining BLOCKBUSTER meter.",
+        "When Dream Girl initially starts a fight, TAGS-IN or TAGS-OUT, she activates a status called FOG. This can be perceived as a way to give the enemy an UNBLOCKABLE 12 seconds CURSE and IMMUNTY. Any BUFFS or DEBUFFS they may have before the FOG activates is not removed. While the FOG is active, the enemy will also suffer an UNBLOCKABLE permanent FATIGUE, slowing their SPECIAL MOVE COOLDOWN and TAG-IN COOLDOWN by 50%. While Dream Girl is the active fighter, any BUFF or DEBUFF the enemy attempts to gain will also drain their BLOCKBUSTER meter, having a hard cap at 25/35/50%. This will not activate if Dream Girl is off-field",
+        "While Dream Girl is the active fighter, any BUFF or DEBUFF the enemy attempts to gain will also drain their BLOCKBUSTER meter, having a hard cap at 25/35/50%. This will not activate if Dream Girl is off-field",
+        "The FOG cannot be stacked, and the FOG status is only removed after 12 seconds and cannot be reset until expiring. However, Dream Girls' 2nd Signature Ability is reset on every TAG-IN and TAG-OUT as long as the opponent has FATIGUE. This ability works while Dream Girl is on or off-field. It should be clarified that any FATIGUE will activate Dream Girl's 2nd Signature Ability, but will only reset the damage cap when Parasoul TAGS-IN or TAGS-OUT and the FOG is active. As a DRAIN, this means any BUFF or DEBUFF gained/inflicted will heal the active fighter.",
+        "It is important to consider that Parasoul's moveset lacks consistent or fast-applying DEBUFFS to inflict, so it may be harder for Dream Girl to activate her 2nd Signature Ability. However, given Parasoul's raw damage, it does not mean Dream Girl cannot do good damage. Both of Parasoul's Taunts can also give her a lot of BUFFs for the passive damage however, namely, EGRET CALL.",
+        "Both of Parasoul's Taunts can also give her a lot of BUFFs for the passive damage however, namely, EGRET CALL.",
+        "Marquee Ability: CRITICAL MASS is the recommended Signature Ability for Dream Girl"
+      ],
+      "stat_investment": [
+        "General Investment: As an offensive Parasoul, Dream Girl is best built with Attack, Piercing, Crit Damage and Special Cooldown. Do keep in mind that due to Parasoul's Marquee Ability CRITICAL MASS, Parasoul variants only need to build 100% Crit Damage.",
+        "Special investment: Crit Rate will increase her damage output through synergy with her Marquee Ability CRITICAL MASS. Accuracy can be used for moves like MOTOR BRIGADE or NAPALM SHOT to inflict their DEBUFFs more often."
+      ],
+      "preferred_moveset": [
+        "Inferno Brigade",
+        "Canopy Bounce / Motor Brigade",
+        "Napalm Shot",
+        "Egret Call / Napalm Shot",
+        "Baillement"
+      ],
+      "movesets": {
+        "Preferred Moveset": [
+          [
+            "Inferno Brigade",
+            "Canopy Bounce / Motor Brigade",
+            "Napalm Shot",
+            "Egret Call / Napalm Shot",
+            "Baillement"
+          ]
+        ]
+      },
+      "rift_battles": [],
+      "team_combinations": [
+        [
+          [
+            "Dream Girl"
+          ],
+          [
+            "Ivy League",
+            "Nail Biter",
+            "Bloodbath",
+            "Angel Maker"
+          ],
+          [
+            "Rerun",
+            "Superluminal"
+          ]
+        ],
+        [
+          [
+            "Dream Girl"
+          ],
+          [
+            "Octoplasm",
+            "Deal Breaker",
+            "Scale Tipper",
+            "Sawed Apart",
+            "Freaky Friday"
+          ],
+          [
+            "Rhythm Rider",
+            "Lucky Lure"
+          ]
+        ]
+      ],
+      "playing_against": []
+    },
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
+    }
+  },
+  "Pillow Talk": {
+    "name": "Pillow Talk",
+    "character": "Beowulf",
+    "tier": "Gold",
+    "element": "Air",
+    "atk_base": 326,
+    "atk_max": 12212,
+    "hp_base": 1764,
+    "hp_max": 66048,
+    "sa1": "While Beowulf is the active Fighter, Beowulf and the opponent suffer permanent QUIETUS and DISABLE TAG-INS. When activating HYPE MODE, Beowulf heals for 10/20/30% MAX HEALTH.",
+    "sa2": "While in HYPE MODE, inflict 2 random DEBUFFS for 5/7/10 seconds every 2 seconds.",
+    "image_url": "https://static.wikia.nocookie.net/skullgirlsmobile/images/6/68/Pillow_Talk.png/revision/latest",
+    "loadouts": {
+      "role_strategy": [
+        "Pillow Talk is an offensive Beowulf, uniquely the first variant to keep not only the opponent but himself in battle, with no way out once he is on-field.",
+        "While on-field, both he and the opponent suffer permanent QUIETUS and DISABLE TAG-INS. This means once he's on-field, no one can leave and everyone is vulnerable since the Resistance stat is no longer effective. To make up for his inability to switch out, he can self-heal by activating HYPE MODE, giving him some survivability if the fight gets dicey.",
+        "Upon activating HYPE MODE, Pillow Talk will passively begin to DEBUFF the opponent. A total of 10 DEBUFFS are inflicted for each HYPE MODE activation. With the enemy having permanent QUIETUS, the only way for them to stop the DEBUFFs is either by gaining Immunity, having a cleanse (such as Star Shine or using TEA SLIP on Black Dahlia) or having a Signature Ability that can convert DEBUFFs such as Unbearable or Don Passione. Otherwise, the DEBUFFs cannot be easily removed.",
+        "Marquee Ability: DEFENDING CHAMP is the recommended Marquee for Pillow Talk to deal more damage throughout the fight."
+      ],
+      "stat_investment": [
+        "General Investment: As an offensive Beowulf, Pillow Talk is best built with Attack, Piercing and Special Cooldown.",
+        "Special investment: Meter Gain may or may not be built depending on whether you add Beowulf's TAUNT to his moveset."
+      ],
+      "preferred_moveset": [],
+      "movesets": {},
+      "rift_battles": [],
+      "team_combinations": [],
+      "playing_against": []
+    },
+    "unlocked": false,
+    "ratings": {
+      "pf_off": "TBD",
+      "rift_off": "TBD",
+      "rift_def": "TBD",
+      "realms": "TBD"
     }
   }
 }
